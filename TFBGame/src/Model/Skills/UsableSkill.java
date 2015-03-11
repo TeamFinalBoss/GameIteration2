@@ -6,6 +6,7 @@
 package Model.Skills;
 
 import java.util.ArrayList;
+import map.CoordinatePair;
 
 /**
  *  This is the parent class of all usable skills
@@ -30,9 +31,9 @@ public class UsableSkill {
         return name;
     }
 
-    void performSkill(Entity ent) {
-        getAffectedTiles(ent.getDirection(), CoordinatePair entityLocation);
-            
+    public void performSkill(Direction dir) {
+        ArrayList<CoordinatePair> affectedTiles = getAffectedTiles(dir);
+        myCC.attemptAffectEntities(affectedTiles, myEffect);
     }
     
     /**
@@ -42,5 +43,5 @@ public class UsableSkill {
     * 
     * @return ArrayList of Coordinates affected by skill
     */
-    protected ArrayList<CoordinatePair> getAffectedTiles();
+    protected ArrayList<CoordinatePair> getAffectedTiles(Direction dir); //returns CoordinatePairs relative to (0,0) as entity location
 }
