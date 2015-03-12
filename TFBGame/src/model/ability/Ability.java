@@ -1,15 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package model.ability;
+package Model.Ability;
 
 import java.util.ArrayList;
 import model.map.CoordinatePair;
 
 /**
- *  This is the parent class of all usable abilities
+ * This is the parent class of all usable abilities
  * @author Jason Owens
  */
 public class Ability {
