@@ -27,6 +27,8 @@ import controller.sceneControllers.SceneType;
  * TODO deal with saving the keybindings
  */
 public class ControllerBuilder {
+	
+	private static Controller cont = Controller.getInstance();
 
 	private static KeyBindings bindings; 
 	
@@ -35,6 +37,9 @@ public class ControllerBuilder {
 		bindings = keyBindings;
 		
 		Menu mainMenu = buildMainMenu();
+		
+		cont.setActiveMenu(mainMenu);
+		
 		Menu pauseMenu = buildPauseMenu();
 		KeyOptions mainMenuOptions = buildMainMenuKeyOptions(mainMenu);
 		SceneController mainMenuController = buildMainMenuController(mainMenuOptions);
