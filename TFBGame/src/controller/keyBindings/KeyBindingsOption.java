@@ -1,0 +1,30 @@
+package controller.keyBindings;
+
+public enum KeyBindingsOption {
+	UP,
+	DOWN,
+	LEFT,
+	RIGHT,
+	UP_RIGHT,
+	UP_LEFT,
+	DOWN_RIGHT,
+	DOWN_LEFT,
+	SKILL_0,
+	SKILL_1,
+	SKILL_2,
+	SKILL_3,
+	SKILL_4,
+	SKILL_5,
+	SKILL_6,
+	SKILL_7,
+	SKILL_8,
+	SKILL_9,
+	INVENTORY,
+	NEAREST_ENTITY,
+	DIALOGUE,
+	PAUSE,
+	CONFIRM,
+	DROP,
+	TILE_INFO
+	
+}
