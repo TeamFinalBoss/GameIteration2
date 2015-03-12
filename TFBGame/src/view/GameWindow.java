@@ -22,6 +22,13 @@ public class GameWindow extends JFrame {
      * @param height of the window in pixels 
      */
     public GameWindow(int width, int height) {
+        int menuBarOffset = 20;
+        this.setSize(width, height + menuBarOffset);
+        this.setTitle("FINAL BOSS");
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setResizable(false);
+        this.setVisible(true);
+        
         GamePanel gp = new GamePanel();
         this.getContentPane().add(gp);
     }
