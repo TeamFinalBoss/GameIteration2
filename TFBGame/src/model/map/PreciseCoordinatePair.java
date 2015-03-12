@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package map;
+package model.map;
 
 /**
  * This is basically a clone of Coordinate pair, but for doubles.

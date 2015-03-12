@@ -4,6 +4,7 @@ package model.map;
 /**
  *
  * @author Jason Owens
+ * TODO: This class should implement Comparable
  */
 public class CoordinatePair {
     private int x;
