@@ -5,19 +5,25 @@
  */
 package model.ability;
 
+import java.util.TimerTask;
 import map.PreciseCoordinatePair;
 import map.Vector;
+
 /**
  *
  * @author Jason Owens
  */
-public class Projectile {
-    PreciseCoordinatePair location; // should a projectile know it's own location?
-    int lifetime; //this may change based on how we implement time
-    Vector velocity;
-    PlayerStats effects; //would this be Effect effect under matt's UML?
+public class Projectile extends TimerTask{
+    private PreciseCoordinatePair location; // should a projectile know it's own location?
+    private int lifetime; //this may change based on how we implement time
+    private Vector velocity;
+    private Effect effects; //would this be Effect effect under matt's UML?
     
     /*--------------Constructors---------------*/
+    /**
+    * gives 0 value to all private attributes
+    * @author Jason Owens
+    */
     Projectile(){
         throw new UnsupportedOperationException("Do not use default Projectile constructor.");
     }
@@ -34,7 +40,7 @@ public class Projectile {
     * velocity, if we do time that way)
     * @author Jason Owens
     */
-    public void update(){
+    public void run(){
        location.addX(velocity.getX());
        location.addY(velocity.getY());
     }

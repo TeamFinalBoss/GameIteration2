@@ -14,9 +14,9 @@ import model.map.CoordinatePair;
  */
 public class Ability {
     private String name;
-    private PlayerStats myEffect;
+    private Effect myEffect;
     private CombatCoordinator myCC;
-    private PlayerStats cost; //cost of cast, dont cast if cost can't be met
+    private Effect cost; //cost of cast, dont cast if cost can't be met
     
     /*-----------Constructors-----------*/
     public Ability(){
