@@ -6,7 +6,6 @@ package exampleTest;
  * This is a test dependency class
  *
  */
-
 public class MainTestingClass {
 	private DependencyInterface face;
 	private boolean state;

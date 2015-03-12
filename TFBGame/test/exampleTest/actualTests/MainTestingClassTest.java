@@ -9,6 +9,13 @@ import org.junit.Test;
 import exampleTest.DependencyInterface;
 import exampleTest.MainTestingClass;
 
+/**
+ * @author Kyle Kyrazis
+ * 
+ * This should be a good enough example for you guys to write tests. If it's not then
+ * you can ask me, but you'll owe me a burrito.
+ *
+ */
 public class MainTestingClassTest {
 
 	private DependencyInterface face;
