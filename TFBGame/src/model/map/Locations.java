@@ -13,7 +13,7 @@ public class Locations <S>{
 	ArrayList<Pair<S, CoordinatePair>> locations;
 	
 	public Locations(){
-		
+		locations = new ArrayList<Pair<S, CoordinatePair>>();
 	}
 	
 	/**
