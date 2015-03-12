@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Model.Ability;
+package model.ability;
 
 import java.util.ArrayList;
-import map.CoordinatePair;
+import model.map.CoordinatePair;
 
 /**
  *  This is the parent class of all usable abilities

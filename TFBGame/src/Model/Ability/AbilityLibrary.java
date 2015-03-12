@@ -3,9 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Model.Ability;
+package model.ability;
 
 import java.util.ArrayList;
+
+import model.entities.Entity;
 
 /**
  * The purpose of this class is to serve as a container for Spells, passing commands downward from [TBD, Entity?]
