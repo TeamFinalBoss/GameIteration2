@@ -8,14 +8,23 @@ package model.ability;
 import java.util.TimerTask;
 import map.PreciseCoordinatePair;
 import map.Vector;
+import model.util.GameTimer;
 
 /**
- *
+ * Projectiles effectively change everything internal themselves but their properties
+ * (location) are used by Combat Coordinator. run() is used by GameTimer.
  * @author Jason Owens
  */
 public class Projectile extends TimerTask{
     private PreciseCoordinatePair location; // should a projectile know it's own location?
-    private int lifetime; //this may change based on how we implement time
+    
+    private long lifetime; //this may change based on how we implement time
+    private int refreshRate;
+    
+    private GameTimer myTimer;
+    
+    private boolean isActive;
+    
     private Vector velocity;
     private Effect effects; //would this be Effect effect under matt's UML?
     
@@ -27,24 +36,34 @@ public class Projectile extends TimerTask{
     Projectile(){
         throw new UnsupportedOperationException("Do not use default Projectile constructor.");
     }
-    Projectile(int initialLifetime, Vector velocity, CoordinatePair initialLocation, PlayerStats effects){
+    Projectile(long initialLifetime, Vector velocity, PreciseCoordinatePair initialLocation, Effect effects){
         lifetime = initialLifetime;
         this.velocity = velocity;
         location = initialLocation;
         this.effects = effects;
+        myTimer = GameTimer.getInstance();
+        myTimer.addEvent(this, lifetime);
+        refreshRate = 10; //projectiles refresh every 10 milliseconds (20 times a second)
     }
     
     /*
-    * update() should update a projectile's location and lifetime every period
+    * run() should update a projectile's location and lifetime every period
     * of game time (alternatively, it could multiply location by deltaTime and 
     * velocity, if we do time that way)
+    * NOTE: vectors use time of 1s per movement
     * @author Jason Owens
     */
+    @Override
     public void run(){
-       location.addX(velocity.getX());
-       location.addY(velocity.getY());
+        location.addX(velocity.getX()/(double)refreshRate);
+        location.addY(velocity.getY()/(double)refreshRate);
+        lifetime -= refreshRate;    
+        if(isActive){ 
+            myTimer.addEvent(this, lifetime);
+        }
     }
-    public void onHit(Entity){
+    public void onHit(Entity e){
+        isActive = false; //change this if we ever implement piercing projectiles
         //affect Entity here, may move this to Combat Coordinator
     }
 }
