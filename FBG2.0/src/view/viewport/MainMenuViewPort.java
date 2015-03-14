@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
@@ -24,7 +25,7 @@ public class MainMenuViewPort implements ViewPort, Observer {
     private int activeOptionIndex;
     private int width, height;
     private int logoHeight;
-    private int logoY = 100;
+    private final int logoY = 100;
 
     @Override
     public void draw(Graphics g) {
@@ -43,7 +44,7 @@ public class MainMenuViewPort implements ViewPort, Observer {
         BufferedImage fbLogo;
         logoHeight = 0;
         try {
-            fbLogo = ImageIO.read(getClass().getResource("/resources/FinalBoss.png"));
+            fbLogo = ImageIO.read(new File("src/resources/FinalBoss.png"));
             logoHeight = fbLogo.getHeight();
             int logoX = width / 2 - fbLogo.getWidth() / 2;
             g.drawImage(fbLogo, logoX, logoY, null);

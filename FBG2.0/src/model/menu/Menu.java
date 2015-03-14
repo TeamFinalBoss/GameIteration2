@@ -3,8 +3,8 @@ package model.menu;
 import java.util.Observable;
 
 /**
- * Maintains the states for a menu and allows navigation among the menu by keep
- * track of the currently selected option.
+ * Maintains the states for a menu and allows navigation among the menu by
+ * keeping track of the currently selected option.
  *
  * @author ChrisMoscoso
  */
