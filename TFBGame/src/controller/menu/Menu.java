@@ -57,6 +57,18 @@ public class Menu implements Describeable, Commandable {
 	public MenuOption getActiveOption() {
 		return this.activeOption;
 	}
+	
+	public void next() {
+		int index = menuOptions.indexOf(activeOption);
+		index = ++index % menuOptions.size();
+		setActiveOption(menuOptions.get(index));
+	}
+	
+	public void previous() {
+		int index = menuOptions.indexOf(activeOption);
+		index = index - 1 < 0 ? menuOptions.size() - 1 : index - 1;
+		setActiveOption(menuOptions.get(index));
+	}
 
 	@Override
 	public void execute() {

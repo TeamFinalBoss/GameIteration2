@@ -9,5 +9,6 @@ public enum SceneType {
 	INEVENTORY,
 	GAME,
 	MAIN_MENU,
-	PAUSE_MENU
+	PAUSE_MENU,
+	KEY_BINDINGS
 }

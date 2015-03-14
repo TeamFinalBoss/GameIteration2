@@ -3,6 +3,7 @@ package controller;
 import java.awt.event.KeyListener;
 
 import controller.keyBindings.KeyBindings;
+import controller.keyBindings.KeyBindingsUpdate;
 import controller.menu.Menu;
 
 /**
@@ -35,12 +36,16 @@ public class Controller {
 		return ControllerBuilder.build(bindings);
 	}
 	
+	public void updateControllerKeyBindings(KeyBindingsUpdate bindings) {
+		//TODO fill in this
+	}
+	
 	public Menu getActiveMenu() {
 		return activeMenu;
 	}
 	
-	public void setActiveMenu(Menu men) {
-		this.activeMenu = men;
+	public void setActiveMenu(Menu menu) {
+		this.activeMenu = menu;
 	}
 	
 }

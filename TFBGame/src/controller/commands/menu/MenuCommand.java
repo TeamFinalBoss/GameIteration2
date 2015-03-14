@@ -1,5 +1,6 @@
-package controller.commands;
+package controller.commands.menu;
 
+import controller.commands.Commandable;
 import controller.menu.Menu;
 
 /**
