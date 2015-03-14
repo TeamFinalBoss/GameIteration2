@@ -42,5 +42,5 @@ public abstract class Trap extends GameObject{
 	 * @param caller The entity that activated the trap
 	 * @see Entity
 	 */
-	abstract void activate(Entity caller);
+	abstract void Activate(Entity caller);
 }
