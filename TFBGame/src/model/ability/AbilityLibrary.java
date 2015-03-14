@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * TODO: finish this (pushed just so everyone can see it)
  */
 package model.ability;
 
@@ -14,21 +12,21 @@ import model.entities.Entity;
  * @author Jason Owens
  */
 public class AbilityLibrary {
-    private ArrayList<Ability> knownAbilitys;
+    private ArrayList<Ability> knownAbilities;
     
     /*-----------Constructors-----------*/
     public AbilityLibrary(){
-        knownAbilitys = new ArrayList<>();
+        knownAbilities = new ArrayList<>();
     }
     
     /*-----------Mutators-----------*/
     public void addAbility(Ability ability){
-        knownAbilitys.add(ability);        
+        knownAbilities.add(ability);        
     }
     public boolean forgetAbility(String abilityName){
-         for(Ability s : knownAbilitys) {
+         for(Ability s : knownAbilities) {
             if (s.getName().equals(abilityName)) {
-                return knownAbilitys.remove(s); 
+                return knownAbilities.remove(s); 
             }
         }
         return false; //ability isn't known
@@ -36,8 +34,8 @@ public class AbilityLibrary {
     
      /*-----------Accessors-----------*/
     public boolean hasAbility(String abilityName){
-        for(Ability s : knownAbilitys) {
-            if (s.getName().equals(abilityName)) {
+        for(Ability s : knownAbilities) {
+            if (abilityName.equals(s.getName())) {
                 return true;
             }
         }
@@ -52,9 +50,10 @@ public class AbilityLibrary {
      *@returns whether or not the ability is found    
      */
     public boolean PerformActiveAbility(String abilityName, Entity callingEntity){
-        for(Ability s : knownAbilitys) {
-            if (s.getName().equals(abilityName)) {
-                s.performAbility(callingEntity);
+        for(Ability a : knownAbilities) {
+            if (a.getName().equals(abilityName)) {
+                a.performAbility(callingEntity.getDirection());
+                break;
             }
         }
     }
