@@ -3,6 +3,13 @@ package controller.keyBindings;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author Kyle Kyrazis
+ * 
+ * This class is used to map old keys to the new keys so that the controller can
+ * be updated correctly.
+ *
+ */
 public class KeyBindingsUpdate {
 	private Map<Integer, Integer> updateOptions;
 	

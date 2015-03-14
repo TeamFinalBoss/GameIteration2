@@ -3,19 +3,33 @@ package controller;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import controller.commands.Commandable;
-import controller.commands.ConfirmMenuCommand;
-import controller.commands.NextMenuCommand;
-import controller.commands.PreviousMenuCommand;
+import controller.commands.keyBindings.BindingsUpdate;
+import controller.commands.keyBindings.CancelBindingsUpdate;
+import controller.commands.keyBindings.SaveBindingsUpdate;
+import controller.commands.keyBindings.menu.ConfirmBindingsMenuCommand;
+import controller.commands.keyBindings.menu.NextBindingsMenuCommand;
+import controller.commands.keyBindings.menu.PreviousBindingsMenuCommand;
+import controller.commands.menu.ConfirmMenuCommand;
+import controller.commands.menu.NextMenuCommand;
+import controller.commands.menu.PreviousMenuCommand;
+import controller.commands.pauseMenu.ExitGame;
+import controller.commands.pauseMenu.KeyBindingSwitch;
+import controller.commands.pauseMenu.LoadGame;
+import controller.commands.pauseMenu.NewGame;
+import controller.commands.pauseMenu.ResumeGame;
+import controller.commands.pauseMenu.SaveGame;
 import controller.keyBindings.KeyBindings;
 import controller.keyBindings.KeyBindingsOption;
 import controller.keyBindings.KeyOptions;
 import controller.menu.Menu;
 import controller.menu.MenuOption;
+import controller.menu.keyBindings.KeyBindingsMenu;
 import controller.sceneControllers.SceneController;
 import controller.sceneControllers.SceneType;
 
@@ -27,6 +41,8 @@ import controller.sceneControllers.SceneType;
  * TODO deal with saving the keybindings
  */
 public class ControllerBuilder {
+	
+	private static Controller cont = Controller.getInstance();
 
 	private static KeyBindings bindings; 
 	
@@ -35,22 +51,104 @@ public class ControllerBuilder {
 		bindings = keyBindings;
 		
 		Menu mainMenu = buildMainMenu();
+		
+		cont.setActiveMenu(mainMenu);
+		
 		Menu pauseMenu = buildPauseMenu();
 		KeyOptions mainMenuOptions = buildMainMenuKeyOptions(mainMenu);
 		SceneController mainMenuController = buildMainMenuController(mainMenuOptions);
 		KeyOptions pauseMenuOptions = buildPauseMenuKeyOptions(pauseMenu);
 		SceneController pauseMenuController = buildPauseMenuController(pauseMenuOptions);
 		
+		KeyBindingsMenu bindingsMenu = buildBindingsMenu();
+		KeyOptions bindingsMenuOptions = buildBindingsMenuKeyOptions(bindingsMenu);
+		SceneController keyBindingsController = buildBindingsController(bindingsMenuOptions);
+		
+		
 		Map<SceneType, SceneController> controllers = new HashMap<SceneType, SceneController>();
 		controllers.put(SceneType.MAIN_MENU, mainMenuController);
 		controllers.put(SceneType.PAUSE_MENU, pauseMenuController);
+		controllers.put(SceneType.KEY_BINDINGS, keyBindingsController);
 		
 		KeyDispatcher keyDispatcher = new KeyDispatcher(controllers, mainMenuController);
 		return new InputParser(keyDispatcher);
 	}
 
+	
+	/**********************************************************************************************
+	 * 	   Key Bindings Controller Builder
+	 *
+	 ************************************************************************************************/
+	
+	private static SceneController buildBindingsController(
+			KeyOptions bindingsMenuOptions) {
+		return new SceneController(bindingsMenuOptions);
+	}
+
+	private static KeyOptions buildBindingsMenuKeyOptions(
+			KeyBindingsMenu bindingsMenu) {
+		Map<Integer, Commandable> options = new HashMap<Integer, Commandable>();
+		for(Map.Entry<Integer, KeyBindingsOption> entry : bindings.getBindings().entrySet()) {
+			switch(entry.getValue()) {
+				case DOWN :
+					options.put(entry.getKey(), new PreviousBindingsMenuCommand(bindingsMenu));
+					break;
+				case UP:
+					options.put(entry.getKey(), new NextBindingsMenuCommand(bindingsMenu));
+					break;
+				case CONFIRM :
+					options.put(entry.getKey(), new ConfirmBindingsMenuCommand(bindingsMenu));
+					break;
+				case PAUSE : 
+					options.put(entry.getKey(), new CancelBindingsUpdate());
+				default :
+					break;	
+			}
+		}
+		return new KeyOptions(options);
+	}
+
+	private static KeyBindingsMenu buildBindingsMenu() {
+		
+		Map<KeyBindingsOption, Commandable> commands = new HashMap<>();
+		
+		for(KeyBindingsOption option : KeyBindingsOption.values()) {
+			if(option.equals(KeyBindingsOption.CANCEL)) {
+				commands.put(KeyBindingsOption.CANCEL, new CancelBindingsUpdate());
+			} else if(option.equals(KeyBindingsOption.SAVE)) {
+				commands.put(KeyBindingsOption.SAVE, new SaveBindingsUpdate());
+			} else {
+				//TODO Iron out the key switching.
+				commands.put(option, new BindingsUpdate());
+			}
+		}
+		
+		return new KeyBindingsMenu(bindings,
+				Arrays.asList(KeyBindingsOption.values()),
+				KeyBindingsOption.UP,
+				commands);
+	}
+
+	/**********************************************************************************************
+	 * 	   PauseMenu Builder
+	 *
+	 ************************************************************************************************/
+	
 	private static SceneController buildPauseMenuController(KeyOptions pauseMenuOptions) {
 		return new SceneController(pauseMenuOptions);
+	}
+	
+	private static Map<MenuOption, Commandable> buildPauseMenuCommands() {
+		Map<MenuOption, Commandable> pauseMenuCommands = new HashMap<MenuOption, Commandable>();
+		
+		pauseMenuCommands.put(MenuOption.RESUME_GAME, new ResumeGame());
+		pauseMenuCommands.put(MenuOption.SAVE_GAME, new SaveGame());
+		pauseMenuCommands.put(MenuOption.LOAD_GAME, new LoadGame());
+		pauseMenuCommands.put(MenuOption.KEY_BINDINGS, new KeyBindingSwitch());
+		pauseMenuCommands.put(MenuOption.NEW_GAME, new NewGame());
+		pauseMenuCommands.put(MenuOption.RESUME_GAME, new ExitGame());
+		
+		return pauseMenuCommands;
 	}
 
 	private static KeyOptions buildPauseMenuKeyOptions(Menu pauseMenu) {
@@ -72,7 +170,26 @@ public class ControllerBuilder {
 		}
 		return new KeyOptions(options);
 	}
+	
+	private static Menu buildPauseMenu() {
+		List<MenuOption> options = new ArrayList<MenuOption>();
+		options.add(MenuOption.RESUME_GAME);
+		options.add(MenuOption.SAVE_GAME);
+		options.add(MenuOption.LOAD_GAME);
+		options.add(MenuOption.KEY_BINDINGS);
+		options.add(MenuOption.NEW_GAME);
+		options.add(MenuOption.EXIT_GAME);
+		
+		Map<MenuOption, Commandable> pauseMenuCommands = buildPauseMenuCommands();
+		
+		return new Menu(options, MenuOption.SAVE_GAME, pauseMenuCommands);
+	}
 
+	/**********************************************************************************************
+	 * 	  Main Menu Builder
+	 *
+	 ************************************************************************************************/
+	
 	private static SceneController buildMainMenuController(KeyOptions mainMenuOptions) {
 		return new SceneController(mainMenuOptions);
 	}
@@ -98,32 +215,36 @@ public class ControllerBuilder {
 		return new KeyOptions(options);
 	}
 
-	private static Menu buildPauseMenu() {
-		List<MenuOption> options = new ArrayList<MenuOption>();
-		options.add(MenuOption.RESUME_GAME);
-		options.add(MenuOption.SAVE_GAME);
-		options.add(MenuOption.LOAD_GAME);
-		options.add(MenuOption.KEY_BINDINGS);
-		options.add(MenuOption.NEW_GAME);
-		options.add(MenuOption.EXIT_GAME);
-		
-		//TODO: Add commands associated with each options
-		
-		return new Menu(options, MenuOption.SAVE_GAME, new HashMap<MenuOption,Commandable>());
-	}
-
+	
+	
+	
 	private static Menu buildMainMenu() {
 		List<MenuOption> options = new ArrayList<MenuOption>();
 		options.add(MenuOption.NEW_GAME);
 		options.add(MenuOption.LOAD_GAME);
-		options.add(MenuOption.KEY_BINDINGS);
 		options.add(MenuOption.EXIT_GAME);
 		
-		//TODO: Add commands associated with each options
+		Map<MenuOption, Commandable> mainMenuCommands = buildMainMenuCommands();
 		
-		return new Menu(options, MenuOption.NEW_GAME, new HashMap<MenuOption,Commandable>());
+		return new Menu(options, MenuOption.NEW_GAME, mainMenuCommands);
 	}
 
+	private static Map<MenuOption, Commandable> buildMainMenuCommands() {
+		Map<MenuOption,Commandable> menuCommands = new HashMap<MenuOption, Commandable>();
+		
+		menuCommands.put(MenuOption.NEW_GAME, new NewGame());
+		menuCommands.put(MenuOption.LOAD_GAME, new LoadGame());
+		menuCommands.put(MenuOption.EXIT_GAME, new LoadGame());
+		
+		return menuCommands;
+	}
+
+	
+	/**********************************************************************************************
+	 * 	  Default Key Bindings Builder
+	 *
+	 ************************************************************************************************/
+	
 	public static KeyBindings buildDefaultKeyBindings() {
 		KeyBindings bindings = new KeyBindings();
 		

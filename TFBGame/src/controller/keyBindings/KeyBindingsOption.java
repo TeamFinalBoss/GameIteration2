@@ -25,6 +25,8 @@ public enum KeyBindingsOption {
 	PAUSE,
 	CONFIRM,
 	DROP,
-	TILE_INFO
-	
+	TILE_INFO,
+	//TODO Do I need these?
+	SAVE,
+	CANCEL
 }

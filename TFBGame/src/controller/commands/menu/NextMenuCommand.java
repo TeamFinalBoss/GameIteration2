@@ -1,4 +1,4 @@
-package controller.commands;
+package controller.commands.menu;
 
 import java.util.List;
 
@@ -20,10 +20,7 @@ public class NextMenuCommand extends MenuCommand {
 
 	@Override
 	public void execute() {
-		List<MenuOption> options = super.getMenu().getMenuOptions();
-		int index = options.indexOf(getMenu().getActiveOption());
-		index = ++index % options.size();
-		getMenu().setActiveOption(options.get(index));
+		getMenu().next();
 	}
 
 }
