@@ -1,5 +1,9 @@
 package controller.sceneControllers;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Observer;
+
 import controller.keyBindings.KeyOptions;
 
 /**
@@ -10,7 +14,7 @@ import controller.keyBindings.KeyOptions;
  */
 public class SceneController {
 	private KeyOptions keyOptions;
-	
+
 	public void useKey(Integer key) {
 		keyOptions.useKey(key);
 	}
@@ -22,5 +26,6 @@ public class SceneController {
 	public SceneController(KeyOptions keyOptions) {
 		this.keyOptions = keyOptions;
 	}
+	
 	
 }

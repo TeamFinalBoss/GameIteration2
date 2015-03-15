@@ -9,8 +9,11 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
+
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+
+import controller.util.Describeable;
 import model.director.GameDirector;
 import model.menu.Menu;
 
@@ -69,8 +72,8 @@ public class MainMenuViewPort implements ViewPort, Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        Menu m = (Menu) o;
-        options = m.getOptions();
-        activeOptionIndex = m.getCurrentSelectionIndex();
+        Describeable m = (Describeable) o;
+        options = m.getDescription();
+        activeOptionIndex = m.getCurrentIndex();
     }
 }

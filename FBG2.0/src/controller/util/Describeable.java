@@ -1,6 +1,7 @@
 package controller.util;
 
 import java.util.List;
+import java.util.Observer;
 
 /**
  * @author Kyle Kyrazis
@@ -13,5 +14,7 @@ public interface Describeable {
 	 * Returns a list of strings to be displayed.
 	 * @return List<String>
 	 */
-	public List<String> getDescription();
+	public String[] getDescription();
+
+	public int getCurrentIndex();
 }

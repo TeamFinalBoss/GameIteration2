@@ -3,6 +3,8 @@ package controller.menu.keyBindings;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
 
 import controller.commands.Commandable;
 import controller.keyBindings.KeyBindings;
@@ -15,7 +17,7 @@ import controller.util.Describeable;
  * This class is used to display the options for remapping keys.
  *
  */
-public class KeyBindingsMenu implements Describeable {
+public class KeyBindingsMenu extends Observable implements Describeable {
 	
 	private KeyBindings keyBindings;
 	private List<KeyBindingsOption> bindingsOptions;
@@ -42,17 +44,21 @@ public class KeyBindingsMenu implements Describeable {
 	
 	//TODO is this necessary?
 	@Override
-	public List<String> getDescription() {
+	public String[] getDescription() {
 		return keyBindings.getDescription();
 	}
+	
+	public int getCurrentIndex() {
+		return bindingsOptions.indexOf(currentSelection);
+	}
 
-	public void next() {
+	public void previous() {
 		int index = bindingsOptions.indexOf(currentSelection);
 		index = ++index % bindingsOptions.size();
 		setActiveOption(bindingsOptions.get(index));
 	}
 	
-	public void previous() {
+	public void next() {
 		int index = bindingsOptions.indexOf(currentSelection);
 		index = index - 1 < 0 ? bindingsOptions.size() - 1 : index - 1;
 		setActiveOption(bindingsOptions.get(index));
@@ -64,10 +70,18 @@ public class KeyBindingsMenu implements Describeable {
 	
 	private void setActiveOption(KeyBindingsOption keyBindingsOption) {
 		this.currentSelection = keyBindingsOption;
+		setChanged();
+		notifyObservers();
 	}
 	
 	public KeyBindingsOption getActiveOption() {
 		return this.currentSelection;
+	}
+	
+	public void addObserver(Observer o) {
+		super.addObserver(o);
+        setChanged();
+        notifyObservers();
 	}
 	
 }

@@ -1,14 +1,6 @@
 package controller.commands.pauseMenu;
 
-import java.io.IOException;
-import java.io.InputStream;
-
-import javax.xml.parsers.ParserConfigurationException;
-
-import model.entity.Entity;
-
-import org.xml.sax.SAXException;
-
+import model.director.GameDirector;
 import controller.commands.Commandable;
 
 /**
@@ -19,32 +11,11 @@ import controller.commands.Commandable;
  */
 public class NewGame implements Commandable {
 
+	GameDirector gameDirector = GameDirector.getGameDirector();
+	
 	@Override
 	public void execute() {
-		GameMap loadedMap = GameMap.getInstance();
-	    loadedMap.takeTiles(main.RunGame.ml.getAllTiles());
-	    
-	    InputStream file = getClass().getResourceAsStream("/resources/saves/save1.xml");
-	    XMLReader reader = XMLReader.getInstance(file);
-	    reader.setInputStream(file);
-	    ObjectFactory objectFactory = new ObjectFactory(file, loadedMap);
-	   
-	    GameCoordinator gameCoordinator = GameCoordinator.getInstance();
-	    gameCoordinator.setActiveMap(loadedMap);
-	    try {
-	    	Entity avatar = objectFactory.ParseFile();
-			if(avatar == null)
-				
-			gameCoordinator.setAvatar(avatar);
-				
-		} catch (ParserConfigurationException | SAXException | IOException e) {
-				
-			e.printStackTrace();
-		}
-	        
-	        
-	    SceneManager sm = SceneManager.getInstance();
-	    sm.setActiveScene(SceneManager.GAME_SCENE);
+		gameDirector.startNewGame();
 	}
 
 }

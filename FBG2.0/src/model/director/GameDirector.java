@@ -2,9 +2,15 @@ package model.director;
 
 import view.viewport.MapViewPort;
 import model.menu.Menu;
+import controller.Controller;
+import controller.sceneControllers.SceneChanger;
+import controller.sceneControllers.SceneType;
 import controller2.MenuKeyController;
+
 import java.awt.Dimension;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
+
 import model.map.GameMap;
 import view.window.GameWindow;
 import view.scene.Scene;
@@ -24,30 +30,29 @@ public class GameDirector {
     private static Boolean paused = false;
     private static GameWindow window;
     private Scene menuScene, gameScene, activeScene;
+    private static Controller controller = Controller.getInstance();
+    private SceneChanger sceneChanger = SceneChanger.getInstance();
 
     private static GameDirector gameDirector = null;//It's a singleton object.
 
     private GameDirector() {
         window = new GameWindow();
-        //Set default sizes for all scenes
-        Scene.setSceneSize(window.getSize());
-        startMainMenuScene(); //As this grows this method will be broken into smaller chunks.
     }
 
     /**
      * 
      */
-    private void startMainMenuScene() {
-        Menu mainMenu = new Menu();
-        window.addKeyController(new MenuKeyController(mainMenu));//Add controller to menu
+    public void startMainMenuScene() {
+    	KeyListener listener = controller.buildController();
+        window.addKeyController(listener);//Add controller to menu
 
         menuScene = new Scene();
         MainMenuViewPort menuVP = new MainMenuViewPort();
 
         menuScene.addViewport(menuVP);//Add menuVP to menuScene
-        mainMenu.addObserver(menuVP);//Add menuVP as an Observer to menu
+        controller.addObserver(menuVP, SceneType.MAIN_MENU);
+        sceneChanger.changeScene(SceneType.MAIN_MENU);
         activeScene = menuScene;
-
     }
 
     public void startNewGame() {
@@ -58,9 +63,8 @@ public class GameDirector {
 
         gameScene.addViewport(mapVP);//Add mapVP to gameScene
         map.addObserver(mapVP);//Add mapVP as an Observer to map
-        
+        sceneChanger.changeScene(SceneType.GAME);
         activeScene = gameScene;
-
     }
 
     /**
@@ -131,5 +135,9 @@ public class GameDirector {
      */
     public static void resumeGame() {
         paused = false;
+    }
+    
+    public GameWindow getWindow() {
+    	return window;
     }
 }

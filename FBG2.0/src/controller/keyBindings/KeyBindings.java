@@ -67,12 +67,21 @@ public class KeyBindings implements Saveable, Describeable {
 	}
 
 	@Override
-	public List<String> getDescription() {
-		List<String> returnList = new ArrayList<>();
+	public String[] getDescription() {
+		String[] strArray = new String[keyBindings.size()];
+		
+		int i = 0;
 		for(Map.Entry<Integer, KeyBindingsOption> entry : keyBindings.entrySet()) {
-			returnList.add(entry.getValue().toString() + "\t" + KeyEvent.getKeyText(entry.getKey()));
+			strArray[i] = entry.getValue().toString() + "\t" + KeyEvent.getKeyText(entry.getKey());
+			++i;
 		}
-		return returnList;
+		return strArray;
+	}
+
+	@Override
+	public int getCurrentIndex() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

@@ -35,13 +35,19 @@ public class BindingsUpdate implements Commandable, Describeable {
 	}
 
 	@Override
-	public List<String> getDescription() {
+	public String[] getDescription() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	
 	protected KeyBindingsUpdate getKeyBindingsUpdate() {
 		return this.bindingsUpdate;
+	}
+
+	@Override
+	public int getCurrentIndex() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 	
 

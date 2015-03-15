@@ -7,6 +7,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
 
 import controller.commands.Commandable;
 import controller.commands.keyBindings.BindingsUpdate;
@@ -52,8 +54,6 @@ public class ControllerBuilder {
 		
 		Menu mainMenu = buildMainMenu();
 		
-		cont.setActiveMenu(mainMenu);
-		
 		Menu pauseMenu = buildPauseMenu();
 		KeyOptions mainMenuOptions = buildMainMenuKeyOptions(mainMenu);
 		SceneController mainMenuController = buildMainMenuController(mainMenuOptions);
@@ -64,11 +64,19 @@ public class ControllerBuilder {
 		KeyOptions bindingsMenuOptions = buildBindingsMenuKeyOptions(bindingsMenu);
 		SceneController keyBindingsController = buildBindingsController(bindingsMenuOptions);
 		
+		Map<SceneType, Observable> observerMap = new HashMap<>();
+		observerMap.put(SceneType.MAIN_MENU, mainMenu);
+		observerMap.put(SceneType.PAUSE_MENU, pauseMenu);
+		observerMap.put(SceneType.KEY_BINDINGS, bindingsMenu);
+		
+		cont.addMap(observerMap);
 		
 		Map<SceneType, SceneController> controllers = new HashMap<SceneType, SceneController>();
 		controllers.put(SceneType.MAIN_MENU, mainMenuController);
 		controllers.put(SceneType.PAUSE_MENU, pauseMenuController);
 		controllers.put(SceneType.KEY_BINDINGS, keyBindingsController);
+		
+		
 		
 		KeyDispatcher keyDispatcher = new KeyDispatcher(controllers, mainMenuController);
 		return new InputParser(keyDispatcher);
