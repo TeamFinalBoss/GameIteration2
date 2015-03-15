@@ -56,11 +56,11 @@ public class Locations<S extends MapObject> {
     
     /**
      * Adds an object to the locations collection
-     *
-     * @param pair location of the object to be stored
+     * 
      * @param obj to be stored in the locations collection
+     * @param pair location of the object to be stored
      */
-    public void addObject(CoordinatePair pair, S obj) {
+    public void addObject(S obj, CoordinatePair pair) {
     	obj.setLocation(pair);
         locations.add(obj);
     }
@@ -68,12 +68,12 @@ public class Locations<S extends MapObject> {
     /**
      * Adds an object to the locations collection
      * May be unnecessary
-     * 
+	 *
+     * @param obj to be stored in the locations collection
      * @param x coordinate
      * @param y coordinate
-     * @param obj to be stored in the locations collection
      */
-    public void addObject(int x, int y, S obj){
+    public void addObject(S obj, int x, int y){
     	obj.setLocation(new CoordinatePair(x, y));
     	locations.add(obj);
     }

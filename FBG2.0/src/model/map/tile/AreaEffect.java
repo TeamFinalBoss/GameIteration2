@@ -10,7 +10,7 @@ import model.map.pair.CoordinatePair;
  * which will activate once an Entity steps on it.
  * Extends GameObject abstract class
  * 
- * ID: 6
+ * ID: 8
  * 
  * @see MapObject
  * @author Michael Cohen
@@ -23,7 +23,7 @@ public abstract class AreaEffect extends MapObject {
     public AreaEffect() {
     	super("Generic AreaEffect", "Generic description", new CoordinatePair());
     	
-    	this.id = "6";
+    	this.id = "8";
     	this.className = "Area Effect";
     	
     	//Other properties set here
@@ -35,7 +35,7 @@ public abstract class AreaEffect extends MapObject {
     		Effect effect) {
     	super(objectName, description, location);
     	
-    	this.id = "6";
+    	this.id = "8";
     	this.className = "Area Effect";
     	
     	//Other properties set here
