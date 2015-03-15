@@ -1,6 +1,8 @@
 package controller.commands.pauseMenu;
 
 import controller.commands.Commandable;
+import controller.sceneControllers.SceneChanger;
+import controller.sceneControllers.SceneType;
 
 /**
  * @author Kyle Kyrazis
@@ -10,10 +12,10 @@ import controller.commands.Commandable;
  */
 public class ResumeGame implements Commandable {
 
+	SceneChanger sceneChanger = SceneChanger.getInstance();
 	@Override
 	public void execute() {
-		// TODO Auto-generated method stub
-
+		sceneChanger.changeScene(SceneType.GAME);
 	}
 
 }

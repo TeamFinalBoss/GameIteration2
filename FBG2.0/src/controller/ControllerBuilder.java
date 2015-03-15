@@ -201,6 +201,8 @@ public class ControllerBuilder {
 				case CONFIRM :
 					options.put(entry.getKey(), new ConfirmMenuCommand(pauseMenu));
 					break;
+				case PAUSE :
+					options.put(entry.getKey(), new ResumeGame());
 				default :
 					break;	
 			}
@@ -219,7 +221,7 @@ public class ControllerBuilder {
 		
 		Map<MenuOption, Commandable> pauseMenuCommands = buildPauseMenuCommands();
 		
-		return new Menu(options, MenuOption.SAVE_GAME, pauseMenuCommands);
+		return new Menu(options, MenuOption.RESUME_GAME, pauseMenuCommands);
 	}
 
 	/**********************************************************************************************

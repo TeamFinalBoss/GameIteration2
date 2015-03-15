@@ -5,11 +5,14 @@ import model.menu.Menu;
 import controller.Controller;
 import controller.sceneControllers.SceneChanger;
 import controller.sceneControllers.SceneType;
+import controller.util.Observer;
 import controller2.MenuKeyController;
 
 import java.awt.Dimension;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
+import java.util.HashMap;
+import java.util.Map;
 
 import model.map.GameMap;
 import view.window.GameWindow;
@@ -26,18 +29,33 @@ import view.viewport.PauseViewPort;
  *
  * @author ChrisMoscoso
  */
-public class GameDirector {
+public class GameDirector implements Observer{
 
     private static Boolean paused = false;
     private static GameWindow window;
-    private Scene menuScene, gameScene, activeScene;
+    private Scene menuScene, gameScene, pauseScene, keyBindingsScene, activeScene;
     private static Controller controller = Controller.getInstance();
     private SceneChanger sceneChanger = SceneChanger.getInstance();
+    
+    private Map<SceneType,Scene> scenes;
 
     private static GameDirector gameDirector = null;//It's a singleton object.
 
     private GameDirector() {
         window = new GameWindow();
+        scenes = new HashMap<>();
+        
+        menuScene = new Scene();
+        pauseScene = new Scene();
+        keyBindingsScene = new Scene();
+        gameScene = new Scene();
+        
+        scenes.put(SceneType.MAIN_MENU, menuScene);
+        scenes.put(SceneType.PAUSE_MENU, pauseScene);
+        scenes.put(SceneType.KEY_BINDINGS, keyBindingsScene);
+        scenes.put(SceneType.GAME, gameScene);
+        
+        sceneChanger.registerObserver(this);
     }
 
     /**
@@ -47,11 +65,21 @@ public class GameDirector {
     	KeyListener listener = controller.buildController();
         window.addKeyController(listener);//Add controller to menu
 
-        menuScene = new Scene();
+        
         MainMenuViewPort menuVP = new MainMenuViewPort();
-
+        
+        
+       
+        MainMenuViewPort pauseVP = new MainMenuViewPort();
+        pauseScene.addViewport(pauseVP);
+        MainMenuViewPort keyBindingsVP = new MainMenuViewPort();
+        keyBindingsScene.addViewport(keyBindingsVP);
+        
+        
         menuScene.addViewport(menuVP);//Add menuVP to menuScene
         controller.addObserver(menuVP, SceneType.MAIN_MENU);
+        controller.addObserver(pauseVP, SceneType.PAUSE_MENU);
+        controller.addObserver(keyBindingsVP, SceneType.KEY_BINDINGS);
         sceneChanger.changeScene(SceneType.MAIN_MENU);
         activeScene = menuScene;
     }
@@ -59,15 +87,12 @@ public class GameDirector {
     public void startNewGame() {
         GameMap map = new GameMap();
 
-        gameScene = new Scene();
+       
         MapViewPort mapVP = new MapViewPort();
-        PauseViewPort pauseVP = new PauseViewPort();
 
         gameScene.addViewport(mapVP);//Add mapVP to gameScene
-        gameScene.addViewport(pauseVP);
+       
         map.addObserver(mapVP);//Add mapVP as an Observer to map
-        
-        controller.addObserver(pauseVP, SceneType.PAUSE_MENU);
         
         sceneChanger.changeScene(SceneType.GAME);
         activeScene = gameScene;
@@ -148,4 +173,9 @@ public class GameDirector {
     public GameWindow getWindow() {
     	return window;
     }
+
+	@Override
+	public void update(SceneType type) {
+		activeScene = scenes.get(type);
+	}
 }

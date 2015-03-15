@@ -1,5 +1,6 @@
 package controller.commands.game;
 
+import model.director.GameDirector;
 import controller.commands.Commandable;
 import controller.sceneControllers.SceneChanger;
 import controller.sceneControllers.SceneType;
