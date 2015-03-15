@@ -4,6 +4,7 @@ package model.ability;
  * TODO: finish this (pushed just so everyone can see it)
  */
 
+import model.map.CoordinatePair;
 import java.util.ArrayList;
 
 /**

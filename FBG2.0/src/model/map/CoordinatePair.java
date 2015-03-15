@@ -1,4 +1,4 @@
-package model.ability;
+package model.map;
 
 
 /**
