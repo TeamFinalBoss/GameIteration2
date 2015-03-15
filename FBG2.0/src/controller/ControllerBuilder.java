@@ -64,6 +64,9 @@ public class ControllerBuilder {
 		KeyOptions bindingsMenuOptions = buildBindingsMenuKeyOptions(bindingsMenu);
 		SceneController keyBindingsController = buildBindingsController(bindingsMenuOptions);
 		
+		KeyOptions gameOptions = buildGameKeyOptions();
+		SceneController gameController = buildGameController(gameOptions);
+		
 		Map<SceneType, Observable> observerMap = new HashMap<>();
 		observerMap.put(SceneType.MAIN_MENU, mainMenu);
 		observerMap.put(SceneType.PAUSE_MENU, pauseMenu);
@@ -81,8 +84,24 @@ public class ControllerBuilder {
 		KeyDispatcher keyDispatcher = new KeyDispatcher(controllers, mainMenuController);
 		return new InputParser(keyDispatcher);
 	}
-
 	
+	
+	/**********************************************************************************************
+	 * 	   Key Bindings Controller Builder
+	 *
+	 ************************************************************************************************/
+	
+	private static SceneController buildGameController(KeyOptions gameOptions) {
+		return null;
+	}
+
+
+	private static KeyOptions buildGameKeyOptions() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 	/**********************************************************************************************
 	 * 	   Key Bindings Controller Builder
 	 *
@@ -154,7 +173,7 @@ public class ControllerBuilder {
 		pauseMenuCommands.put(MenuOption.LOAD_GAME, new LoadGame());
 		pauseMenuCommands.put(MenuOption.KEY_BINDINGS, new KeyBindingSwitch());
 		pauseMenuCommands.put(MenuOption.NEW_GAME, new NewGame());
-		pauseMenuCommands.put(MenuOption.RESUME_GAME, new ExitGame());
+		pauseMenuCommands.put(MenuOption.EXIT_GAME, new ExitGame());
 		
 		return pauseMenuCommands;
 	}
@@ -242,7 +261,7 @@ public class ControllerBuilder {
 		
 		menuCommands.put(MenuOption.NEW_GAME, new NewGame());
 		menuCommands.put(MenuOption.LOAD_GAME, new LoadGame());
-		menuCommands.put(MenuOption.EXIT_GAME, new LoadGame());
+		menuCommands.put(MenuOption.EXIT_GAME, new ExitGame());
 		
 		return menuCommands;
 	}
