@@ -34,6 +34,13 @@ public class AbilityLibrary {
     }
     
      /*-----------Accessors-----------*/
+    /*
+     * @author Jason Owens
+     *
+     * Checks to see if library contains ability.
+     * @returns whether or not the ability is found 
+     * @param abilityName the name of the ability 
+     */
     public boolean hasAbility(String abilityName){
         for(Ability s : knownAbilities) {
             if (abilityName.equals(s.getName())) {
@@ -50,11 +57,11 @@ public class AbilityLibrary {
      * Activates ability.
      *@returns whether or not the ability is found    
      */
-    public boolean PerformActiveAbility(String abilityName, Entity callingEntity){
+    public boolean performActiveAbility(String abilityName, Entity callingEntity){
         for(Ability a : knownAbilities) {
             if (a.getName().equals(abilityName)) {
                 a.performAbility(callingEntity.getDirection());
-                break;
+                return true;
             }
         }
         return false;
