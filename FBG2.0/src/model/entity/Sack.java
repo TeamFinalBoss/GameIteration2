@@ -46,7 +46,7 @@ public class Sack {
 	}
 	
 	/** Returns the ordered contents of the sack
-	 * @return an unmodifiable <code>List<Takeable/></code> of the sack contents 
+	 * @return an unmodifiable <code>List</code> of the sack contents 
 	 */
 	public List<Takeable> contents(){
 		return Collections.unmodifiableList(contents);
@@ -78,7 +78,6 @@ public class Sack {
 	}
 	
 	/** Uses the takeable item in the specified slot of the sack.
-	 * 
 	 * @param position the position of the item to be used in the sack.
 	 * @throws <code>IllegalArgumentException</code> if <code>position</code> is not in range [0,size()).
 	 */
@@ -86,5 +85,4 @@ public class Sack {
 		validatePosition(position);
 		contents.get(position).useInSack();
 	}
-	
 }
