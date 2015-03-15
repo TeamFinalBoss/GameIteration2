@@ -64,10 +64,10 @@ public class GameDirector {
         PauseViewPort pauseVP = new PauseViewPort();
 
         gameScene.addViewport(mapVP);//Add mapVP to gameScene
+        gameScene.addViewport(pauseVP);
         map.addObserver(mapVP);//Add mapVP as an Observer to map
         
         controller.addObserver(pauseVP, SceneType.PAUSE_MENU);
-        
         
         sceneChanger.changeScene(SceneType.GAME);
         activeScene = gameScene;

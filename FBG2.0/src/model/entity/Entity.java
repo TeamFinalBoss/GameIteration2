@@ -18,7 +18,7 @@ public class Entity{
         private static Entity player;
         
     public Entity(){
-        myInventory = new Inventory();
+        myInventory = new Inventory(5);
         myOccupation = new Occupation();
     }
     
