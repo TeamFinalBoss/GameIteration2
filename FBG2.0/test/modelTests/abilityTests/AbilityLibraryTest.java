@@ -11,6 +11,7 @@ import exampleTest.MainTestingClass;
 import model.ability.Ability;
 import model.ability.AbilityLibrary;
 import model.entity.Entity;
+import model.map.Direction;
 
 
 
@@ -36,47 +37,97 @@ public class AbilityLibraryTest {
 
 	@Test
 	public void testAddAbility() {
-            testClass.addAbility(ability1);
-            EasyMock.expectLastCall();
-            
-            
-            EasyMock.replay(testClass);
-            EasyMock.verify(testClass);
+		assertEquals(0,testClass.getAbilities().size());
+        testClass.addAbility(ability1);
+        assertEquals(1,testClass.getAbilities().size());
+        assertTrue(testClass.getAbilities().contains(ability1));
 	}
 	
         @Test
         public void testHasAbility(){
-            EasyMock.expect(testClass.hasAbility(ability1.getName())).andReturn(false);
-            testClass.addAbility(ability1);
-            EasyMock.expectLastCall();
+        	EasyMock.expect(ability1.getName()).andReturn("Test Name").anyTimes();
             
-            EasyMock.expect(testClass.hasAbility(ability1.getName())).andReturn(true);
-            EasyMock.verify(testClass);
+        	EasyMock.replay(ability1);
+        	
+        	testClass.addAbility(ability1);
+        	assertTrue(testClass.hasAbility("Test Name"));
+
+            EasyMock.verify(ability1);
+        }
+        
+        @Test
+        public void testHasAbilityReturnsFalse(){
+        	EasyMock.expect(ability1.getName()).andReturn("Test Name").anyTimes();
+            
+        	EasyMock.replay(ability1);
+     
+        	assertFalse(testClass.hasAbility("Test Name"));
+
+            EasyMock.verify(ability1);
         }
         
         @Test
         public void testForgetAbility(){
-            EasyMock.expect(testClass.forgetAbility(ability1.getName())).andReturn(false);
-            testClass.addAbility(ability1);
-            EasyMock.expectLastCall();
-            
-            EasyMock.expect(testClass.hasAbility(ability1.getName())).andReturn(true);
-            
-            EasyMock.expect(testClass.forgetAbility(ability1.getName())).andReturn(true);
-            EasyMock.verify(testClass);
-            EasyMock.expect(testClass.hasAbility(ability1.getName())).andReturn(false);
+        	EasyMock.expect(ability1.getName()).andReturn("Test Name").anyTimes();
+        	
+        	EasyMock.replay(ability1);
+        	
+        	assertEquals(0,testClass.getAbilities().size());
+        	testClass.addAbility(ability1);
+        	assertTrue(testClass.forgetAbility("Test Name"));
+        	assertEquals(0, testClass.getAbilities().size());
+        	
+        	EasyMock.verify(ability1);
+        }
+        
+        @Test
+        public void testForgetAbilityReturnsFalse(){
+        	EasyMock.expect(ability1.getName()).andReturn("Test Name").anyTimes();
+        	
+        	EasyMock.replay(ability1);
+        	
+        	assertEquals(0, testClass.getAbilities().size());
+        	testClass.addAbility(ability1);
+        	assertFalse(testClass.forgetAbility("Magic"));
+        	assertEquals(1, testClass.getAbilities().size());
+        	
+        	EasyMock.verify(ability1);
         }
         
         @Test
         public void testPerformAbility(){
-            
-            EasyMock.expect(testClass.hasAbility(ability1.getName())).andReturn(false);
-            testClass.addAbility(ability1);
-            EasyMock.expectLastCall();
-            
-            EasyMock.expect(testClass.performActiveAbility(ability1.getName(), entity1)).andReturn(true);
-            EasyMock.verify(testClass);
+        	//Set the state
+        	//We expect the ability1 to call 
+        	EasyMock.expect(ability1.getName()).andReturn("Test Name").anyTimes();
+        	EasyMock.expect(entity1.getDirection()).andReturn(Direction.North).once();
+        	ability1.performAbility(Direction.North);
+        	EasyMock.expectLastCall();
+        	
+        	// Lock the state
+        	EasyMock.replay(ability1);
+        	EasyMock.replay(entity1);
+        	
+        	//Actual calls
+        	testClass.addAbility(ability1);
+        	//Assert on the outcome
+        	assertTrue(testClass.performActiveAbility("Test Name",entity1));
+        	
+        	//Verify the state of the mocks
+        	EasyMock.verify(entity1);
+        	EasyMock.verify(ability1);
+        }
         
+        @Test
+        public void testPerformAbilityFalse(){
+        	
+        	EasyMock.expect(ability1.getName()).andReturn("Test Name").anyTimes();
+        	EasyMock.expectLastCall();
+        	EasyMock.replay(ability1);
+        	
+        	testClass.addAbility(ability1);
+        	assertFalse(testClass.performActiveAbility("Magic",entity1));
+        	
+        	EasyMock.verify(ability1);
         }
        
 }

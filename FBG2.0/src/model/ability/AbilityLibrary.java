@@ -5,6 +5,7 @@ package model.ability;
  */
 
 import java.util.ArrayList;
+import java.util.List;
 
 import model.entity.Entity;
 
@@ -13,7 +14,7 @@ import model.entity.Entity;
  * @author Jason Owens
  */
 public class AbilityLibrary {
-    private ArrayList<Ability> knownAbilities;
+    private List<Ability> knownAbilities;
     
     /*-----------Constructors-----------*/
     public AbilityLibrary(){
@@ -51,10 +52,11 @@ public class AbilityLibrary {
     }
     
     
-    /*
+    /**
      * @author Jason Owens
      *
-     * Activates ability.
+     * Activates ability. 
+     * TODO Maybe store abilities in a Map<Name, Ability>? - Kyle
      *@returns whether or not the ability is found    
      */
     public boolean performActiveAbility(String abilityName, Entity callingEntity){
@@ -65,5 +67,9 @@ public class AbilityLibrary {
             }
         }
         return false;
+    }
+    
+    public List<Ability >getAbilities() {
+    	return this.knownAbilities;
     }
 }
