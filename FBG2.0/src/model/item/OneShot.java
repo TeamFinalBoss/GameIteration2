@@ -5,20 +5,20 @@ import model.map.pair.CoordinatePair;
 
 /**
  * This class defines an Item which is activated once stepped on in-game
- * Implements Item interface
- * Extends GameObject abstract class
+ * Extends Item abstract class
  * 
- * ID: 5
+ * ID: 6
  * 
  * @see MapObject
+ * @see Item
  * @author Michael Cohen
  *
  */
-public class OneShot extends MapObject implements Item {
+public class OneShot extends Item {
 	public OneShot(){
 		super("Generic One Shot", "Generic description", new CoordinatePair());
 		
-		this.id = "5";
+		this.id = "6";
 		this.className = "One Shot";
 		
 		//Other properties set here
@@ -27,7 +27,7 @@ public class OneShot extends MapObject implements Item {
 	public OneShot(String objectName, String description, CoordinatePair location){
 		super(objectName, description, location);
 		
-		this.id = "5";
+		this.id = "6";
 		this.className = "One Shot";
 		
 		//Other properties set here

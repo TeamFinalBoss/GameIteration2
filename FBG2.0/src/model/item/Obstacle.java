@@ -5,20 +5,20 @@ import model.map.pair.CoordinatePair;
 
 /**
  * This class defines an Item which serves as an obstacle in-game 
- * Implements Item interface
- * Extends GameObject abstract class
+ * Extends Item abstract class
  * 
- * ID: 4
+ * ID: 5
  * 
  * @see MapObject
+ * @see Item
  * @author Michael Cohen
  *
  */
-public class Obstacle extends MapObject implements Item {
+public class Obstacle extends Item {
 	public Obstacle(){
 		super("Generic Obstacle", "Generic description", new CoordinatePair());
 		
-		this.id = "4";
+		this.id = "5";
 		this.className = "Obstacle";
 		
 		//Other properties set here
@@ -27,7 +27,7 @@ public class Obstacle extends MapObject implements Item {
 	public Obstacle(String objectName, String description, CoordinatePair location){
 		super(objectName, description, location);
 		
-		this.id = "4";
+		this.id = "5";
 		this.className = "Obstacle";
 		
 		//Other properties set here

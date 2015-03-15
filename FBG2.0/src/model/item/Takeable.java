@@ -5,21 +5,21 @@ import model.map.pair.CoordinatePair;
 
 /**
  * This class defines an Item which can be taken and added to the Inventory
- * Implements Item interface
- * Extends GameObject abstract class
+ * Extends Item abstract class
  * 
- * ID: 2
+ * ID: 3
  * 
  * @see MapObject
+ * @see Item
  * @author Michael Cohen
  *
  */
-public class Takeable extends MapObject implements Item {
+public class Takeable extends Item {
 	
 	public Takeable(){
 		super("Generic Takeable", "Generic description", new CoordinatePair());
 		
-		this.id = "2";
+		this.id = "3";
 		this.className = "Takeable";
 		
 		//Other properties set here
@@ -28,7 +28,7 @@ public class Takeable extends MapObject implements Item {
 	public Takeable(String objectName, String description, CoordinatePair location){
 		super(objectName, description, location);
 		
-		this.id = "2";
+		this.id = "3";
 		this.className = "Takeable";
 		
 		//Other properties set here
