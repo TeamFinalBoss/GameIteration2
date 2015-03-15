@@ -2,10 +2,13 @@ package model.factories;
 
 
 import java.util.ArrayList;
-import model.util.GameObject;
+import model.gameObject.GameObject;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import model.entity.Occupation;
+import model.item.Takeable;
+import model.map.GameMap;
+import model.map.pair.CoordinatePair;
 import model.stats.PlayerStats;
 import model.stats.StatMaster;
 import model.stats.Stats;
@@ -109,4 +112,9 @@ public class EntityFactory implements PlaceableObjectFactory{
 		
 		return entities;
 	}
+
+    @Override
+    public ArrayList<model.util.GameObject> generate(Element head) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

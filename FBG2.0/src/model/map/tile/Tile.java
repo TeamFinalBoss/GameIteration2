@@ -1,4 +1,4 @@
-package model.map;
+package model.map.tile;
 
 import model.entity.Entity;
 
@@ -17,13 +17,16 @@ public class Tile {
 	Trap tileTrap;
 	Decal decal;
 	
+        /**
+         * By default return an empty tile of default terrain
+         */
 	public Tile(){
-		terrain = null;
-		effect = null;
-		tileTrap = null;
-		decal = null;
+            this(new Terrain(), null, null, null );
 	}
 	
+        /**
+         * 
+         */
 	public Tile(Terrain t, AreaEffect e, Trap tr, Decal d){
 		terrain = t;
 		effect = e;

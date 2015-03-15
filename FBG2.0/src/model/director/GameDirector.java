@@ -1,9 +1,11 @@
 package model.director;
 
+import view.viewport.MapViewPort;
 import model.menu.Menu;
-import controller.MenuKeyController;
+import controller2.MenuKeyController;
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;
+import model.map.GameMap;
 import view.window.GameWindow;
 import view.scene.Scene;
 import view.viewport.MainMenuViewPort;
@@ -12,7 +14,8 @@ import view.viewport.MainMenuViewPort;
  * This class is the director of our game, integrating the various subsystems.
  * It initializes the game by creating all the game objects (model, view, and
  * controller) to start. It is also responsible for pausing, resuming, and
- * changing the rate of time! [not implemented yet but soon ;) ] in the game play.
+ * changing the rate of time! [not implemented yet but soon ;) ] in the game
+ * play.
  *
  * @author ChrisMoscoso
  */
@@ -20,36 +23,43 @@ public class GameDirector {
 
     private static Boolean paused = false;
     private static GameWindow window;
-    private Scene menuScene;
+    private Scene menuScene, gameScene, activeScene;
 
     private static GameDirector gameDirector = null;//It's a singleton object.
 
     private GameDirector() {
         window = new GameWindow();
-        initGame(); //As this grows this method will be broken into smaller chunks.
+        //Set default sizes for all scenes
+        Scene.setSceneSize(window.getSize());
+        startMainMenuScene(); //As this grows this method will be broken into smaller chunks.
     }
 
     /**
-     * Initializes all the model objects
+     * 
      */
-    private void initGame() {
+    private void startMainMenuScene() {
         Menu mainMenu = new Menu();
+        window.addKeyController(new MenuKeyController(mainMenu));//Add controller to menu
 
-        //Set default sizes for all scenes
-        Scene.setSceneSize(window.getSize());
-        //Create scenes
-        /* Menu*/
         menuScene = new Scene();
-
         MainMenuViewPort menuVP = new MainMenuViewPort();
-        menuScene.addViewport(menuVP);
 
-        //Add observers to model object
-        mainMenu.addObserver(menuVP);
-        menuVP.update(mainMenu, null);
+        menuScene.addViewport(menuVP);//Add menuVP to menuScene
+        mainMenu.addObserver(menuVP);//Add menuVP as an Observer to menu
+        activeScene = menuScene;
 
-        //Add controllers to the window
-        window.addKeyController(new MenuKeyController(mainMenu));
+    }
+
+    public void startNewGame() {
+        GameMap map = new GameMap();
+
+        gameScene = new Scene();
+        MapViewPort mapVP = new MapViewPort();
+
+        gameScene.addViewport(mapVP);//Add mapVP to gameScene
+        map.addObserver(mapVP);//Add mapVP as an Observer to map
+        
+        activeScene = gameScene;
 
     }
 
@@ -71,7 +81,7 @@ public class GameDirector {
      * and paints it to the screen.
      */
     public void drawGame() {
-        BufferedImage gameImage = menuScene.getImage();//render the game to buffer
+        BufferedImage gameImage = activeScene.getImage();//render the game to buffer
         window.paintImageToScreen(gameImage); //paint the buffer to screen
     }
 
@@ -108,18 +118,18 @@ public class GameDirector {
         //Set default sizes for all scenes
         Scene.setSceneSize(window.getSize());
     }
-    
+
     /**
      * Pauses game play only. Menus will still work.
      */
-    public static void pauseGame(){
+    public static void pauseGame() {
         paused = true;
     }
-    
+
     /**
      * Resumes game play.
      */
-    public static void resumeGame(){
+    public static void resumeGame() {
         paused = false;
     }
 }

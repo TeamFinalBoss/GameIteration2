@@ -1,7 +1,8 @@
-package model.map;
+package model.director;
 
-import model.Entity;
+import model.entity.Entity;
 import java.util.ArrayList;
+import model.map.GameMap;
 
 /**
  * Maintains a list of all the different game maps and keeps track of the

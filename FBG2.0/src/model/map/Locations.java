@@ -1,5 +1,7 @@
 package model.map;
 
+import model.map.pair.Pair;
+import model.map.pair.CoordinatePair;
 import java.util.ArrayList;
 
 /**
@@ -26,8 +28,8 @@ public class Locations <S>{
 	 */
 	public CoordinatePair getCoordinatePair(S obj){
 		for (Pair<S, CoordinatePair> p : locations){
-			if (obj == p.getLeft())
-				return p.getRight();
+			if (obj == p.getObject())
+				return p.getCoordPair();
 		}
 		throw new RuntimeException("Object not contained in Locations");
 	}
@@ -42,8 +44,8 @@ public class Locations <S>{
 	 */
 	public S getObjectAt(CoordinatePair pair){
 		for (Pair<S, CoordinatePair> p : locations){
-			if (pair == p.getRight())
-				return p.getLeft();
+			if (pair == p.getCoordPair())
+				return p.getObject();
 		}
                 
 		return null;//Jason changed this. Returning null is more useful and isn't dangerous.
@@ -58,7 +60,7 @@ public class Locations <S>{
 	 * @param obj to be stored in the locations collection
 	 */
 	public void addObject(CoordinatePair pair, S obj){
-		locations.add(new Pair<S, CoordinatePair>(obj, pair));
+		locations.add(new Pair<>(obj, pair));
 	}
 	
 	/**
@@ -72,9 +74,9 @@ public class Locations <S>{
 	public S remove(CoordinatePair pair){
 		for (int i = 0; i != locations.size(); ++i){
 			Pair<S, CoordinatePair> p = locations.get(i);
-			if (p.getRight() == pair){
+			if (p.getCoordPair()== pair){
 				locations.remove(i);
-				return p.getLeft();
+				return p.getObject();
 			}
 		}
 		
@@ -92,9 +94,9 @@ public class Locations <S>{
 	public CoordinatePair remove(S obj){
 		for (int i = 0; i != locations.size(); ++i){
 			Pair<S, CoordinatePair> p = locations.get(i);
-			if (p.getLeft() == obj){
+			if (p.getObject()== obj){
 				locations.remove(i);
-				return p.getRight();
+				return p.getCoordPair();
 			}
 		}
 		

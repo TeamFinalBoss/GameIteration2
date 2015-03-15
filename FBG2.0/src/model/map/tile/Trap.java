@@ -1,7 +1,7 @@
-package model.map;
+package model.map.tile;
 
 import model.entity.Entity;
-import model.util.GameObject;
+import model.gameObject.GameObject;
 
 /**
  * The purpose of this abstract class is to have an object that has a unique effect happen
@@ -43,4 +43,8 @@ public abstract class Trap extends GameObject{
 	 * @see Entity
 	 */
 	abstract void Activate(Entity caller);
+
+    void activate(Entity caller) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

@@ -4,7 +4,9 @@ package model.ability;
  * TODO: finish this (pushed just so everyone can see it)
  */
 
-import model.map.CoordinatePair;
+import model.map.Direction;
+import model.director.CombatCoordinator;
+import model.map.pair.CoordinatePair;
 import java.util.ArrayList;
 
 /**
@@ -44,6 +46,6 @@ public class Ability {
     * @return ArrayList of Coordinates affected by ability
     */
     protected ArrayList<CoordinatePair> getAffectedTiles(Direction dir){
-        throw UnsupportedOperationException;
+        throw new UnsupportedOperationException("Not supported yet.");
     } //returns CoordinatePairs relative to (0,0) as entity location
 }

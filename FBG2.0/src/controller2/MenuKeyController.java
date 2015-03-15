@@ -1,7 +1,8 @@
-package controller;
+package controller2;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import model.director.GameDirector;
 import model.menu.Menu;
 
 /**
@@ -41,6 +42,7 @@ public class MenuKeyController implements KeyListener {
 
             switch (menu.getCurrentSelection()) {
                 case NEW_GAME:
+                    GameDirector.getGameDirector().startNewGame();
                     break;
                 case EXIT:
                     System.exit(0);

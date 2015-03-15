@@ -1,14 +1,9 @@
-package model.ability;
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+package model.map;
 
 import java.util.TimerTask;
-import model.map.PreciseCoordinatePair;
-import model.map.Vector;
+import model.ability.Effect;
+import model.entity.Entity;
+import model.map.pair.PreciseCoordinatePair;
 import model.util.GameTimer;
 
 /**

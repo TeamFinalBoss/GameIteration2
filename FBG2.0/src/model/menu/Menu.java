@@ -1,5 +1,6 @@
 package model.menu;
 
+import java.util.Observer;
 import java.util.Observable;
 
 /**
@@ -88,6 +89,13 @@ public class Menu extends Observable {
         return currentOptionIndex;
     }
 
+    @Override ////Same as super but we want to update immediately when observer gets added
+    public void addObserver(Observer o){
+        super.addObserver(o);
+        setChanged();
+        notifyObservers();
+    }
+    
     /**
      * The list of possible menu options enumerated.
      */

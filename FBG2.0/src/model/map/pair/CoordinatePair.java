@@ -1,4 +1,4 @@
-package model.map;
+package model.map.pair;
 
 
 /**
@@ -14,7 +14,6 @@ public class CoordinatePair {
         this.y = y;
     }
     
-    //default constructor
     public CoordinatePair(){
     	this.x = 0;
     	this.y = 0;
@@ -28,8 +27,7 @@ public class CoordinatePair {
     }
     
     public boolean equals(CoordinatePair CP){
-    	if(getX() == CP.getX() && getY() == CP.getY()) return true;
-    	return false;
+    	return getX() == CP.getX() && getY() == CP.getY();
     }
     
     public void set( int nextX, int nextY){
