@@ -96,10 +96,19 @@ public class AbilityLibraryTest {
         
         @Test
         public void testPerformAbility(){
+        	//We can only EasyMock.function Mocked Objects. You were trying to use them on the TestClass
+        	//With the non mocked object we want to actually make real calls using the mocked objects as
+        	//dependencies and we set the state of those mocked objects to expect a call to some function
+        	//that is can perform.
+        	
         	//Set the state
-        	//We expect the ability1 to call 
+        	//We expect the mocked ability to call the getName Method so we make it return whatever we want.
         	EasyMock.expect(ability1.getName()).andReturn("Test Name").anyTimes();
+        	//We expect the mocked entity to call get direction so we make it return what we want.
         	EasyMock.expect(entity1.getDirection()).andReturn(Direction.North).once();
+        	//We expect the mocked ability to make a call to performAbility given a direction so 
+        	//we call it with the result of entity1.getDirection. Since it doesn't call anything we
+        	//expect last call.
         	ability1.performAbility(Direction.North);
         	EasyMock.expectLastCall();
         	
@@ -107,12 +116,14 @@ public class AbilityLibraryTest {
         	EasyMock.replay(ability1);
         	EasyMock.replay(entity1);
         	
-        	//Actual calls
+        	//Adding the ability to the ability libraries so we can call it
         	testClass.addAbility(ability1);
-        	//Assert on the outcome
+        	//Assert that the outcome of performActiveAbility is true
+        	//This is the actual call that we are testing.
         	assertTrue(testClass.performActiveAbility("Test Name",entity1));
         	
-        	//Verify the state of the mocks
+        	//Verify the outcome of the mocks so we can make sure that the functions were called as 
+        	//We expect.
         	EasyMock.verify(entity1);
         	EasyMock.verify(ability1);
         }
