@@ -46,7 +46,12 @@ public class Scene {
      * @return a buffered image of all of the viewports
      */
     public BufferedImage getImage(){
-        BufferedImage i = new BufferedImage(size.width , size.height, BufferedImage.TYPE_INT_ARGB);
+        BufferedImage i;
+        if(size != null){
+            i = new BufferedImage(size.width , size.height, BufferedImage.TYPE_INT_ARGB);
+        }else{
+            i = new BufferedImage(0 , 0, BufferedImage.TYPE_INT_ARGB);
+        }
         for(ViewPort v : viewports){
             v.draw(i.getGraphics());
         }
