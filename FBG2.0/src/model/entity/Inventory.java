@@ -7,4 +7,12 @@ package model.entity;
 public class Inventory {
 	Sack mySack;
 	Armory myArmory;
+	
+	/** Creates an <code>Inventory</code> instance with a Sack component and an Armory component.
+	 * @param sackCap the capacity of the <code>Sack</code> component of the <code>Inventory</code> 
+	 */
+	public Inventory(int sackCap){
+		mySack = new Sack(sackCap);
+		myArmory = new Armory();
+	}
 }
