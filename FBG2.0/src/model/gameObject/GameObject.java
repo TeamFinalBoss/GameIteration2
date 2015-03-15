@@ -2,21 +2,26 @@ package model.gameObject;
 
 
 import model.map.pair.CoordinatePair;
+/**
+ * This class defines a GameObject Interface that is implemented by 
+ * Entities, Items, AreaEffects, Decals, and Traps in order to have them maintain 
+ * their own ID, name, class name, description, and location
+ * @author Chris Moscoso, Michael Cohen
+ *
+ */
 
 public abstract class GameObject {
-	protected int id;
-	private String name;
-	private String className;
-	private String description;
-	
-	
-	//Added this, necessary to save game state. 
-	private CoordinatePair location;
+	protected String id;
+	protected String name;
+	protected String className;
+	protected String description;
+	 
+	protected CoordinatePair location;
 	
 	
 	//This constructor should be called only after the subclass constructor is called
 	protected GameObject(){
-		id = 0; //will need to be changed later manually
+		id = "-1"; //will need to be changed later manually
 		name = "Generic Object";
 		className = "GameObject";
 		description = "Generic description";
@@ -24,30 +29,68 @@ public abstract class GameObject {
 		
 	}
 	
-	protected GameObject(String className, String objectName, String description , int ID){
-		//this.id = -1;	//should always be overriden
+	protected GameObject(String objectName, String description, CoordinatePair location){
+		this.id = "-1";	//should always be overriden
 		this.name = objectName;
-		this.className = className;
+		this.className = "GameObject";
 		this.description = description;
-		this.id = ID;
-		location = new CoordinatePair(); // default constructor, (0 , 0)
+		this.location = location;
 		
 	}
 	
-        
-        //Get's the game objects current state. By default the return value is 0. 
-        /*
-        * Each game object that actually has multiple states should override
-        * this method and use logic to return different states. The int return 
-        * value should be specified in a a public enum in that game object 
-        * called States
-        */
-        public int getState(){return 0;}
-	public int getID(){ return id; }
+	/**
+	 * Gets ID
+	 * 
+	 * @author Chris Moscoso
+	 * @return GameObject's ID
+	 */
+	public String getID(){ return id; }
+	
+	/**
+	 * Sets ID
+	 * 
+	 * @author Chris Moscoso
+	 * @param id the ID to be set
+	 */
 	public void setID(int id) {this.id = id;}
+	
+	/**
+	 * Gets Class name
+	 * 
+	 * @author Chris Moscoso
+	 * @return GameObject's Class name
+	 */
 	public String getClassName(){ return className; }
+	
+	/**
+	 * Gets Description
+	 * 
+	 * @author Chris Moscoso
+	 * @return GameObject's ID
+	 */
 	public String getDescription(){ return description; }
+	
+	/**
+	 * Gets object's name (In-game name)
+	 * 
+	 * @author Chris Moscoso
+	 * @return GameObject's In-game name
+	 */
 	public String getName() { return name; }
+	
+	/**
+	 * Gets the CoordinatePair location of the object
+	 * 
+	 * @author Chris Moscoso
+	 * @return CoordinatePair location of the object
+	 */
 	public CoordinatePair getLocation() { return location; };
+	
+	/**
+	 * Sets the CoordinatePair location of the object
+	 * 
+	 * @author Chris Moscoso
+	 * @param p the CoordinatePair to be set 
+	 */
 	public void setLocation(CoordinatePair p) { location = p; };
 }

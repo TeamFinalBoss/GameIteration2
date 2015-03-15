@@ -1,45 +1,85 @@
 package model.entity;
 
 import java.awt.Point;
+
+import model.gameObject.GameObject;
 import model.map.Direction;
+import model.map.pair.CoordinatePair;
 
 /** 
  * The class Entity defines a common type for all entities (beings) in the game. 
- * @author Matthew Kroeze, Chris Moscoso
- * @version 1.0.0 2015-03-14
+ * 
+ * ID: 1
+ * 
+ * @author Matthew Kroeze, Chris Moscoso, Michael Cohen
+ * @version 1.1.0 2015-03-15
  */
-public class Entity{
+public class Entity extends GameObject{
 	private Inventory myInventory;
 	private Occupation myOccupation;
-        private Direction myDirection;
-        private int speed;
-        private Point location; 
-        
-        private static Entity player;
+    private Direction myDirection;
+    private int speed;
+
+    
         
     public Entity(){
-        myInventory = new Inventory();
-        myOccupation = new Occupation();
+    	super("Generic Entity", "Generic description", new CoordinatePair());
+        
+    	this.myInventory = new Inventory();
+        this.myOccupation = new Occupation();
+        this.myDirection = Direction.South;
+        this.speed = 0; 
+        
+        this.id = "1"; 
+        this.className = "Entity";
+        
+        
     }
     
+    public Entity(String objectName, String description, CoordinatePair location, 
+    		Inventory inventory, Occupation occupation, Direction direction, int speed){
+    	super(objectName, description, location);
+    	
+    	this.id = "1";
+    	this.className = "Entity";
+    	this.speed = 0;
+    	
+    	this.myOccupation = occupation;
+    	this.myDirection = direction;
+    	this.myInventory = inventory;
+    }
+    
+    /**
+     * Gets Direction
+     * 
+     * @author Matthew Kroeze
+     * @return Direction of Entity
+     */
     public Direction getDirection() {
         return myDirection;
     }
 
+    /**
+     * Sets Direction
+     * 
+     * @author Matthew Kroeze
+     * @param direction to set 
+     */
     public void setDirection(Direction direction) {
         myDirection = direction;
     }
 
-    public void setSpeed(int s) {
-        speed = s;
+    /**
+     * Sets Speed
+     * 
+     * @author Matthew Kroeze
+     * @param speed to set
+     */
+    public void setSpeed(int speed) {
+        this.speed = speed;
     }
     
-    public static Entity getPlayer(){
-        if(player == null){
-            player = new Entity();
-        }
-        return player;
-    }
+
     
     
 }
