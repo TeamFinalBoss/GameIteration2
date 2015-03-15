@@ -30,9 +30,9 @@ public class TakeableFactory implements PlaceableObjectFactory{
 	 * @return the list of Takeable items created by this method
 	 * @see Takeable
 	 */
-	public ArrayList<GameObject> generate(Element head)
+	public ArrayList<MapObject> generate(Element head)
 	{
-		ArrayList<GameObject> items = new ArrayList<GameObject>();
+		ArrayList<MapObject> items = new ArrayList<MapObject>();
 		
 		if(head.getTagName().equals("sack") || head.getTagName().equals("armory")) {
 			NodeList nodes = head.getElementsByTagName("takeableItem");
@@ -40,7 +40,7 @@ public class TakeableFactory implements PlaceableObjectFactory{
 			for(int i = 0; i < nodes.getLength(); i++)
 			{
 				Element item = (Element) nodes.item(i);
-				GameObject it = null;
+				MapObject it = null;
 				
 				switch(item.getAttribute("name")){
 				case "whatever":
@@ -59,7 +59,7 @@ public class TakeableFactory implements PlaceableObjectFactory{
 			for(int i = 0; i < nodes.getLength(); i++)
 			{
 				Element item = (Element) nodes.item(i);
-				GameObject it = null;
+				MapObject it = null;
 				
 				switch(item.getAttribute("name")){
 				case "whatever":

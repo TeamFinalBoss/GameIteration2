@@ -2,7 +2,7 @@ package model.factories;
 
 
 import java.util.ArrayList;
-import model.gameObject.GameObject;
+import model.gameObject.MapObject;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import model.entity.Occupation;
@@ -38,9 +38,9 @@ public class EntityFactory implements PlaceableObjectFactory{
 	 * @return the list of Entities created by this method
 	 * @see Entity
 	 */
-	public ArrayList<GameObject> generate(Element head)
+	public ArrayList<MapObject> generate(Element head)
 	{
-		ArrayList<GameObject> entities = new ArrayList<GameObject>();
+		ArrayList<MapObject> entities = new ArrayList<MapObject>();
 		NodeList nodes = head.getElementsByTagName("entity");
 		
 		for(int i = 0; i < nodes.getLength(); i++)
@@ -50,8 +50,8 @@ public class EntityFactory implements PlaceableObjectFactory{
 			Element sackHead = (Element) e.getElementsByTagName("sack").item(0);
 			Element armoryHead = (Element) e.getElementsByTagName("armory").item(0);
 			
-			ArrayList<GameObject> sackContents = inventoryFactory.generate(sackHead);
-			ArrayList<GameObject> armoryContents = inventoryFactory.generate(armoryHead);
+			ArrayList<MapObject> sackContents = inventoryFactory.generate(sackHead);
+			ArrayList<MapObject> armoryContents = inventoryFactory.generate(armoryHead);
 			
 			Element s = (Element) e.getElementsByTagName("stats").item(0);
 			
@@ -96,11 +96,11 @@ public class EntityFactory implements PlaceableObjectFactory{
 			
 			if(en == null) continue;
 			
-			for(GameObject item : sackContents) {
+			for(MapObject item : sackContents) {
 				en.addItem((Takeable) item);
 			}
 			
-			for(GameObject item : armoryContents) {
+			for(MapObject item : armoryContents) {
 				en.addItem((Takeable) item);
 				en.equipItem((Equipable) item);
 			}
@@ -114,7 +114,7 @@ public class EntityFactory implements PlaceableObjectFactory{
 	}
 
     @Override
-    public ArrayList<model.util.GameObject> generate(Element head) {
+    public ArrayList<model.util.MapObject> generate(Element head) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

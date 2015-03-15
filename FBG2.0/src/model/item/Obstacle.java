@@ -1,6 +1,6 @@
 package model.item;
 
-import model.gameObject.GameObject;
+import model.gameObject.MapObject;
 import model.map.pair.CoordinatePair;
 
 /**
@@ -10,11 +10,11 @@ import model.map.pair.CoordinatePair;
  * 
  * ID: 4
  * 
- * @see GameObject
+ * @see MapObject
  * @author Michael Cohen
  *
  */
-public class Obstacle extends GameObject implements Item {
+public class Obstacle extends MapObject implements Item {
 	public Obstacle(){
 		super("Generic Obstacle", "Generic description", new CoordinatePair());
 		

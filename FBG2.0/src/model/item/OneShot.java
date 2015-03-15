@@ -1,6 +1,6 @@
 package model.item;
 
-import model.gameObject.GameObject;
+import model.gameObject.MapObject;
 import model.map.pair.CoordinatePair;
 
 /**
@@ -10,11 +10,11 @@ import model.map.pair.CoordinatePair;
  * 
  * ID: 5
  * 
- * @see GameObject
+ * @see MapObject
  * @author Michael Cohen
  *
  */
-public class OneShot extends GameObject implements Item {
+public class OneShot extends MapObject implements Item {
 	public OneShot(){
 		super("Generic One Shot", "Generic description", new CoordinatePair());
 		

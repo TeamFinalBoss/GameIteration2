@@ -2,7 +2,7 @@ package model.map.tile;
 
 import model.ability.Effect;
 import model.entity.Entity;
-import model.gameObject.GameObject;
+import model.gameObject.MapObject;
 import model.map.pair.CoordinatePair;
 
 /**
@@ -12,11 +12,11 @@ import model.map.pair.CoordinatePair;
  * 
  * ID: 6
  * 
- * @see GameObject
+ * @see MapObject
  * @author Michael Cohen
  *
  */
-public abstract class AreaEffect extends GameObject {
+public abstract class AreaEffect extends MapObject {
 
     Effect effect;
 

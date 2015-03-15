@@ -2,7 +2,7 @@ package model.entity;
 
 import java.awt.Point;
 
-import model.gameObject.GameObject;
+import model.gameObject.MapObject;
 import model.map.Direction;
 import model.map.pair.CoordinatePair;
 
@@ -11,11 +11,11 @@ import model.map.pair.CoordinatePair;
  * 
  * ID: 1
  * 
- * @see GameObject
+ * @see MapObject
  * @author Matthew Kroeze, Chris Moscoso, Michael Cohen
  * @version 1.1.0 2015-03-15
  */
-public class Entity extends GameObject{
+public class Entity extends MapObject{
 	private Inventory myInventory;
 	private Occupation myOccupation;
     private Direction myDirection;

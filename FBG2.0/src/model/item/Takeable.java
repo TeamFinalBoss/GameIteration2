@@ -1,6 +1,6 @@
 package model.item;
 
-import model.gameObject.GameObject;
+import model.gameObject.MapObject;
 import model.map.pair.CoordinatePair;
 
 /**
@@ -10,11 +10,11 @@ import model.map.pair.CoordinatePair;
  * 
  * ID: 2
  * 
- * @see GameObject
+ * @see MapObject
  * @author Michael Cohen
  *
  */
-public class Takeable extends GameObject implements Item {
+public class Takeable extends MapObject implements Item {
 	
 	public Takeable(){
 		super("Generic Takeable", "Generic description", new CoordinatePair());

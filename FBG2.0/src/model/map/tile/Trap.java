@@ -1,7 +1,7 @@
 package model.map.tile;
 
 import model.entity.Entity;
-import model.gameObject.GameObject;
+import model.gameObject.MapObject;
 import model.map.pair.CoordinatePair;
 
 /**
@@ -12,10 +12,10 @@ import model.map.pair.CoordinatePair;
  * 
  * ID: 7
  * 
- * @see GameObject
+ * @see MapObject
  * @author Aidan Pace, Michael Cohen
  */
-public abstract class Trap extends GameObject{
+public abstract class Trap extends MapObject{
 
 	private int difficulty;
 	
