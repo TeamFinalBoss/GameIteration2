@@ -10,6 +10,7 @@ import model.map.pair.CoordinatePair;
  * 
  * ID: 4
  * 
+ * @see GameObject
  * @author Michael Cohen
  *
  */
@@ -17,7 +18,7 @@ public class Obstacle extends GameObject implements Item {
 	public Obstacle(){
 		super("Generic Obstacle", "Generic description", new CoordinatePair());
 		
-		this.id = "3";
+		this.id = "4";
 		this.className = "Obstacle";
 		
 		//Other properties set here
@@ -26,7 +27,7 @@ public class Obstacle extends GameObject implements Item {
 	public Obstacle(String objectName, String description, CoordinatePair location){
 		super(objectName, description, location);
 		
-		this.id = "3";
+		this.id = "4";
 		this.className = "Obstacle";
 		
 		//Other properties set here

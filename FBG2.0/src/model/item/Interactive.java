@@ -10,6 +10,7 @@ import model.map.pair.CoordinatePair;
  * 
  * ID: 3
  * 
+ * @see GameObject
  * @author Michael Cohen
  *
  */

@@ -8,8 +8,9 @@ import model.map.pair.CoordinatePair;
  * Implements Item interface
  * Extends GameObject abstract class
  * 
- * ID: 4
+ * ID: 5
  * 
+ * @see GameObject
  * @author Michael Cohen
  *
  */
@@ -17,7 +18,7 @@ public class OneShot extends GameObject implements Item {
 	public OneShot(){
 		super("Generic One Shot", "Generic description", new CoordinatePair());
 		
-		this.id = "4";
+		this.id = "5";
 		this.className = "One Shot";
 		
 		//Other properties set here
@@ -26,7 +27,7 @@ public class OneShot extends GameObject implements Item {
 	public OneShot(String objectName, String description, CoordinatePair location){
 		super(objectName, description, location);
 		
-		this.id = "4";
+		this.id = "5";
 		this.className = "One Shot";
 		
 		//Other properties set here

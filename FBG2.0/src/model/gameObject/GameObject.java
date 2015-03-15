@@ -52,7 +52,7 @@ public abstract class GameObject {
 	 * @author Chris Moscoso
 	 * @param id the ID to be set
 	 */
-	public void setID(int id) {this.id = id;}
+	public void setID(String id) {this.id = id;}
 	
 	/**
 	 * Gets Class name

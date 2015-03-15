@@ -11,6 +11,7 @@ import model.map.pair.CoordinatePair;
  * 
  * ID: 1
  * 
+ * @see GameObject
  * @author Matthew Kroeze, Chris Moscoso, Michael Cohen
  * @version 1.1.0 2015-03-15
  */
