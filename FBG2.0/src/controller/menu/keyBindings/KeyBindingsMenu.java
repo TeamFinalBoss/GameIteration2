@@ -39,13 +39,13 @@ public class KeyBindingsMenu implements Describeable {
 		this.bindingsCommands = bindingsCommands;
 	}
 
+	
+	//TODO is this necessary?
 	@Override
-	public List<String> getDiscription() {
-		return keyBindings.getDiscription();
+	public List<String> getDescription() {
+		return keyBindings.getDescription();
 	}
 
-	
-	
 	public void next() {
 		int index = bindingsOptions.indexOf(currentSelection);
 		index = ++index % bindingsOptions.size();
@@ -64,6 +64,10 @@ public class KeyBindingsMenu implements Describeable {
 	
 	private void setActiveOption(KeyBindingsOption keyBindingsOption) {
 		this.currentSelection = keyBindingsOption;
+	}
+	
+	public KeyBindingsOption getActiveOption() {
+		return this.currentSelection;
 	}
 	
 }

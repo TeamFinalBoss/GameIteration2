@@ -35,7 +35,7 @@ public class BindingsUpdate implements Commandable, Describeable {
 	}
 
 	@Override
-	public List<String> getDiscription() {
+	public List<String> getDescription() {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -37,9 +37,15 @@ public class Menu implements Describeable, Commandable {
 		this.menuCommands = menuCommands;
 	}
 	
+	
+	/**
+	 * Returns all possible enums as human readable text.
+	 * @return List<String>
+	 */
 	@Override
-	public List<String> getDiscription() {
+	public List<String> getDescription() {
 		List<String> returnList = new ArrayList<String>();
+		
 		for(MenuOption opt : menuOptions) {
 			returnList.add(opt.toString());
 		}

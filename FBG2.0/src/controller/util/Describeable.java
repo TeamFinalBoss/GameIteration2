@@ -13,5 +13,5 @@ public interface Describeable {
 	 * Returns a list of strings to be displayed.
 	 * @return List<String>
 	 */
-	public List<String> getDiscription();
+	public List<String> getDescription();
 }

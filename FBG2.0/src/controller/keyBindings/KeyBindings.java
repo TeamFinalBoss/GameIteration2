@@ -23,6 +23,10 @@ public class KeyBindings implements Saveable, Describeable {
 		keyBindings = new HashMap<Integer, KeyBindingsOption>();
 	}
 	
+	public KeyBindings(Map<Integer, KeyBindingsOption> map) {
+		this.keyBindings = map;
+	}
+	
 	public void addBinding(Integer key, KeyBindingsOption value) {
 		keyBindings.put(key, value);
 	}
@@ -42,9 +46,8 @@ public class KeyBindings implements Saveable, Describeable {
 			strBuilder.append("<binding ");
 			strBuilder.append("key=\"" + entry.getKey() + "\" ");
 			strBuilder.append("value=\"" + entry.getValue() + "\"");
-			strBuilder.append("\\>");
+			strBuilder.append("\\>\n");
 		}
-		
 		strBuilder.append("</keyBindings>\n");
 		
 		return strBuilder.toString();
@@ -55,14 +58,16 @@ public class KeyBindings implements Saveable, Describeable {
 		KeyBindings updatedBindings = new KeyBindings();
 		
 		for(Map.Entry<Integer,Integer> entry : update.getBindingsUpdate().entrySet() ) {
-			updatedBindings.addBinding(entry.getKey(), this.keyBindings.get(entry.getValue()));
+			if(keyBindings.containsKey(entry.getValue())) {
+				updatedBindings.addBinding(entry.getKey(), this.keyBindings.get(entry.getValue()));
+			}
 		}
 		
 		return updatedBindings;
 	}
 
 	@Override
-	public List<String> getDiscription() {
+	public List<String> getDescription() {
 		List<String> returnList = new ArrayList<>();
 		for(Map.Entry<Integer, KeyBindingsOption> entry : keyBindings.entrySet()) {
 			returnList.add(entry.getValue().toString() + "\t" + KeyEvent.getKeyText(entry.getKey()));
