@@ -15,6 +15,7 @@ import model.map.GameMap;
 import view.window.GameWindow;
 import view.scene.Scene;
 import view.viewport.MainMenuViewPort;
+import view.viewport.PauseViewPort;
 
 /**
  * This class is the director of our game, integrating the various subsystems.
@@ -60,9 +61,14 @@ public class GameDirector {
 
         gameScene = new Scene();
         MapViewPort mapVP = new MapViewPort();
+        PauseViewPort pauseVP = new PauseViewPort();
 
         gameScene.addViewport(mapVP);//Add mapVP to gameScene
         map.addObserver(mapVP);//Add mapVP as an Observer to map
+        
+        controller.addObserver(pauseVP, SceneType.PAUSE_MENU);
+        
+        
         sceneChanger.changeScene(SceneType.GAME);
         activeScene = gameScene;
     }
@@ -85,8 +91,10 @@ public class GameDirector {
      * and paints it to the screen.
      */
     public void drawGame() {
+        if(activeScene != null){
         BufferedImage gameImage = activeScene.getImage();//render the game to buffer
-        window.paintImageToScreen(gameImage); //paint the buffer to screen
+            window.paintImageToScreen(gameImage); //paint the buffer to screen
+        }
     }
 
     /**

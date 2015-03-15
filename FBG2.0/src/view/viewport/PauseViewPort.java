@@ -1,48 +1,31 @@
+
 package view.viewport;
 
+import controller.util.Describeable;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
-
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-
-import controller.util.Describeable;
-import model.director.GameDirector;
-import model.menu.Menu;
 
 /**
- * The MainMenuViewPort draws the main menu
  *
  * @author ChrisMoscoso
  */
-public class MainMenuViewPort implements ViewPort, Observer {
+public class PauseViewPort implements ViewPort, Observer{
 
     private String[] options;
     private int activeOptionIndex;
     private int width, height;
     private int logoHeight;
     private final int logoY = 100;
-
+    
     @Override
     public void draw(Graphics g) {
-        if (GameDirector.getSize() != null) {
-            width = GameDirector.getSize().width;
-            height = GameDirector.getSize().height;
-        }
-
-        /*DRAW BG*/
-        ImageIcon imageIcon = new ImageIcon("src/resources/img/bg.gif");
-        Image img = imageIcon.getImage();
-        g.drawImage(img, 0, 0, width, height, null);
-        
-
         /*DRAW LOGO*/
         BufferedImage fbLogo;
         logoHeight = 0;
@@ -76,4 +59,5 @@ public class MainMenuViewPort implements ViewPort, Observer {
         options = m.getDescription();
         activeOptionIndex = m.getCurrentIndex();
     }
+    
 }

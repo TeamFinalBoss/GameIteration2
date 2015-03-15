@@ -38,9 +38,8 @@ public class GameMap extends Observable {
         this.tiles = t;
         this.items = new Locations<>();
         this.entities = new Locations<>();
+        this.addEntity(Entity.getPlayer(), new CoordinatePair(1, 1));
         this.traps = new Locations<>();
-        setChanged();
-        notifyObservers(tiles);
     }
 
     public GameMap(Tile[][] tiles) {
@@ -48,8 +47,6 @@ public class GameMap extends Observable {
         this.items = new Locations<>();
         this.entities = new Locations<>();
         this.traps = new Locations<>();
-        setChanged();
-        notifyObservers(tiles);
     }
 
     /**
@@ -60,11 +57,10 @@ public class GameMap extends Observable {
      * @param e Entity to be added to the map
      * @param CP where the entity should be added
      */
-    public boolean addEntity(Entity e, CoordinatePair CP) {
+    public final boolean addEntity(Entity e, CoordinatePair CP) {
         if (CoordPairIsValid(CP) && entities.getObjectAt(CP) == null) {
             this.entities.addObject(CP, e);
-            setChanged();
-            notifyObservers(tiles);
+            updateView();
             return true;
         } else {
             return false;
@@ -79,11 +75,10 @@ public class GameMap extends Observable {
      * @param item the item to be added to the map
      * @param CP where the item is to be added
      */
-    public boolean addItem(Item item, CoordinatePair CP) {
+    public final boolean addItem(Item item, CoordinatePair CP) {
         if (CoordPairIsValid(CP) && items.getObjectAt(CP) == null) {
             this.items.addObject(CP, item);
-            setChanged();
-            notifyObservers(tiles);
+            updateView();
             return true;
         } else {
             return false;
@@ -99,11 +94,10 @@ public class GameMap extends Observable {
      * @param trap the trap to be added to the map
      * @param CP where the trap is to be added
      */
-    public boolean addTrap(Trap trap, CoordinatePair CP) {
+    public final boolean addTrap(Trap trap, CoordinatePair CP) {
         if (CoordPairIsValid(CP) && traps.getObjectAt(CP) == null) {
             this.traps.addObject(CP, trap);
-            setChanged();
-            notifyObservers(tiles);
+            updateView();
             return true;
         } else {
             return false;
@@ -143,11 +137,25 @@ public class GameMap extends Observable {
     public int getHeight() {
         return this.tiles[0].length;
     }
-    
-    @Override ////Same as super but we want to update immediately when observer gets added
-    public void addObserver(Observer o){
-        super.addObserver(o);
+
+    /**
+     * This should be called when you want to update the view objects observing
+     * the map (in this case the MapViewPort). For the sake of encapsulation it
+     * only passes the objects needed for drawing the view.
+     */
+    private void updateView() {
         setChanged();
-        notifyObservers(tiles);
+        Object[] objects = {tiles, entities, items, traps};
+        notifyObservers(objects);
+    }
+
+    @Override //Same as super but we want to update the view immediately when the view gets added
+    public void addObserver(Observer o) {
+        super.addObserver(o);
+        updateView();
+    }
+
+    public void moveGameObjects() {
+        //for()
     }
 }

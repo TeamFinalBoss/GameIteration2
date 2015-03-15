@@ -36,6 +36,7 @@ public enum KeyBindingsOption {
 	
 	private String value;
 	
+        @Override
 	public String toString() {
 		return this.value;
 	}
