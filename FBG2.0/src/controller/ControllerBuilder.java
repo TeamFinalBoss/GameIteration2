@@ -11,6 +11,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import controller.commands.Commandable;
+import controller.commands.game.Pause;
 import controller.commands.keyBindings.BindingsUpdate;
 import controller.commands.keyBindings.CancelBindingsUpdate;
 import controller.commands.keyBindings.SaveBindingsUpdate;
@@ -78,6 +79,7 @@ public class ControllerBuilder {
 		controllers.put(SceneType.MAIN_MENU, mainMenuController);
 		controllers.put(SceneType.PAUSE_MENU, pauseMenuController);
 		controllers.put(SceneType.KEY_BINDINGS, keyBindingsController);
+		controllers.put(SceneType.GAME, gameController);
 		
 		
 		
@@ -87,18 +89,26 @@ public class ControllerBuilder {
 	
 	
 	/**********************************************************************************************
-	 * 	   Key Bindings Controller Builder
+	 * 	   Game Controller builder
 	 *
 	 ************************************************************************************************/
 	
 	private static SceneController buildGameController(KeyOptions gameOptions) {
-		return null;
+		return new SceneController(gameOptions);
 	}
 
 
 	private static KeyOptions buildGameKeyOptions() {
-		// TODO Auto-generated method stub
-		return null;
+		Map<Integer, Commandable> options = new HashMap<Integer, Commandable>();
+		for(Map.Entry<Integer, KeyBindingsOption> entry : bindings.getBindings().entrySet()) {
+			switch(entry.getValue()) {
+				case PAUSE : 
+					options.put(entry.getKey(), new Pause());
+				default :
+					break;	
+			}
+		}
+		return new KeyOptions(options);
 	}
 
 
