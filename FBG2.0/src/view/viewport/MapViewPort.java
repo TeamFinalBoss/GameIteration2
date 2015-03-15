@@ -3,16 +3,9 @@ package view.viewport;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 import model.director.GameDirector;
-import model.map.GameMap;
 import model.map.tile.Tile;
 
 /**
@@ -26,7 +19,6 @@ public class MapViewPort implements ViewPort, Observer {
 
     @Override
     public void draw(Graphics g) {
-        System.out.println("what's the hold up");
         for (int i = 0; i < widthInTiles; i++) {
             for (int j = 0; j < heightInTiles; j++) {
                 /*try {
