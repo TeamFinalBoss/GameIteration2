@@ -1,6 +1,5 @@
 package model.map;
 
-import model.ability.CoordinatePair;
 import java.util.ArrayList;
 
 /**
@@ -30,7 +29,6 @@ public class Locations <S>{
 			if (obj == p.getLeft())
 				return p.getRight();
 		}
-		
 		throw new RuntimeException("Object not contained in Locations");
 	}
 	
@@ -38,17 +36,18 @@ public class Locations <S>{
 	 * Gets the object contained somewhere on the map based on its CoordinatePair
 	 * If the CoordinatePair provided is not present, a runtime exception is thrown
 	 * 
-	 * @author Michael Cohen
+	 * @author Michael Cohen, (Jason Owens)
 	 * @param pair location of the object which is queried 
-	 * @return object located at pair on the map
+	 * @return object located at pair on the map, or null if Object isn't on the map
 	 */
-	public S getObject(CoordinatePair pair){
+	public S getObjectAt(CoordinatePair pair){
 		for (Pair<S, CoordinatePair> p : locations){
 			if (pair == p.getRight())
 				return p.getLeft();
 		}
-		
-		throw new RuntimeException("CoordinatePair not contained in Locations");
+                
+		return null;//Jason changed this. Returning null is more useful and isn't dangerous.
+		//throw new RuntimeException("CoordinatePair not contained in Locations");
 	}
 	
 	/**
