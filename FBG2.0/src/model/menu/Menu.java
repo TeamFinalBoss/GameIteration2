@@ -112,7 +112,7 @@ public class Menu extends Observable {
         /**
          * Saves the game to a file.
          */
-        SAVE_FILE,
+         SAVE_GAME,
         /**
          * Exits the game.
          */

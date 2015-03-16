@@ -35,12 +35,9 @@ public class MainMenuViewPort implements ViewPort, Observer {
     public MainMenuViewPort(){
         imageIcon = new ImageIcon("src/resources/img/bg.gif");
         try {
-            fbLogo = ImageIO.read(new File("src/resources/img/FinalBoss.png"));
-            logoHeight = fbLogo.getHeight();
-            logoX = width / 2 - fbLogo.getWidth() / 2;
-            
+            fbLogo = ImageIO.read(new File("src/resources/img/FinalBoss.png"));          
         } catch (IOException ex) {
-            System.out.println(ex);
+            logoHeight = 0;
         }
     }
 
@@ -57,8 +54,8 @@ public class MainMenuViewPort implements ViewPort, Observer {
         
 
         /*DRAW LOGO*/
-        
-        logoHeight = 0;
+        logoX = width / 2 - fbLogo.getWidth() / 2;
+        logoHeight = fbLogo.getHeight();
         g.drawImage(fbLogo, logoX, logoY, null);
         
         /*DRAW MENU*/

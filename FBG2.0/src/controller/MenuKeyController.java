@@ -39,10 +39,15 @@ public class MenuKeyController implements KeyListener {
         }
         /*Confirm menu*/
         if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-
+        /*Options of Menu.MenuOption
+            NEW_GAME,SWITCH_TO_LOAD_MENU,SAVE_GAME,EXIT,RESUME_GAME,OPEN_SAVE_FILE,RETURN_TO_MAIN_MENU
+        */
             switch (menu.getCurrentSelection()) {
                 case NEW_GAME:
                     GameDirector.getGameDirector().startNewGame();
+                    break;
+                case RETURN_TO_MAIN_MENU:
+                    GameDirector.getGameDirector().returnToMainMenu();
                     break;
                 case EXIT:
                     System.exit(0);

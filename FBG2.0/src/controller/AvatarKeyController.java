@@ -9,7 +9,7 @@ import model.map.Direction;
  *
  * @author ChrisMoscoso
  */
-public class PlayerKeyController implements KeyListener {
+public class AvatarKeyController implements KeyListener {
 
     Entity player;
     
