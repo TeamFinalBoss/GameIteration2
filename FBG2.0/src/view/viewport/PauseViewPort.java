@@ -1,7 +1,6 @@
 
 package view.viewport;
 
-import controller.util.Describeable;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -11,6 +10,7 @@ import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
 import javax.imageio.ImageIO;
+import model.menu.Menu;
 
 /**
  *
@@ -55,9 +55,9 @@ public class PauseViewPort implements ViewPort, Observer{
 
     @Override
     public void update(Observable o, Object arg) {
-        Describeable m = (Describeable) o;
-        options = m.getDescription();
-        activeOptionIndex = m.getCurrentIndex();
+        Menu m = (Menu) o;
+        options = m.getOptions();
+        activeOptionIndex = m.getCurrentSelectionIndex();
     }
     
 }

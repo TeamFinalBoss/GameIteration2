@@ -28,7 +28,7 @@ public class GameEngine implements Runnable {
         FPS = FramesPerSecond;
         thread = new Thread(this);
         director = GameDirector.getGameDirector();
-        director.startMainMenuScene();
+        director.start();
         start();
     }
 

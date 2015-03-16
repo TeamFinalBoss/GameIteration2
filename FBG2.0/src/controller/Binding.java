@@ -1,5 +1,5 @@
 
-package controller2;
+package controller;
 
 /**
  *
