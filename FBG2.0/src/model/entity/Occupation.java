@@ -1,6 +1,5 @@
 package model.entity;
 
-import model.stats.Stats;
 import model.ability.AbilityLibrary;
 
 /**
