@@ -118,6 +118,7 @@ public class AbilityLibraryTest {
         	
         	//Adding the ability to the ability libraries so we can call it
         	testClass.addAbility(ability1);
+                
         	//Assert that the outcome of performActiveAbility is true
         	//This is the actual call that we are testing.
         	assertTrue(testClass.performActiveAbility("Test Name",entity1));

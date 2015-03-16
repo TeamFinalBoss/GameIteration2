@@ -8,6 +8,7 @@ import model.map.Direction;
 import model.director.CombatCoordinator;
 import model.map.pair.CoordinatePair;
 import java.util.ArrayList;
+import model.entity.Entity;
 
 /**
  *  This is the parent class of all usable abilities
@@ -32,8 +33,8 @@ public class Ability {
         return name;
     }
 
-    public void performAbility(Direction dir) {
-        ArrayList<CoordinatePair> affectedTiles = getAffectedTiles(dir);
+    public void performAbility(Entity callingEntity) {
+        ArrayList<CoordinatePair> affectedTiles = getAffectedTiles(callingEntity);
         myCC.attemptAffectEntities(affectedTiles, myEffect);
     }
     
@@ -41,11 +42,11 @@ public class Ability {
     *
     * @author Jason Owens
     * To be overridden by subclasses
-     * @param dir
+    * @param dir
     * 
     * @return ArrayList of Coordinates affected by ability
     */
-    protected ArrayList<CoordinatePair> getAffectedTiles(Direction dir){
+    protected ArrayList<CoordinatePair> getAffectedTiles(Entity callingEntity){
         throw new UnsupportedOperationException("Not supported yet.");
     } //returns CoordinatePairs relative to (0,0) as entity location
 }
