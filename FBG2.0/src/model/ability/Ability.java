@@ -4,6 +4,7 @@ package model.ability;
  * TODO: finish this (pushed just so everyone can see it)
  */
 
+import model.ability.effects.Effect;
 import model.map.Direction;
 import model.director.CombatCoordinator;
 import model.map.pair.CoordinatePair;

@@ -42,8 +42,8 @@ public class Stats implements Saveable{
 		this.agility = 0;
 		this.intellect = 0;
 		this.hardiness = 0;
-		this.movement = 0;
-		this.hpMax = 0;
+		this.movement = 1;
+		this.hpMax = 5;
 		this.mpMax = 0;
 		this.defense = 0;
 		this.offense = 0; 

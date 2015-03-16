@@ -21,6 +21,7 @@ public class Entity extends MapObject{
     private Direction myDirection;
     private int speed;
     private Point location; 
+    private StatMaster myStatMaster;
        
     private static Entity player;
         
@@ -74,6 +75,11 @@ public class Entity extends MapObject{
      */
     public void setSpeed(int speed) {
         this.speed = speed;
+    }
+
+    public void statMerge() {
+        
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 

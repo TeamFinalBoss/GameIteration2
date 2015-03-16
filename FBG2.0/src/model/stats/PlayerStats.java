@@ -43,8 +43,8 @@ public class PlayerStats extends Stats  {
 		
 		public PlayerStats()
 		{
-			super(0,0,0,0,0,0,0,0,0);
-			this.hpCurrent = 0;
+			super();
+			this.hpCurrent = 5;
 			this.mpCurrent = 0;
 			this.level = 1;
 			this.livesLeft = 0;

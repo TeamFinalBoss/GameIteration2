@@ -6,7 +6,7 @@
 package model.map;
 
 import java.util.ArrayList;
-import model.ability.Effect;
+import model.ability.effects.Effect;
 import model.map.pair.CoordinatePair;
 
 /**
