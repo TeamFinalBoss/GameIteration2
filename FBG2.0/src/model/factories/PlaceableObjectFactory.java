@@ -21,5 +21,5 @@ public interface PlaceableObjectFactory {
     * @param head the node to begin search at
     * @return A list of objects created by this method
     */
-	public ArrayList<GameObject> generate(Element head);
+	public ArrayList<MapObject> generate(Element head);
 }

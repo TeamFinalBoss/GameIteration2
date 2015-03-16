@@ -27,16 +27,16 @@ public class OneShotFactory implements PlaceableObjectFactory{
 	 * @return the list of One Shot items created by this method
 	 * @see OneShot
 	 */
-	public ArrayList<GameObject> generate(Element head)
+	public ArrayList<MapObject> generate(Element head)
 	{
-		ArrayList<GameObject> items = new ArrayList<GameObject>();
+		ArrayList<MapObject> items = new ArrayList<MapObject>();
 		
 		NodeList nodes = head.getElementsByTagName("oneshot");
 			
 		for(int i = 0; i < nodes.getLength(); i++)
 		{
 			Element item = (Element) nodes.item(i);
-			GameObject it = null;
+			MapObject it = null;
 				
 			switch(item.getAttribute("name")){
 			case "whatever":

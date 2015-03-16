@@ -2,11 +2,18 @@ package model.map;
 
 import java.util.Observable;
 import java.util.Observer;
+
+import model.map.tile.AreaEffect;
 import model.map.tile.Tile;
 import model.map.tile.Trap;
 import model.map.pair.CoordinatePair;
+import model.entity.Avatar;
 import model.entity.Entity;
+import model.item.Interactive;
 import model.item.Item;
+import model.item.Obstacle;
+import model.item.OneShot;
+import model.item.Takeable;
 
 /**
  * This is a container of all the entities, items, tiles, and traps. Currently,
@@ -24,9 +31,12 @@ public class GameMap extends Observable {
 
     private Locations<Entity> entities;
     private Locations<Item> items;
-    private Tile[][] tiles;
     private Locations<Trap> traps;
-
+    private Locations<AreaEffect> effects;
+    
+    private Tile[][] tiles;
+    
+    
     public GameMap() {
         Tile[][] t = new Tile[50][50];
         for (int i = 0; i < 50; i++) {
@@ -38,14 +48,20 @@ public class GameMap extends Observable {
         this.tiles = t;
         this.items = new Locations<>();
         this.entities = new Locations<>();
-        this.addEntity(Entity.getPlayer(), new CoordinatePair(1, 1));
+        this.effects = new Locations<>();
+        
+        this.addEntity(Avatar.getPlayer(), new CoordinatePair(1, 1)); //TODO change to avatar
         this.traps = new Locations<>();
     }
 
     public GameMap(Tile[][] tiles) {
         this.tiles = tiles;
+        
         this.items = new Locations<>();
         this.entities = new Locations<>();
+        this.effects = new Locations<>();
+        
+        this.addEntity(Avatar.getPlayer(), new CoordinatePair(1, 1)); //TODO change to avatar
         this.traps = new Locations<>();
     }
 
@@ -59,7 +75,7 @@ public class GameMap extends Observable {
      */
     public final boolean addEntity(Entity e, CoordinatePair CP) {
         if (CoordPairIsValid(CP) && entities.getObjectAt(CP) == null) {
-            this.entities.addObject(CP, e);
+            this.entities.addObject(e, CP);
             updateView();
             return true;
         } else {
@@ -77,14 +93,31 @@ public class GameMap extends Observable {
      */
     public final boolean addItem(Item item, CoordinatePair CP) {
         if (CoordPairIsValid(CP) && items.getObjectAt(CP) == null) {
-            this.items.addObject(CP, item);
+            this.items.addObject(item, CP);
             updateView();
             return true;
         } else {
             return false;
         }
     }
-
+    /**
+     * Adds an area effect to the map at the valid coordinate pair specified if not
+     * already occupied by another area effect
+     * 
+     * @author Michael Cohen
+     * @param effect the area effect to be added to the map
+     * @param CP where the area effect is to be added
+     * @return true if effect was added to the map
+     */
+    public final boolean addAreaEffect(AreaEffect effect, CoordinatePair CP){
+    	if (CoordPairIsValid(CP) && effects.getObjectAt(CP) == null){
+    		this.effects.addObject(effect, CP);
+    		updateView();
+    		return true;
+    	}
+    	else return false;
+    }
+    
     /**
      * Adds a trap to the map at the valid coordinate pair specified if not
      * already occupied by another trap.
@@ -96,7 +129,7 @@ public class GameMap extends Observable {
      */
     public final boolean addTrap(Trap trap, CoordinatePair CP) {
         if (CoordPairIsValid(CP) && traps.getObjectAt(CP) == null) {
-            this.traps.addObject(CP, trap);
+            this.traps.addObject(trap, CP);
             updateView();
             return true;
         } else {
