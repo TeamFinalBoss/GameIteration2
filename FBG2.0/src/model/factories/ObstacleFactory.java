@@ -30,16 +30,16 @@ public class ObstacleFactory implements PlaceableObjectFactory{
 	 * @return the list of Obstacles created by this method
 	 * @see Obstacle
 	 */
-	public ArrayList<GameObject> generate(Element head)
+	public ArrayList<MapObject> generate(Element head)
 	{
-		ArrayList<GameObject> items = new ArrayList<GameObject>();
+		ArrayList<MapObject> items = new ArrayList<MapObject>();
 		
 		NodeList nodes = head.getElementsByTagName("obstacle");
 			
 		for(int i = 0; i < nodes.getLength(); i++)
 		{
 			Element item = (Element) nodes.item(i);
-			GameObject it = null;
+			MapObject it = null;
 				
 			switch(item.getAttribute("name")){
 			case "whatever":
