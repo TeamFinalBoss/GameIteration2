@@ -3,7 +3,11 @@ package model.stats;
 
 import model.stats.Stats;
 
-
+/**
+ * 
+ * maintains temporary and normal stats for an Entity
+ * @author Jason Owens (and someone else who didn't comment)
+ */
 public class StatMaster {
 	private Stats tempStats;
 	private PlayerStats baseStats;
@@ -17,7 +21,7 @@ public class StatMaster {
 		this.tempStats = new Stats();
 		this.baseStats = new PlayerStats();
 	}
-	
+        	
 	public Stats getTempStats() {
 		return tempStats;
 	}

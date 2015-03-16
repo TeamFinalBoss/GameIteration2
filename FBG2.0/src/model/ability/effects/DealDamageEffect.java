@@ -4,22 +4,19 @@ import model.entity.Entity;
 import model.stats.PlayerStats;
 
 /**
- *
- * @author Owner
+ * 
+ * @author Jason Owens
  */
 public class DealDamageEffect extends oneTimeEffect {
     private int damageToDeal;
-    private PlayerStats myEffect;
 
     public DealDamageEffect(Entity entityToAffect, int damageToDeal) {
         super(entityToAffect);
-        myEffect = new PlayerStats();
-        myEffect.sethpCurrent(damageToDeal);
         applyEffect();
     }
     
     @Override
     protected final void applyEffect(){
-        myEntity.statMerge();
+        myEntity.dealDamage(damageToDeal);
     }
 }
