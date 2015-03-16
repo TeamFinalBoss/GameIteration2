@@ -1,6 +1,10 @@
 package model.stats;
 
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.StringReader;
+
 import model.stats.Stats;
 
 
@@ -34,6 +38,8 @@ public class ItemStats extends Stats{
 			this.value = 0;
 		}
 		
+		
+		
 		public int getDurability() {
 			return durability;
 		}
@@ -54,4 +60,32 @@ public class ItemStats extends Stats{
 		public void modValue(int valueMod) {
 			value += valueMod;
 		}
+
+		@Override
+		public String toXML() {
+			String superXML = super.toXML();
+			BufferedReader reader = new BufferedReader(new StringReader(superXML));
+			String xml = "<ItemStat>\n";
+		
+			String line;
+			try {
+				while((line = reader.readLine()) != null)
+				{
+					xml += "\t" + line + "\n";
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			xml += "\n";
+			xml += "\t<durability>" + this.durability + "</durability>\n";
+			xml += "\t<value>" + this.value + "</value>\n";
+			
+			
+			xml += "</ItemStat>";
+			return xml;
+		}
+		
+		
+	
 }
