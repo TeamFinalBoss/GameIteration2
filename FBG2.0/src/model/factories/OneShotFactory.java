@@ -2,10 +2,7 @@ package model.factories;
 
 import java.util.ArrayList;
 
-import model.map.CoordinatePair;
-import model.factories.PlaceableObjectFactory;
-import model.factories.PlaceableObjectFactory;
-import model.factories.PlaceableObjectFactory;
+import model.map.pair.CoordinatePair;
 import model.util.GameObject;
 
 import org.w3c.dom.Element;

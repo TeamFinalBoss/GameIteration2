@@ -1,7 +1,7 @@
 package model.gameObject;
 
 
-import model.map.CoordinatePair;
+import model.map.pair.CoordinatePair;
 
 public abstract class GameObject {
 	protected int id;

@@ -40,4 +40,8 @@ public class SceneChanger {
 			obs.update(type);
 		}
 	}
+	
+	public List<Observer> getObservers() {
+		return observers;
+	}
 }

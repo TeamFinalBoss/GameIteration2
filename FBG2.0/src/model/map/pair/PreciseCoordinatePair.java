@@ -1,14 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package model.map;
+package model.map.pair;
 
 /**
  * This is basically a clone of Coordinate pair, but for doubles.
- * Is there a better way to do this?
+ * Is there a better way to do this? 
  * @author Jason Owens
+ * 
+ * Yes, just use points of pixels not pairs of tiles/fractions of tiles . -Chris
  */
 public class PreciseCoordinatePair {
     private double x;
@@ -34,8 +31,7 @@ public class PreciseCoordinatePair {
     }
     
     public boolean equals(PreciseCoordinatePair CP){
-    	if(getX() == CP.getX() && getY() == CP.getY()) return true;
-    	return false;
+    	return getX() == CP.getX() && getY() == CP.getY();
     }
     
     public void set( double nextX, double nextY){

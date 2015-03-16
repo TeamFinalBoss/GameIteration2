@@ -46,4 +46,16 @@ public class KeyDispatcher implements Observer {
 	public void update(SceneType type) {
 		activeController = sceneControllers.get(type);
 	}
+	
+	public SceneChanger getSceneChanger() {
+		return this.sceneChanger;
+	}
+
+	public SceneController getActiveController() {
+		return activeController;
+	}
+
+	public void setActiveController(SceneController activeController) {
+		this.activeController = activeController;
+	}
 }

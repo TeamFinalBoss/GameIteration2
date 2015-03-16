@@ -1,10 +1,17 @@
 package controller;
 
 import java.awt.event.KeyListener;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
 
 import controller.keyBindings.KeyBindings;
 import controller.keyBindings.KeyBindingsUpdate;
 import controller.menu.Menu;
+import controller.sceneControllers.SceneController;
+import controller.sceneControllers.SceneType;
+import controller.util.Describeable;
 
 /**
  * @author Kyle Kyrazis
@@ -13,7 +20,7 @@ import controller.menu.Menu;
  */
 public class Controller {
 	private KeyBindings keyBindings;
-	private Menu activeMenu;
+	private Map<SceneType, Observable> describeable;
 	
 	private static Controller controller = null;
 	
@@ -25,6 +32,12 @@ public class Controller {
 	}
 	
 	private Controller() {
+		keyBindings = new KeyBindings();
+		describeable = new HashMap<>();
+	}
+	
+	public void addMap(Map<SceneType, Observable> map) {
+		describeable = map;
 	}
 	
 	public KeyListener buildController() {
@@ -39,13 +52,9 @@ public class Controller {
 	public void updateControllerKeyBindings(KeyBindingsUpdate bindings) {
 		//TODO fill in this
 	}
-	
-	public Menu getActiveMenu() {
-		return activeMenu;
-	}
-	
-	public void setActiveMenu(Menu menu) {
-		this.activeMenu = menu;
+
+	public void addObserver(Observer o, SceneType type) {
+		describeable.get(type).addObserver(o);
 	}
 	
 }

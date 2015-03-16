@@ -3,8 +3,10 @@ package exampleTest.actualTests;
 import static org.junit.Assert.*;
 
 import org.easymock.EasyMock;
+import org.easymock.EasyMockRunner;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import exampleTest.DependencyInterface;
 import exampleTest.MainTestingClass;
@@ -16,6 +18,7 @@ import exampleTest.MainTestingClass;
  * you can ask me, but you'll owe me a burrito.
  *
  */
+@RunWith(EasyMockRunner.class)
 public class MainTestingClassTest {
 
 	private DependencyInterface face;

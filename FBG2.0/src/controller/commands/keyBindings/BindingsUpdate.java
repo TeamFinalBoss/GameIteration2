@@ -1,7 +1,5 @@
 package controller.commands.keyBindings;
 
-import java.util.List;
-
 import controller.commands.Commandable;
 import controller.keyBindings.KeyBindings;
 import controller.keyBindings.KeyBindingsUpdate;
@@ -35,13 +33,19 @@ public class BindingsUpdate implements Commandable, Describeable {
 	}
 
 	@Override
-	public List<String> getDiscription() {
+	public String[] getDescription() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	
 	protected KeyBindingsUpdate getKeyBindingsUpdate() {
 		return this.bindingsUpdate;
+	}
+
+	@Override
+	public int getCurrentIndex() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 	
 

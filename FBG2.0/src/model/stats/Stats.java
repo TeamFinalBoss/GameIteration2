@@ -1,7 +1,11 @@
+//DEPRECATED. SEE "STATS.JAVA" IN MODEL.ENTITY FOR NEW CLASS
+
 package model.stats;
 
+import model.util.Saveable;
 
-public class Stats{
+
+public class Stats implements Saveable{
 
 	protected int strength;
 	protected int agility;
@@ -145,6 +149,23 @@ public class Stats{
         modmpMax(modifier.getmpMax());
         modOffense(modifier.getOffense());
         modDefense(modifier.getDefense());
+	}
+
+	@Override
+	public String toXML() {
+		String xml = "";
+		xml += "<Stats>\n";
+		xml += "\t<strength>" + this.strength + "</strength>\n";
+		xml += "\t<agility>" + this.agility + "</agility>\n";
+		xml += "\t<intellect>" + this.intellect + "</intellect>\n";
+		xml += "\t<hardiness>" + this.hardiness + "</hardiness>\n";
+		xml += "\t<movement>" + this.movement + "</movement>\n";
+		xml += "\t<hpMax>" + this.hpMax + "</hpMax>\n";
+		xml += "\t<mpMax>" + this.mpMax + "</mpMax>\n";
+		xml += "\t<defense>" + this.defense + "</defense>\n";
+		xml += "\t<offense>" + this.offense + "</offense>\n";
+		xml += "</Stats>";
+		return xml;
 	}
 
 }

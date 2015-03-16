@@ -1,6 +1,5 @@
 package controller.util;
 
-import java.util.List;
 
 /**
  * @author Kyle Kyrazis
@@ -13,5 +12,7 @@ public interface Describeable {
 	 * Returns a list of strings to be displayed.
 	 * @return List<String>
 	 */
-	public List<String> getDiscription();
+	public String[] getDescription();
+
+	public int getCurrentIndex();
 }

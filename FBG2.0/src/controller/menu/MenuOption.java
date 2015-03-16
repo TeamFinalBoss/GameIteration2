@@ -8,10 +8,20 @@ package controller.menu;
  * TODO May have to add to these.
  */
 public enum MenuOption {
-	RESUME_GAME,
-	NEW_GAME,
-	SAVE_GAME,
-	LOAD_GAME,
-	KEY_BINDINGS,
-	EXIT_GAME
+	RESUME_GAME("Resume Game"),
+	NEW_GAME("New Game"),
+	SAVE_GAME("Save Game"),
+	LOAD_GAME("Load Game"),
+	KEY_BINDINGS("Key Bindings"),
+	EXIT_GAME("Exit Game");
+	
+	private MenuOption(String str) {
+		this.value = str;
+	}
+	
+	private String value;
+	
+	public String toString() {
+		return this.value;
+	}
 }
