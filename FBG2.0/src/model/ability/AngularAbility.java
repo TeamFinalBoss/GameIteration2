@@ -1,11 +1,19 @@
-// Aaron Iglesias
 package model.ability;
 
+/**
+*
+* @author Aaron Iglesias
+*/
 public class AngularAbility extends Ability
 {
 	private double degree;
 	private double radius;
 
+	/**
+	* @author Aaron Iglesias
+	* default constructor of Angular Ability
+	* @param radius
+	*/
 	public AngularAbility()
 	{
 		super();
@@ -13,28 +21,40 @@ public class AngularAbility extends Ability
 		radius = 1;
 	}
 
+	/**
+	* @author Aaron Iglesias
+	* constructor of Angular Ability
+	* @param radius
+	*/
 	public AngularAbility(double radius)
 	{
 		super();
 		this.radius = radius;
 	}
 
+	/**
+	* @author Aaron Iglesias
+	* gets the degree of the Angular Ability
+	*/
 	public double getDegree()
 	{
 		return degree;
 	}
 
+	/**
+	* @author Aaron Iglesias
+	* gets the radius of the Angular Ability
+	*/
 	public double getRadius()
 	{
-            return radius;
+        return radius;
 	}
 
-        /**
-         * @author Jason Owens
-         * sets the degree of the ability
-         * @param degree 
-         */
-       
+	/**
+	* @author Aaron Iglesias
+	* sets the degree of the Angular Ability
+	* @param degree
+	*/
 	public void setDegree(double degree)
 	{
 		// invalid degree
@@ -43,6 +63,11 @@ public class AngularAbility extends Ability
 		this.degree = degree;
 	}
 
+	/**
+	* @author Aaron Iglesias
+	* sets the radius of the Angular Ability
+	* @param radius
+	*/
 	public void setRadius(double radius)
 	{
 		// invalid radius
