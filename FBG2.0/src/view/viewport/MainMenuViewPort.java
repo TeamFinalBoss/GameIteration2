@@ -29,6 +29,10 @@ public class MainMenuViewPort implements ViewPort, Observer {
     private int width, height;
     private int logoHeight;
     private final int logoY = 100;
+    
+    public MainMenuViewPort(){
+        
+    }
 
     @Override
     public void draw(Graphics g) {
