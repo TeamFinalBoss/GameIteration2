@@ -11,11 +11,11 @@ import model.map.Direction;
 public class Entity{
 	private Inventory myInventory;
 	private Occupation myOccupation;
-        private Direction myDirection;
-        private int speed;
-        private Point location; 
-        
-        private static Entity player;
+    private Direction myDirection;
+    private int speed;
+    private Point location; 
+       
+    private static Entity player;
         
     public Entity(){
         myInventory = new Inventory(5);

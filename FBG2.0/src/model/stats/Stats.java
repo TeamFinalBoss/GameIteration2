@@ -1,3 +1,5 @@
+//DEPRECATED. SEE "STATS.JAVA" IN MODEL.ENTITY FOR NEW CLASS
+
 package model.stats;
 
 import model.util.Saveable;
