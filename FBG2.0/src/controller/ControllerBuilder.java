@@ -8,17 +8,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
-import java.util.Observer;
 
-import jdk.nashorn.internal.runtime.regexp.joni.Option;
 import controller.commands.Commandable;
 import controller.commands.game.Pause;
 import controller.commands.keyBindings.BindingsUpdate;
 import controller.commands.keyBindings.CancelBindingsUpdate;
 import controller.commands.keyBindings.SaveBindingsUpdate;
-import controller.commands.keyBindings.menu.ConfirmBindingsMenuCommand;
-import controller.commands.keyBindings.menu.NextBindingsMenuCommand;
-import controller.commands.keyBindings.menu.PreviousBindingsMenuCommand;
 import controller.commands.load.ReturnToPreviousMenu;
 import controller.commands.menu.ConfirmMenuCommand;
 import controller.commands.menu.NextMenuCommand;
@@ -42,11 +37,12 @@ import controller.sceneControllers.SceneController;
 import controller.sceneControllers.SceneType;
 
 /**
- * @author Kyle Kyrazis
- *
+ * 
  * This class builds the controller. If the controller is set up incorrectly then the error
  * is in this class for sure. Currently only builds the MainMenu and PauseMenu. 
  * TODO deal with saving the keybindings
+ * 
+ * @author Kyle Kyrazis
  */
 public class ControllerBuilder {
 	
@@ -56,29 +52,63 @@ public class ControllerBuilder {
 	
 	public static KeyListener build(KeyBindings keyBindings) {
 		
-		bindings = keyBindings;
+		Map<KeyBindingsOption, Integer> map = bindings.getBindingsReverse();
 		
+		bindings = keyBindings;
+		/******************************
+		 * Main Menu Controller
+		 *******************************/
 		Menu mainMenu = buildMainMenu();
+		Map<Integer, Commandable> mainMenuMap = buildDefaultMenuBindings(mainMenu,map);
+		KeyOptions mainMenuOptions = buildMainMenuKeyOptions(mainMenuMap, map);
+		SceneController mainMenuController = buildController(mainMenuOptions);
+		
+		/******************************
+		 * Pause Menu Controller
+		 *******************************/
+		
 		Menu pauseMenu = buildPauseMenu();
-		KeyOptions mainMenuOptions = buildMainMenuKeyOptions(mainMenu);
-		SceneController mainMenuController = buildMainMenuController(mainMenuOptions);
-		KeyOptions pauseMenuOptions = buildPauseMenuKeyOptions(pauseMenu);
-		SceneController pauseMenuController = buildPauseMenuController(pauseMenuOptions);
+		Map<Integer, Commandable> pauseMenuMap = buildDefaultMenuBindings(pauseMenu,map);
+		KeyOptions pauseMenuOptions = buildPauseMenuKeyOptions(pauseMenuMap, map);
+		SceneController pauseMenuController = buildController(pauseMenuOptions);
+		
+		/******************************
+		 * KeyBindingsController
+		 *******************************/
 		
 		KeyBindingsMenu bindingsMenu = buildBindingsMenu();
-		KeyOptions bindingsMenuOptions = buildBindingsMenuKeyOptions(bindingsMenu);
-		SceneController keyBindingsController = buildBindingsController(bindingsMenuOptions);
+		Map<Integer, Commandable> keyBindingsMap = buildDefaultMenuBindings(bindingsMenu,map);
+		KeyOptions bindingsMenuOptions = buildBindingsMenuKeyOptions(keyBindingsMap, map);
+		SceneController keyBindingsController = buildController(bindingsMenuOptions);
 		
-		KeyOptions gameOptions = buildGameKeyOptions();
-		SceneController gameController = buildGameController(gameOptions);
+		/******************************
+		 * Game Controller
+		 *******************************/
+		
+		KeyOptions gameOptions = buildGameKeyOptions(map);
+		SceneController gameController = buildController(gameOptions);
+		
+		/******************************
+		 * Save Menu Controller
+		 *******************************/
 		
 		SaveLoadMenu saveMenu = buildSaveMenu();
-		KeyOptions saveOptions = buildSaveMenuKeyOptions(saveMenu);
-		SceneController saveController = buildSaveController(saveOptions);
+		Map<Integer, Commandable> saveMenuMap = buildDefaultMenuBindings(saveMenu,map);
+		KeyOptions saveOptions = buildSaveMenuKeyOptions(saveMenuMap, map);
+		SceneController saveController = buildController(saveOptions);
+		
+		/******************************
+		 * Load Menu Controller
+		 *******************************/
 		
 		SaveLoadMenu loadMenu = buildLoadMenu();
-		KeyOptions loadOptions = buildLoadMenuKeyOptions(loadMenu);
-		SceneController loadController = buildLoadController(loadOptions);
+		Map<Integer, Commandable> loadMenuMap = buildDefaultMenuBindings(loadMenu,map);
+		KeyOptions loadOptions = buildLoadMenuKeyOptions(loadMenuMap, map);
+		SceneController loadController = buildController(loadOptions);
+		
+		/******************************
+		 * Observers
+		 *******************************/
 		
 		Map<SceneType, Observable> observerMap = new HashMap<>();
 		observerMap.put(SceneType.MAIN_MENU, mainMenu);
@@ -89,6 +119,10 @@ public class ControllerBuilder {
 		
 		cont.addMap(observerMap);
 		
+		/******************************
+		 * Controllers
+		 *******************************/
+		
 		Map<SceneType, SceneController> controllers = new HashMap<SceneType, SceneController>();
 		controllers.put(SceneType.MAIN_MENU, mainMenuController);
 		controllers.put(SceneType.PAUSE_MENU, pauseMenuController);
@@ -96,7 +130,6 @@ public class ControllerBuilder {
 		controllers.put(SceneType.GAME, gameController);
 		controllers.put(SceneType.SAVE, saveController);
 		controllers.put(SceneType.LOAD, loadController);
-		
 		
 		
 		KeyDispatcher keyDispatcher = new KeyDispatcher(controllers, mainMenuController);
@@ -110,31 +143,14 @@ public class ControllerBuilder {
 	 *
 	 ************************************************************************************************/
 
-	private static SceneController buildLoadController(KeyOptions loadOptions) {
-		return new SceneController(loadOptions);
-	}
-
-
-	private static KeyOptions buildLoadMenuKeyOptions(Menuable loadMenu) {
-		Map<Integer, Commandable> options = new HashMap<Integer, Commandable>();
-		for(Map.Entry<Integer, KeyBindingsOption> entry : bindings.getBindings().entrySet()) {
-			switch(entry.getValue()) {
-				case DOWN :
-					options.put(entry.getKey(), new NextMenuCommand(loadMenu));
-					break;
-				case UP:
-					options.put(entry.getKey(), new PreviousMenuCommand(loadMenu));
-					break;
-				case CONFIRM :
-					options.put(entry.getKey(), new ConfirmMenuCommand(loadMenu));
-					break;
-				case PAUSE : 
-					options.put(entry.getKey(), new ReturnToPreviousMenu());
-				default:
-					break;
-			}
-		}
-		return new KeyOptions(options);
+	private static KeyOptions buildLoadMenuKeyOptions(
+			Map<Integer, Commandable> newCommands,
+			Map<KeyBindingsOption, Integer> currentBindings )
+	{
+		
+		newCommands.put(currentBindings.get(KeyBindingsOption.PAUSE), new ReturnToPreviousMenu());
+		
+		return new KeyOptions(newCommands);
 	}
 
 
@@ -188,54 +204,25 @@ public class ControllerBuilder {
 		return map;
 	}
 	
-	private static KeyOptions buildSaveMenuKeyOptions(Menuable saveMenu) {
-		Map<Integer, Commandable> options = new HashMap<Integer, Commandable>();
-		for(Map.Entry<Integer, KeyBindingsOption> entry : bindings.getBindings().entrySet()) {
-			switch(entry.getValue()) {
-				case DOWN :
-					options.put(entry.getKey(), new NextMenuCommand(saveMenu));
-					break;
-				case UP:
-					options.put(entry.getKey(), new PreviousMenuCommand(saveMenu));
-					break;
-				case CONFIRM :
-					options.put(entry.getKey(), new ConfirmMenuCommand(saveMenu));
-					break;
-				case PAUSE : 
-					options.put(entry.getKey(), new Pause());
-				default:
-					break;
-			}
-		}
-		return new KeyOptions(options);
+	private static KeyOptions buildSaveMenuKeyOptions(
+			Map<Integer, Commandable> newCommands,
+			Map<KeyBindingsOption, Integer> currentBindings)
+	{
+		newCommands.put(currentBindings.get(KeyBindingsOption.PAUSE), new Pause());
+	
+		return new KeyOptions(newCommands);
 	}
 	
-	private static SceneController buildSaveController(KeyOptions saveOptions) {
-		return new SceneController(saveOptions);
-	}
-	
-	
-
 	/**********************************************************************************************
 	 * 	   Game Controller builder
 	 *
 	 ************************************************************************************************/
 	
-	private static SceneController buildGameController(KeyOptions gameOptions) {
-		return new SceneController(gameOptions);
-	}
-
-
-	private static KeyOptions buildGameKeyOptions() {
+	private static KeyOptions buildGameKeyOptions(Map<KeyBindingsOption, Integer> map) {
 		Map<Integer, Commandable> options = new HashMap<Integer, Commandable>();
-		for(Map.Entry<Integer, KeyBindingsOption> entry : bindings.getBindings().entrySet()) {
-			switch(entry.getValue()) {
-				case PAUSE : 
-					options.put(entry.getKey(), new Pause());
-				default :
-					break;	
-			}
-		}
+		
+		options.put(map.get(KeyBindingsOption.PAUSE), new Pause());
+		
 		return new KeyOptions(options);
 	}
 
@@ -245,32 +232,15 @@ public class ControllerBuilder {
 	 *
 	 ************************************************************************************************/
 	
-	private static SceneController buildBindingsController(
-			KeyOptions bindingsMenuOptions) {
-		return new SceneController(bindingsMenuOptions);
-	}
-
 	private static KeyOptions buildBindingsMenuKeyOptions(
-			KeyBindingsMenu bindingsMenu) {
-		Map<Integer, Commandable> options = new HashMap<Integer, Commandable>();
-		for(Map.Entry<Integer, KeyBindingsOption> entry : bindings.getBindings().entrySet()) {
-			switch(entry.getValue()) {
-				case DOWN :
-					options.put(entry.getKey(), new NextMenuCommand(bindingsMenu));
-					break;
-				case UP:
-					options.put(entry.getKey(), new PreviousMenuCommand(bindingsMenu));
-					break;
-				case CONFIRM :
-					options.put(entry.getKey(), new ConfirmMenuCommand(bindingsMenu));
-					break;
-				case PAUSE : 
-					options.put(entry.getKey(), new CancelBindingsUpdate());
-				default :
-					break;	
-			}
-		}
-		return new KeyOptions(options);
+			Map<Integer, Commandable> newCommands,
+			Map<KeyBindingsOption, Integer> currentBindings)
+	{
+		
+		newCommands.put(currentBindings.get(KeyBindingsOption.DOWN), new CancelBindingsUpdate());
+				
+	
+		return new KeyOptions(newCommands);
 	}
 
 	private static KeyBindingsMenu buildBindingsMenu() {
@@ -298,11 +268,7 @@ public class ControllerBuilder {
 	 * 	   PauseMenu Builder
 	 *
 	 ************************************************************************************************/
-	
-	private static SceneController buildPauseMenuController(KeyOptions pauseMenuOptions) {
-		return new SceneController(pauseMenuOptions);
-	}
-	
+
 	private static Map<MenuOption, Commandable> buildPauseMenuCommands() {
 		Map<MenuOption, Commandable> pauseMenuCommands = new HashMap<MenuOption, Commandable>();
 		
@@ -316,26 +282,13 @@ public class ControllerBuilder {
 		return pauseMenuCommands;
 	}
 
-	private static KeyOptions buildPauseMenuKeyOptions(Menuable pauseMenu) {
-		Map<Integer, Commandable> options = new HashMap<Integer, Commandable>();
-		for(Map.Entry<Integer, KeyBindingsOption> entry : bindings.getBindings().entrySet()) {
-			switch(entry.getValue()) {
-				case DOWN :
-					options.put(entry.getKey(), new NextMenuCommand(pauseMenu));
-					break;
-				case UP:
-					options.put(entry.getKey(), new PreviousMenuCommand(pauseMenu));
-					break;
-				case CONFIRM :
-					options.put(entry.getKey(), new ConfirmMenuCommand(pauseMenu));
-					break;
-				case PAUSE :
-					options.put(entry.getKey(), new ResumeGame());
-				default :
-					break;	
-			}
-		}
-		return new KeyOptions(options);
+	private static KeyOptions buildPauseMenuKeyOptions(
+			Map<Integer, Commandable> newCommands,
+			Map<KeyBindingsOption, Integer> currentBindings)
+	{
+		newCommands.put(currentBindings.get(KeyBindingsOption.PAUSE), new ResumeGame());
+		
+		return new KeyOptions(newCommands);
 	}
 	
 	private static Menu buildPauseMenu() {
@@ -357,29 +310,11 @@ public class ControllerBuilder {
 	 *
 	 ************************************************************************************************/
 	
-	private static SceneController buildMainMenuController(KeyOptions mainMenuOptions) {
-		return new SceneController(mainMenuOptions);
-	}
-
-	private static KeyOptions buildMainMenuKeyOptions(Menuable mainMenu) {
-		Map<Integer, Commandable> options = new HashMap<Integer, Commandable>();
-		
-		for(Map.Entry<Integer, KeyBindingsOption> entry : bindings.getBindings().entrySet()) {
-			switch(entry.getValue()) {
-				case DOWN :
-					options.put(entry.getKey(), new NextMenuCommand(mainMenu));
-					break;
-				case UP:
-					options.put(entry.getKey(), new PreviousMenuCommand(mainMenu));
-					break;
-				case CONFIRM :
-					options.put(entry.getKey(), new ConfirmMenuCommand(mainMenu));
-					break;
-				default :
-					break;	
-			}
-		}
-		return new KeyOptions(options);
+	private static KeyOptions buildMainMenuKeyOptions(
+			Map<Integer, Commandable> newCommands,
+			Map<KeyBindingsOption, Integer> currentBindings)
+	{
+		return new KeyOptions(newCommands);
 	}
 
 	
@@ -408,9 +343,23 @@ public class ControllerBuilder {
 
 	
 	/**********************************************************************************************
-	 * 	  Default Key Bindings Builder
+	 * 	  Default Builders
 	 *
 	 ************************************************************************************************/
+	
+	private static Map<Integer, Commandable> buildDefaultMenuBindings(
+			Menuable menu,
+			Map<KeyBindingsOption, Integer> currentBindings)
+	{
+		Map<Integer, Commandable> options = new HashMap<Integer, Commandable>();
+		
+		options.put(currentBindings.get(KeyBindingsOption.DOWN), new NextMenuCommand(menu));
+		options.put(currentBindings.get(KeyBindingsOption.UP), new PreviousMenuCommand(menu));
+		options.put(currentBindings.get(KeyBindingsOption.CONFIRM), new ConfirmMenuCommand(menu));
+
+		return options;
+	}
+	
 	
 	public static KeyBindings buildDefaultKeyBindings() {
 		KeyBindings bindings = new KeyBindings();
@@ -442,6 +391,11 @@ public class ControllerBuilder {
 		bindings.addBinding(KeyEvent.VK_T, KeyBindingsOption.TILE_INFO);
 		
 		return bindings;
+	}
+	
+	
+	private static SceneController buildController(KeyOptions options) {
+		return new SceneController(options);
 	}
 	
 }

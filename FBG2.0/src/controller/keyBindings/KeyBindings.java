@@ -3,6 +3,7 @@ package controller.keyBindings;
 import java.awt.event.KeyEvent;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import model.util.Saveable;
 
@@ -30,6 +31,14 @@ public class KeyBindings implements Saveable{
 	
 	public Map<Integer, KeyBindingsOption> getBindings() {
 		return this.keyBindings;
+	}
+	
+	public Map<KeyBindingsOption, Integer> getBindingsReverse() {
+		Map<KeyBindingsOption, Integer> reverseMap = new HashMap<>();
+		for(Entry<Integer, KeyBindingsOption> entry : keyBindings.entrySet()) {
+			reverseMap.put(entry.getValue(), entry.getKey());
+		}
+		return reverseMap;
 	}
 	
 	
