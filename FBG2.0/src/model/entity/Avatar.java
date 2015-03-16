@@ -7,4 +7,11 @@ package model.entity;
  */
 public class Avatar {
     
+    /**
+     *
+     * @return
+     */
+    public static Avatar getAvatar(){
+        return new Avatar();
+    }
 }

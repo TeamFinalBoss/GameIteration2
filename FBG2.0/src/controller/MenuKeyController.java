@@ -4,6 +4,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import model.director.GameDirector;
 import model.menu.Menu;
+import view.scene.Scene;
 
 /**
  * This is a key controller for a menu object. The way I have designed the
@@ -16,13 +17,16 @@ import model.menu.Menu;
 public class MenuKeyController implements KeyListener {
 
     private final Menu menu;
-
+    private Scene scene;
+    
     /**
      * The menu that the controller mutates.
      * @param m the menu object that the controller object uses.
+     * @param s the scene that the controller is active in
      */
-    public MenuKeyController(Menu m) {
+    public MenuKeyController(Menu m, Scene s) {
         menu = m;
+        scene = s;
     }
 
     @Override
@@ -42,16 +46,20 @@ public class MenuKeyController implements KeyListener {
         /*Options of Menu.MenuOption
             NEW_GAME,SWITCH_TO_LOAD_MENU,SAVE_GAME,EXIT,RESUME_GAME,OPEN_SAVE_FILE,RETURN_TO_MAIN_MENU
         */
-            switch (menu.getCurrentSelection()) {
-                case NEW_GAME:
-                    GameDirector.getGameDirector().startNewGame();
-                    break;
-                case RETURN_TO_MAIN_MENU:
-                    GameDirector.getGameDirector().returnToMainMenu();
-                    break;
-                case EXIT:
-                    System.exit(0);
-                    break;
+            if(GameDirector.getActiveScene().equals(scene)){
+                switch (menu.getCurrentSelection()) {
+                    case NEW_GAME:
+                        GameDirector.startNewGame();
+                        break;
+                    case RESUME_GAME:
+                        GameDirector.resumeGame();
+                    case RETURN_TO_MAIN_MENU:
+                        GameDirector.returnToMainMenu();
+                        break;
+                    case EXIT:
+                        System.exit(0);
+                        break;
+                }
             }
         }
 

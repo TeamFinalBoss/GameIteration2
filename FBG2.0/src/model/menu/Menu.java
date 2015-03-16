@@ -13,6 +13,7 @@ public class Menu extends Observable {
 
     private final MenuOption[] options;
     private int currentOptionIndex = 0;
+    private Boolean isVisible = true;
 
     public Menu() {
         MenuOption[] defaultOptions = {MenuOption.NEW_GAME, MenuOption.EXIT};
@@ -94,6 +95,33 @@ public class Menu extends Observable {
         super.addObserver(o);
         setChanged();
         notifyObservers();
+    }
+    
+    /**
+     * Sets the menu to be visible. This is the default state of the menu.
+     */
+    public void show(){
+        isVisible = true;
+        setCurrentSelection(0);
+        setChanged();
+        notifyObservers();
+    }
+    
+    /**
+     * Sets the menu to be not visible.
+     */
+    public void hide(){
+        isVisible = false;
+        setChanged();
+        notifyObservers();
+    }
+
+    /**
+     * Checks if menu is visible.
+     * @return if the menu is visible
+     */
+    public boolean isVisible() {
+        return isVisible;
     }
     
     /**

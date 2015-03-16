@@ -1,9 +1,11 @@
 package model.director;
 
+import controller.AvatarKeyController;
 import controller.MenuKeyController;
 import model.menu.Menu;
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;
+import model.entity.Avatar;
 import model.map.GameMap;
 import model.menu.Menu.MenuOption;
 import view.window.GameWindow;
@@ -25,10 +27,14 @@ public class GameDirector {
 
     private static Boolean paused = false;
     private static GameWindow window;
-    private Scene menuScene, gameScene;
-    private Scene activeScene;
+    private static Scene menuScene, gameScene;
+    private static  Scene activeScene;
+    
+    private static Menu pauseMenu;
 
     private static GameDirector gameDirector = null;//It's a singleton object.
+    
+    private static MenuKeyController mainMenuKC, pauseMenuKC;
 
     private GameDirector() {
         window = new GameWindow();
@@ -46,7 +52,7 @@ public class GameDirector {
     /**
      * This sets up the main menu scene
      */
-    public void startMenuScene() {
+    public static void startMenuScene() {
         Menu mainMenu = new Menu();
 
         menuScene = new Scene();
@@ -59,7 +65,10 @@ public class GameDirector {
         menuVP.update(mainMenu, null);
 
         //Add controllers to the window
-        window.addKeyController(new MenuKeyController(mainMenu));
+        if(mainMenuKC == null){
+            mainMenuKC = new MenuKeyController(mainMenu, menuScene);
+            window.addKeyController(mainMenuKC);
+        }
 
         activeScene = menuScene;
     }
@@ -67,7 +76,7 @@ public class GameDirector {
     /**
      * This starts a new game programmatically.
      */
-    public void startNewGame() {
+    public static void startNewGame() {
         //Create Game Scene
         gameScene = new Scene();
 
@@ -76,7 +85,8 @@ public class GameDirector {
 
         //Create Pause Menu 
         MenuOption[] pauseMenuOptions = {MenuOption.RESUME_GAME, MenuOption.SAVE_GAME, MenuOption.RETURN_TO_MAIN_MENU};
-        Menu pauseMenu = new Menu(pauseMenuOptions);
+        pauseMenu = new Menu(pauseMenuOptions);
+        pauseMenu.hide();
 
         //Create Viewports
         MapViewPort mapVP = new MapViewPort();
@@ -91,8 +101,9 @@ public class GameDirector {
         gameScene.addViewport(pauseVP);
 
         //Add controllers to window
-        window.addKeyController(new MenuKeyController(pauseMenu));
-        //window.addKeyController(new AvatarKeyController(Avatar.getAvatar()));
+        pauseMenuKC = new MenuKeyController(pauseMenu, gameScene);
+        window.addKeyController(pauseMenuKC);
+        window.addKeyController(new AvatarKeyController(Avatar.getAvatar()));
 
         //Set game scene as active scene
         activeScene = gameScene;
@@ -114,8 +125,16 @@ public class GameDirector {
     /**
      * This sets the active scene which to be drawn.
      */
-    private void setActiveScene(Scene s) {
+    private static void setActiveScene(Scene s) {
         activeScene = s;
+    }
+    
+    /**
+     * This gets which scene is currently active.
+     * @return the active scene.
+     */
+    public static Scene getActiveScene(){
+        return activeScene;
     }
 
     /**
@@ -167,6 +186,7 @@ public class GameDirector {
      */
     public static void pauseGame() {
         paused = true;
+        pauseMenu.show();
     }
 
     /**
@@ -174,13 +194,22 @@ public class GameDirector {
      */
     public static void resumeGame() {
         paused = false;
+        pauseMenu.hide();
+    }
+    
+    /**
+     * Checks if game is paused
+     * @return true if the game is paused
+     */
+    public static boolean gameIsPaused() {
+        return paused;
     }
 
     /**
      * Returns the user to the main menu. This is accomplished by simply setting
      * the menu scene to be active.
      */
-    public void returnToMainMenu() {
+    public static void returnToMainMenu() {
         setActiveScene(menuScene);
     }
 }
