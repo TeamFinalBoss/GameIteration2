@@ -19,6 +19,7 @@ import controller.commands.keyBindings.SaveBindingsUpdate;
 import controller.commands.keyBindings.menu.ConfirmBindingsMenuCommand;
 import controller.commands.keyBindings.menu.NextBindingsMenuCommand;
 import controller.commands.keyBindings.menu.PreviousBindingsMenuCommand;
+import controller.commands.load.ReturnToPreviousMenu;
 import controller.commands.menu.ConfirmMenuCommand;
 import controller.commands.menu.NextMenuCommand;
 import controller.commands.menu.PreviousMenuCommand;
@@ -128,7 +129,7 @@ public class ControllerBuilder {
 					options.put(entry.getKey(), new ConfirmMenuCommand(loadMenu));
 					break;
 				case PAUSE : 
-					options.put(entry.getKey(), new Pause());
+					options.put(entry.getKey(), new ReturnToPreviousMenu());
 				default:
 					break;
 			}

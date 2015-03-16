@@ -1,7 +1,5 @@
 package controller.util;
 
-import java.util.List;
-import java.util.Observer;
 
 /**
  * @author Kyle Kyrazis
