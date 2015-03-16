@@ -78,17 +78,6 @@ public class Ability {
     * @param cost
     */
     public void setCost(Effect cost)
-=======
-    /**
-    * @author Aaron Iglesias, Jason Owens
-    * sets cost of Ability
-    * @param cost
-    */
-    public void setCost(int cost)
->>>>>>> origin/master
-    {
-        this.cost = cost;
-    }
 
     /**
     * @author Aaron Iglesias, Jason Owens
