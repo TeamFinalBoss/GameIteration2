@@ -9,8 +9,8 @@ import model.map.Direction;
  * @version 1.0.0 2015-03-14
  */
 public class Entity{
-	private Inventory myInventory;
-	private Occupation myOccupation;
+    private Inventory myInventory;
+    private Occupation myOccupation;
     private Direction myDirection;
     private int speed;
     private Point location; 

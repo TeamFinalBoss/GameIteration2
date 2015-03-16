@@ -24,7 +24,7 @@ public class Ability {
     public Ability(){
         cost = null;
         myCC = null;
-        myEffect = null;
+        effect = null;
         name = null;
     }
 
@@ -39,7 +39,7 @@ public class Ability {
 
     public void performAbility(Entity callingEntity) {
         ArrayList<CoordinatePair> affectedTiles = getAffectedTiles(callingEntity);
-        myCC.attemptAffectEntities(affectedTiles, myEffect);
+        myCC.attemptAffectEntities(affectedTiles, effect);
     }
 
     public Effect getCost()
@@ -47,7 +47,7 @@ public class Ability {
         return cost;
     }
 
-    public void setCost(int cost)
+    public void setCost(Effect cost)
     {
         this.cost = cost;
     }
@@ -61,7 +61,7 @@ public class Ability {
     *
     * @author Jason Owens
     * To be overridden by subclasses
-    * @param dir
+    * @param callingEntity 
     * 
     * @return ArrayList of Coordinates affected by ability
     */

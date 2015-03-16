@@ -1,5 +1,7 @@
-// Aaron Iglesias
+
 package model.ability;
+
+
 
 public class LinearAbility extends Ability
 {

@@ -29,6 +29,12 @@ public class AngularAbility extends Ability
             return radius;
 	}
 
+        /**
+         * @author Jason Owens
+         * sets the degree of the ability
+         * @param degree 
+         */
+       
 	public void setDegree(double degree)
 	{
 		// invalid degree

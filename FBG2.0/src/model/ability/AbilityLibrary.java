@@ -57,7 +57,9 @@ public class AbilityLibrary {
      *
      * Activates ability. 
      * TODO Maybe store abilities in a Map<Name, Ability>? - Kyle
-     *@returns whether or not the ability is found    
+     *@returns whether or not the ability is found  
+     *@params abilityName the String form of the ability to perform
+     *@params callingEntity the Entity using the ability
      */
     public boolean performActiveAbility(String abilityName, Entity callingEntity){
         for(Ability a : knownAbilities) {
