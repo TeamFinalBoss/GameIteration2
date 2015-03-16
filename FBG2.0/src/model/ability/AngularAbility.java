@@ -1,18 +1,19 @@
 // Aaron Iglesias
+package model.ability;
 
-public class RadialSkill extends Ability
+public class AngularAbility extends Ability
 {
 	private double degree;
 	private double radius;
 
-	public RadialSkill()
+	public AngularAbility()
 	{
 		super();
-		degree = 360;
-		radius = null;
+		degree = 90;
+		radius = 1;
 	}
 
-	public RadialSkill(double radius)
+	public AngularAbility(double radius)
 	{
 		super();
 		this.radius = radius;
@@ -23,9 +24,9 @@ public class RadialSkill extends Ability
 		return degree;
 	}
 
-	public double getRadius
+	public double getRadius()
 	{
-		return radius;
+            return radius;
 	}
 
 	public void setDegree(double degree)
@@ -43,3 +44,4 @@ public class RadialSkill extends Ability
 			return;
 		this.radius = radius;
 	}
+}
