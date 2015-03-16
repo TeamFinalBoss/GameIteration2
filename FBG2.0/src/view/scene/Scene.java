@@ -14,7 +14,7 @@ import view.viewport.ViewPort;
 public class Scene {
     
     private ArrayList<ViewPort> viewports;
-    private static Dimension size;
+    private  static Dimension size;
     
     public Scene(){
         this.viewports = new ArrayList<>();
@@ -45,12 +45,15 @@ public class Scene {
      * other viewports.
      * @return a buffered image of all of the viewports
      */
-    public BufferedImage getImage(){
+    public synchronized BufferedImage getImage(){
         BufferedImage i;
         if(size != null){
+        	if(size.width <= 0 || size.height <=0 )
+        		throw new RuntimeException("illegal width or height");
             i = new BufferedImage(size.width , size.height, BufferedImage.TYPE_INT_ARGB);
         }else{
-            i = new BufferedImage(0 , 0, BufferedImage.TYPE_INT_ARGB);
+        	
+            i = new BufferedImage(1 , 1, BufferedImage.TYPE_INT_ARGB);
         }
         for(ViewPort v : viewports){
             v.draw(i.getGraphics());
