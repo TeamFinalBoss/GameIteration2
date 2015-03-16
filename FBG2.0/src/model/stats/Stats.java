@@ -154,7 +154,7 @@ public class Stats implements Saveable{
 	@Override
 	public String toXML() {
 		String xml = "";
-		xml += "<stats>\n";
+		xml += "<Stats>\n";
 		xml += "\t<strength>" + this.strength + "</strength>\n";
 		xml += "\t<agility>" + this.agility + "</agility>\n";
 		xml += "\t<intellect>" + this.intellect + "</intellect>\n";
@@ -164,7 +164,7 @@ public class Stats implements Saveable{
 		xml += "\t<mpMax>" + this.mpMax + "</mpMax>\n";
 		xml += "\t<defense>" + this.defense + "</defense>\n";
 		xml += "\t<offense>" + this.offense + "</offense>\n";
-		xml += "</stats>";
+		xml += "</Stats>";
 		return xml;
 	}
 

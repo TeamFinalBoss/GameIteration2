@@ -67,20 +67,20 @@ public class ItemStats extends Stats{
 			BufferedReader reader = new BufferedReader(new StringReader(superXML));
 			String xml = "<ItemStat>\n";
 		
-			String line;
+			String curLine;
 			try {
-				while((line = reader.readLine()) != null)
+				while((curLine = reader.readLine()) != null)
 				{
-					xml += "\t" + line + "\n";
+					xml += "\t" + curLine + "\n";
 				}
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			xml += "\n";
+			//xml += "\n";
 			xml += "\t<durability>" + this.durability + "</durability>\n";
 			xml += "\t<value>" + this.value + "</value>\n";
-			
+			xml += "\n";
 			
 			xml += "</ItemStat>";
 			return xml;
