@@ -21,6 +21,11 @@ public class Ability {
     private Effect cost; //cost of cast, dont cast if cost can't be met
     
     /*-----------Constructors-----------*/
+
+    /**
+    * @author Aaron Iglesias, Jason Owens
+    * default constructor for Ability
+    */
     public Ability(){
         cost = null;
         myCC = null;
@@ -28,30 +33,59 @@ public class Ability {
         name = null;
     }
 
+    /**
+    * @author Aaron Iglesias, Jason Owens
+    * constructor for Ability
+    * @param name
+    */
     public Ability(String name){
         this.name = name;
     }
     
      /*-----------Accessors-----------*/
+
+    /**
+    * @author Aaron Iglesias, Jason Owens
+    * gets name of Ability
+    */
     public String getName(){
         return name;
     }
 
+    /**
+    * @author Aaron Iglesias, Jason Owens
+    * passes affectedTiles and effect to CombatCoordinator to deal damage
+    * @param callingEntity
+    */
     public void performAbility(Entity callingEntity) {
         ArrayList<CoordinatePair> affectedTiles = getAffectedTiles(callingEntity);
         myCC.attemptAffectEntities(affectedTiles, myEffect);
     }
 
+    /**
+    * @author Aaron Iglesias, Jason Owens
+    * gets cost of Ability
+    */
     public Effect getCost()
     {
         return cost;
     }
 
+    /**
+    * @author Aaron Iglesias, Jason Owens
+    * sets cost of Ability
+    * @param cost
+    */
     public void setCost(int cost)
     {
         this.cost = cost;
     }
 
+    /**
+    * @author Aaron Iglesias, Jason Owens
+    * sets effect of Ability
+    * @param effect
+    */
     public void setEffect(Effect effect)
     {
         this.effect = effect;
@@ -59,7 +93,7 @@ public class Ability {
     
     /**
     *
-    * @author Jason Owens
+    * @author Aaron Iglesias, Jason Owens
     * To be overridden by subclasses
     * @param dir
     * 
