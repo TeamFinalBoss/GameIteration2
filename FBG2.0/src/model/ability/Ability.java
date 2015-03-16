@@ -77,7 +77,10 @@ public class Ability {
     * sets cost of Ability
     * @param cost
     */
-    public void setCost(Effect cost)
+    public void setCost(int cost)
+    {
+        this.cost = cost;
+    }
 
     /**
     * @author Aaron Iglesias, Jason Owens
