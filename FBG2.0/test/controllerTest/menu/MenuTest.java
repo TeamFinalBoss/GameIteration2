@@ -105,7 +105,7 @@ public class MenuTest {
 		EasyMock.replay(command1);
 		
 		assertEquals(MenuOption.NEW_GAME, menu.getActiveOption());
-		menu.execute();
+		menu.confirm();
 		
 		EasyMock.verify(command1);
 	}
@@ -118,7 +118,7 @@ public class MenuTest {
 		EasyMock.replay(command2);
 		
 		menu.next();
-		menu.execute();
+		menu.confirm();
 		
 		EasyMock.verify(command2);
 	}
@@ -133,7 +133,7 @@ public class MenuTest {
 		menu.next();
 		menu.next();
 		
-		menu.execute();
+		menu.confirm();
 		
 		EasyMock.verify(command3);
 	}
@@ -151,11 +151,11 @@ public class MenuTest {
 		EasyMock.replay(command2);
 		EasyMock.replay(command3);
 
-		menu.execute();
+		menu.confirm();
 		menu.next();
-		menu.execute();
+		menu.confirm();
 		menu.next();
-		menu.execute();
+		menu.confirm();
 		
 		EasyMock.verify(command1);
 		EasyMock.verify(command2);
@@ -165,11 +165,11 @@ public class MenuTest {
 	@Test
 	public void testDescription() {
 		
-		List<String> desc = menu.getDescription();
+		String[] desc = menu.getDescription();
 		
-		assertEquals("New Game",desc.get(0));
-		assertEquals("Resume Game",desc.get(1));
-		assertEquals("Exit Game",desc.get(2));
+		assertEquals("New Game",desc[0]);
+		assertEquals("Resume Game",desc[1]);
+		assertEquals("Exit Game",desc[2]);
 		
 		for(String str : desc) {
 			System.out.println(str);

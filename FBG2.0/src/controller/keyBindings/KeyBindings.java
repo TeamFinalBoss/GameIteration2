@@ -1,12 +1,9 @@
 package controller.keyBindings;
 
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import controller.util.Describeable;
 import model.util.Saveable;
 
 /**
@@ -15,7 +12,7 @@ import model.util.Saveable;
  * This class is used to map Key Presses to the potential options.
  *
  */
-public class KeyBindings implements Saveable, Describeable {
+public class KeyBindings implements Saveable{
 
 	private Map<Integer, KeyBindingsOption> keyBindings; 
 	
@@ -66,22 +63,17 @@ public class KeyBindings implements Saveable, Describeable {
 		return updatedBindings;
 	}
 
-	@Override
 	public String[] getDescription() {
 		String[] strArray = new String[keyBindings.size()];
 		
 		int i = 0;
 		for(Map.Entry<Integer, KeyBindingsOption> entry : keyBindings.entrySet()) {
-			strArray[i] = entry.getValue().toString() + "\t" + KeyEvent.getKeyText(entry.getKey());
+			strArray[i] = (entry.getValue().toString() + " " + KeyEvent.getKeyText(entry.getKey()));
 			++i;
 		}
 		return strArray;
 	}
 
-	@Override
-	public int getCurrentIndex() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	
 
 }

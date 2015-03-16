@@ -19,7 +19,7 @@ import controller.util.Describeable;
  * TODO I think this class needs to be updated, but for now it should work.
  *
  */
-public class Menu extends Observable implements Describeable, Commandable {
+public class Menu extends Observable implements Describeable, Menuable {
 	private List<MenuOption> menuOptions;
 	private MenuOption activeOption;
 	private Map<MenuOption, Commandable> menuCommands;
@@ -67,23 +67,18 @@ public class Menu extends Observable implements Describeable, Commandable {
 		return this.activeOption;
 	}
 	
-	public void previous() {
+	public void next() {
 		int index = menuOptions.indexOf(activeOption);
 		index = ++index % menuOptions.size();
 		setActiveOption(menuOptions.get(index));
 	}
 	
-	public void next() {
+	public void previous() {
 		int index = menuOptions.indexOf(activeOption);
 		index = index - 1 < 0 ? menuOptions.size() - 1 : index - 1;
 		setActiveOption(menuOptions.get(index));
 	}
-
-	@Override
-	public void execute() {
-		menuCommands.get(activeOption).execute();
-	}
-
+	
 	@Override ////Same as super but we want to update immediately when observer gets added
     public void addObserver(Observer o){
         super.addObserver(o);
@@ -94,5 +89,10 @@ public class Menu extends Observable implements Describeable, Commandable {
 	@Override
 	public int getCurrentIndex() {
 		return menuOptions.indexOf(activeOption);
+	}
+
+	@Override
+	public void confirm() {
+		menuCommands.get(activeOption).execute();
 	}
 }

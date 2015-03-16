@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
+import jdk.nashorn.internal.runtime.regexp.joni.Option;
 import controller.commands.Commandable;
 import controller.commands.game.Pause;
 import controller.commands.keyBindings.BindingsUpdate;
@@ -32,7 +33,10 @@ import controller.keyBindings.KeyBindingsOption;
 import controller.keyBindings.KeyOptions;
 import controller.menu.Menu;
 import controller.menu.MenuOption;
+import controller.menu.Menuable;
 import controller.menu.keyBindings.KeyBindingsMenu;
+import controller.menu.save.SaveLoadMenu;
+import controller.menu.save.SaveOption;
 import controller.sceneControllers.SceneController;
 import controller.sceneControllers.SceneType;
 
@@ -54,7 +58,6 @@ public class ControllerBuilder {
 		bindings = keyBindings;
 		
 		Menu mainMenu = buildMainMenu();
-		
 		Menu pauseMenu = buildPauseMenu();
 		KeyOptions mainMenuOptions = buildMainMenuKeyOptions(mainMenu);
 		SceneController mainMenuController = buildMainMenuController(mainMenuOptions);
@@ -68,9 +71,19 @@ public class ControllerBuilder {
 		KeyOptions gameOptions = buildGameKeyOptions();
 		SceneController gameController = buildGameController(gameOptions);
 		
+		SaveLoadMenu saveMenu = buildSaveMenu();
+		KeyOptions saveOptions = buildSaveMenuKeyOptions(saveMenu);
+		SceneController saveController = buildSaveController(saveOptions);
+		
+		SaveLoadMenu loadMenu = buildLoadMenu();
+		KeyOptions loadOptions = buildLoadMenuKeyOptions(loadMenu);
+		SceneController loadController = buildLoadController(loadOptions);
+		
 		Map<SceneType, Observable> observerMap = new HashMap<>();
 		observerMap.put(SceneType.MAIN_MENU, mainMenu);
 		observerMap.put(SceneType.PAUSE_MENU, pauseMenu);
+		observerMap.put(SceneType.SAVE, saveMenu);
+		observerMap.put(SceneType.LOAD, loadMenu);
 		observerMap.put(SceneType.KEY_BINDINGS, bindingsMenu);
 		
 		cont.addMap(observerMap);
@@ -80,6 +93,8 @@ public class ControllerBuilder {
 		controllers.put(SceneType.PAUSE_MENU, pauseMenuController);
 		controllers.put(SceneType.KEY_BINDINGS, keyBindingsController);
 		controllers.put(SceneType.GAME, gameController);
+		controllers.put(SceneType.SAVE, saveController);
+		controllers.put(SceneType.LOAD, loadController);
 		
 		
 		
@@ -88,6 +103,118 @@ public class ControllerBuilder {
 	}
 	
 	
+
+	/**********************************************************************************************
+	 * 	   Load Controller builder
+	 *
+	 ************************************************************************************************/
+
+	private static SceneController buildLoadController(KeyOptions loadOptions) {
+		return new SceneController(loadOptions);
+	}
+
+
+	private static KeyOptions buildLoadMenuKeyOptions(Menuable loadMenu) {
+		Map<Integer, Commandable> options = new HashMap<Integer, Commandable>();
+		for(Map.Entry<Integer, KeyBindingsOption> entry : bindings.getBindings().entrySet()) {
+			switch(entry.getValue()) {
+				case DOWN :
+					options.put(entry.getKey(), new NextMenuCommand(loadMenu));
+					break;
+				case UP:
+					options.put(entry.getKey(), new PreviousMenuCommand(loadMenu));
+					break;
+				case CONFIRM :
+					options.put(entry.getKey(), new ConfirmMenuCommand(loadMenu));
+					break;
+				case PAUSE : 
+					options.put(entry.getKey(), new Pause());
+				default:
+					break;
+			}
+		}
+		return new KeyOptions(options);
+	}
+
+
+	private static SaveLoadMenu buildLoadMenu() {
+		List<SaveOption> options = new ArrayList<>();
+		for(SaveOption option : SaveOption.values()) {
+			options.add(option);
+		}
+		
+		Map<SaveOption, Commandable> map = buildLoadCommands();
+		return new SaveLoadMenu(options, SaveOption.OPTION_1, map);
+	}
+
+
+	private static Map<SaveOption, Commandable> buildLoadCommands() {
+		Map<SaveOption, Commandable> map = new HashMap<>();
+		
+		map.put(SaveOption.OPTION_1, new controller.commands.save.Option1());
+		map.put(SaveOption.OPTION_2, new controller.commands.save.Option2());
+		map.put(SaveOption.OPTION_3, new controller.commands.save.Option3());
+		
+		return map;
+	}
+
+
+
+	/**********************************************************************************************
+	 * 	   Save Controller builder
+	 *
+	 ************************************************************************************************/
+	
+	private static SaveLoadMenu buildSaveMenu() {
+		List<SaveOption> options = new ArrayList<>();
+		for(SaveOption option : SaveOption.values()) {
+			options.add(option);
+		}
+		
+		Map<SaveOption, Commandable> map = buildSaveCommands();
+		
+		return new SaveLoadMenu(options, SaveOption.OPTION_1, map);
+	}
+
+
+	private static Map<SaveOption, Commandable> buildSaveCommands() {
+		Map<SaveOption, Commandable> map = new HashMap<>();
+		
+		map.put(SaveOption.OPTION_1, new controller.commands.save.Option1());
+		map.put(SaveOption.OPTION_2, new controller.commands.save.Option2());
+		map.put(SaveOption.OPTION_3, new controller.commands.save.Option3());
+		
+		return map;
+	}
+	
+	private static KeyOptions buildSaveMenuKeyOptions(Menuable saveMenu) {
+		Map<Integer, Commandable> options = new HashMap<Integer, Commandable>();
+		for(Map.Entry<Integer, KeyBindingsOption> entry : bindings.getBindings().entrySet()) {
+			switch(entry.getValue()) {
+				case DOWN :
+					options.put(entry.getKey(), new NextMenuCommand(saveMenu));
+					break;
+				case UP:
+					options.put(entry.getKey(), new PreviousMenuCommand(saveMenu));
+					break;
+				case CONFIRM :
+					options.put(entry.getKey(), new ConfirmMenuCommand(saveMenu));
+					break;
+				case PAUSE : 
+					options.put(entry.getKey(), new Pause());
+				default:
+					break;
+			}
+		}
+		return new KeyOptions(options);
+	}
+	
+	private static SceneController buildSaveController(KeyOptions saveOptions) {
+		return new SceneController(saveOptions);
+	}
+	
+	
+
 	/**********************************************************************************************
 	 * 	   Game Controller builder
 	 *
@@ -128,13 +255,13 @@ public class ControllerBuilder {
 		for(Map.Entry<Integer, KeyBindingsOption> entry : bindings.getBindings().entrySet()) {
 			switch(entry.getValue()) {
 				case DOWN :
-					options.put(entry.getKey(), new PreviousBindingsMenuCommand(bindingsMenu));
+					options.put(entry.getKey(), new NextMenuCommand(bindingsMenu));
 					break;
 				case UP:
-					options.put(entry.getKey(), new NextBindingsMenuCommand(bindingsMenu));
+					options.put(entry.getKey(), new PreviousMenuCommand(bindingsMenu));
 					break;
 				case CONFIRM :
-					options.put(entry.getKey(), new ConfirmBindingsMenuCommand(bindingsMenu));
+					options.put(entry.getKey(), new ConfirmMenuCommand(bindingsMenu));
 					break;
 				case PAUSE : 
 					options.put(entry.getKey(), new CancelBindingsUpdate());
@@ -188,15 +315,15 @@ public class ControllerBuilder {
 		return pauseMenuCommands;
 	}
 
-	private static KeyOptions buildPauseMenuKeyOptions(Menu pauseMenu) {
+	private static KeyOptions buildPauseMenuKeyOptions(Menuable pauseMenu) {
 		Map<Integer, Commandable> options = new HashMap<Integer, Commandable>();
 		for(Map.Entry<Integer, KeyBindingsOption> entry : bindings.getBindings().entrySet()) {
 			switch(entry.getValue()) {
 				case DOWN :
-					options.put(entry.getKey(), new PreviousMenuCommand(pauseMenu));
+					options.put(entry.getKey(), new NextMenuCommand(pauseMenu));
 					break;
 				case UP:
-					options.put(entry.getKey(), new NextMenuCommand(pauseMenu));
+					options.put(entry.getKey(), new PreviousMenuCommand(pauseMenu));
 					break;
 				case CONFIRM :
 					options.put(entry.getKey(), new ConfirmMenuCommand(pauseMenu));
@@ -233,16 +360,16 @@ public class ControllerBuilder {
 		return new SceneController(mainMenuOptions);
 	}
 
-	private static KeyOptions buildMainMenuKeyOptions(Menu mainMenu) {
+	private static KeyOptions buildMainMenuKeyOptions(Menuable mainMenu) {
 		Map<Integer, Commandable> options = new HashMap<Integer, Commandable>();
 		
 		for(Map.Entry<Integer, KeyBindingsOption> entry : bindings.getBindings().entrySet()) {
 			switch(entry.getValue()) {
 				case DOWN :
-					options.put(entry.getKey(), new PreviousMenuCommand(mainMenu));
+					options.put(entry.getKey(), new NextMenuCommand(mainMenu));
 					break;
 				case UP:
-					options.put(entry.getKey(), new NextMenuCommand(mainMenu));
+					options.put(entry.getKey(), new PreviousMenuCommand(mainMenu));
 					break;
 				case CONFIRM :
 					options.put(entry.getKey(), new ConfirmMenuCommand(mainMenu));

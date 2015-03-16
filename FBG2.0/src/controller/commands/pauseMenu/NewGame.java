@@ -13,8 +13,8 @@ import controller.sceneControllers.SceneType;
  */
 public class NewGame implements Commandable {
 
-	GameDirector gameDirector = GameDirector.getGameDirector();
-	SceneChanger sceneChanger = SceneChanger.getInstance();
+	private GameDirector gameDirector = GameDirector.getGameDirector();
+	private SceneChanger sceneChanger = SceneChanger.getInstance();
 	
 	@Override
 	public void execute() {

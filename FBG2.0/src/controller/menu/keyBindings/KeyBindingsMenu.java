@@ -9,6 +9,7 @@ import java.util.Observer;
 import controller.commands.Commandable;
 import controller.keyBindings.KeyBindings;
 import controller.keyBindings.KeyBindingsOption;
+import controller.menu.Menuable;
 import controller.util.Describeable;
 
 /**
@@ -17,7 +18,7 @@ import controller.util.Describeable;
  * This class is used to display the options for remapping keys.
  *
  */
-public class KeyBindingsMenu extends Observable implements Describeable {
+public class KeyBindingsMenu extends Observable implements Describeable, Menuable {
 	
 	private KeyBindings keyBindings;
 	private List<KeyBindingsOption> bindingsOptions;
@@ -52,13 +53,13 @@ public class KeyBindingsMenu extends Observable implements Describeable {
 		return bindingsOptions.indexOf(currentSelection);
 	}
 
-	public void previous() {
+	public void next() {
 		int index = bindingsOptions.indexOf(currentSelection);
 		index = ++index % bindingsOptions.size();
 		setActiveOption(bindingsOptions.get(index));
 	}
 	
-	public void next() {
+	public void previous() {
 		int index = bindingsOptions.indexOf(currentSelection);
 		index = index - 1 < 0 ? bindingsOptions.size() - 1 : index - 1;
 		setActiveOption(bindingsOptions.get(index));

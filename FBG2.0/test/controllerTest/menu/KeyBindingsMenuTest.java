@@ -171,17 +171,19 @@ public class KeyBindingsMenuTest {
 	
 	@Test
 	public void testDescription() {
-		List<String> testList = new ArrayList<>();
-		testList.add("hi");
-		testList.add("bye");
+		String[] strArray = new String[2];
+		strArray[0] = "hi";
+		strArray[1] ="bye";
 		
-		EasyMock.expect(keyBindings.getDescription()).andReturn(testList);
+		EasyMock.expect(keyBindings.getDescription()).andReturn(strArray);
 		
 		EasyMock.replay(keyBindings);
 		
-		List<String> list = menu.getDescription();
-		
-		assertEquals(testList,list);
+		String[] strs = menu.getDescription();
+
+		for(int i = 0; i < strs.length; i++) {
+			assertEquals(strArray[i], strs[i]);
+		}
 		
 		EasyMock.verify(keyBindings);
 	}

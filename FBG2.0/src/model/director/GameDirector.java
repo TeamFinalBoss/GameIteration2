@@ -33,7 +33,7 @@ public class GameDirector implements Observer{
 
     private static Boolean paused = false;
     private static GameWindow window;
-    private Scene menuScene, gameScene, pauseScene, keyBindingsScene, activeScene;
+    private Scene menuScene, gameScene, pauseScene, keyBindingsScene, saveScene, loadScene, activeScene;
     private static Controller controller = Controller.getInstance();
     private SceneChanger sceneChanger = SceneChanger.getInstance();
     
@@ -49,11 +49,15 @@ public class GameDirector implements Observer{
         pauseScene = new Scene();
         keyBindingsScene = new Scene();
         gameScene = new Scene();
+        saveScene = new Scene();
+        loadScene = new Scene();
         
         scenes.put(SceneType.MAIN_MENU, menuScene);
         scenes.put(SceneType.PAUSE_MENU, pauseScene);
         scenes.put(SceneType.KEY_BINDINGS, keyBindingsScene);
         scenes.put(SceneType.GAME, gameScene);
+        scenes.put(SceneType.SAVE, saveScene);
+        scenes.put(SceneType.LOAD, loadScene);
         
         sceneChanger.registerObserver(this);
     }
@@ -68,18 +72,24 @@ public class GameDirector implements Observer{
         
         MainMenuViewPort menuVP = new MainMenuViewPort();
         
-        
-       
         MainMenuViewPort pauseVP = new MainMenuViewPort();
         pauseScene.addViewport(pauseVP);
         MainMenuViewPort keyBindingsVP = new MainMenuViewPort();
         keyBindingsScene.addViewport(keyBindingsVP);
+        MainMenuViewPort saveVP = new MainMenuViewPort();
+        MainMenuViewPort loadVP = new MainMenuViewPort();
+        
+        loadScene.addViewport(loadVP);
+        saveScene.addViewport(saveVP);
+        
         
         
         menuScene.addViewport(menuVP);//Add menuVP to menuScene
         controller.addObserver(menuVP, SceneType.MAIN_MENU);
         controller.addObserver(pauseVP, SceneType.PAUSE_MENU);
         controller.addObserver(keyBindingsVP, SceneType.KEY_BINDINGS);
+        controller.addObserver(saveVP, SceneType.SAVE);
+        controller.addObserver(loadVP, SceneType.LOAD);
         sceneChanger.changeScene(SceneType.MAIN_MENU);
         activeScene = menuScene;
     }

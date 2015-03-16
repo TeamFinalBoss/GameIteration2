@@ -10,5 +10,7 @@ public enum SceneType {
 	GAME,
 	MAIN_MENU,
 	PAUSE_MENU,
-	KEY_BINDINGS
+	KEY_BINDINGS,
+	SAVE,
+	LOAD
 }

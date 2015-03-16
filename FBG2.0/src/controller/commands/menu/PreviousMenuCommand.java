@@ -1,9 +1,6 @@
 package controller.commands.menu;
 
-import java.util.List;
-
-import controller.menu.Menu;
-import controller.menu.MenuOption;
+import controller.menu.Menuable;
 
 /**
  * @author Kyle Kyrazis
@@ -13,7 +10,7 @@ import controller.menu.MenuOption;
  */
 public class PreviousMenuCommand extends MenuCommand {
 
-	public PreviousMenuCommand(Menu menu) {
+	public PreviousMenuCommand(Menuable menu) {
 		super(menu);
 	}
 

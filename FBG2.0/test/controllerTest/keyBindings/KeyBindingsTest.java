@@ -85,11 +85,11 @@ public class KeyBindingsTest {
 	@Test
 	public void testGetDescription() {
 		System.out.println("Description");
-		List<String> strings = keyBindings.getDescription();
+		String[] strings = keyBindings.getDescription();
 		
-		assertEquals("Cancel\t2", strings.get(0));
-		assertEquals("Confirm\t3", strings.get(1));
-		assertEquals("Toggle Dialogue\t4", strings.get(2));
+		assertEquals("Cancel\t2", strings[0]);
+		assertEquals("Confirm\t3", strings[1]);
+		assertEquals("Toggle Dialogue\t4", strings[2]);
 		
 		for(String str : keyBindings.getDescription()) {
 			System.out.println(str);

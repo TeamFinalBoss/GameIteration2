@@ -1,6 +1,6 @@
 package controller.commands.menu;
 
-import controller.menu.Menu;
+import controller.menu.Menuable;
 
 
 /**
@@ -11,13 +11,13 @@ import controller.menu.Menu;
  */
 public class ConfirmMenuCommand extends MenuCommand {
 
-	public ConfirmMenuCommand(Menu menu) {
+	public ConfirmMenuCommand(Menuable menu) {
 		super(menu);
 	}
 
 	@Override
 	public void execute() {
-		super.getMenu().execute();
+		super.getMenu().confirm();
 	}
 
 }

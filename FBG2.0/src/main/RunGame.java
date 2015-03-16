@@ -1,6 +1,5 @@
 package main;
 
-import model.director.GameDirector;
 import model.director.GameEngine;
 
 /**

@@ -1,7 +1,7 @@
 package controller.commands.menu;
 
 import controller.commands.Commandable;
-import controller.menu.Menu;
+import controller.menu.Menuable;
 
 /**
  * @author Kyle Kyrazis
@@ -11,13 +11,13 @@ import controller.menu.Menu;
  *
  */
 public abstract class MenuCommand implements Commandable {
-	private Menu menu;
+	private Menuable menu;
 	
-	public MenuCommand(Menu menu) {
+	public MenuCommand(Menuable menu) {
 		this.menu = menu;
 	}
 	
-	protected Menu getMenu() {
+	protected Menuable getMenu() {
 		return this.menu;
 	}
 	

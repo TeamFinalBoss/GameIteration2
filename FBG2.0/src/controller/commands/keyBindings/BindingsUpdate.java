@@ -1,7 +1,5 @@
 package controller.commands.keyBindings;
 
-import java.util.List;
-
 import controller.commands.Commandable;
 import controller.keyBindings.KeyBindings;
 import controller.keyBindings.KeyBindingsUpdate;
