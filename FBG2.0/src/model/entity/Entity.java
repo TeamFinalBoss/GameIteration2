@@ -15,7 +15,6 @@ import model.map.pair.CoordinatePair;
  * @author Matthew Kroeze, Chris Moscoso, Michael Cohen
  * @version 1.1.0 2015-03-15
  */
-
 public class Entity extends MapObject{
 	private Inventory myInventory;
 	private Occupation myOccupation;
@@ -77,6 +76,7 @@ public class Entity extends MapObject{
         this.speed = speed;
     }
     
+
     
     
 }
