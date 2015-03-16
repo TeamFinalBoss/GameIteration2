@@ -51,10 +51,9 @@ public class ControllerBuilder {
 	private static KeyBindings bindings; 
 	
 	public static KeyListener build(KeyBindings keyBindings) {
-		
+		bindings = keyBindings;
 		Map<KeyBindingsOption, Integer> map = bindings.getBindingsReverse();
 		
-		bindings = keyBindings;
 		/******************************
 		 * Main Menu Controller
 		 *******************************/
