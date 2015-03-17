@@ -62,7 +62,7 @@ public class AbilityLibrary {
     public boolean performActiveAbility(String abilityName, Entity callingEntity){
         for(Ability a : knownAbilities) {
             if (a.getName().equals(abilityName)) {
-                a.performAbility(callingEntity.getDirection());
+                //a.performAbility(callingEntity.getDirection());
                 return true;
             }
         }

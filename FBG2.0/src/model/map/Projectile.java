@@ -1,9 +1,9 @@
 package model.map;
 
+import java.awt.Point;
 import java.util.TimerTask;
 import model.ability.Effect;
 import model.entity.Entity;
-import model.map.pair.PreciseCoordinatePair;
 import model.util.GameTimer;
 
 /**
@@ -12,7 +12,7 @@ import model.util.GameTimer;
  * @author Jason Owens
  */
 public class Projectile extends TimerTask{
-    private PreciseCoordinatePair location; // should a projectile know it's own location?
+    private Point location; // should a projectile know it's own location?
     
     private long lifetime; //this may change based on how we implement time
     private int refreshRate;
@@ -32,7 +32,7 @@ public class Projectile extends TimerTask{
     Projectile(){
         throw new UnsupportedOperationException("Do not use default Projectile constructor.");
     }
-    Projectile(long initialLifetime, Vector velocity, PreciseCoordinatePair initialLocation, Effect effects){
+    /*Projectile(long initialLifetime, Vector velocity, PreciseCoordinatePair initialLocation, Effect effects){
         lifetime = initialLifetime;
         this.velocity = velocity;
         location = initialLocation;
@@ -40,7 +40,7 @@ public class Projectile extends TimerTask{
         myTimer = GameTimer.getInstance();
         myTimer.addEvent(this, lifetime);
         refreshRate = 10; //projectiles refresh every 10 milliseconds (20 times a second)
-    }
+    }*/
     
     /*
     * run() should update a projectile's location and lifetime every period
@@ -51,8 +51,8 @@ public class Projectile extends TimerTask{
     */
     @Override
     public void run(){
-        location.addX(velocity.getX()/(double)refreshRate);
-        location.addY(velocity.getY()/(double)refreshRate);
+        //location.addX(velocity.getX()/(double)refreshRate);
+        //location.addY(velocity.getY()/(double)refreshRate);
         lifetime -= refreshRate;    
         if(isActive){ 
             myTimer.addEvent(this, lifetime);

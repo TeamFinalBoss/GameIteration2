@@ -1,7 +1,8 @@
 package model.gameObject;
 
+import java.awt.Point;
 
-import model.map.pair.CoordinatePair;
+
 
 public abstract class GameObject {
 	protected int id;
@@ -11,7 +12,7 @@ public abstract class GameObject {
 	
 	
 	//Added this, necessary to save game state. 
-	private CoordinatePair location;
+	private Point location;
 	
 	
 	//This constructor should be called only after the subclass constructor is called
@@ -20,7 +21,7 @@ public abstract class GameObject {
 		name = "Generic Object";
 		className = "GameObject";
 		description = "Generic description";
-		location = new CoordinatePair(); // default constructor, (0 , 0)
+		location = new Point(); // default constructor, (0 , 0)
 		
 	}
 	
@@ -30,7 +31,7 @@ public abstract class GameObject {
 		this.className = className;
 		this.description = description;
 		this.id = ID;
-		location = new CoordinatePair(); // default constructor, (0 , 0)
+		location = new Point(1, 1); // default constructor, (0 , 0)
 		
 	}
 	
@@ -48,6 +49,6 @@ public abstract class GameObject {
 	public String getClassName(){ return className; }
 	public String getDescription(){ return description; }
 	public String getName() { return name; }
-	public CoordinatePair getLocation() { return location; };
-	public void setLocation(CoordinatePair p) { location = p; };
+	public Point getLocation() { return location; };
+	public void setLocation(Point p) { location = p; };
 }

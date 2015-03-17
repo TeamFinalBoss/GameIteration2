@@ -14,7 +14,6 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import model.director.GameDirector;
 import model.entity.Entity;
-import model.map.Locations;
 import model.map.tile.Tile;
 
 /**
@@ -26,7 +25,7 @@ public class MapViewPort implements ViewPort, Observer {
     private final int tileWidth = 64, tileHeight = 64;
 
     Tile[][] tiles;
-    Locations entities, items, traps;
+    
     private ArrayList<Entity> entityList;
 
     int widthInTiles = 0, heightInTiles = 0;
@@ -91,11 +90,8 @@ public class MapViewPort implements ViewPort, Observer {
         widthInTiles = tiles.length;
         heightInTiles = tiles[0].length;
 
-        entities = (Locations) mapObjects[1];
-
-        items = (Locations) mapObjects[2];
-        traps = (Locations) mapObjects[3];
-        entityList = (ArrayList<Entity>) mapObjects[4];
+        
+        entityList = (ArrayList<Entity>) mapObjects[1];
 
     }
 }

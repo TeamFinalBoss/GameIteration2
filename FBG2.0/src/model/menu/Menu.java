@@ -37,7 +37,7 @@ public class Menu extends Observable {
     public String[] getOptions() {
         String[] optionStrings = new String[options.length];
         for (int i = 0; i < options.length; i++) {
-            optionStrings[i] = options[i].toString();
+            optionStrings[i] = options[i].toString().replaceAll("_", " ");
         }
         return optionStrings;
     }

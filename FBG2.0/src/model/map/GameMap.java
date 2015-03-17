@@ -1,11 +1,11 @@
 package model.map;
 
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 import model.map.tile.Tile;
 import model.map.tile.Trap;
-import model.map.pair.CoordinatePair;
 import model.entity.Entity;
 import model.item.Item;
 
@@ -23,11 +23,8 @@ import model.item.Item;
  */
 public class GameMap extends Observable {
 
-    private Locations<Entity> entities;
     private ArrayList<Entity> entityList;
-    private Locations<Item> items;
     private Tile[][] tiles;
-    private Locations<Trap> traps;
 
     public GameMap() {
         Tile[][] t = new Tile[50][50];
@@ -38,94 +35,27 @@ public class GameMap extends Observable {
         }
 
         this.tiles = t;
-        this.items = new Locations<>();
-        this.entities = new Locations<>();
-        this.traps = new Locations<>();
+        
         entityList = new ArrayList<Entity>();
     }
 
     public GameMap(Tile[][] tiles) {
         this.tiles = tiles;
-        this.items = new Locations<>();
-        this.entities = new Locations<>();
-        this.traps = new Locations<>();
+        
         entityList = new ArrayList<Entity>();
     }
 
-    /**
-     * Adds an entity to the map at the valid coordinate pair specified if not
-     * already occupied by another entity.
-     *
-     * @return true if entity was added to the map
-     * @param e Entity to be added to the map
-     * @param CP where the entity should be added
-     */
-    public final boolean addEntity(Entity e, CoordinatePair CP) {
-        if (CoordPairIsValid(CP) && entities.getObjectAt(CP) == null) {
-            this.entities.addObject(CP, e);
-            updateView();
-            return true;
-        } else {
-            return false;
-        }
-    }
+    
     
     public void addEntity(Entity e){
         entityList.add(e);
     }
 
-    /**
-     * Adds an Item to the map at the valid coordinate pair specified if not
-     * already occupied by another item.
-     *
-     * @return true if item was added to the map
-     * @param item the item to be added to the map
-     * @param CP where the item is to be added
-     */
-    public final boolean addItem(Item item, CoordinatePair CP) {
-        if (CoordPairIsValid(CP) && items.getObjectAt(CP) == null) {
-            this.items.addObject(CP, item);
-            updateView();
-            return true;
-        } else {
-            return false;
-        }
-    }
+    
 
-    /**
-     * Adds a trap to the map at the valid coordinate pair specified if not
-     * already occupied by another trap.
-     *
-     * @author Jason Owens
-     * @return true if item was added to the map
-     * @param trap the trap to be added to the map
-     * @param CP where the trap is to be added
-     */
-    public final boolean addTrap(Trap trap, CoordinatePair CP) {
-        if (CoordPairIsValid(CP) && traps.getObjectAt(CP) == null) {
-            this.traps.addObject(CP, trap);
-            updateView();
-            return true;
-        } else {
-            return false;
-        }
-    }
+    
 
-    /**
-     * Tests if the coordinate pair is non negative and not beyond the size of
-     * the map
-     *
-     * @param CP the coordinate pair to be tested.
-     * @return true if the coordinate pair is valid for the game map.
-     */
-    private boolean CoordPairIsValid(CoordinatePair CP) {
-        int x = CP.getX(), y = CP.getY();
-        if (x < 0 || y < 0) {
-            return false;
-        } else {
-            return x < getWidth() && y < getHeight();
-        }
-    }
+    
 
     /**
      * Returns how wide the map is in number of tiles.
@@ -152,7 +82,7 @@ public class GameMap extends Observable {
      */
     private void updateView() {
         setChanged();
-        Object[] objects = {tiles, entities, items, traps, entityList};
+        Object[] objects = {tiles, entityList};
         notifyObservers(objects);
     }
 
