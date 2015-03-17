@@ -43,7 +43,7 @@ public class LinearAbility extends Ability
 	* sets range of LinearAbility
 	* @param range
 	*/
-	public void setRadius(double range)
+	public void setRange(double range)
 	{
 		// invalid range
 		if(range < 0)

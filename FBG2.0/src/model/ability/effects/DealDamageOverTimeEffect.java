@@ -8,7 +8,7 @@ package model.ability.effects;
 import model.entity.Entity;
 
 /**
- * Deals damage to an entity over time. Effect applied at construction.
+ * Deals damage to an entity over time. Effect applied at applyEffect.
  * @author Jason Owens
  */
 public class DealDamageOverTimeEffect extends OverTimeEffect {
@@ -16,11 +16,21 @@ public class DealDamageOverTimeEffect extends OverTimeEffect {
     private double leftoverDamage; // very low DPS effects need this or else they'll never do damage
     double leftoverPerClick;
     
-    public DealDamageOverTimeEffect(Entity entityToEffect, int lifetimeInMilliSeconds, int damagePerSecond) {
-        super(entityToEffect, lifetimeInMilliSeconds);
+    public DealDamageOverTimeEffect(int lifetimeInMilliSeconds, int damagePerSecond) {
+        super(lifetimeInMilliSeconds);
         this.damagePerSecond = damagePerSecond;
         this.leftoverPerClick = (((double)damagePerSecond * (double)refreshRate/ (double)1000) % 1);
-        myTimer.addEvent(this,refreshRate);
+    }
+    
+    /**
+     * makes a copy of this Effect and attaches it to the given Entity
+     * @author Jason Owens
+     * @param entityToAffect 
+     */
+    @Override
+    public void applyEffect(Entity entityToAffect){
+        DealDamageOverTimeEffect newEffect = new DealDamageOverTimeEffect(lifetime, damagePerSecond);
+        myTimer.addEvent(newEffect, lifetime);
     }
     
     /**
@@ -37,7 +47,10 @@ public class DealDamageOverTimeEffect extends OverTimeEffect {
             --leftoverDamage;
         }
         myEntity.dealDamage(damageToDeal);
-        myTimer.addEvent(this, refreshRate);
+        
+        lifetime -= refreshRate;
+        if(lifetime>0)
+            myTimer.addEvent(this, refreshRate);
     }
     
 }

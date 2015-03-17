@@ -1,9 +1,5 @@
 package model.ability;
 
-/* Test commit
- * TODO: finish this (pushed just so everyone can see it)
- */
-
 import model.ability.effects.Effect;
 import model.map.Direction;
 import model.director.CombatCoordinator;
@@ -13,9 +9,9 @@ import model.entity.Entity;
 
 /**
  *  This is the parent class of all usable abilities
- * @author Aaron Iglesias, Jason Owens
+ *  @author Jason Owens
  */
-public class Ability {
+public abstract class Ability {
     private String name;
     private Effect effect;
     private CombatCoordinator myCC;
@@ -54,7 +50,7 @@ public class Ability {
     }
 
     /**
-    * @author Aaron Iglesias, Jason Owens
+    * @author Jason Owens
     * passes affectedTiles and effect to CombatCoordinator to deal damage
     * @param callingEntity
     */
@@ -95,13 +91,11 @@ public class Ability {
     
     /**
     *
-    * @author Aaron Iglesias, Jason Owens
+    * @author Jason Owens
     * To be overridden by subclasses
     * @param callingEntity 
     * 
     * @return ArrayList of Coordinates affected by ability
     */
-    protected ArrayList<CoordinatePair> getAffectedTiles(Entity callingEntity){
-        throw new UnsupportedOperationException("Not supported yet.");
-    } //returns CoordinatePairs relative to (0,0) as entity location
+    protected abstract ArrayList<CoordinatePair> getAffectedTiles(Entity callingEntity);//returns CoordinatePairs relative to (0,0) as entity location
 }
