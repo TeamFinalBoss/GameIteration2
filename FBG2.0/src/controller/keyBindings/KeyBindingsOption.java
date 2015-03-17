@@ -36,8 +36,20 @@ public enum KeyBindingsOption {
 	
 	private String value;
 	
-        @Override
+    @Override
 	public String toString() {
 		return this.value;
 	}
+    
+    public static KeyBindingsOption fromString(String text) {
+        if (text != null) {
+          for (KeyBindingsOption b : KeyBindingsOption.values()) {
+            if (text.equalsIgnoreCase(b.value)) {
+              return b;
+            }
+          }
+        }
+        return null;
+      }
+        
 }

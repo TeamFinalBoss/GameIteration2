@@ -3,6 +3,8 @@ package controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import controller.keyBindings.KeyBindingsUpdate;
+import controller.keyBindings.KeyOptions;
 import controller.sceneControllers.SceneChanger;
 import controller.sceneControllers.SceneController;
 import controller.sceneControllers.SceneType;
@@ -45,6 +47,12 @@ public class KeyDispatcher implements Observer {
 	 */
 	public void update(SceneType type) {
 		activeController = sceneControllers.get(type);
+	}
+	
+	public void updateKeyOptions(KeyBindingsUpdate update) {
+		for(Map.Entry<SceneType,SceneController> entry : sceneControllers.entrySet()) {
+			entry.getValue().updateKeyOptions(update);
+		}
 	}
 	
 	public SceneChanger getSceneChanger() {

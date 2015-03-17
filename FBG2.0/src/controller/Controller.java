@@ -6,6 +6,8 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
+import controller.builder.ControllerBuilder;
+import controller.builder.DefualtKeyBindingsBuilder;
 import controller.keyBindings.KeyBindings;
 import controller.keyBindings.KeyBindingsUpdate;
 import controller.menu.Menu;
@@ -20,6 +22,7 @@ import controller.util.Describeable;
  */
 public class Controller {
 	private KeyBindings keyBindings;
+	private KeyDispatcher dispatcher;
 	private Map<SceneType, Observable> describeable;
 	
 	private static Controller controller = null;
@@ -41,7 +44,7 @@ public class Controller {
 	}
 	
 	public KeyListener buildController() {
-		keyBindings = ControllerBuilder.buildDefaultKeyBindings();
+		keyBindings = DefualtKeyBindingsBuilder.buildDefaultKeyBindings();
 		return ControllerBuilder.build(keyBindings);
 	}
 	public KeyListener buildController(KeyBindings bindings) {
@@ -50,11 +53,16 @@ public class Controller {
 	}
 	
 	public void updateControllerKeyBindings(KeyBindingsUpdate bindings) {
-		//TODO fill in this
+		dispatcher.updateKeyOptions(bindings);
+		keyBindings.updateBindings(bindings);
 	}
 
 	public void addObserver(Observer o, SceneType type) {
 		describeable.get(type).addObserver(o);
+	}
+
+	public void setDispatcher(KeyDispatcher keyDispatcher) {
+		dispatcher = keyDispatcher;
 	}
 	
 }

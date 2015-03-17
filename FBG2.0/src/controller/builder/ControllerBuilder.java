@@ -1,6 +1,5 @@
-package controller;
+package controller.builder;
 
-import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,6 +8,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 
+import controller.Controller;
+import controller.InputParser;
+import controller.KeyDispatcher;
 import controller.commands.Commandable;
 import controller.commands.game.Pause;
 import controller.commands.keyBindings.BindingsUpdate;
@@ -26,6 +28,7 @@ import controller.commands.pauseMenu.ResumeGame;
 import controller.commands.pauseMenu.SaveGame;
 import controller.keyBindings.KeyBindings;
 import controller.keyBindings.KeyBindingsOption;
+import controller.keyBindings.KeyBindingsUpdate;
 import controller.keyBindings.KeyOptions;
 import controller.menu.Menu;
 import controller.menu.MenuOption;
@@ -49,6 +52,9 @@ public class ControllerBuilder {
 	private static Controller cont = Controller.getInstance();
 
 	private static KeyBindings bindings; 
+	//TODO Fix the fact that these are class level. Issue arises when trying to register as an
+	//observer before observer map has been fixed. 
+	private static BindingsUpdate update, cancelUpdate, saveUpdate;
 	
 	public static KeyListener build(KeyBindings keyBindings) {
 		bindings = keyBindings;
@@ -74,10 +80,10 @@ public class ControllerBuilder {
 		/******************************
 		 * KeyBindingsController
 		 *******************************/
-		
-		KeyBindingsMenu bindingsMenu = buildBindingsMenu();
+		KeyBindingsUpdate update = new KeyBindingsUpdate();
+		KeyBindingsMenu bindingsMenu = buildBindingsMenu(update);
 		Map<Integer, Commandable> keyBindingsMap = buildDefaultMenuBindings(bindingsMenu,map);
-		KeyOptions bindingsMenuOptions = buildBindingsMenuKeyOptions(keyBindingsMap, map);
+		KeyOptions bindingsMenuOptions = buildBindingsMenuKeyOptions(keyBindingsMap, map, update);
 		SceneController keyBindingsController = buildController(bindingsMenuOptions);
 		
 		/******************************
@@ -118,6 +124,10 @@ public class ControllerBuilder {
 		
 		cont.addMap(observerMap);
 		
+		ControllerBuilder.update.register();
+		cancelUpdate.register();
+		saveUpdate.register();
+		
 		/******************************
 		 * Controllers
 		 *******************************/
@@ -132,6 +142,7 @@ public class ControllerBuilder {
 		
 		
 		KeyDispatcher keyDispatcher = new KeyDispatcher(controllers, mainMenuController);
+		cont.setDispatcher(keyDispatcher);
 		return new InputParser(keyDispatcher);
 	}
 	
@@ -228,32 +239,36 @@ public class ControllerBuilder {
 
 	/**********************************************************************************************
 	 * 	   Key Bindings Controller Builder
+	 * @param update 
 	 *
 	 ************************************************************************************************/
 	
 	private static KeyOptions buildBindingsMenuKeyOptions(
 			Map<Integer, Commandable> newCommands,
-			Map<KeyBindingsOption, Integer> currentBindings)
+			Map<KeyBindingsOption, Integer> currentBindings,
+			KeyBindingsUpdate update)
 	{
-		
-		newCommands.put(currentBindings.get(KeyBindingsOption.DOWN), new CancelBindingsUpdate());
-				
-	
+		newCommands.put(
+				currentBindings.get(KeyBindingsOption.PAUSE),
+				cancelUpdate);
 		return new KeyOptions(newCommands);
 	}
 
-	private static KeyBindingsMenu buildBindingsMenu() {
+	private static KeyBindingsMenu buildBindingsMenu(KeyBindingsUpdate update) {
 		
 		Map<KeyBindingsOption, Commandable> commands = new HashMap<>();
+
+		ControllerBuilder.update = new BindingsUpdate(bindings, update);
+		cancelUpdate = new CancelBindingsUpdate(bindings, update);
+		saveUpdate= new SaveBindingsUpdate(bindings, update);
 		
 		for(KeyBindingsOption option : KeyBindingsOption.values()) {
 			if(option.equals(KeyBindingsOption.CANCEL)) {
-				commands.put(KeyBindingsOption.CANCEL, new CancelBindingsUpdate());
+				commands.put(KeyBindingsOption.CANCEL, cancelUpdate);
 			} else if(option.equals(KeyBindingsOption.SAVE)) {
-				commands.put(KeyBindingsOption.SAVE, new SaveBindingsUpdate());
+				commands.put(KeyBindingsOption.SAVE, saveUpdate);
 			} else {
-				//TODO Iron out the key switching.
-				commands.put(option, new BindingsUpdate());
+				commands.put(option, ControllerBuilder.update);
 			}
 		}
 		
@@ -357,39 +372,6 @@ public class ControllerBuilder {
 		options.put(currentBindings.get(KeyBindingsOption.CONFIRM), new ConfirmMenuCommand(menu));
 
 		return options;
-	}
-	
-	
-	public static KeyBindings buildDefaultKeyBindings() {
-		KeyBindings bindings = new KeyBindings();
-		
-		bindings.addBinding(KeyEvent.VK_Z, KeyBindingsOption.DOWN_LEFT);
-		bindings.addBinding(KeyEvent.VK_X, KeyBindingsOption.DOWN);
-		bindings.addBinding(KeyEvent.VK_C, KeyBindingsOption.DOWN_RIGHT);
-		bindings.addBinding(KeyEvent.VK_D, KeyBindingsOption.RIGHT);
-		bindings.addBinding(KeyEvent.VK_E, KeyBindingsOption.UP_RIGHT);
-		bindings.addBinding(KeyEvent.VK_W, KeyBindingsOption.UP);
-		bindings.addBinding(KeyEvent.VK_Q, KeyBindingsOption.UP_LEFT);
-		bindings.addBinding(KeyEvent.VK_A, KeyBindingsOption.LEFT);
-		bindings.addBinding(KeyEvent.VK_ENTER, KeyBindingsOption.CONFIRM);
-		bindings.addBinding(KeyEvent.VK_SHIFT, KeyBindingsOption.DIALOGUE);
-		bindings.addBinding(KeyEvent.VK_S, KeyBindingsOption.DROP);
-		bindings.addBinding(KeyEvent.VK_I, KeyBindingsOption.INVENTORY);
-		bindings.addBinding(KeyEvent.VK_TAB, KeyBindingsOption.NEAREST_ENTITY);
-		bindings.addBinding(KeyEvent.VK_ESCAPE, KeyBindingsOption.PAUSE);
-		bindings.addBinding(KeyEvent.VK_1, KeyBindingsOption.SKILL_1);
-		bindings.addBinding(KeyEvent.VK_2, KeyBindingsOption.SKILL_2);
-		bindings.addBinding(KeyEvent.VK_3, KeyBindingsOption.SKILL_3);
-		bindings.addBinding(KeyEvent.VK_4, KeyBindingsOption.SKILL_4);
-		bindings.addBinding(KeyEvent.VK_5, KeyBindingsOption.SKILL_5);
-		bindings.addBinding(KeyEvent.VK_6, KeyBindingsOption.SKILL_6);
-		bindings.addBinding(KeyEvent.VK_7, KeyBindingsOption.SKILL_7);
-		bindings.addBinding(KeyEvent.VK_8, KeyBindingsOption.SKILL_8);
-		bindings.addBinding(KeyEvent.VK_9, KeyBindingsOption.SKILL_9);
-		bindings.addBinding(KeyEvent.VK_0, KeyBindingsOption.SKILL_0);
-		bindings.addBinding(KeyEvent.VK_T, KeyBindingsOption.TILE_INFO);
-		
-		return bindings;
 	}
 	
 	

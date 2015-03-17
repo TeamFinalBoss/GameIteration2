@@ -105,6 +105,11 @@ public class GameWindow {
     public void addMouseMotionController(MouseMotionListener m) {
         frame.addMouseMotionListener(m);
     }
+    
+    public void close() {
+    	frame.setVisible(false);
+    	frame.dispose();
+    }
 
     /**
      * A JPanel that is comprised entirely of a bufferedImage

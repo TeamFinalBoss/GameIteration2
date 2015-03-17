@@ -60,15 +60,21 @@ public class KeyBindings implements Saveable{
 	}
 	
 	public KeyBindings updateBindings(KeyBindingsUpdate update) {
-		//New key to old key
+		//OLD KEY TO NEW KEY
 		KeyBindings updatedBindings = new KeyBindings();
 		
 		for(Map.Entry<Integer,Integer> entry : update.getBindingsUpdate().entrySet() ) {
-			if(keyBindings.containsKey(entry.getValue())) {
-				updatedBindings.addBinding(entry.getKey(), this.keyBindings.get(entry.getValue()));
+			updatedBindings.addBinding(entry.getValue(), this.keyBindings.get(entry.getKey()));
+		}
+		
+		for(Map.Entry<Integer, KeyBindingsOption> entry : keyBindings.entrySet()) {
+			if(!(update.getBindingsUpdate().containsKey(entry.getKey()))) {
+				updatedBindings.addBinding(entry.getKey(), entry.getValue());
 			}
 		}
 		
+		//TODO possibly delete this
+		this.keyBindings = updatedBindings.getBindings();
 		return updatedBindings;
 	}
 

@@ -1,5 +1,6 @@
 package controller.sceneControllers;
 
+import controller.keyBindings.KeyBindingsUpdate;
 import controller.keyBindings.KeyOptions;
 
 /**
@@ -23,5 +24,8 @@ public class SceneController {
 		this.keyOptions = keyOptions;
 	}
 	
+	public void updateKeyOptions(KeyBindingsUpdate update) {
+		keyOptions.update(update);
+	}
 	
 }

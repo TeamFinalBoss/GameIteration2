@@ -1,5 +1,6 @@
 package controller.menu.keyBindings;
 
+import java.awt.event.KeyEvent;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,7 +47,16 @@ public class KeyBindingsMenu extends Observable implements Describeable, Menuabl
 	//TODO is this necessary?
 	@Override
 	public String[] getDescription() {
-		return keyBindings.getDescription();
+		Map<KeyBindingsOption, Integer> map = keyBindings.getBindingsReverse();
+		String[] strsToReturn = new String[bindingsOptions.size()];
+		for(int i = 0; i < bindingsOptions.size(); i++) {
+			strsToReturn[i] =
+					bindingsOptions.get(i).toString() + " ";
+			if(map.get(bindingsOptions.get(i)) != null) {
+				strsToReturn[i] += KeyEvent.getKeyText(map.get(bindingsOptions.get(i)));
+			}
+		}
+		return strsToReturn;
 	}
 	
 	public int getCurrentIndex() {
@@ -67,6 +77,9 @@ public class KeyBindingsMenu extends Observable implements Describeable, Menuabl
 	
 	public void confirm() {
 		bindingsCommands.get(currentSelection).execute();
+		//TODO might not need this
+		setChanged();
+		notifyObservers();
 	}
 	
 	private void setActiveOption(KeyBindingsOption keyBindingsOption) {
