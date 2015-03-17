@@ -31,9 +31,11 @@ public abstract class Item extends MapObject {
 		this.className = "Item";
 		
 		//Other properties set here
-	}
-	
-	
-	
-	
+	}	
+        
+        /**
+         * @author Jason Owens
+         * @return whether or not the item impedes movement 
+         */
+	public abstract boolean isTraversable();
 }
