@@ -1,11 +1,16 @@
 package model.stats;
 
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.StringReader;
+
 import model.stats.Stats;
 import model.util.Saveable;
 
-public class PlayerStats extends Stats implements Saveable {
+public class PlayerStats extends Stats  {
 		
+	
 		private int hpCurrent;
 		private int mpCurrent;
 		private int level;
@@ -38,8 +43,8 @@ public class PlayerStats extends Stats implements Saveable {
 		
 		public PlayerStats()
 		{
-			super(0,0,0,0,0,0,0,0,0);
-			this.hpCurrent = 0;
+			super();
+			this.hpCurrent = 5;
 			this.mpCurrent = 0;
 			this.level = 1;
 			this.livesLeft = 0;
@@ -96,27 +101,33 @@ public class PlayerStats extends Stats implements Saveable {
 			hpCurrent = experienceNew;
 		}
 		
-		public String toXML(){
-			//all Stat data stored as tag attributes for now, might be better to make
-			//them separate child tags
+		@Override
+		public String toXML() {
+			String superXML = super.toXML();
+			BufferedReader reader = new BufferedReader(new StringReader(superXML));
+			String xml = "<PlayerStats>\n";
+			String curLine;
 			
-			String str = "";
-			str += "<stats level=\"" + level + "\""
-					+ " livesleft=\"" + livesLeft + "\"" 
-					+ " strength=\"" + strength + "\""
-					+ " agility=\"" + agility + "\""
-					+ " intellect=\"" + intellect + "\""
-					+ " hardiness=\"" + hardiness + "\""
-					+ " experience=\"" + experience + "\""
-					+ " movement=\"" + movement + "\""
-					+ " hpcurrent=\"" + hpCurrent + "\""
-					+ " mpcurrent=\"" + mpCurrent + "\""
-					+ " hpmax=\"" + hpMax + "\""
-					+ " mpmax=\"" + mpMax + "\""
-					+ " defense=\"" + defense + "\""
-					+ " offense=\"" + offense + "\""
-					;
-			str += " />";
-			return str;
+			try {
+				while((curLine = reader.readLine()) != null)
+				{
+					xml += "\t" + curLine + "\n";
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			xml += "\t<hpCurrent>" + hpCurrent + "</hpCurrent>\n";
+			xml += "\t<mpCurrent>" + mpCurrent + "</mpCurrent>\n";
+			xml += "\t<level>" + level + "</level>\n";
+			xml += "\t<livesLeft>" + livesLeft + "</livesLeft>\n";
+			xml += "\t<experience>" + experience + "</experience>\n";
+			
+			xml += "</PlayerStats>\n";
+			
+			return xml;
 		}
+		
+		
 }

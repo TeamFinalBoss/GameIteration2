@@ -1,7 +1,7 @@
 package model.map;
 
 import java.util.TimerTask;
-import model.ability.Effect;
+import model.ability.effects.Effect;
 import model.entity.Entity;
 import model.map.pair.PreciseCoordinatePair;
 import model.util.GameTimer;
@@ -38,7 +38,7 @@ public class Projectile extends TimerTask{
         location = initialLocation;
         this.effects = effects;
         myTimer = GameTimer.getInstance();
-        myTimer.addEvent(this, lifetime);
+        myTimer.addEvent(this, 0); //immediately calls run
         refreshRate = 10; //projectiles refresh every 10 milliseconds (20 times a second)
     }
     
@@ -55,7 +55,7 @@ public class Projectile extends TimerTask{
         location.addY(velocity.getY()/(double)refreshRate);
         lifetime -= refreshRate;    
         if(isActive){ 
-            myTimer.addEvent(this, lifetime);
+            myTimer.addEvent(this, refreshRate);
         }
     }
     public void onHit(Entity e){

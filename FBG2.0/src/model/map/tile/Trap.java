@@ -1,26 +1,46 @@
 package model.map.tile;
 
 import model.entity.Entity;
-import model.gameObject.GameObject;
+import model.gameObject.MapObject;
+import model.map.pair.CoordinatePair;
 
 /**
  * The purpose of this abstract class is to have an object that has a unique effect happen
  * when touched by an entity. In addition, it is possible for an entity to remove this
  * object from the game map.
+ * Extends GameObject abstract class
  * 
- * @author Aidan Pace
+ * ID: 7
+ * 
+ * @see MapObject
+ * @author Aidan Pace, Michael Cohen
  */
-public abstract class Trap extends GameObject{
+public abstract class Trap extends MapObject{
 
 	private int difficulty;
 	
-	Trap(int difficulty){
+	Trap(){
+		super("Generic Trap", "Generic description", new CoordinatePair());
+		
+		this.id = "7";
+		this.className = "Trap";
+		
+		//Other properties set here
+		this.difficulty = 0;
+	}
+	
+	Trap(String objectName, String description, CoordinatePair location, 
+			int difficulty){
+		super(objectName, description, location);
+		
+		this.id = "7";
+		this.className = "Trap";
+		
+		//Other properties set here
 		this.difficulty = difficulty;
 	}
 	
-	Trap(){
-		this.difficulty = 0;
-	}
+
 	
 	/**
 	 * Determines if a trap was successfully disarmed.

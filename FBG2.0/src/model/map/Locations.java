@@ -1,71 +1,81 @@
 package model.map;
 
+import model.gameObject.MapObject;
 import model.map.pair.Pair;
 import model.map.pair.CoordinatePair;
+
 import java.util.ArrayList;
 
 /**
- * The purpose of this interface is to contain objects of type S as well as
- * their locations within the GameMap
+ * 
+ * The purpose of this class is to provide a wrapper for an ArrayList
+ * which provides certain manipulation and iteration strategies needed
+ * for the game map
  *
  * @author Michael Cohen
- *
+ * @version 1.1
+ * @see GameMap
  */
-public class Locations<S> {
+public class Locations<S extends MapObject> {
 
-    ArrayList<Pair<S, CoordinatePair>> locations;
+    ArrayList<S> locations;
 
     public Locations() {
-        locations = new ArrayList<Pair<S, CoordinatePair>>();
+        locations = new ArrayList<S>();
     }
 
-    /**
-     * Gets the CoordinatePair which represents the location of the contained
-     * object. If the object provided is not present, a runtime exception is
-     * thrown
-     *
-     * @author Michael Cohen
-     * @param obj located somewhere in the map
-     * @return CoordinatePair of location of obj
-     */
-    public CoordinatePair getCoordinatePair(S obj) {
-        for (Pair<S, CoordinatePair> p : locations) {
-            if (obj == p.getObject()) {
-                return p.getCoordPair();
-            }
-        }
-        throw new RuntimeException("Object not contained in Locations");
-    }
 
     /**
      * Gets the object contained somewhere on the map based on its
-     * CoordinatePair If the CoordinatePair provided is not present, a runtime
-     * exception is thrown
+     * CoordinatePair If the CoordinatePair provided is not present, return null
      *
      * @param pair location of the object which is queried
      * @return object located at pair on the map, or null if Object isn't on the
      * map
      */
     public S getObjectAt(CoordinatePair pair) {
-        for (Pair<S, CoordinatePair> p : locations) {
-            if (pair.equals(p.getCoordPair())) {
-                
-                return p.getObject();
+        for (S obj : locations) {
+            if (pair.equals(obj.getLocation())) {
+                return obj;
             }
         }
 
         return null;//Jason changed this. Returning null is more useful and isn't dangerous.
         //throw new RuntimeException("CoordinatePair not contained in Locations");
     }
-
+    
     /**
-     * Adds an object and CoordinatePair to the locations collection
-     *
-     * @param pair location of the object to be stored
+     * Adds an object to the locations collection
+     * 
      * @param obj to be stored in the locations collection
+     * @author Michael Cohen
      */
-    public void addObject(CoordinatePair pair, S obj) {
-        locations.add(new Pair<>(obj, pair));
+    public void addObject(S obj){
+    	locations.add(obj);
+    }
+    
+    /**
+     * Adds an object to the locations collection
+     * 
+     * @param obj to be stored in the locations collection
+     * @param pair location of the object to be stored
+     */
+    public void addObject(S obj, CoordinatePair pair) {
+    	obj.setLocation(pair);
+        locations.add(obj);
+    }
+    
+    /**
+     * Adds an object to the locations collection
+     * May be unnecessary
+	 *
+     * @param obj to be stored in the locations collection
+     * @param x coordinate
+     * @param y coordinate
+     */
+    public void addObject(S obj, int x, int y){
+    	obj.setLocation(new CoordinatePair(x, y));
+    	locations.add(obj);
     }
 
     /**
@@ -77,10 +87,10 @@ public class Locations<S> {
      */
     public S remove(CoordinatePair pair) {
         for (int i = 0; i != locations.size(); ++i) {
-            Pair<S, CoordinatePair> p = locations.get(i);
-            if (p.getCoordPair().equals(pair)) {
+            S obj = locations.get(i);
+            if (pair.equals(obj.getLocation())) {
                 locations.remove(i);
-                return p.getObject();
+                return obj;
             }
         }
 
@@ -88,20 +98,19 @@ public class Locations<S> {
 
     }
 
-    /**
+    /*** 
      * Removes the provided object from the collection and returns its
      * CoordinatePair location If the object provided is not present, a runtime
      * exception is thrown
      *
      * @param obj to be removed from the collection
-     * @return CoordinatePair location of the object on the map
      */
-    public CoordinatePair remove(S obj) {
+    public void remove(S obj) {
         for (int i = 0; i != locations.size(); ++i) {
-            Pair<S, CoordinatePair> p = locations.get(i);
-            if (p.getObject().equals(obj)) {
-                locations.remove(i);
-                return p.getCoordPair();
+            S toRemove = locations.get(i);
+            if (obj.equals(toRemove)){
+            	locations.remove(i);
+            	return;
             }
         }
 
