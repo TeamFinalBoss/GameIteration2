@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import model.ability.effects.Effect;
 import model.map.GameMap;
 import model.map.pair.CoordinatePair;
+import model.ability.effects.Effect;
 
 /**
  *
@@ -29,7 +30,9 @@ public class CombatCoordinator {
     
     public void attemptAffectEntities(ArrayList<CoordinatePair> affectedTiles, Effect myEffect) {
         for(CoordinatePair CP: affectedTiles){
-            Effect temp = new Effect(myMap.getEntityAtCoordinate(CP));
+            Entity ent = myMap.getEntityAtCoordinate(CP);
+            if(ent!=null)
+                myEffect.applyEffect(ent);
         }
     }
     
