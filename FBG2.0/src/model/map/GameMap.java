@@ -153,6 +153,15 @@ public class GameMap extends Observable {
     }
 
     /**
+     * Returns the Tile at the CoordinatePair
+     *
+     * @author Jason Owens
+     * @return the tile at the CoordinatePair
+     */
+    public Tile getTileAtCoordinate(CoordinatePair location) {
+        return tiles[location.getX()][location.getY()];
+    }
+    /**
      * Returns how wide the map is in number of tiles.
      *
      * @return the width of the map in tiles

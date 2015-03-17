@@ -1,28 +1,22 @@
 package model.map.tile;
 
 import model.entity.Entity;
+import model.entity.MotionType;
 import model.gameObject.MapObject;
-import static model.map.tile.Terrain.MotionType.ALL_PASS;
 
 /**
  *
- * @author ChrisMoscoso
+ * @author ChrisMoscoso, Jason Owens
  */
 public class Terrain extends MapObject {
 
-    public enum MotionType {
-        ALL_PASS,
-        NO_GROUND_PASS,
-        UNPASSABLE
-    }
-    
     private MotionType motiontype;
 
     /**
      * Return grass terrain by default
      */
     public Terrain(){
-        this("Grass", "Please Keep Off", ALL_PASS);
+        this("Grass", "Please Keep Off", MotionType.GROUND);
     }
     
     /**

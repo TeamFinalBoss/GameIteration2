@@ -31,7 +31,7 @@ public class ActiveMapManager {
         maps = new ArrayList<>();
     }
     
-    public ActiveMapManager getInstance(){
+    public static ActiveMapManager getInstance(){
         if(me == null){
             me = new ActiveMapManager();
         }

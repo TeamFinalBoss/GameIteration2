@@ -1,6 +1,7 @@
 package model.map.tile;
 
 import model.entity.Entity;
+import model.map.tile.Terrain.MotionType;
 
 /**
  * This class represents the basic display unit in-game. Tiles contain a terrain and may contain a decal, 
@@ -34,6 +35,15 @@ public class Tile {
 		decal = d;
 	}
 	
+        /**
+	 * Returns this tile's MotionType requirement
+	 * 
+	 * @author Jason Owens
+	 */
+	public MotionType getMotionType(){
+		return terrain.getMotiontype();
+	}
+        
 	/**
 	 * Adds a terrain to this tile
 	 * 

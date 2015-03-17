@@ -1,12 +1,18 @@
 package model.map;
 
+import model.director.ActiveMapManager;
 import model.entity.Entity;
 import model.entity.MotionType;
 import model.map.pair.CoordinatePair;
+import model.map.tile.Tile;
 
 public class MotionValidator {
     private static MotionValidator validator = null;
-    private ActiveMapManager = ActiveMapManager;
+    private ActiveMapManager mapManager;
+    
+    public MotionValidator(){
+        mapManager = ActiveMapManager.getInstance();
+    }
     
     public static MotionValidator getInstance() {
             if(validator == null) {
@@ -21,19 +27,22 @@ public class MotionValidator {
      * @return boolean whether or not the Entity can move in the direction it's facing (change Entity Direction before calling)
      */
     public boolean canTraverse(Entity entityToMove) {
-        
+        GameMap currentMap = mapManager.getActiveMap();
         
         MotionType entityMotion = entityToMove.getMotionType();
         CoordinatePair desiredLocation = GameMap.locationPlusDirection(entityToMove.getLocation(), entityToMove.getDirection());
         
         
-        Tile tileAtLocation = 
+        Tile tileAtLocation = currentMap.getTileAtCoordinate(desiredLocation);
+        MotionType tileMotionType = tileAtLocation.getMotionType();
         
-        if(!correctMotionType());
+        if(!correctMotionType()){ //checking terrain
+            return false;
+        }
 
 
 
-        return false;
+        return true;
     }
     /**
      * checks terrain of desired tile and checks for obstacles
