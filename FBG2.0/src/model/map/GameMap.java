@@ -152,6 +152,17 @@ public class GameMap extends Observable {
         }
     }
 
+    /*------------Accessors--------------*/
+    /**
+     * Returns the Entity at the CoordinatePair
+     *
+     * @author Jason Owens
+     * @return the tile at the CoordinatePair
+     */
+    public Entity getEntityAtCoordinate(CoordinatePair location) {
+        return entities.getObjectAt(location);
+    }
+    
     /**
      * Returns the Tile at the CoordinatePair
      *
