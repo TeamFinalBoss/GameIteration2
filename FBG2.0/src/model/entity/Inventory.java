@@ -9,17 +9,17 @@ import model.item.EquipSlot;
  * @version 1.0.0 2015-03-14
  */
 public class Inventory {
-	private Sack mySack;
-	private Armory myArmory;
+	Sack mySack;
+	Armory myArmory;
 	
 	/* -------------------- CONSTRUCTORS -------------------- */
 	
 	/** Creates an <code>Inventory</code> instance with a Sack component and an Armory component.
 	 * @param sackCap the capacity of the <code>Sack</code> component of the <code>Inventory</code> 
 	 */
-	public Inventory(int sackCap, Entity owner){
-		mySack = new Sack(sackCap, owner);
-		myArmory = new Armory(owner);
+	public Inventory(int sackCap){
+		mySack = new Sack(sackCap);
+		myArmory = new Armory();
 	}
 	
 	/* -------------------- ACCESSORS -------------------- */
@@ -62,8 +62,8 @@ public class Inventory {
 	 * @param position indicates which item in the sack's ordered contents
 	 * 				   is to be used, where the first item is at position 0.
 	 */
-	public boolean use(int position){
-		return mySack.use(position);
+	public void use(int position){
+		mySack.use(position);
 	}
 	
 	/**
