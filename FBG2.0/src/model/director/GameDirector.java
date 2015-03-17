@@ -28,24 +28,19 @@ public class GameDirector {
     private static Boolean paused = false;
     private static GameWindow window;
     private static Scene menuScene, gameScene;
-    private static  Scene activeScene;
-    
-    private static Menu pauseMenu;
+    private static Scene activeScene;
+
+    private static Menu mainMenu, pauseMenu;
 
     private static GameDirector gameDirector = null;//It's a singleton object.
-    
+
     private static MenuKeyController mainMenuKC, pauseMenuKC;
+    private static AvatarKeyController avatarKC;
+
+    private static GameMap map1;
 
     private GameDirector() {
         window = new GameWindow();
-    }
-
-    /**
-     * This is called to start the game. (It will go to Main Menu first).
-     */
-    public void start() {
-        //Set default sizes for all scenes
-        Scene.setSceneSize(window.getSize());
         startMenuScene();
     }
 
@@ -53,8 +48,7 @@ public class GameDirector {
      * This sets up the main menu scene
      */
     public static void startMenuScene() {
-        Menu mainMenu = new Menu();
-
+        mainMenu = new Menu();
         menuScene = new Scene();
 
         MainMenuViewPort menuVP = new MainMenuViewPort();
@@ -62,13 +56,10 @@ public class GameDirector {
 
         //Add observers to model object
         mainMenu.addObserver(menuVP);
-        menuVP.update(mainMenu, null);
 
         //Add controllers to the window
-        if(mainMenuKC == null){
-            mainMenuKC = new MenuKeyController(mainMenu, menuScene);
-            window.addKeyController(mainMenuKC);
-        }
+        mainMenuKC = new MenuKeyController(mainMenu, menuScene);
+        window.addKeyController(mainMenuKC);
 
         activeScene = menuScene;
     }
@@ -81,33 +72,37 @@ public class GameDirector {
         gameScene = new Scene();
 
         //Create Map
-        GameMap map1 = new GameMap();
-
+        map1 = new GameMap();
+        Avatar a = new Avatar();
+        map1.addEntity(Avatar.getAvatar());
+        
         //Create Pause Menu 
         MenuOption[] pauseMenuOptions = {MenuOption.RESUME_GAME, MenuOption.SAVE_GAME, MenuOption.RETURN_TO_MAIN_MENU};
         pauseMenu = new Menu(pauseMenuOptions);
+        paused = false;
         pauseMenu.hide();
 
         //Create Viewports
         MapViewPort mapVP = new MapViewPort();
         PauseMenuViewPort pauseVP = new PauseMenuViewPort();
 
-        //Add viewports as observers to model objects.
-        map1.addObserver(mapVP);
-        pauseMenu.addObserver(pauseVP);
-
         //Add viewports to scene
         gameScene.addViewport(mapVP);
         gameScene.addViewport(pauseVP);
 
+        //Add viewports as observers to model objects.
+        map1.addObserver(mapVP);
+        pauseMenu.addObserver(pauseVP);
+
         //Add controllers to window
         pauseMenuKC = new MenuKeyController(pauseMenu, gameScene);
         window.addKeyController(pauseMenuKC);
-        window.addKeyController(new AvatarKeyController(Avatar.getAvatar()));
+        avatarKC = new AvatarKeyController(Avatar.getAvatar());
+        window.addKeyController(avatarKC);
 
         //Set game scene as active scene
         activeScene = gameScene;
-
+        
     }
 
     /**
@@ -117,6 +112,10 @@ public class GameDirector {
     public void updateGame() {
         if (!paused) {
             //The game is runnning
+            if (map1 != null) {
+                map1.moveGameObjects();    
+            }
+
         } else {
             //Some menu is active
         }
@@ -128,12 +127,13 @@ public class GameDirector {
     private static void setActiveScene(Scene s) {
         activeScene = s;
     }
-    
+
     /**
      * This gets which scene is currently active.
+     *
      * @return the active scene.
      */
-    public static Scene getActiveScene(){
+    public static Scene getActiveScene() {
         return activeScene;
     }
 
@@ -161,24 +161,12 @@ public class GameDirector {
     }
 
     /**
-     * This returns the dimensions of the game GUI in pixels
+     * This returns the dimensions of the game window in pixels
      *
-     * @return the dimensions of the game GUI in pixels
+     * @return the dimensions of the game window in pixels
      */
     public static Dimension getSize() {
         return window.getSize();
-    }
-
-    /**
-     * This sets the dimensions for the game GUI by setting the size for all the
-     * scenes.
-     *
-     * @param width the width of the game GUI in pixels
-     * @param height the height of the game GUI in pixels
-     */
-    public static void setSize(int width, int height) {
-        //Set default sizes for all scenes
-        Scene.setSceneSize(window.getSize());
     }
 
     /**
@@ -186,7 +174,9 @@ public class GameDirector {
      */
     public static void pauseGame() {
         paused = true;
-        pauseMenu.show();
+        if(pauseMenu != null){
+            pauseMenu.show();
+        }
     }
 
     /**
@@ -194,11 +184,14 @@ public class GameDirector {
      */
     public static void resumeGame() {
         paused = false;
-        pauseMenu.hide();
+        if(pauseMenu != null){
+            pauseMenu.hide();
+        }
     }
-    
+
     /**
      * Checks if game is paused
+     *
      * @return true if the game is paused
      */
     public static boolean gameIsPaused() {

@@ -2,14 +2,19 @@ package view.viewport;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import model.director.GameDirector;
+import model.entity.Entity;
 import model.map.Locations;
-import model.map.pair.CoordinatePair;
 import model.map.tile.Tile;
 
 /**
@@ -18,8 +23,11 @@ import model.map.tile.Tile;
  */
 public class MapViewPort implements ViewPort, Observer {
 
+    private final int tileWidth = 64, tileHeight = 64;
+
     Tile[][] tiles;
     Locations entities, items, traps;
+    private ArrayList<Entity> entityList;
 
     int widthInTiles = 0, heightInTiles = 0;
     BufferedImage grass;
@@ -34,19 +42,44 @@ public class MapViewPort implements ViewPort, Observer {
 
     @Override
     public void draw(Graphics g) {
-        for (int i = 0; i < widthInTiles; i++) {
-            for (int j = 0; j < heightInTiles; j++) {
-                //Draw tile
-                //TODO: Make it so it doesnt just draw grass       
-                g.drawImage(grass, i * 64, j * 64, 64, 64, null);
+        //Calculate which portion of the map to draw based on avatar position.
+        int windowWidthInTiles = (GameDirector.getSize().width / tileWidth);
+        int windowHeightInTiles = (GameDirector.getSize().height / tileHeight);
 
-                //Draw enitty
-                if (entities.getObjectAt(new CoordinatePair(i, j)) != null  ){
-                    g.setColor(Color.blue);
-                    g.drawRect(i*64, j*64, 63, 63);
-                }
+        int startX = entityList.get(0).getLocation().x - windowWidthInTiles / 2;
+        int startY = entityList.get(0).getLocation().y - windowHeightInTiles / 2;
+
+        if (startX < 0) {
+            startX = 0;
+        } else if (startX > widthInTiles - windowWidthInTiles) {
+            startX = widthInTiles - windowWidthInTiles;
+        }
+        if (startY < 0) {
+            startY = 0;
+        } else if (startY > heightInTiles - windowHeightInTiles) {
+            startY = heightInTiles - windowHeightInTiles;
+        }
+
+        //Start drawing
+        for (int i = startX; i < Math.min(startX + windowWidthInTiles, widthInTiles); i++) {
+            for (int j = startY; j < startY + windowHeightInTiles; j++) {
+                //Draw 
                 
-                //Entity.getPlayer().getLocation();
+                
+                //Draw Entities
+                if (entityList.get(0).getLocation().equals(new Point(i, j))) {
+                    g.setColor(Color.red);
+                    g.drawRect((i - startX) * tileWidth,
+                            (j - startY) * tileHeight,
+                            tileWidth,
+                            tileHeight
+                    );
+                }
+                g.setColor(Color.blue);
+                String coordinate = "(" + i + "," + j + ")";
+                int strX = (i - startX) * tileWidth + tileWidth / 2 - g.getFontMetrics().stringWidth(coordinate) / 2;
+                int strY = (j - startY) * tileHeight + tileHeight / 2;
+                g.drawString(coordinate, strX, strY);
             }
         }
     }
@@ -62,6 +95,7 @@ public class MapViewPort implements ViewPort, Observer {
 
         items = (Locations) mapObjects[2];
         traps = (Locations) mapObjects[3];
+        entityList = (ArrayList<Entity>) mapObjects[4];
 
     }
 }

@@ -18,9 +18,10 @@ public class MenuKeyController implements KeyListener {
 
     private final Menu menu;
     private Scene scene;
-    
+
     /**
      * The menu that the controller mutates.
+     *
      * @param m the menu object that the controller object uses.
      * @param s the scene that the controller is active in
      */
@@ -35,24 +36,25 @@ public class MenuKeyController implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        /*Navigate Menu*/
-        if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_RIGHT) {
-            menu.next();
-        } else if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_LEFT) {
-            menu.prev();
-        }
-        /*Confirm menu*/
-        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-        /*Options of Menu.MenuOption
-            NEW_GAME,SWITCH_TO_LOAD_MENU,SAVE_GAME,EXIT,RESUME_GAME,OPEN_SAVE_FILE,RETURN_TO_MAIN_MENU
-        */
-            if(GameDirector.getActiveScene().equals(scene)){
+        if (GameDirector.getActiveScene().equals(scene) && menu.isVisible()) {
+            /*Navigate Menu*/
+            if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_RIGHT) {
+                menu.next();
+            } else if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_LEFT) {
+                menu.prev();
+            }
+            /*Confirm menu*/
+            if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                /*Options of Menu.MenuOption
+                 NEW_GAME,SWITCH_TO_LOAD_MENU,SAVE_GAME,EXIT,RESUME_GAME,OPEN_SAVE_FILE,RETURN_TO_MAIN_MENU
+                 */
                 switch (menu.getCurrentSelection()) {
                     case NEW_GAME:
                         GameDirector.startNewGame();
                         break;
                     case RESUME_GAME:
                         GameDirector.resumeGame();
+                        break;
                     case RETURN_TO_MAIN_MENU:
                         GameDirector.returnToMainMenu();
                         break;
@@ -61,6 +63,8 @@ public class MenuKeyController implements KeyListener {
                         break;
                 }
             }
+        }else{
+            menu.setCurrentSelection(0);
         }
 
     }

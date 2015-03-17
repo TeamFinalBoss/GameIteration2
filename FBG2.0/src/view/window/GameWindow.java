@@ -14,6 +14,7 @@ import java.awt.image.BufferedImage;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import model.director.GameDirector;
+import view.scene.Scene;
 
 /**
  * This sets up the GUI window for the game, it holds an image in its content
@@ -52,6 +53,7 @@ public class GameWindow {
         //frame.setResizable(false);
         frame.setVisible(true);
         frame.addComponentListener(new GameWindowComponentListener());
+        frame.addWindowListener(new GameWindowListener());
 
 
         //Set up the panel for drawing
@@ -139,11 +141,7 @@ public class GameWindow {
     private class GameWindowListener implements WindowListener{
 
         @Override
-        public void windowOpened(WindowEvent e) {
-            JFrame f = new JFrame();
-            f.addWindowStateListener(null);
-            f.addWindowStateListener(null);
-        }
+        public void windowOpened(WindowEvent e) {}
 
         @Override
         public void windowClosing(WindowEvent e) {}
@@ -152,7 +150,7 @@ public class GameWindow {
         public void windowClosed(WindowEvent e) {}
 
         @Override
-        public void windowIconified(WindowEvent e) {}
+        public void windowIconified(WindowEvent e) {GameDirector.pauseGame();}
 
         @Override
         public void windowDeiconified(WindowEvent e) {}
@@ -161,7 +159,7 @@ public class GameWindow {
         public void windowActivated(WindowEvent e) {}
 
         @Override
-        public void windowDeactivated(WindowEvent e) {}
+        public void windowDeactivated(WindowEvent e) {GameDirector.pauseGame();}
         
     }
     
@@ -169,7 +167,8 @@ public class GameWindow {
 
         @Override
         public void componentResized(ComponentEvent e) {
-            GameDirector.setSize(GameWindow.this.frame.getWidth(), GameWindow.this.frame.getHeight());
+            //GameDirector.setSize(GameWindow.this.frame.getWidth(), GameWindow.this.frame.getHeight());
+            Scene.setSceneSize(GameWindow.this.frame.getSize());
         }
 
         @Override

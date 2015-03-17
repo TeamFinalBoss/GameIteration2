@@ -6,7 +6,7 @@ package model.director;
  * screen. It runs on a threaded loop that updates approximately x frames per
  * second.
  * 
- * TODO: Enforce engine to run at FPS rate. It currently runs at arbitrary rate.
+ * TODO: Enforce engine to run at any FPS rate. It currently runs at 20 FPS.
  *
  * @author ChrisMoscoso
  */
@@ -28,7 +28,6 @@ public class GameEngine implements Runnable {
         FPS = FramesPerSecond;
         thread = new Thread(this);
         director = GameDirector.getGameDirector();
-        director.start();
         start();
     }
 
@@ -48,6 +47,11 @@ public class GameEngine implements Runnable {
         while (true) {
             updateGame();
             renderGame();
+            try {
+                Thread.sleep(50);
+            } catch (InterruptedException ex) {
+                
+            }
         }
     }
     

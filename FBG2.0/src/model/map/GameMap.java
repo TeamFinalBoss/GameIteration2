@@ -1,5 +1,6 @@
 package model.map;
 
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 import model.map.tile.Tile;
@@ -23,14 +24,15 @@ import model.item.Item;
 public class GameMap extends Observable {
 
     private Locations<Entity> entities;
+    private ArrayList<Entity> entityList;
     private Locations<Item> items;
     private Tile[][] tiles;
     private Locations<Trap> traps;
 
     public GameMap() {
         Tile[][] t = new Tile[50][50];
-        for (int i = 0; i < 50; i++) {
-            for (int j = 0; j < 50; j++) {
+        for (int i = 0; i < t.length; i++) {
+            for (int j = 0; j < t[0].length; j++) {
                 t[i][j] = new Tile();
             }
         }
@@ -38,8 +40,8 @@ public class GameMap extends Observable {
         this.tiles = t;
         this.items = new Locations<>();
         this.entities = new Locations<>();
-        this.addEntity(Entity.getPlayer(), new CoordinatePair(1, 1));
         this.traps = new Locations<>();
+        entityList = new ArrayList<Entity>();
     }
 
     public GameMap(Tile[][] tiles) {
@@ -47,6 +49,7 @@ public class GameMap extends Observable {
         this.items = new Locations<>();
         this.entities = new Locations<>();
         this.traps = new Locations<>();
+        entityList = new ArrayList<Entity>();
     }
 
     /**
@@ -65,6 +68,10 @@ public class GameMap extends Observable {
         } else {
             return false;
         }
+    }
+    
+    public void addEntity(Entity e){
+        entityList.add(e);
     }
 
     /**
@@ -145,7 +152,7 @@ public class GameMap extends Observable {
      */
     private void updateView() {
         setChanged();
-        Object[] objects = {tiles, entities, items, traps};
+        Object[] objects = {tiles, entities, items, traps, entityList};
         notifyObservers(objects);
     }
 
@@ -156,6 +163,19 @@ public class GameMap extends Observable {
     }
 
     public void moveGameObjects() {
-        //for()
+        for(Entity e: entityList){
+            e.move();
+            if(e.getLocation().x > this.getWidth() - 1){
+                e.getLocation().x = this.getWidth() - 1;
+            }else if(e.getLocation().x < 0){
+                e.getLocation().x = 0;
+            }
+            
+            if(e.getLocation().y > this.getHeight() - 1){
+                e.getLocation().y = this.getHeight() - 1;
+            }else if(e.getLocation().y < 0){
+                e.getLocation().y = 0;
+            }
+        }
     }
 }

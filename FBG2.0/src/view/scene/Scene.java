@@ -28,7 +28,7 @@ public class Scene {
      * @param view the viewport to be added
      */
     public void addViewport(ViewPort view) {
-        viewports.add(view);
+        viewports.add(view);      
     }
 
     /**
