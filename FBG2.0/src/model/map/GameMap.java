@@ -1,5 +1,6 @@
 package model.map;
 
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -33,6 +34,7 @@ public class GameMap extends Observable {
     private Locations<Item> items;
     private Locations<Trap> traps;
     private Locations<AreaEffect> effects;
+    private ArrayList<Projectile> projectiles;
     
     private Tile[][] tiles;
     
@@ -82,7 +84,6 @@ public class GameMap extends Observable {
             return false;
         }
     }
-
     /**
      * Adds an Item to the map at the valid coordinate pair specified if not
      * already occupied by another item.
@@ -116,8 +117,7 @@ public class GameMap extends Observable {
     		return true;
     	}
     	else return false;
-    }
-    
+    }    
     /**
      * Adds a trap to the map at the valid coordinate pair specified if not
      * already occupied by another trap.
@@ -136,7 +136,6 @@ public class GameMap extends Observable {
             return false;
         }
     }
-
     /**
      * Tests if the coordinate pair is non negative and not beyond the size of
      * the map
@@ -187,8 +186,52 @@ public class GameMap extends Observable {
         super.addObserver(o);
         updateView();
     }
-
-    public void moveGameObjects() {
-        //for()
+    /**
+     * This is used by MotionValidator and MotionCoordinator to get the next location.
+     * @author Jason Owens
+     * @param initialLocation the location of the MapObject trying to move
+     * @param direction the direction trying to move in
+     * @return finalLocation a CoordinatePair of the new location given a direction
+     */
+    public static CoordinatePair locationPlusDirection(CoordinatePair initialLocation, Direction direction){
+        CoordinatePair returnThis = new CoordinatePair(initialLocation.getX(),initialLocation.getY());
+        switch(direction) {
+            case North:
+                returnThis.addY(-1); break;
+            case NorthEast:
+                returnThis.addY(-1);
+                returnThis.addX(1);
+                break;
+            case NorthWest:
+                returnThis.addY(-1);
+                returnThis.addX(-1);
+                break;
+            case South:
+                returnThis.addY(1);
+                break;   
+            case SouthEast:
+                returnThis.addY(1);
+                returnThis.addX(1);
+                break;      
+            case SouthWest:
+                returnThis.addY(1);
+                returnThis.addX(-1);
+                break;      
+            case West:
+                returnThis.addX(-1); 
+                break;    
+            case East:
+                returnThis.addX(-1); 
+                break;  
+          
+        }
+        return returnThis; 
+    }
+}
+    
+    
+    
+    public void requestMovement(Entity callingEntity, Direction direction) {
+        
     }
 }

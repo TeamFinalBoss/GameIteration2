@@ -16,7 +16,7 @@ import model.map.Direction;
 
 
 /**
- * @author Kyle Kyrazis
+ * @author Kyle Kyrazis, Jason Owens
  * 
  * This should be a good enough example for you guys to write tests. If it's not then
  * you can ask me, but you'll owe me a burrito.
@@ -37,10 +37,10 @@ public class AbilityLibraryTest {
 
 	@Test
 	public void testAddAbility() {
-		assertEquals(0,testClass.getAbilities().size());
-        testClass.addAbility(ability1);
-        assertEquals(1,testClass.getAbilities().size());
-        assertTrue(testClass.getAbilities().contains(ability1));
+            assertEquals(0,testClass.getAbilities().size());
+            testClass.addAbility(ability1);
+            assertEquals(1,testClass.getAbilities().size());
+            assertTrue(testClass.getAbilities().contains(ability1));
 	}
 	
         @Test

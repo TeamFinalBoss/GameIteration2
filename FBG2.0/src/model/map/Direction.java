@@ -3,7 +3,7 @@ package model.map;
 
 /**
  *
- * @author Jason
+ * @author Jason Owens
  */
 public enum Direction {
     North,
