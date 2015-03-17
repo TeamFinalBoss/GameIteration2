@@ -3,15 +3,21 @@ package model.map;
 import model.director.ActiveMapManager;
 import model.entity.Entity;
 import model.entity.MotionType;
+import model.item.Item;
+import model.item.Obstacle;
 import model.map.pair.CoordinatePair;
 import model.map.tile.Tile;
 
+/**
+ * TODO figure out how to check if an object is an obstacle
+ * Used to validate movement
+ * @author Jason Owens
+ * 
+*/
 public class MotionValidator {
     private static MotionValidator validator = null;
-    private ActiveMapManager mapManager;
     
     public MotionValidator(){
-        mapManager = ActiveMapManager.getInstance();
     }
     
     public static MotionValidator getInstance() {
@@ -23,23 +29,23 @@ public class MotionValidator {
     /**
      * checks terrain of desired tile and checks for obstacles
      * @author Jason Owens
+     * @param entityMotion
+     * @param itemAtDesiredLocation
+     * @param tileMotion
      * @param entityToMove 
      * @return boolean whether or not the Entity can move in the direction it's facing (change Entity Direction before calling)
      */
-    public boolean canTraverse(Entity entityToMove) {
-        GameMap currentMap = mapManager.getActiveMap();
-        
-        MotionType entityMotion = entityToMove.getMotionType();
-        CoordinatePair desiredLocation = GameMap.locationPlusDirection(entityToMove.getLocation(), entityToMove.getDirection());
-        
-        
-        Tile tileAtLocation = currentMap.getTileAtCoordinate(desiredLocation);
-        MotionType tileMotionType = tileAtLocation.getMotionType();
-        
-        if(!correctMotionType()){ //checking terrain
+    public boolean canTraverse(MotionType entityMotion, Item itemAtDesiredLocation, MotionType tileMotion) {
+               
+           
+        if(!correctMotionType(entityMotion,tileMotion)){ //checking terrain
             return false;
         }
 
+        //now checking for obstacles
+        if(itemAtDesiredLocation.getClassName() == "Obstacle"){ //this is very wrong, but how to fix?
+            return false;
+        }
 
 
         return true;

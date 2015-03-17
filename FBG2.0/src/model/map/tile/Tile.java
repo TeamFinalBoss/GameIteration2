@@ -1,7 +1,7 @@
 package model.map.tile;
 
 import model.entity.Entity;
-import model.map.tile.Terrain.MotionType;
+import model.entity.MotionType;
 
 /**
  * This class represents the basic display unit in-game. Tiles contain a terrain and may contain a decal, 

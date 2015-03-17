@@ -162,6 +162,15 @@ public class GameMap extends Observable {
         return tiles[location.getX()][location.getY()];
     }
     /**
+     * Returns the Item at the CoordinatePair
+     *
+     * @author Jason Owens
+     * @return the tile at the CoordinatePair
+     */
+    public Item getItemAtCoordinate(CoordinatePair location) {
+        return items.getObjectAt(location);
+    }
+    /**
      * Returns how wide the map is in number of tiles.
      *
      * @return the width of the map in tiles
@@ -240,7 +249,5 @@ public class GameMap extends Observable {
     
     
     
-    public void requestMovement(Entity callingEntity, Direction direction) {
-        
-    }
-}
+   
+
