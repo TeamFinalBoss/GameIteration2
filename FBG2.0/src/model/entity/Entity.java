@@ -1,6 +1,7 @@
 package model.entity;
 
 import java.awt.Point;
+import model.map.GameMap;
 
 import model.gameObject.MapObject;
 import model.map.Direction;
@@ -23,16 +24,24 @@ import java.util.Map;
 public class Entity extends MapObject{
 	private Inventory myInventory;
 	private Occupation myOccupation;
+	private int currency;
+	private int speed;
     private Direction myDirection;
-    private int speed;
-    private Point location; 
-       
-    private static Entity player;
+    private CoordinatePair location; 
+    
+    private static GameMap activeMap;
+    
+    /* ------------------- PRIVATE UTILITY ------------------ */
+    
+    private int max(int a, int b){
+    	return a > b ? a : b;
+    }
         
-    /* -------------------- CONSTRUCTORS --------------------*/
+    /* -------------------- CONSTRUCTORS -------------------- */
     public Entity(){
         myInventory = new Inventory(5, this);
         myOccupation = new Occupation();
+        currency = 0;
     } 
     
     public Entity(String objectName, String description, CoordinatePair location, 
@@ -79,6 +88,41 @@ public class Entity extends MapObject{
     public Equipable unequip(EquipSlot slot){
     	return myInventory.unequip(slot);
     }
+    public void drop(int position){
+    	Takeable dropped = myInventory.remove(position);
+    	activeMap.addItem(dropped, location);
+    }
+    
+    /* -------------------- OTHER ACCESSORS -------------------- */
+    
+    /**
+     * Returns the amount of currency held by the entity
+     * @return currency as an <code>int</code>
+     */
+    public int getCurrency(){
+    	return currency;
+    }
+    
+    /* -------------------- OTHER MUTATORS -------------------- */
+    /**
+     * Adds the modifier to the amount of currency held by the entity.
+     * If an attempt is made to set currency as less than 0, the 
+     * currency is set as 0.
+     * @param modifier the amount to be added to currency
+     * @return currency as an <code>int</code>
+     */
+    public void modifyCurrency(int modifier){
+    	currency = max(currency+modifier,0);
+    }
+    /**
+     * Sets the currency held by the entity equal to the amount passed in as a parameter. 
+     * If an attempt is made to set currency as less than 0, the currency is set as 0.
+     * @param next the new currency amount
+     */
+    public void setCurrency(int next){
+    	currency = max(next, 0);
+    }
+    
     
     /* -------------------- PENDING SORTING ---------------------*/
     //TODO: Sort these operations into categories above

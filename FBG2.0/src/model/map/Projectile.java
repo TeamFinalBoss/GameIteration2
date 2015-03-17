@@ -1,7 +1,8 @@
 package model.map;
 
 import java.util.TimerTask;
-import model.ability.effects.Effect;
+
+import model.effects.Effect;
 import model.entity.Entity;
 import model.map.pair.PreciseCoordinatePair;
 import model.util.GameTimer;

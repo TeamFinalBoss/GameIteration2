@@ -14,8 +14,10 @@ public class Inventory {
 	
 	/* -------------------- CONSTRUCTORS -------------------- */
 	
-	/** Creates an <code>Inventory</code> instance with a Sack component and an Armory component.
+	/** 
+	 * Creates an Inventory instance with a Sack component and an Armory component.
 	 * @param sackCap the capacity of the <code>Sack</code> component of the <code>Inventory</code> 
+	 * @param owner the owner of the inventory
 	 */
 	public Inventory(int sackCap, Entity owner){
 		mySack = new Sack(sackCap, owner);
@@ -23,8 +25,9 @@ public class Inventory {
 	}
 	
 	/* -------------------- ACCESSORS -------------------- */
-	/** Returns the ordered contents of the sack
-	 * 
+	
+	/** 
+	 * Returns the ordered contents of the sack.
 	 * @return an immutable List of Takeables ordered as they were in the sack
 	 */
 	public List<Takeable> sackContents(){
@@ -49,18 +52,29 @@ public class Inventory {
 	
 	/**
 	 * Returns contents of the armory.
-	 * @return an immutable Map with currently equipped item values
+	 * @return an immutable Map with currently equipped items as values
 	 * 		   and currently equipped items' slots keys.
 	 */
 	public Map<EquipSlot,Equipable> armoryContents(){
 		return myArmory.contents();
 	}
 	
-	/* -------------------- MUTATORS -------------------- */
 	/**
-	 * Uses the item at the specified position within the sack 
-	 * @param position indicates which item in the sack's ordered contents
-	 * 				   is to be used, where the first item is at position 0.
+	 * Returns the amount of currency in the inventory
+	 * @return amount of currency as an <code>int</code>
+	 */
+	public int currency(){
+		return currency;
+	}
+	
+	/* -------------------- MUTATORS -------------------- */
+	
+	/**
+	 * Uses the item at the specified position within the sack.
+	 * @param position indicates which item in the sack's ordered contents.
+	 * 		  is to be used, where the first item is at position 0.
+	 * @return <code>true</code>  if the item is successfully used.
+	 * 		   <code>false</code> if the item is not successfully used.
 	 */
 	public boolean use(int position){
 		return mySack.use(position);
@@ -101,4 +115,5 @@ public class Inventory {
 	public Equipable unequip(EquipSlot slot){
 		return myArmory.unequip(slot);
 	}
+	
 }

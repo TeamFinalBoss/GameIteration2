@@ -1,10 +1,12 @@
 package model.ability;
 
-import model.ability.effects.Effect;
 import model.map.Direction;
 import model.director.CombatCoordinator;
 import model.map.pair.CoordinatePair;
+
 import java.util.ArrayList;
+
+import model.effects.Effect;
 import model.entity.Entity;
 
 /**
