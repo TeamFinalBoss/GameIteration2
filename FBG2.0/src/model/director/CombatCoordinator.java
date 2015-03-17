@@ -2,8 +2,7 @@
 package model.director;
 
 import java.util.ArrayList;
-
-import model.effects.Effect;
+import model.ability.effects.Effect;
 import model.map.GameMap;
 import model.map.pair.CoordinatePair;
 
