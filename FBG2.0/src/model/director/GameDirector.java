@@ -17,6 +17,7 @@ import java.util.Map;
 import model.map.GameMap;
 import view.window.GameWindow;
 import view.scene.Scene;
+import view.viewport.KeyBindingsMenuViewPort;
 import view.viewport.MainMenuViewPort;
 import view.viewport.PauseViewPort;
 
@@ -74,7 +75,7 @@ public class GameDirector implements Observer{
         
         MainMenuViewPort pauseVP = new MainMenuViewPort();
         pauseScene.addViewport(pauseVP);
-        MainMenuViewPort keyBindingsVP = new MainMenuViewPort();
+        MainMenuViewPort keyBindingsVP = new KeyBindingsMenuViewPort();
         keyBindingsScene.addViewport(keyBindingsVP);
         MainMenuViewPort saveVP = new MainMenuViewPort();
         MainMenuViewPort loadVP = new MainMenuViewPort();

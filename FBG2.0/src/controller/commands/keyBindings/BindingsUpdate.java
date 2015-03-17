@@ -23,7 +23,7 @@ import controller.util.Describeable;
  * This class should be used for performing the mapping between old key and new key
  *
  */
-public class BindingsUpdate implements Commandable, Observer, KeyListener   {
+public class BindingsUpdate extends Observable implements Commandable, Observer, KeyListener   {
 
 	private KeyBindings currentBindings;
 	private KeyBindingsUpdate bindingsUpdate;
@@ -71,16 +71,15 @@ public class BindingsUpdate implements Commandable, Observer, KeyListener   {
 	@Override
 	public void keyPressed(KeyEvent arg0) {
 		Map<KeyBindingsOption, Integer> currentMapping = currentBindings.getBindingsReverse();
-		boolean isValid = false;
 		try {
 			bindingsUpdate.addUpdate(currentMapping.get(currentSelection), arg0.getKeyCode());
-			isValid = true;
+			window.close();
+			setChanged();
+			notifyObservers();
 		} catch(IllegalArgumentException e) {
 			System.out.println(e.getMessage());
 		}
-		if(isValid) {
-			window.close();
-		}
+		
 	}
 
 	@Override
@@ -102,8 +101,11 @@ public class BindingsUpdate implements Commandable, Observer, KeyListener   {
 	public void register() {
 		Controller.getInstance().addObserver(this, SceneType.KEY_BINDINGS);
 	}
-
 	
-	
+	public void addObserver(Observer o) {
+		super.addObserver(o);
+        setChanged();
+        notifyObservers();
+	}
 
 }
