@@ -20,8 +20,14 @@ public class DealDamageOverTimeEffect extends OverTimeEffect {
         super(entityToEffect, lifetimeInMilliSeconds);
         this.damagePerSecond = damagePerSecond;
         this.leftoverPerClick = (((double)damagePerSecond * (double)refreshRate/ (double)1000) % 1);
+        myTimer.addEvent(this,refreshRate);
     }
-
+    
+    /**
+    * Run is called every [refreshRate] in milliseconds. leftoverDamage variable is used
+    * to solve problem of small integer damage effects not dividing evenly.
+    * @author Jason Owens
+    */
     @Override
     public void run(){
         leftoverDamage += leftoverPerClick;
@@ -31,6 +37,7 @@ public class DealDamageOverTimeEffect extends OverTimeEffect {
             --leftoverDamage;
         }
         myEntity.dealDamage(damageToDeal);
+        myTimer.addEvent(this, refreshRate);
     }
     
 }
