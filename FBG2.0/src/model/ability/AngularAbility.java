@@ -2,7 +2,7 @@ package model.ability;
 
 /**
 *
-* @author Aaron Iglesias
+* @author Aaron Iglesias, Jason Owens
 */
 public class AngularAbility extends Ability
 {
@@ -10,8 +10,8 @@ public class AngularAbility extends Ability
 	private double radius;
 
 	/**
-	* @author Aaron Iglesias
-	* default constructor of Angular Ability
+	* @author Aaron Iglesias, Jason Owens
+	* default constructor for AngularAbility
 	* @param radius
 	*/
 	public AngularAbility()
@@ -22,19 +22,20 @@ public class AngularAbility extends Ability
 	}
 
 	/**
-	* @author Aaron Iglesias
-	* constructor of Angular Ability
+	* @author Aaron Iglesias, Jason Owens
+	* constructor for AngularAbility
 	* @param radius
 	*/
-	public AngularAbility(double radius)
+	public AngularAbility(String name, Effect effect, CombatCoordinator myCC, Effect cost, double degree, double radius)
 	{
-		super();
+		super(name, effect, myCC, cost);
+		this.degree = degree;
 		this.radius = radius;
 	}
 
 	/**
-	* @author Aaron Iglesias
-	* gets the degree of the Angular Ability
+	* @author Aaron Iglesias, Jason Owens
+	* gets the degree of AngularAbility
 	*/
 	public double getDegree()
 	{
@@ -42,8 +43,8 @@ public class AngularAbility extends Ability
 	}
 
 	/**
-	* @author Aaron Iglesias
-	* gets the radius of the Angular Ability
+	* @author Aaron Iglesias, Jason Owens
+	* gets the radius of AngularAbility
 	*/
 	public double getRadius()
 	{
@@ -51,8 +52,8 @@ public class AngularAbility extends Ability
 	}
 
 	/**
-	* @author Aaron Iglesias
-	* sets the degree of the Angular Ability
+	* @author Aaron Iglesias, Jason Owens
+	* sets the degree of AngularAbility
 	* @param degree
 	*/
 	public void setDegree(double degree)
@@ -64,8 +65,8 @@ public class AngularAbility extends Ability
 	}
 
 	/**
-	* @author Aaron Iglesias
-	* sets the radius of the Angular Ability
+	* @author Aaron Iglesias, Jason Owens
+	* sets the radius of AngularAbility
 	* @param radius
 	*/
 	public void setRadius(double radius)
@@ -74,5 +75,15 @@ public class AngularAbility extends Ability
 		if(radius < 0)
 			return;
 		this.radius = radius;
+	}
+
+	@Override
+	protected abstract ArrayList<CoordinatePair> getAffectedTiles(Entity entity)
+	{
+		Direction direction = entity.getDirection();
+		CoordinatePair coordinatePair = entity.getLocation();
+		
+
+		return;
 	}
 }

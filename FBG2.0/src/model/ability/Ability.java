@@ -6,6 +6,7 @@ import model.director.CombatCoordinator;
 import model.map.pair.CoordinatePair;
 import java.util.ArrayList;
 import model.entity.Entity;
+import static java.lang.Math.pow;
 
 /**
  *  This is the parent class of all usable abilities
@@ -24,19 +25,22 @@ public abstract class Ability {
     * default constructor for Ability
     */
     public Ability(){
-        cost = null;
-        myCC = null;
-        effect = null;
         name = null;
+        effect = null;
+        myCC = null;
+        cost = null;
     }
 
     /**
     * @author Aaron Iglesias, Jason Owens
     * constructor for Ability
-    * @param name
+    * @param name, effect, myCC, cost
     */
-    public Ability(String name){
+    public Ability(String name, Effect effect, CombatCoordinator myCC, Effect cost){
         this.name = name;
+        this.effect = effect;
+        this.myCC = myCC;
+        this.cost = cost;
     }
     
      /*-----------Accessors-----------*/
@@ -44,6 +48,7 @@ public abstract class Ability {
     /**
     * @author Aaron Iglesias, Jason Owens
     * gets name of Ability
+    * @return name
     */
     public String getName(){
         return name;
@@ -74,7 +79,7 @@ public abstract class Ability {
     * sets cost of Ability
     * @param cost
     */
-    public void setCost(int cost)
+    public void setCost(Effect cost)
     {
         this.cost = cost;
     }
@@ -97,5 +102,25 @@ public abstract class Ability {
     * 
     * @return ArrayList of Coordinates affected by ability
     */
-    protected abstract ArrayList<CoordinatePair> getAffectedTiles(Entity callingEntity);//returns CoordinatePairs relative to (0,0) as entity location
+    //returns CoordinatePairs relative to (0,0) as entity location
+    protected abstract ArrayList<CoordinatePair> getAffectedTiles(Entity entity);
+
+    /**
+    * @author Aaron Iglesias
+    * calculate distance between two coordinate pairs
+    * @param entity1, entity2
+    * @return distance
+    */
+    protected double getDistance(CoordinatePair location1, Coordinate location2)
+    {
+        int x1 = location1.getX();
+        int y2 = location2.getY();
+
+        int y1 = location1.getY();
+        int x2 = location2.getX();
+        
+        double distance = pow(pow(x1 - x2, 2) + pow(y1 - y2, 2), 0.5);
+        
+        return distance;
+    }
 }

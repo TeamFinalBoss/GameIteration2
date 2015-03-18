@@ -23,9 +23,9 @@ public class LinearAbility extends Ability
 	* constructor for LinearAbility
 	* @param range
 	*/
-	public LinearAbility(double range)
+	public LinearAbility(String name, Effect effect, CombatCoordinator myCC, Effect cost, double range)
 	{
-		super();
+		super(name, effect, myCC, cost);
 		this.range = range;
 	}
 
@@ -50,5 +50,14 @@ public class LinearAbility extends Ability
 			return;
 		this.range = range;
 	}
-        
+
+	@Override
+	protected abstract ArrayList<CoordinatePair> getAffectedTiles(Entity entity)
+	{
+		Direction direction = entity.getDirection();
+		CoordinatePair coordinatePair = entity.getLocation();
+		
+
+		return;
+	}
 }

@@ -2,7 +2,7 @@ package model.ability;
 
 /**
 *
-* @author Aaron Iglesias
+* @author Aaron Iglesias, Jason Owens
 */
 public class RadialAbility extends Ability
 {
@@ -10,7 +10,7 @@ public class RadialAbility extends Ability
 	private double radius;
 
 	/**
-	* @author Aaron Iglesias
+	* @author Aaron Iglesias, Jason Owens
 	* default constructor for RadialAbility
 	*/
 	public RadialAbility()
@@ -21,18 +21,19 @@ public class RadialAbility extends Ability
 	}
 
 	/**
-	* @author Aaron Iglesias
+	* @author Aaron Iglesias, Jason Owens
 	* constructor for RadialAbility
 	* @param radius
 	*/
-	public RadialAbility(double radius)
+	public AngularAbility(String name, Effect effect, CombatCoordinator myCC, Effect cost, double degree, double radius)
 	{
-		super("RadialAbility");
+		super(name, effect, myCC, cost);
+		this.degree = degree;
 		this.radius = radius;
 	}
 
 	/**
-	* @author Aaron Iglesias
+	* @author Aaron Iglesias, Jason Owens
 	* gets degree of RadialAbility
 	*/
 	public double getDegree()
@@ -41,7 +42,7 @@ public class RadialAbility extends Ability
 	}
 
 	/**
-	* @author Aaron Iglesias
+	* @author Aaron Iglesias, Jason Owens
 	* gets radius of RadialAbility
 	*/
 	public double getRadius()
@@ -50,7 +51,7 @@ public class RadialAbility extends Ability
 	}
 
 	/**
-	* @author Aaron Iglesias
+	* @author Aaron Iglesias, Jason Owens
 	* sets degree of RadialAbility
 	* @param degree
 	*/
@@ -63,7 +64,7 @@ public class RadialAbility extends Ability
 	}
 
 	/**
-	* @author Aaron Iglesias
+	* @author Aaron Iglesias, Jason Owens
 	* sets radius of RadialAbility
 	* @param radius
 	*/
