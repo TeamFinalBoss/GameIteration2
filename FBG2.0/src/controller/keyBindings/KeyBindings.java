@@ -15,7 +15,7 @@ import model.util.Saveable;
  */
 public class KeyBindings implements Saveable{
 
-	private Map<Integer, KeyBindingsOption> keyBindings; 
+	private Map<Integer, KeyBindingsOption> keyBindings;
 	
 	public KeyBindings() {
 		keyBindings = new HashMap<Integer, KeyBindingsOption>();
@@ -77,6 +77,11 @@ public class KeyBindings implements Saveable{
 		this.keyBindings = updatedBindings.getBindings();
 		return updatedBindings;
 	}
+	
+	public void updateBindingsKeyValue(Integer key, Integer value) {
+		KeyBindingsOption option = this.keyBindings.remove(key);
+		this.keyBindings.put(value,option);
+	}
 
 	public String[] getDescription() {
 		String[] strArray = new String[keyBindings.size()];
@@ -89,6 +94,19 @@ public class KeyBindings implements Saveable{
 		return strArray;
 	}
 
+	public KeyBindings clone() {
+		Map<Integer, KeyBindingsOption> map = new HashMap<>();
+		for(Map.Entry<Integer,KeyBindingsOption> entry : keyBindings.entrySet()) {
+			map.put(entry.getKey(),entry.getValue());
+		}
+		return new KeyBindings(map);
+	}
+	
+	public void clear() {
+		this.keyBindings.clear();
+	}
+
+	
 	
 
 }

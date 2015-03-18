@@ -80,7 +80,7 @@ public class ControllerBuilder {
 		/******************************
 		 * KeyBindingsController
 		 *******************************/
-		KeyBindingsUpdate update = new KeyBindingsUpdate();
+		KeyBindingsUpdate update = new KeyBindingsUpdate(new HashMap<>(), bindings);
 		KeyBindingsMenu bindingsMenu = buildBindingsMenu(update);
 		Map<Integer, Commandable> keyBindingsMap = buildDefaultMenuBindings(bindingsMenu,map);
 		KeyOptions bindingsMenuOptions = buildBindingsMenuKeyOptions(keyBindingsMap, map, update);
@@ -127,7 +127,7 @@ public class ControllerBuilder {
 		ControllerBuilder.update.register();
 		cancelUpdate.register();
 		saveUpdate.register();
-		
+		ControllerBuilder.update.addObserver(bindingsMenu);
 		/******************************
 		 * Controllers
 		 *******************************/
@@ -274,6 +274,7 @@ public class ControllerBuilder {
 		
 		return new KeyBindingsMenu(bindings,
 				Arrays.asList(KeyBindingsOption.values()),
+				update,
 				KeyBindingsOption.UP,
 				commands);
 	}
