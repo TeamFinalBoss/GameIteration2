@@ -57,21 +57,26 @@ public class MainMenuViewPort implements ViewPort, Observer {
             g.drawImage(fbLogo, logoX, logoY, null);
         } catch (IOException ex) {
         }
-        /*DRAW MENU*/
-        g.setFont(new Font(g.getFont().getFamily(), Font.PLAIN, 30));
-        if (options != null) {
-            for (int i = 0; i < options.length; i++) {
-                if (i == activeOptionIndex) {
-                    g.setColor(Color.red);
-                } else {
-                    g.setColor(Color.black);
-                }
-                int stringWidth = g.getFontMetrics().stringWidth(options[i]);
-                int stringHeight = g.getFontMetrics().getHeight();
-                int padding = 25;
-                g.drawString(options[i], (width / 2) - (stringWidth / 2), i * (stringHeight + padding) + logoY + logoHeight + stringHeight + padding);
-            }
-        }
+        
+        drawMenu(g);/*DRAW MENU*/
+       
+    }
+    
+    protected void drawMenu(Graphics g) {
+    	 g.setFont(new Font(g.getFont().getFamily(), Font.PLAIN, 30));
+         if (options != null) {
+             for (int i = 0; i < options.length; i++) {
+                 if (i == activeOptionIndex) {
+                     g.setColor(Color.red);
+                 } else {
+                     g.setColor(Color.black);
+                 }
+                 int stringWidth = g.getFontMetrics().stringWidth(options[i]);
+                 int stringHeight = g.getFontMetrics().getHeight();
+                 int padding = 25;
+                 g.drawString(options[i], (width / 2) - (stringWidth / 2), i * (stringHeight + padding) + logoY + logoHeight + stringHeight + padding);
+             }
+         }
     }
 
     @Override
@@ -80,4 +85,24 @@ public class MainMenuViewPort implements ViewPort, Observer {
         options = m.getDescription();
         activeOptionIndex = m.getCurrentIndex();
     }
+    
+    protected String[] getOptions() {
+    	return this.options;
+    }
+    
+    protected int currentSelectionIndex() {
+    	return this.activeOptionIndex;
+    }
+    
+    protected int getWidth() {
+    	return this.width;
+    }
+    protected int getHeight() {
+    	return this.height;
+    }
+    
+    protected int getLogoHeight() {
+    	return this.logoHeight;
+    }
+    
 }

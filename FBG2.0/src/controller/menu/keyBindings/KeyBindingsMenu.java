@@ -10,6 +10,7 @@ import java.util.Observer;
 import controller.commands.Commandable;
 import controller.keyBindings.KeyBindings;
 import controller.keyBindings.KeyBindingsOption;
+import controller.keyBindings.KeyBindingsUpdate;
 import controller.menu.Menuable;
 import controller.util.Describeable;
 
@@ -19,9 +20,10 @@ import controller.util.Describeable;
  * This class is used to display the options for remapping keys.
  *
  */
-public class KeyBindingsMenu extends Observable implements Describeable, Menuable {
+public class KeyBindingsMenu extends Observable implements Describeable, Menuable, Observer {
 	
 	private KeyBindings keyBindings;
+	private KeyBindingsUpdate update;
 	private List<KeyBindingsOption> bindingsOptions;
 	private KeyBindingsOption currentSelection;
 	private Map<KeyBindingsOption, Commandable> bindingsCommands;
@@ -34,11 +36,13 @@ public class KeyBindingsMenu extends Observable implements Describeable, Menuabl
 
 	public KeyBindingsMenu(KeyBindings keyBindings,
 			List<KeyBindingsOption> bindingsOptions,
+			KeyBindingsUpdate update,
 			KeyBindingsOption currentSelection,
 			Map<KeyBindingsOption, Commandable> bindingsCommands)
 	{
 		this.keyBindings = keyBindings;
 		this.bindingsOptions = bindingsOptions;
+		this.update = update;
 		this.currentSelection = currentSelection;
 		this.bindingsCommands = bindingsCommands;
 	}
@@ -52,8 +56,12 @@ public class KeyBindingsMenu extends Observable implements Describeable, Menuabl
 		for(int i = 0; i < bindingsOptions.size(); i++) {
 			strsToReturn[i] =
 					bindingsOptions.get(i).toString() + " ";
-			if(map.get(bindingsOptions.get(i)) != null) {
-				strsToReturn[i] += KeyEvent.getKeyText(map.get(bindingsOptions.get(i)));
+			if(update.getValue(map.get(bindingsOptions.get(i))) != null) {
+				strsToReturn[i] += update.getValue(map.get(bindingsOptions.get(i)));
+			} else {
+				if(map.get(bindingsOptions.get(i)) != null) {
+					strsToReturn[i] += KeyEvent.getKeyText(map.get(bindingsOptions.get(i)));
+				}
 			}
 		}
 		return strsToReturn;
@@ -77,7 +85,6 @@ public class KeyBindingsMenu extends Observable implements Describeable, Menuabl
 	
 	public void confirm() {
 		bindingsCommands.get(currentSelection).execute();
-		//TODO might not need this
 		setChanged();
 		notifyObservers();
 	}
@@ -96,6 +103,12 @@ public class KeyBindingsMenu extends Observable implements Describeable, Menuabl
 		super.addObserver(o);
         setChanged();
         notifyObservers();
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		setChanged();
+		notifyObservers();
 	}
 	
 }
