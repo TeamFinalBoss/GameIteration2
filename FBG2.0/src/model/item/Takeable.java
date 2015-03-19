@@ -2,6 +2,7 @@ package model.item;
 
 import model.gameObject.MapObject;
 import model.map.pair.CoordinatePair;
+import model.entity.Entity;
 
 /**
  * This class defines an Item which can be taken and added to the Inventory
@@ -57,5 +58,12 @@ public abstract class Takeable extends Item {
         
         public void setValue(int value){
             this.value= value;
+        }
+        
+        public boolean useInSack(Entity target){
+        	//Check if Entity meets prerequisites for using the item
+        	//If prerequisites were met, use the item and return true
+        	//Else return false
+        	return true;
         }
 }
