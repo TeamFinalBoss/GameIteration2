@@ -5,12 +5,12 @@
  */
 package model.item;
 
-import model.map.pair.CoordinatePair;
 import model.entity.Entity;
+import model.map.pair.CoordinatePair;
 
 /**
  * ID=13
- * @author ashishag
+ * @author ashishjuit
  */
 public abstract class Usable extends Takeable{
     
@@ -36,10 +36,13 @@ public abstract class Usable extends Takeable{
 		//Other properties set here
 	}
         
-        // This is for checking up the use with sack 
-    
-        public abstract void use(Entity e);
-        
+      
+         public boolean useInSack(Entity target){
+        	//Check if Entity meets prerequisites for using the item
+        	//If prerequisites were met, use the item and return true
+        	//Else return false
+        	return false;
+        }
 }
 
 

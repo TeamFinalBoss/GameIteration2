@@ -5,8 +5,8 @@
  */
 package model.item;
 
-import model.ability.effects.DealDamageEffect;
-import model.ability.effects.Effect;
+import model.effect.DealDamageEffect;
+
 import model.map.pair.CoordinatePair;
 
 /**
@@ -18,8 +18,8 @@ public class RustyKnife extends Weapon{
     
     //durability
      public RustyKnife(){
-		super("RustyKnife", "Generic description", new CoordinatePair(), 0, 1,
-                 EquipSlot.HEAD, new DealDamageEffect(10));
+		super("RustyKnife", "Generic_description", new CoordinatePair(),
+                0, 1, EquipSlot.HEAD, new DealDamageEffect(10));
                 this.id = "19";
 		this.className = "RustyKnife";
                 

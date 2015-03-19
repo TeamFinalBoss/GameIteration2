@@ -7,7 +7,8 @@ package model.item;
 
 import model.entity.Entity;
 import model.map.pair.CoordinatePair;
-import model.ability.effects.Effect;
+import model.effect.Effect;
+
 /**
  * ID=16
  * @author ashishag
@@ -36,11 +37,15 @@ public class HealthPotion extends Usable {
 	}
         // TODO: increase hp player stat
         @Override 
-        public void use(Entity e){
+        public boolean useInSack(Entity e){
             //e.heal(12);
-            Effect e = new HealEffect(10);
-            e.applyEffect();
+            Effect ee = new HealEffect(10);
+            ee.applyEffect();
+            return true;
         }
-       
+        
+        
 }
+       
+
 

@@ -9,13 +9,13 @@ import model.map.pair.CoordinatePair;
 
 /**
  * ID= 14
- * @author ashishag
+ * @author ashishjuit
  */
 public class Stick extends Takeable {
     
 	
 	public Stick(){
-		super("Stick", "Generic description", new CoordinatePair(), 0);
+		super("Stick", "Generic description", new CoordinatePair(), 0, 1);
 		
 		this.id = "14";
 		this.className = "Stick";
@@ -23,8 +23,8 @@ public class Stick extends Takeable {
 		//Other properties set here
 	}
 	
-	public Stick(String objectName, String description, CoordinatePair location, int value){
-		super(objectName, description, location, value);
+	public Stick(String objectName, String description, CoordinatePair location, int value, int durability){
+		super(objectName, description, location, value, durability);
 		
 		this.id = "14";
 		this.className = "Stick";
