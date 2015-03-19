@@ -73,6 +73,8 @@ public class GameMap extends Observable {
      * Adds an entity to the map at the valid coordinate pair specified if not
      * already occupied by another entity.
      *
+     * TODO: Determine if boolean signature is necessary 
+     * 
      * @return true if entity was added to the map
      * @param e Entity to be added to the map
      * @param CP where the entity should be added
@@ -92,6 +94,8 @@ public class GameMap extends Observable {
      * This method attempts to remove the provided entity
      * from the Entity Locations collection and returns
      * whether or not that removal was successful
+     * 
+     *  TODO: Determine if boolean signature is necessary 
      * 
      * @author Michael Cohen
      * @param e the entity to be removed
@@ -118,6 +122,8 @@ public class GameMap extends Observable {
      * Adds an Item to the map at the valid coordinate pair specified if not
      * already occupied by another item.
      *
+     * TODO: Determine if boolean signature is necessary 
+     *
      * @return true if item was added to the map
      * @param item the item to be added to the map
      * @param CP where the item is to be added
@@ -136,6 +142,8 @@ public class GameMap extends Observable {
      * This method attempts to remove the provided item
      * from the Item Locations collection and returns
      * whether or not that removal was successful
+     * 
+     * TODO: Determine if boolean signature is necessary 
      * 
      * @author Michael Cohen
      * @param i the item to be removed
@@ -160,7 +168,9 @@ public class GameMap extends Observable {
     /**
      * Adds an area effect to the map at the valid coordinate pair specified if not
      * already occupied by another area effect
-     * 
+     *
+     * TODO: Determine if boolean signature is necessary 
+     *
      * @author Michael Cohen
      * @param effect the area effect to be added to the map
      * @param CP where the area effect is to be added
@@ -179,7 +189,9 @@ public class GameMap extends Observable {
      * This method attempts to remove the provided area effect
      * from the AreaEffect Locations collection and returns
      * whether or not that removal was successful
-     * 
+     *
+     * TODO: Determine if boolean signature is necessary 
+     *
      * @author Michael Cohen
      * @param effect to be removed
      * @return true if effect was removed, else false
@@ -204,6 +216,8 @@ public class GameMap extends Observable {
      * Adds a trap to the map at the valid coordinate pair specified if not
      * already occupied by another trap.
      *
+     * TODO: Determine if boolean signature is necessary 
+     *
      * @author Jason Owens
      * @return true if item was added to the map
      * @param trap the trap to be added to the map
@@ -223,7 +237,9 @@ public class GameMap extends Observable {
      * This method attempts to remove the provided trap
      * from the Trap Locations collection and returns
      * whether or not that removal was successful
-     * 
+     *
+     * TODO: Determine if boolean signature is necessary 
+     *
      * @author Michael Cohen
      * @param t trap to be removed
      * @return true if trap was removed, else false

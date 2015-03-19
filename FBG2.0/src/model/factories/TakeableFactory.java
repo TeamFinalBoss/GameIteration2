@@ -8,6 +8,7 @@ import model.director.ActiveMapManager;
 import model.entity.Entity;
 import model.factories.PlaceableObjectFactory;
 import model.gameObject.MapObject;
+import model.item.Item;
 import model.item.Takeable;
 
 import org.w3c.dom.Element;
@@ -42,11 +43,11 @@ public class TakeableFactory implements PlaceableObjectFactory{
 			for(int i = 0; i < nodes.getLength(); i++)
 			{
 				Element item = (Element) nodes.item(i);
-				MapObject it = null;
+				Item it = null;
 				
 				switch(item.getAttribute("name")){
 				case "whatever":
-					it = new Takeable("whatever", "it does nothing", Integer.parseInt(item.getAttribute("durability")));
+					//it = new Takeable("whatever", "it does nothing", Integer.parseInt(item.getAttribute("durability")));
 					break;
 				}
 				
@@ -61,17 +62,17 @@ public class TakeableFactory implements PlaceableObjectFactory{
 			for(int i = 0; i < nodes.getLength(); i++)
 			{
 				Element item = (Element) nodes.item(i);
-				MapObject it = null;
+				Item it = null;
 				
 				switch(item.getAttribute("name")){
 				case "whatever":
-					it = new Takeable("whatever", "it does nothing", Integer.parseInt(item.getAttribute("durability")), new CoordinatePair(Integer.parseInt(item.getAttribute("x")), Integer.parseInt(item.getAttribute("y"))));
+					//it = new Takeable("whatever", "it does nothing", Integer.parseInt(item.getAttribute("durability")), new CoordinatePair(Integer.parseInt(item.getAttribute("x")), Integer.parseInt(item.getAttribute("y"))));
 					break;
 				}
 				
 				if(it == null) continue;
 				
-				ActiveMapManager.getInstance().getActiveMap().addEntity((Entity) it, new CoordinatePair(Integer.parseInt(item.getAttribute("x")), Integer.parseInt(item.getAttribute("y"))));
+				ActiveMapManager.getInstance().addItemToActiveMap(it, new CoordinatePair(Integer.parseInt(item.getAttribute("x")), Integer.parseInt(item.getAttribute("y"))));
 				
 				items.add(it);
 			}
