@@ -249,7 +249,7 @@ public class GameMap extends Observable {
     
     /*----------Mutators----------------*/
 
-   
+    /*--------Object interaction----------*/
     public boolean requestMovement(Entity e, Direction dir){
         CoordinatePair desiredLocation; 
         desiredLocation = locationPlusDirection(e.getLocation(), dir);
@@ -261,6 +261,12 @@ public class GameMap extends Observable {
             return false;
         }
     }
+    public boolean useAbility(Entity e, int abilityToUse){
+        e.useAbility(abilityToUse);
+    }
+    
+    
+    
     
     /**
      * This is used by MotionValidator and MotionCoordinator to get the next location.

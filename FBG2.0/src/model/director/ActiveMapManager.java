@@ -268,4 +268,13 @@ public class ActiveMapManager {
     public boolean requestMovement(Entity e, Direction d){
         return activeMap.requestMovement(e, d);
     }
+    public boolean moveAvatar(Direction d){
+        requestMovement(avatar, d);
+    }
+    public boolean useAbility(Entity e, int abilityToUse){
+        activeMap.useAbility(Entity e, int abilityToUse);
+    }
+    public boolean useAvatarAbility(int abilityToUse){
+        useAbility(avatar, abilityToUse);
+    }
 }
