@@ -34,9 +34,12 @@ public abstract class SaveFiles implements Commandable {
 				if(file.isFile()) {
 					files.add(file);
 				}
+		File[] list = new File("./src/resources/saves/").listFiles();
+		for(File file : list) {
+			if(file.isFile()) {
+				files.add(file);
 			}
 		}
-		
 	}
 
 }
