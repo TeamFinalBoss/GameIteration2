@@ -1,7 +1,5 @@
 package model.entity;
 
-import java.awt.Point;
-
 import model.gameObject.MapObject;
 import model.map.Direction;
 import model.map.pair.CoordinatePair;

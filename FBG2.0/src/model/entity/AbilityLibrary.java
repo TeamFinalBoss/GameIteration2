@@ -1,9 +1,7 @@
-package model.ability;
+package model.entity;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import model.entity.Entity;
 
 /**
  * The purpose of this class is to serve as a container for Spells, passing commands downward from [TBD, Entity?]

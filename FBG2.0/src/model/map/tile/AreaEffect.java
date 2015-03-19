@@ -1,6 +1,6 @@
 package model.map.tile;
 
-import model.ability.effects.Effect;
+import model.effect.Effect;
 import model.entity.Entity;
 import model.gameObject.MapObject;
 import model.map.pair.CoordinatePair;

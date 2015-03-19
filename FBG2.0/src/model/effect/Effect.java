@@ -1,5 +1,5 @@
 
-package model.ability.effects;
+package model.effect;
 
 import model.entity.Entity;
 
