@@ -6,7 +6,8 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
-import view.window.GameWindow;
+import view.viewport.KeyBindingsErrorViewPort;
+import model.director.GameDirector;
 import controller.Controller;
 import controller.commands.Commandable;
 import controller.keyBindings.KeyBindings;
@@ -23,12 +24,14 @@ import controller.util.Describeable;
  * This class should be used for performing the mapping between old key and new key
  *
  */
-public class BindingsUpdate implements Commandable, Observer, KeyListener   {
+public class BindingsUpdate extends Observable implements Commandable, Observer, KeyListener   {
 
 	private KeyBindings currentBindings;
 	private KeyBindingsUpdate bindingsUpdate;
 	private KeyBindingsOption currentSelection;
-	private GameWindow window;
+	private GameDirector director = GameDirector.getGameDirector();
+	private Controller controller = Controller.getInstance();
+	private KeyBindingsErrorViewPort port = KeyBindingsErrorViewPort.getInstance();
 	private String delimeter = " ";
 	
 	public BindingsUpdate() {
@@ -43,8 +46,9 @@ public class BindingsUpdate implements Commandable, Observer, KeyListener   {
 	
 	@Override
 	public void execute() {
-		window = new GameWindow(100,100);
-		window.addKeyController(this);
+		director.removeKeyListener(controller.getActiveListener());
+		director.addKeyListener(this);
+		port.setErrorString("Updating");
 	}
 
 	protected KeyBindingsUpdate getKeyBindingsUpdate() {
@@ -71,16 +75,17 @@ public class BindingsUpdate implements Commandable, Observer, KeyListener   {
 	@Override
 	public void keyPressed(KeyEvent arg0) {
 		Map<KeyBindingsOption, Integer> currentMapping = currentBindings.getBindingsReverse();
-		boolean isValid = false;
 		try {
 			bindingsUpdate.addUpdate(currentMapping.get(currentSelection), arg0.getKeyCode());
-			isValid = true;
+			director.removeKeyListener(this);
+			director.addKeyListener(controller.getActiveListener());
+			port.reset();
+			setChanged();
+			notifyObservers();
 		} catch(IllegalArgumentException e) {
-			System.out.println(e.getMessage());
+			port.setErrorString(e.getMessage() + " Please try again");
 		}
-		if(isValid) {
-			window.close();
-		}
+		
 	}
 
 	@Override
@@ -102,8 +107,11 @@ public class BindingsUpdate implements Commandable, Observer, KeyListener   {
 	public void register() {
 		Controller.getInstance().addObserver(this, SceneType.KEY_BINDINGS);
 	}
-
 	
-	
+	public void addObserver(Observer o) {
+		super.addObserver(o);
+        setChanged();
+        notifyObservers();
+	}
 
 }

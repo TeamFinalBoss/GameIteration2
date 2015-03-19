@@ -15,7 +15,7 @@ import model.util.Saveable;
  */
 public class KeyBindings implements Saveable{
 
-	private Map<Integer, KeyBindingsOption> keyBindings; 
+	private Map<Integer, KeyBindingsOption> keyBindings;
 	
 	public KeyBindings() {
 		keyBindings = new HashMap<Integer, KeyBindingsOption>();
@@ -59,11 +59,11 @@ public class KeyBindings implements Saveable{
 		return strBuilder.toString();
 	}
 	
-	public KeyBindings updateBindings(KeyBindingsUpdate update) {
+	public void updateBindings(KeyBindingsUpdate update) {
 		//OLD KEY TO NEW KEY
 		KeyBindings updatedBindings = new KeyBindings();
 		
-		for(Map.Entry<Integer,Integer> entry : update.getBindingsUpdate().entrySet() ) {
+		for(Map.Entry<Integer,Integer> entry : update.getSet() ) {
 			updatedBindings.addBinding(entry.getValue(), this.keyBindings.get(entry.getKey()));
 		}
 		
@@ -72,10 +72,13 @@ public class KeyBindings implements Saveable{
 				updatedBindings.addBinding(entry.getKey(), entry.getValue());
 			}
 		}
-		
-		//TODO possibly delete this
+
 		this.keyBindings = updatedBindings.getBindings();
-		return updatedBindings;
+	}
+	
+	public void updateBindingsKeyValue(Integer key, Integer value) {
+		KeyBindingsOption option = this.keyBindings.remove(key);
+		this.keyBindings.put(value,option);
 	}
 
 	public String[] getDescription() {
@@ -89,6 +92,23 @@ public class KeyBindings implements Saveable{
 		return strArray;
 	}
 
+	public KeyBindings clone() {
+		Map<Integer, KeyBindingsOption> map = new HashMap<>();
+		for(Map.Entry<Integer,KeyBindingsOption> entry : keyBindings.entrySet()) {
+			map.put(entry.getKey(),entry.getValue());
+		}
+		return new KeyBindings(map);
+	}
+	
+	public void clear() {
+		this.keyBindings.clear();
+	}
+
+	public boolean containsKey(Integer key) {
+		return this.keyBindings.containsKey(key);
+	}
+
+	
 	
 
 }
