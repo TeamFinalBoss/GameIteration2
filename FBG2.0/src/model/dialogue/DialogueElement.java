@@ -14,19 +14,19 @@ import model.map.pair.Pair;
 public class DialogueElement {
 	
 	private String topMessage;
-	private List<Pair<String, DialogueElement>> options;
+	private List<DialogueOption> options;
 	private DialogueActions onActive;
 	
 	public DialogueElement() {
 		this.topMessage = "Default message";
 		this.onActive = NOTHING;
-		this.options = new ArrayList<Pair<String, DialogueElement>>();
+		this.options = new ArrayList<DialogueOption>();
 	}
 	
 	public DialogueElement(String topMessage, DialogueActions onActive;) {
 		this.topMessage = topMessage;
 		this.onActive = onActive;
-		this.options = new ArrayList<Pair<String, DialogueElement>>();
+		this.options = new ArrayList<DialogueOption>();
 	}
 	
 	//--------------------Getters---------------------\\
@@ -47,7 +47,7 @@ public class DialogueElement {
 	 * @param element Destination dialogue element
 	 */
 	public void addOption(String name, DialogueElement element) {
-		options.add(new Pair<name, element>());
+		options.add(new DialogueOption(name, element));
 	}
 	
 	/** 
@@ -58,7 +58,7 @@ public class DialogueElement {
 	 * @returns Dialogue element at that position in list
 	 */
 	public DialogueElement returnOption(int num) {
-		return ((DialogueElement) options.get(num).getRight());
+		return options.get(num).getElement();
 	}
 	
 	/** 
@@ -70,8 +70,8 @@ public class DialogueElement {
 	public List<String> getOptions() {
 		List<String> names = new ArrayList<String>();
 		
-		for(Pair<String, DialogueElement> p : options) {
-			names.add(((String) p.getLeft()));
+		for(DialogueOption o : options) {
+			names.add(o.getName());
 		}
 		
 		return names;
