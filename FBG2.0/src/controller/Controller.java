@@ -10,10 +10,7 @@ import controller.builder.ControllerBuilder;
 import controller.builder.DefualtKeyBindingsBuilder;
 import controller.keyBindings.KeyBindings;
 import controller.keyBindings.KeyBindingsUpdate;
-import controller.menu.Menu;
-import controller.sceneControllers.SceneController;
 import controller.sceneControllers.SceneType;
-import controller.util.Describeable;
 
 /**
  * @author Kyle Kyrazis
@@ -24,6 +21,7 @@ public class Controller {
 	private KeyBindings keyBindings;
 	private KeyDispatcher dispatcher;
 	private Map<SceneType, Observable> describeable;
+	private KeyListener activeListener;
 	
 	private static Controller controller = null;
 	
@@ -45,11 +43,12 @@ public class Controller {
 	
 	public KeyListener buildController() {
 		keyBindings = DefualtKeyBindingsBuilder.buildDefaultKeyBindings();
-		return ControllerBuilder.build(keyBindings);
+		return buildController(keyBindings);
 	}
 	public KeyListener buildController(KeyBindings bindings) {
 		keyBindings = bindings;
-		return ControllerBuilder.build(bindings);
+		this.activeListener = ControllerBuilder.build(bindings);
+		return this.activeListener;
 	}
 	
 	public void updateControllerKeyBindings(KeyBindingsUpdate bindings) {
@@ -63,6 +62,10 @@ public class Controller {
 
 	public void setDispatcher(KeyDispatcher keyDispatcher) {
 		dispatcher = keyDispatcher;
+	}
+
+	public KeyListener getActiveListener() {
+		return this.activeListener;
 	}
 	
 }

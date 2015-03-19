@@ -1,4 +1,4 @@
-package controller.commands.load;
+package controller.commands.saveLoad;
 
 import controller.commands.Commandable;
 import controller.sceneControllers.SceneChanger;

@@ -1,5 +1,6 @@
 package controller.menu.save;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,26 +17,49 @@ public class SaveLoadMenu extends Observable implements Describeable,Menuable {
 	private List<SaveOption> saveOptions;
 	private SaveOption currentOption;
 	private Map<SaveOption, Commandable> commands;
+	private List<File> files;
+	private final int maximumNumberOfFileDisplayed = 3;
 	
 	public SaveLoadMenu() {
 		saveOptions = new ArrayList<>();
 		currentOption = null;
 		commands = new HashMap<>();
+		files = new ArrayList<>();
+		refresh();
 	}
 	
 	public SaveLoadMenu(List<SaveOption> opts, SaveOption currentOption, Map<SaveOption, Commandable> map) {
 		saveOptions = opts;
 		this.currentOption = currentOption;
 		this.commands = map;
+		files = new ArrayList<>();
+		refresh();
+	}
+	
+	private void refresh() {
+		File[] list = new File("src/resources/saves/").listFiles();
+		for(File file : list) {
+			if(file.isFile()) {
+				files.add(file);
+			}
+		}
 	}
 	
 	@Override
 	public String[] getDescription() {
+		/* Old But I hate deleting
 		String[] strArray = new String[saveOptions.size()];
 		for(int i = 0; i < strArray.length; ++i) {
 			strArray[i] = saveOptions.get(i).toString();
 		}
 		return strArray;
+		*/
+		String[] strArray = new String[maximumNumberOfFileDisplayed];
+		for(int i = 0; i < strArray.length; i++) {
+			strArray[i] = files.get(i).getName();
+		}
+		return strArray;
+		
 	}
 
 	@Override

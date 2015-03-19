@@ -1,6 +1,10 @@
 package model.dialogue.unique;
 
-public class DT_Default extends DialogueTree {
+import model.dialogue.DialogueActions;
+import model.dialogue.DialogueElement;
+import model.dialogue.DialogueTree;
+
+public class DT_BasicShopkeep extends DialogueTree {
 
 		protected DialogueElement buildTree() {
 			
@@ -11,7 +15,7 @@ public class DT_Default extends DialogueTree {
 			DialogueElement e2 = new DialogueElement("Very well, I will show you my wares.", DialogueActions.STOREFRONT);
 			
 			//Option-2//
-			DialogueElement e3 = new DialogueElement("Come again soon.", DialogueAction.EXIT);
+			DialogueElement e3 = new DialogueElement("Come again soon.", DialogueActions.EXIT);
 			
 			
 			//Assign//

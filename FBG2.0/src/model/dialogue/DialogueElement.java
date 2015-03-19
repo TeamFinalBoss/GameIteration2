@@ -1,5 +1,9 @@
 package model.dialogue;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
 import model.map.pair.Pair;
 
 
@@ -19,11 +23,11 @@ public class DialogueElement {
 	
 	public DialogueElement() {
 		this.topMessage = "Default message";
-		this.onActive = NOTHING;
+		this.onActive = DialogueActions.NOTHING;
 		this.options = new ArrayList<DialogueOption>();
 	}
 	
-	public DialogueElement(String topMessage, DialogueActions onActive;) {
+	public DialogueElement(String topMessage, DialogueActions onActive) {
 		this.topMessage = topMessage;
 		this.onActive = onActive;
 		this.options = new ArrayList<DialogueOption>();

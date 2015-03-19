@@ -1,6 +1,10 @@
 package model.dialogue.unique;
 
-public class DT_Default extends DialogueTree {
+import model.dialogue.DialogueActions;
+import model.dialogue.DialogueElement;
+import model.dialogue.DialogueTree;
+
+public class DT_VillageKing extends DialogueTree {
 
 		protected DialogueElement buildTree() {
 			
