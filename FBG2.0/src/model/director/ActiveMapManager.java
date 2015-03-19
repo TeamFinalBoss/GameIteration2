@@ -2,6 +2,7 @@ package model.director;
 
 import model.entity.Entity;
 import java.util.ArrayList;
+import model.map.Direction;
 import model.map.GameMap;
 
 /**
@@ -27,6 +28,7 @@ public class ActiveMapManager {
     private GameMap activeMap;
     private Entity avatar; 
     
+    /*----------Constructors------------*/
     public ActiveMapManager(){
         maps = new ArrayList<>();
     }
@@ -48,9 +50,9 @@ public class ActiveMapManager {
     }
     
     
+    /*--------------Mutators----------------*/
     
-    
-    public void requestMovement(Entity e){
-        
+    public boolean requestMovement(Entity e, Direction d){
+        return activeMap.requestMovement(e, d);
     }
 }
