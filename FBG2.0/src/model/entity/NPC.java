@@ -1,7 +1,13 @@
 package model.entity;
 
+import java.util.List;
+
+import model.dialogue.DialogueActions;
 import model.dialogue.DialogueTree;
 import model.dialogue.unique.DT_Default;
+import model.item.Takeable;
+import model.map.Direction;
+import model.map.pair.CoordinatePair;
 
 /** 
  * The class NPC defines only entities that are computer controlled,
@@ -22,8 +28,8 @@ public class NPC extends Entity {
 		public NPC() {
 			super();
 			
-			this.classname = "NPC";
-			this.id = 10;
+			this.className = "NPC";
+			this.id = "10";
 			
 			dt = new DT_Default();
 			sf = new Storefront();
@@ -35,47 +41,100 @@ public class NPC extends Entity {
 		    		Inventory inventory, Occupation occupation, Direction direction, int speed, DialogueTree dt, Storefront sf, boolean friendly, NPC partner){
 		    	super(objectName, description, location, inventory, occupation, direction, speed);
 		    	
+		    	this.className = "NPC";
+		    	this.id = "10";
+		    	
 		    	this.dt = dt;
 		    	this.sf = sf;
 		    	this.friendly = friendly;
 		    	this.partner = partner;
 		}
 		
+		/**
+		 * This method allows the caller to ask this NPC's storefront for the price of an item.
+		 * 
+		 * @param position the position of the desired item in the storefront
+		 * @return the change in currency that would result from purchase
+		 */
+		public int checkPayment(int position) {
+			return sf.payForItem(position);
+		}
+		
+		/**
+		 * Removes an item from this NPC's storefront, modifies this NPC's currency,
+		 * then returns the removed item.
+		 * 
+		 * @param position the position of the desired item in the storefront
+		 * @return the removed item
+		 */
+		public Takeable sellItem(int position) {
+			Takeable t = sf.buyItem(position);
+			modCurrency(t.getValue());
+			return t;
+		}
+		
+		/**
+		 * Adds an item to this NPC's storefront
+		 * 
+		 * @param item the item that is being added
+		 * @return the value of the item
+		 */
+		public int buyItem(Takeable item) {
+			return sf.sellItem(item);
+		}
+		
+		/**
+		 * Resets the NPC's dialogue tree.
+		 */
 		public void resetDialogue() {
 			dt.resetTree();
 		}
 		
+		/**
+		 * @return the dialogue tree's current active message
+		 */
 		public String getDialogueMessage() {
-			return dt.getTopMessage();
+			return dt.getCurrentMessage();
 		}
 		
+		/**
+		 * @return a list of the dialogue tree's current active options
+		 */
 		public List<String> getDialogueOptions() {
 			return dt.getOptions();
 		}
 		
+		/**
+		 * This method first performs the action required by the CURRENT active dialogue,
+		 * then it switches the current active dialogue to the one specified by the option selected.
+		 * @param num The number corresponding to the dialogue option selected
+		 * @return whether or not the conversation will end upon selection
+		 */
 		public boolean traverseDialogue(int num) {
-			dt.traverse(num);
 			
 			//Actions//
-			CurrentActions action = dt.getOnActive();
+			DialogueActions action = dt.getOnActive();
+			
+			//Switch dialogue//
+			dt.traverse(num);
 			
 			switch(action) {
-			case DialogueActions.NOTHING:
+			case NOTHING:
 				return true;
 				
-			case DialogueActions.EXIT:
+			case EXIT:
 				return false;
 				
-			case DialogueActions.STOREFRONT;
+			case STOREFRONT:
 				//open store
 				return false;
 				
-			case DialogueActions.ANGER:
+			case ANGER:
 				friendly = false;
 				return false;
 				
 			default:
-				return true;
+				return false;
 			}
 		}
 }

@@ -1,4 +1,8 @@
 package model.entity;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import model.item.Takeable;
 
 /** A storefront to control buying and selling of items to a vendor.

@@ -8,9 +8,9 @@ import org.junit.Test;
 
 import exampleTest.DependencyInterface;
 import exampleTest.MainTestingClass;
-import model.entity.Ability;
-import model.entity.AbilityLibrary;
 import model.entity.Entity;
+import model.entity.ability.Ability;
+import model.entity.ability.AbilityLibrary;
 import model.map.Direction;
 
 

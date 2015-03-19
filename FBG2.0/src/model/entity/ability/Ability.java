@@ -1,8 +1,9 @@
-package model.entity;
+package model.entity.ability;
 
 import model.map.Direction;
 import model.director.CombatCoordinator;
 import model.effect.Effect;
+import model.entity.Entity;
 import model.map.pair.CoordinatePair;
 
 import java.util.ArrayList;

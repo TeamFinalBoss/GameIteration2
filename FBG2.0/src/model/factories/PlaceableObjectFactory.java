@@ -1,8 +1,8 @@
 package model.factories;
 
 
-import java.util.ArrayList;
-import model.util.GameObject;
+import java.util.List;
+import model.gameObject.MapObject;
 import org.w3c.dom.Element;
 
 /**
@@ -21,5 +21,5 @@ public interface PlaceableObjectFactory {
     * @param head the node to begin search at
     * @return A list of objects created by this method
     */
-	public ArrayList<MapObject> generate(Element head);
+	public List<MapObject> generate(Element head);
 }

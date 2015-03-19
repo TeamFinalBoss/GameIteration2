@@ -90,7 +90,7 @@ public class ControllerBuilder {
 		/******************************
 		 * KeyBindingsController
 		 *******************************/
-		KeyBindingsUpdate update = new KeyBindingsUpdate(new HashMap<>(), bindings);
+		KeyBindingsUpdate update = new KeyBindingsUpdate(new HashMap<Integer, Integer>(), bindings);
 		KeyBindingsMenu bindingsMenu = buildBindingsMenu(update);
 		Map<Integer, Commandable> keyBindingsMap = buildDefaultMenuBindings(bindingsMenu,map);
 		KeyOptions bindingsMenuOptions = buildBindingsMenuKeyOptions(keyBindingsMap, map, update);
