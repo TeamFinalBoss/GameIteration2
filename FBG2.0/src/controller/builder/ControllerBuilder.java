@@ -8,15 +8,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 
+import model.map.Direction;
 import controller.Controller;
 import controller.InputParser;
 import controller.KeyDispatcher;
 import controller.commands.Commandable;
-import controller.commands.game.Pause;
+import controller.commands.game.DialogueSwitch;
+import controller.commands.game.InventorySwitch;
+import controller.commands.game.MoveAvatar;
+import controller.commands.game.PauseSwitch;
+import controller.commands.game.Skill;
 import controller.commands.keyBindings.BindingsUpdate;
 import controller.commands.keyBindings.CancelBindingsUpdate;
 import controller.commands.keyBindings.SaveBindingsUpdate;
-import controller.commands.load.ReturnToPreviousMenu;
 import controller.commands.menu.ConfirmMenuCommand;
 import controller.commands.menu.NextMenuCommand;
 import controller.commands.menu.PreviousMenuCommand;
@@ -26,6 +30,9 @@ import controller.commands.pauseMenu.LoadGame;
 import controller.commands.pauseMenu.NewGame;
 import controller.commands.pauseMenu.ResumeGame;
 import controller.commands.pauseMenu.SaveGame;
+import controller.commands.saveLoad.LoadFileCommand;
+import controller.commands.saveLoad.ReturnToPreviousMenu;
+import controller.commands.saveLoad.SaveFileCommand;
 import controller.keyBindings.KeyBindings;
 import controller.keyBindings.KeyBindingsOption;
 import controller.keyBindings.KeyBindingsUpdate;
@@ -178,9 +185,9 @@ public class ControllerBuilder {
 	private static Map<SaveOption, Commandable> buildLoadCommands() {
 		Map<SaveOption, Commandable> map = new HashMap<>();
 		
-		map.put(SaveOption.OPTION_1, new controller.commands.save.Option1());
-		map.put(SaveOption.OPTION_2, new controller.commands.save.Option2());
-		map.put(SaveOption.OPTION_3, new controller.commands.save.Option3());
+		map.put(SaveOption.OPTION_1, new LoadFileCommand(0));
+		map.put(SaveOption.OPTION_2, new LoadFileCommand(1));
+		map.put(SaveOption.OPTION_3, new LoadFileCommand(2));
 		
 		return map;
 	}
@@ -207,9 +214,9 @@ public class ControllerBuilder {
 	private static Map<SaveOption, Commandable> buildSaveCommands() {
 		Map<SaveOption, Commandable> map = new HashMap<>();
 		
-		map.put(SaveOption.OPTION_1, new controller.commands.save.Option1());
-		map.put(SaveOption.OPTION_2, new controller.commands.save.Option2());
-		map.put(SaveOption.OPTION_3, new controller.commands.save.Option3());
+		map.put(SaveOption.OPTION_1, new SaveFileCommand(0));
+		map.put(SaveOption.OPTION_2, new SaveFileCommand(1));
+		map.put(SaveOption.OPTION_3, new SaveFileCommand(2));
 		
 		return map;
 	}
@@ -218,7 +225,7 @@ public class ControllerBuilder {
 			Map<Integer, Commandable> newCommands,
 			Map<KeyBindingsOption, Integer> currentBindings)
 	{
-		newCommands.put(currentBindings.get(KeyBindingsOption.PAUSE), new Pause());
+		newCommands.put(currentBindings.get(KeyBindingsOption.PAUSE), new PauseSwitch());
 	
 		return new KeyOptions(newCommands);
 	}
@@ -231,7 +238,31 @@ public class ControllerBuilder {
 	private static KeyOptions buildGameKeyOptions(Map<KeyBindingsOption, Integer> map) {
 		Map<Integer, Commandable> options = new HashMap<Integer, Commandable>();
 		
-		options.put(map.get(KeyBindingsOption.PAUSE), new Pause());
+		options.put(map.get(KeyBindingsOption.UP), new MoveAvatar(Direction.North));
+		options.put(map.get(KeyBindingsOption.UP_LEFT), new MoveAvatar(Direction.NorthWest));
+		options.put(map.get(KeyBindingsOption.UP_RIGHT), new MoveAvatar(Direction.NorthEast));
+		options.put(map.get(KeyBindingsOption.DOWN), new MoveAvatar(Direction.South));
+		options.put(map.get(KeyBindingsOption.DOWN_LEFT), new MoveAvatar(Direction.SouthWest));
+		options.put(map.get(KeyBindingsOption.DOWN_RIGHT), new MoveAvatar(Direction.SouthEast));
+		options.put(map.get(KeyBindingsOption.LEFT), new MoveAvatar(Direction.West));
+		options.put(map.get(KeyBindingsOption.RIGHT), new MoveAvatar(Direction.East));
+		
+		options.put(map.get(KeyBindingsOption.SKILL_0), new Skill(0));
+		options.put(map.get(KeyBindingsOption.SKILL_1), new Skill(1));
+		options.put(map.get(KeyBindingsOption.SKILL_2), new Skill(2));
+		options.put(map.get(KeyBindingsOption.SKILL_3), new Skill(3));
+		options.put(map.get(KeyBindingsOption.SKILL_4), new Skill(4));
+		options.put(map.get(KeyBindingsOption.SKILL_5), new Skill(5));
+		options.put(map.get(KeyBindingsOption.SKILL_6), new Skill(6));
+		options.put(map.get(KeyBindingsOption.SKILL_7), new Skill(7));
+		options.put(map.get(KeyBindingsOption.SKILL_8), new Skill(8));
+		options.put(map.get(KeyBindingsOption.SKILL_9), new Skill(9));
+		
+		options.put(map.get(KeyBindingsOption.INVENTORY), new InventorySwitch());
+		options.put(map.get(KeyBindingsOption.DIALOGUE), new DialogueSwitch());
+		options.put(map.get(KeyBindingsOption.PAUSE), new PauseSwitch());
+
+		
 		
 		return new KeyOptions(options);
 	}

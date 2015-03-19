@@ -48,7 +48,7 @@ public class BindingsUpdate extends Observable implements Commandable, Observer,
 	public void execute() {
 		director.removeKeyListener(controller.getActiveListener());
 		director.addKeyListener(this);
-		port.setErrorString("Updating");
+		port.setErrorString("Press any Key to change the mapping.");
 	}
 
 	protected KeyBindingsUpdate getKeyBindingsUpdate() {
@@ -83,7 +83,7 @@ public class BindingsUpdate extends Observable implements Commandable, Observer,
 			setChanged();
 			notifyObservers();
 		} catch(IllegalArgumentException e) {
-			port.setErrorString(e.getMessage() + " Please try again");
+			port.setErrorString(e.getMessage() + " Please try again.");
 		}
 		
 	}
