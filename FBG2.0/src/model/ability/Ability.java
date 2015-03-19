@@ -111,7 +111,7 @@ public abstract class Ability {
     * @param entity1, entity2
     * @return distance
     */
-    protected double getDistance(CoordinatePair location1, Coordinate location2)
+    protected double getDistance(CoordinatePair location1, CoordinatePair location2)
     {
         int x1 = location1.getX();
         int y2 = location2.getY();

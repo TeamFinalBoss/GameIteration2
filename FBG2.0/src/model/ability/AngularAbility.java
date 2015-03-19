@@ -59,7 +59,7 @@ public class AngularAbility extends Ability
 	public void setDegree(double degree)
 	{
 		// invalid degree
-		if(degree < 0 || degree > 360)
+		if(degree < -360 || degree > 360)
 			return;
 		this.degree = degree;
 	}
