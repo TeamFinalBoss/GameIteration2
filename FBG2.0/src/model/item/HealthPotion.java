@@ -16,7 +16,7 @@ public class HealthPotion extends Usable {
     
     
     public HealthPotion(){
-		super("Generic HealthPotion", "Generic description", new CoordinatePair(), 0);
+		super("Generic HealthPotion", "Generic description", new CoordinatePair(), 5, 0);
 		
 		this.id = "16";
 		this.className = "HealthPotion";
@@ -26,7 +26,7 @@ public class HealthPotion extends Usable {
 	}
 	
 	public HealthPotion(String objectName, String description, CoordinatePair location, int value){
-		super(objectName, description, location, value);
+		super(objectName, description, location, value, 1);
 		
 		this.id = "16";
 		this.className = "HealthPotion";
