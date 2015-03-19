@@ -13,7 +13,7 @@ import model.map.GameMap;
  * @author Jason Owens, Hanif, ChrisMoscoso
  */
 public class ActiveMapManager {
-    private ActiveMapManager me;
+    private static ActiveMapManager me;
     
     
     /*

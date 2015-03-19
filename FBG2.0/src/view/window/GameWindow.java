@@ -187,5 +187,9 @@ public class GameWindow {
         public void componentHidden(ComponentEvent e) {}
        
     }
+
+	public void removeKeyController(KeyListener listener) {
+		frame.removeKeyListener(listener);
+	}
     
 }

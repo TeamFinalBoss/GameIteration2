@@ -12,5 +12,6 @@ public enum SceneType {
 	PAUSE_MENU,
 	KEY_BINDINGS,
 	SAVE,
-	LOAD
+	LOAD,
+	DIALOGUE
 }

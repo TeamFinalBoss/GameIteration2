@@ -59,11 +59,11 @@ public class KeyBindings implements Saveable{
 		return strBuilder.toString();
 	}
 	
-	public KeyBindings updateBindings(KeyBindingsUpdate update) {
+	public void updateBindings(KeyBindingsUpdate update) {
 		//OLD KEY TO NEW KEY
 		KeyBindings updatedBindings = new KeyBindings();
 		
-		for(Map.Entry<Integer,Integer> entry : update.getBindingsUpdate().entrySet() ) {
+		for(Map.Entry<Integer,Integer> entry : update.getSet() ) {
 			updatedBindings.addBinding(entry.getValue(), this.keyBindings.get(entry.getKey()));
 		}
 		
@@ -72,10 +72,8 @@ public class KeyBindings implements Saveable{
 				updatedBindings.addBinding(entry.getKey(), entry.getValue());
 			}
 		}
-		
-		//TODO possibly delete this
+
 		this.keyBindings = updatedBindings.getBindings();
-		return updatedBindings;
 	}
 	
 	public void updateBindingsKeyValue(Integer key, Integer value) {
@@ -104,6 +102,10 @@ public class KeyBindings implements Saveable{
 	
 	public void clear() {
 		this.keyBindings.clear();
+	}
+
+	public boolean containsKey(Integer key) {
+		return this.keyBindings.containsKey(key);
 	}
 
 	
