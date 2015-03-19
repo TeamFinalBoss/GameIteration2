@@ -21,8 +21,8 @@ import java.util.Map;
  * @version 1.1.0 2015-03-15
  */
 public class Entity extends MapObject{
-	private Inventory myInventory;
-	private Occupation myOccupation;
+    private Inventory myInventory;
+    private Occupation myOccupation;
     private Direction myDirection;
     private int speed;
     private Point location; 
