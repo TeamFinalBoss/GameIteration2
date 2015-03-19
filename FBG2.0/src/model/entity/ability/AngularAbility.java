@@ -1,30 +1,32 @@
-package model.entity;
+package model.entity.ability;
 
 import model.ability.Effect;
+import model.entity.Entity;
 
 /**
 *
 * @author Aaron Iglesias, Jason Owens
 */
-public class RadialAbility extends Ability
+public class AngularAbility extends Ability
 {
 	private double degree;
 	private double radius;
 
 	/**
 	* @author Aaron Iglesias, Jason Owens
-	* default constructor for RadialAbility
+	* default constructor for AngularAbility
+	* @param radius
 	*/
-	public RadialAbility()
+	public AngularAbility()
 	{
 		super();
-		degree = 360;
+		degree = 90;
 		radius = 1;
 	}
 
 	/**
 	* @author Aaron Iglesias, Jason Owens
-	* constructor for RadialAbility
+	* constructor for AngularAbility
 	* @param radius
 	*/
 	public AngularAbility(String name, Effect effect, CombatCoordinator myCC, Effect cost, double degree, double radius)
@@ -36,7 +38,7 @@ public class RadialAbility extends Ability
 
 	/**
 	* @author Aaron Iglesias, Jason Owens
-	* gets degree of RadialAbility
+	* gets the degree of AngularAbility
 	*/
 	public double getDegree()
 	{
@@ -45,16 +47,16 @@ public class RadialAbility extends Ability
 
 	/**
 	* @author Aaron Iglesias, Jason Owens
-	* gets radius of RadialAbility
+	* gets the radius of AngularAbility
 	*/
 	public double getRadius()
 	{
-		return radius;
+        return radius;
 	}
 
 	/**
 	* @author Aaron Iglesias, Jason Owens
-	* sets degree of RadialAbility
+	* sets the degree of AngularAbility
 	* @param degree
 	*/
 	public void setDegree(double degree)
@@ -67,7 +69,7 @@ public class RadialAbility extends Ability
 
 	/**
 	* @author Aaron Iglesias, Jason Owens
-	* sets radius of RadialAbility
+	* sets the radius of AngularAbility
 	* @param radius
 	*/
 	public void setRadius(double radius)
@@ -77,5 +79,14 @@ public class RadialAbility extends Ability
 			return;
 		this.radius = radius;
 	}
-        
+
+	@Override
+	protected abstract ArrayList<CoordinatePair> getAffectedTiles(Entity entity)
+	{
+		Direction direction = entity.getDirection();
+		CoordinatePair coordinatePair = entity.getLocation();
+		
+
+		return;
+	}
 }
