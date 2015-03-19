@@ -1,12 +1,14 @@
 package model.factories;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import model.map.pair.CoordinatePair;
+import model.director.ActiveMapManager;
+import model.entity.Entity;
 import model.factories.PlaceableObjectFactory;
-import model.factories.PlaceableObjectFactory;
-import model.factories.PlaceableObjectFactory;
-import model.util.GameObject;
+import model.gameObject.MapObject;
+import model.item.Takeable;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -30,7 +32,7 @@ public class TakeableFactory implements PlaceableObjectFactory{
 	 * @return the list of Takeable items created by this method
 	 * @see Takeable
 	 */
-	public ArrayList<MapObject> generate(Element head)
+	public List<MapObject> generate(Element head)
 	{
 		ArrayList<MapObject> items = new ArrayList<MapObject>();
 		
@@ -44,7 +46,7 @@ public class TakeableFactory implements PlaceableObjectFactory{
 				
 				switch(item.getAttribute("name")){
 				case "whatever":
-					it = new Takeable(Integer.parseInt(item.getAttribute("durability")));
+					it = new Takeable("whatever", "it does nothing", Integer.parseInt(item.getAttribute("durability")));
 					break;
 				}
 				
@@ -63,13 +65,13 @@ public class TakeableFactory implements PlaceableObjectFactory{
 				
 				switch(item.getAttribute("name")){
 				case "whatever":
-					it = new Takeable(Integer.parseInt(item.getAttribute("durability")));
+					it = new Takeable("whatever", "it does nothing", Integer.parseInt(item.getAttribute("durability")), new CoordinatePair(Integer.parseInt(item.getAttribute("x")), Integer.parseInt(item.getAttribute("y"))));
 					break;
 				}
 				
 				if(it == null) continue;
 				
-				GameMap.getInstance().addEntity(it, new CoordinatePair(Integer.parseInt(item.getAttribute("x")), Integer.parseInt(item.getAttribute("y"))));
+				ActiveMapManager.getInstance().getActiveMap().addEntity((Entity) it, new CoordinatePair(Integer.parseInt(item.getAttribute("x")), Integer.parseInt(item.getAttribute("y"))));
 				
 				items.add(it);
 			}
