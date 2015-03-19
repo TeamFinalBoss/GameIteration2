@@ -16,7 +16,7 @@ public class Skill extends AvatarCommands implements Commandable {
 	
 	@Override
 	public void execute() {
-		// TODO Auto-generated method stub
+		super.getAvatar().useSkill(skillNumber);
 
 	}
 

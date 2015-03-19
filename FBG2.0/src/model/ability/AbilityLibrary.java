@@ -5,7 +5,9 @@ package model.ability;
  */
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import model.entity.Entity;
 
@@ -14,23 +16,22 @@ import model.entity.Entity;
  * @author Jason Owens
  */
 public class AbilityLibrary {
-    private List<Ability> knownAbilities;
+    private Map<String,Ability> knownAbilities;
     
     /*-----------Constructors-----------*/
     public AbilityLibrary(){
-        knownAbilities = new ArrayList<>();
+        knownAbilities = new HashMap<>();
     }
     
     /*-----------Mutators-----------*/
     public void addAbility(Ability ability){
-        knownAbilities.add(ability);        
+        knownAbilities.put(ability.getName(), ability);        
     }
     public boolean forgetAbility(String abilityName){
-         for(Ability s : knownAbilities) {
-            if (s.getName().equals(abilityName)) {
-                return knownAbilities.remove(s); 
-            }
-        }
+    	if(this.knownAbilities.containsKey(abilityName)) {
+    		knownAbilities.remove(abilityName);
+    		return true;
+    	}
         return false; //ability isn't known
     }
     
@@ -43,12 +44,7 @@ public class AbilityLibrary {
      * @param abilityName the name of the ability 
      */
     public boolean hasAbility(String abilityName){
-        for(Ability s : knownAbilities) {
-            if (abilityName.equals(s.getName())) {
-                return true;
-            }
-        }
-        return false;
+    	return this.knownAbilities.containsKey(abilityName);
     }
     
     
@@ -62,16 +58,18 @@ public class AbilityLibrary {
      *@params callingEntity the Entity using the ability
      */
     public boolean performActiveAbility(String abilityName, Entity callingEntity){
-        for(Ability a : knownAbilities) {
-            if (a.getName().equals(abilityName)) {
-                a.performAbility(callingEntity);
-                return true;
-            }
-        }
-        return false;
+    	if(this.knownAbilities.containsKey(abilityName)) {
+    		knownAbilities.get(abilityName).performAbility(callingEntity);
+    		return true;
+    	}
+    	return false;
     }
     
-    public List<Ability >getAbilities() {
-    	return this.knownAbilities;
+    public List<Ability>getAbilities() {
+    	List<Ability> abilities = new ArrayList<>();
+    	for(Map.Entry<String, Ability> entry : this.knownAbilities.entrySet()) {
+    		abilities.add(entry.getValue());
+    	}
+    	return abilities;
     }
 }

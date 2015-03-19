@@ -2,6 +2,7 @@ package controller;
 
 import java.awt.event.KeyListener;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
@@ -20,7 +21,7 @@ import controller.sceneControllers.SceneType;
 public class Controller {
 	private KeyBindings keyBindings;
 	private KeyDispatcher dispatcher;
-	private Map<SceneType, Observable> describeable;
+	private Map<SceneType, List<Observable>> describeable;
 	private KeyListener activeListener;
 	
 	private static Controller controller = null;
@@ -37,7 +38,7 @@ public class Controller {
 		describeable = new HashMap<>();
 	}
 	
-	public void addMap(Map<SceneType, Observable> map) {
+	public void addMap(Map<SceneType, List<Observable>> map) {
 		describeable = map;
 	}
 	
@@ -57,7 +58,9 @@ public class Controller {
 	}
 
 	public void addObserver(Observer o, SceneType type) {
-		describeable.get(type).addObserver(o);
+		for(Observable obs : describeable.get(type)) {
+			obs.addObserver(o);
+		}
 	}
 
 	public void setDispatcher(KeyDispatcher keyDispatcher) {
