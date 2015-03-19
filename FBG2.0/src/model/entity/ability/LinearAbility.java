@@ -1,6 +1,7 @@
-package model.entity;
+package model.entity.ability;
 
 import model.ability.Effect;
+import model.entity.Entity;
 
 /**
 *
