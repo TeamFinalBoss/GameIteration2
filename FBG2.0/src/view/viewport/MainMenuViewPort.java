@@ -13,9 +13,8 @@ import java.util.Observer;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
-import controller.util.Describeable;
 import model.director.GameDirector;
-import model.menu.Menu;
+import controller.util.Describeable;
 
 /**
  * The MainMenuViewPort draws the main menu

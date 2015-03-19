@@ -16,8 +16,7 @@ public class Skill extends AvatarCommands implements Commandable {
 	
 	@Override
 	public void execute() {
-		super.getAvatar().useSkill(skillNumber);
-
+		super.useAbility(skillNumber);
 	}
 
 }

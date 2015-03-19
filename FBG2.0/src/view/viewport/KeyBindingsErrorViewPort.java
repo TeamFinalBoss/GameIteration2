@@ -12,7 +12,6 @@ import model.director.GameDirector;
 public class KeyBindingsErrorViewPort implements ViewPort, Observer {
 
 	private int width;
-	private int height;
 	private final String defaultString = "Press Confirm to remap an option, \nnavigate to save to save your options, \n"
 									+ " or navigate to cancel to discard the changes.";
 	
@@ -30,7 +29,6 @@ public class KeyBindingsErrorViewPort implements ViewPort, Observer {
 		
 		 if (GameDirector.getSize() != null) {
 	            width = GameDirector.getSize().width;
-	            height = GameDirector.getSize().height;
 	    }
 		
 		g.setFont(new Font(g.getFont().getFamily(), Font.PLAIN, 30));

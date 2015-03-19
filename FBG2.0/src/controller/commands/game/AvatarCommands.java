@@ -1,22 +1,24 @@
 package controller.commands.game;
 
-import model.entity.Entity;
+import model.director.ActiveMapManager;
+import model.map.Direction;
 import controller.commands.Commandable;
 
 public abstract class AvatarCommands implements Commandable {
 	
-	private Entity avatar;
+	ActiveMapManager manager = ActiveMapManager.getInstance();
 	
 	public AvatarCommands() {
 		
 	}
 	
-	public AvatarCommands(Entity e) {
-		this.avatar = e;
+
+	protected void moveAvatar(Direction direction) {
+		manager.moveAvatar(direction);
 	}
 	
-	protected Entity getAvatar() {
-		return this.avatar;
+	protected void useAbility(int ability) {
+		manager.useAvatarAbility(ability);
 	}
 	
 	public abstract void execute();
