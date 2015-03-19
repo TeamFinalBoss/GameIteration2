@@ -20,6 +20,9 @@ public abstract class Takeable extends Item {
     protected int value;
     protected int durability; 
 	
+	private int durability;
+	private int value;
+	
 	public Takeable(){
 		super("Generic Takeable", "Generic description", new CoordinatePair());
 		
@@ -27,6 +30,8 @@ public abstract class Takeable extends Item {
 		this.className = "Takeable";
                 this.value= 0; 
                 this.durability=1;
+		
+		this.durability = 1;
 		
 		//Other properties set here
 	}
@@ -48,6 +53,8 @@ public abstract class Takeable extends Item {
 		this.className = "Takeable";
                 this.value=value;
                 this.durability=durability;
+		
+		this.durability = durability;
 		
 		//Other properties set here
 	}

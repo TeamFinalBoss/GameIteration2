@@ -26,12 +26,16 @@ public abstract class SaveFiles implements Commandable {
 
 
 	private void refresh() {
-		File[] list = new File("src/resources/saves/").listFiles();
-		for(File file : list) {
-			if(file.isFile()) {
-				files.add(file);
+		File path = new File("./src/resources/saves/");
+		if(path != null) {
+			File[] list = path.listFiles();
+			for(File file : list) {
+				if(file.isFile()) {
+					files.add(file);
+				}
 			}
 		}
+		
 	}
 
 }
