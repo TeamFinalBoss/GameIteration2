@@ -1,5 +1,7 @@
 package model.dialogue;
 
+import java.util.List;
+
 /** 
  * Defines an abstract class that all specific dialogue trees must adhere to
  * 

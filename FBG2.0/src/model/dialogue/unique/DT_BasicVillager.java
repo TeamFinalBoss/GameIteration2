@@ -1,6 +1,10 @@
 package model.dialogue.unique;
 
-public class DT_Default extends DialogueTree {
+import model.dialogue.DialogueActions;
+import model.dialogue.DialogueElement;
+import model.dialogue.DialogueTree;
+
+public class DT_BasicVillager extends DialogueTree {
 
 		protected DialogueElement buildTree() {
 			
@@ -13,13 +17,13 @@ public class DT_Default extends DialogueTree {
 			//Option-1.1// -- e1
 			
 			//Option-1.2//
-			DialogueElement e3 = new DialogueElement("How dare you! En guarde!", DialogueAction.ANGER);
+			DialogueElement e3 = new DialogueElement("How dare you! En guarde!", DialogueActions.ANGER);
 			
 			//Option-1.3//
-			DialogueElement e4 = new DialogueElement("Good bye.", DialogueAction.EXIT);
+			DialogueElement e4 = new DialogueElement("Good bye.", DialogueActions.EXIT);
 			
 			//Option-2//
-			DialogueElement e5 = new DialogueElement("I have heard no news, sorry.", DialogueAction.EXIT);
+			DialogueElement e5 = new DialogueElement("I have heard no news, sorry.", DialogueActions.EXIT);
 			
 			//Option-3// -- e4
 			
