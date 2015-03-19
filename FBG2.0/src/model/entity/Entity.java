@@ -33,7 +33,6 @@ public class Entity extends MapObject{
     public Entity(){
         myInventory = new Inventory(5, this);
         myOccupation = new Occupation();
-    } 
     
     public Entity(String objectName, String description, CoordinatePair location, 
     		Inventory inventory, Occupation occupation, Direction direction, int speed){
