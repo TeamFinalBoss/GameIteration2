@@ -10,7 +10,10 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import model.director.ActiveMapManager;
+import model.entity.Armory;
+import model.entity.Inventory;
 import model.entity.Occupation;
+import model.entity.Sack;
 import model.item.Equipable;
 import model.item.Takeable;
 import model.map.GameMap;
@@ -61,7 +64,7 @@ public class EntityFactory implements PlaceableObjectFactory{
 			
 			Element s = (Element) e.getElementsByTagName("stats").item(0);
 			
-			PlayerStats stats = new PlayerStats(
+			Stats stats = new Stats(
 					Integer.parseInt(s.getAttribute("level")),
 					Integer.parseInt(s.getAttribute("livesleft")),
 					Integer.parseInt(s.getAttribute("strength")),
@@ -77,8 +80,7 @@ public class EntityFactory implements PlaceableObjectFactory{
 					Integer.parseInt(s.getAttribute("defense")),
 					Integer.parseInt(s.getAttribute("offense")));
 			
-			Inventory inv = new Inventory(new Sack(), new Armory());
-			StatMaster sm = new StatMaster(stats, new Stats());
+			Inventory inv = new Inventory(10, );
 			
 			Entity en = null;
 			

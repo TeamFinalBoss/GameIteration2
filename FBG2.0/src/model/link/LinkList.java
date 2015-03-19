@@ -82,6 +82,8 @@ public class LinkList {
     		}
     	}
     	
+    	if(num == 0) return;
+    	
     	LinkNumPair lnp = new LinkNumPair(num);
     	lnp.list.add(link);
     	links.add(lnp);
