@@ -100,21 +100,23 @@ public class Locations<S extends MapObject> {
 
     /*** 
      * Removes the provided object from the collection and returns its
-     * CoordinatePair location If the object provided is not present, a runtime
-     * exception is thrown
+     * CoordinatePair location If the object provided is present, return true,
+     * else return false
      *
+     * @author Michael Cohen
      * @param obj to be removed from the collection
+     * @return true if object was present and was removed, else false
      */
-    public void remove(S obj) {
+    public boolean remove(S obj) {
         for (int i = 0; i != locations.size(); ++i) {
             S toRemove = locations.get(i);
             if (obj.equals(toRemove)){
             	locations.remove(i);
-            	return;
+            	return true;
             }
         }
 
-        throw new RuntimeException("Object not contained in Locations");
+        return false;
     }
     
     /**

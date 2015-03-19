@@ -1,7 +1,5 @@
 package model.entity;
 
-//TODO: Document the functionality of this class (shame)
-
 public class Stats {
 	/* -------------------- PRIMARY ATTRIBUTES -------------------- */
 	private int livesLeft;
@@ -38,11 +36,12 @@ public class Stats {
 		armor = equipArmor + (hardiness*30);
 	}
 	
-	private int max(int a, int b){
+	/* -------------------- PROTECTED UTILITY -------------------- */
+	protected int max(int a, int b){
 		return a > b ? a : b;
 	}
 	
-	private boolean validate(int value){
+	protected boolean validate(int value){
 		return (value < 0) ? false : true;
 	}
 	
@@ -127,7 +126,7 @@ public class Stats {
 		return equipArmor;
 	}
 	
-	/* -------------------- MUTATORS -------------------- */
+	/* -------------------- SET MUTATORS -------------------- */
 	public void setLivesLeft(int next){
 		if(!validate(next)) throw new IllegalArgumentException("LivesLeft not set: illegal value of " + next + " attempted.");
 		livesLeft = next;
@@ -196,6 +195,8 @@ public class Stats {
 		equipArmor = next;
 		updateDerived();
 	}
+	
+	/* -------------------- MODIFY MUTATORS -------------------- */
 	public void modifyLivesLeft(int modifier){
 		livesLeft = max(livesLeft+modifier,0);
 		updateDerived();

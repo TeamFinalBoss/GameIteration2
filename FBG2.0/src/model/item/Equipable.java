@@ -1,19 +1,45 @@
 package model.item;
-import model.entity.Entity;
 
-public class Equipable extends Takeable {
-	public EquipSlot slot() {
-		//TODO: Make this function return the actual slot of the Equipable instance
-		return EquipSlot.HEAD;
+
+
+import model.map.pair.CoordinatePair;
+/**
+ * ID=15
+ * @author ashishag
+ */
+
+public abstract class Equipable extends Usable {
+	
+    protected EquipSlot slot;
+    
+   public Equipable(){
+		super("Generic Eqipable", "Generic description", new CoordinatePair(), 0);
+		
+		this.id = "15";
+		this.className = "Equipable";
+                this.slot= EquipSlot.HEAD;
+                
+		
+		//Other properties set here
 	}
-	public void onEquip(Entity target){
-		//TODO: perform all effects on entity that is equipping this item
-	}
-	public void onUnequip(Entity target){
-		//TODO: undo all effects on entity that is unequipping this item
-	}
-	public boolean meetsRequirements(Entity target){
-		//TODO: return true iff target entity meets equip requirements
-		return true;
-	}
+	
+	public Equipable(String objectName, String description, CoordinatePair location, int value, EquipSlot slot){
+		super(objectName, description, location, value);
+		
+		this.id = "15";
+		this.className = "Equipable";
+                this.slot= slot; 
+               
+		
+		//Other properties set here
+	} 
+    
+        public EquipSlot getSlot(){
+            return slot; 
+        }
+        
+        public void setslot (EquipSlot slot){
+            this.slot= slot;
+        }
+       
 }

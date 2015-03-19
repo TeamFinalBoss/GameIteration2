@@ -38,6 +38,8 @@ public class GameMap extends Observable {
     
     private Tile[][] tiles;
     
+    private MotionValidator MV;
+    private MotionCoordinator MC;
     
     public GameMap() {
         Tile[][] t = new Tile[50][50];
@@ -84,6 +86,34 @@ public class GameMap extends Observable {
             return false;
         }
     }
+    
+    
+    /**
+     * This method attempts to remove the provided entity
+     * from the Entity Locations collection and returns
+     * whether or not that removal was successful
+     * 
+     * @author Michael Cohen
+     * @param e the entity to be removed
+     * @return true if entity was removed, else false
+     */
+    public final boolean removeEntity(Entity e){
+    	return this.entities.remove(e);
+    }
+    
+    /**
+     * Removes and returns the entity from the map. If 
+     * the provided CoordinatePair is not present, a runtime exception is thrown 
+     * 
+     * @author Michael Cohen
+     * @param CP location of the entity which is queried
+     * @return Entity that was removed from the map
+     */
+    public Entity removeEntity(CoordinatePair CP){
+    	return this.entities.remove(CP);
+    }
+    
+    
     /**
      * Adds an Item to the map at the valid coordinate pair specified if not
      * already occupied by another item.
@@ -101,6 +131,32 @@ public class GameMap extends Observable {
             return false;
         }
     }
+    
+    /**
+     * This method attempts to remove the provided item
+     * from the Item Locations collection and returns
+     * whether or not that removal was successful
+     * 
+     * @author Michael Cohen
+     * @param i the item to be removed
+     * @return true if item was removed, else false
+     */
+    public final boolean removeItem(Item i){
+    	return this.items.remove(i);
+    }
+    
+    /**
+     * Removes and returns the item from the map. If 
+     * the provided CoordinatePair is not present, a runtime exception is thrown 
+     * 
+     * @author Michael Cohen
+     * @param CP location of the item which is queried
+     * @return Item that was removed from the map
+     */
+    public Item removeItem(CoordinatePair CP){
+    	return this.items.remove(CP);
+    }
+    
     /**
      * Adds an area effect to the map at the valid coordinate pair specified if not
      * already occupied by another area effect
@@ -118,6 +174,32 @@ public class GameMap extends Observable {
     	}
     	else return false;
     }    
+    
+    /**
+     * This method attempts to remove the provided area effect
+     * from the AreaEffect Locations collection and returns
+     * whether or not that removal was successful
+     * 
+     * @author Michael Cohen
+     * @param effect to be removed
+     * @return true if effect was removed, else false
+     */
+    public final boolean removeAreaEffect(AreaEffect effect){
+    	return this.effects.remove(effect);
+    }
+    
+    /**
+     * Removes and returns the area effect from the map. If 
+     * the provided CoordinatePair is not present, a runtime exception is thrown 
+     * 
+     * @author Michael Cohen
+     * @param CP location of the effect which is queried
+     * @return AreaEffect that was removed from the map
+     */
+    public AreaEffect removeAreaEffect(CoordinatePair CP){
+    	return this.effects.remove(CP);
+    }
+    
     /**
      * Adds a trap to the map at the valid coordinate pair specified if not
      * already occupied by another trap.
@@ -136,6 +218,32 @@ public class GameMap extends Observable {
             return false;
         }
     }
+    
+    /**
+     * This method attempts to remove the provided trap
+     * from the Trap Locations collection and returns
+     * whether or not that removal was successful
+     * 
+     * @author Michael Cohen
+     * @param t trap to be removed
+     * @return true if trap was removed, else false
+     */
+    public final boolean removeTrap(Trap t){
+    	return this.traps.remove(t);
+    }
+    
+    /**
+     * Removes and returns the trap from the map. If 
+     * the provided CoordinatePair is not present, a runtime exception is thrown 
+     * 
+     * @author Michael Cohen
+     * @param CP location of the trap which is queried
+     * @return Trap that was removed from the map
+     */
+    public Trap removeTrao(CoordinatePair CP){
+    	return this.traps.remove(CP);
+    }
+    
     /**
      * Tests if the coordinate pair is non negative and not beyond the size of
      * the map
@@ -215,6 +323,23 @@ public class GameMap extends Observable {
         super.addObserver(o);
         updateView();
     }
+    
+    
+    /*----------Mutators----------------*/
+
+   
+    public boolean requestMovement(Entity e, Direction dir){
+        CoordinatePair desiredLocation; 
+        desiredLocation = locationPlusDirection(e.getLocation(), dir);
+        
+        if(MV.canTraverse(e.getMotionType(), getItemAtCoordinate(desiredLocation), getTileAtCoordinate(desiredLocation).getMotionType())){
+           MC.move(e, desiredLocation);
+        }
+        else{
+            return false;
+        }
+    }
+    
     /**
      * This is used by MotionValidator and MotionCoordinator to get the next location.
      * @author Jason Owens

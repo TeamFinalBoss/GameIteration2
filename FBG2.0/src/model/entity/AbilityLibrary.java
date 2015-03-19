@@ -1,34 +1,32 @@
-package model.ability;
-
-/*
- * TODO: finish this (pushed just so everyone can see it)
- */
+package model.entity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import model.entity.Entity;
-
 /**
  * The purpose of this class is to serve as a container for Spells, passing commands downward from [TBD, Entity?]
- * @author Jason Owens
+ * @author Jason Owens, Matthew Kroeze
  */
 public class AbilityLibrary {
-    private List<Ability> knownAbilities;
+
+    private ArrayList<Ability> learnedAbilities;
+    private ArrayList<Ability> unlearnedAbilities;
+
     
-    /*-----------Constructors-----------*/
+    /* -------------------- CONSTRUCTORS -------------------- */
     public AbilityLibrary(){
-        knownAbilities = new ArrayList<>();
+        learnedAbilities = new ArrayList<Ability>();
+        unlearnedAbilities = new ArrayList<Ability>();
     }
     
     /*-----------Mutators-----------*/
     public void addAbility(Ability ability){
-        knownAbilities.add(ability);        
+    	learnedAbilities.add(ability);     
     }
     public boolean forgetAbility(String abilityName){
-         for(Ability s : knownAbilities) {
+    	for(Ability s : learnedAbilities) {
             if (s.getName().equals(abilityName)) {
-                return knownAbilities.remove(s); 
+                return learnedAbilities.remove(s); 
             }
         }
         return false; //ability isn't known
@@ -43,7 +41,7 @@ public class AbilityLibrary {
      * @param abilityName the name of the ability 
      */
     public boolean hasAbility(String abilityName){
-        for(Ability s : knownAbilities) {
+    	for(Ability s : learnedAbilities) {
             if (abilityName.equals(s.getName())) {
                 return true;
             }
@@ -62,7 +60,7 @@ public class AbilityLibrary {
      *@params callingEntity the Entity using the ability
      */
     public boolean performActiveAbility(String abilityName, Entity callingEntity){
-        for(Ability a : knownAbilities) {
+    	for(Ability a : learnedAbilities) {
             if (a.getName().equals(abilityName)) {
                 a.performAbility(callingEntity);
                 return true;
@@ -71,7 +69,7 @@ public class AbilityLibrary {
         return false;
     }
     
-    public List<Ability >getAbilities() {
-    	return this.knownAbilities;
+    public List<Ability>getAbilities() {
+    	return this.learnedAbilities;
     }
 }

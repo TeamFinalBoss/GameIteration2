@@ -87,6 +87,18 @@ public class Sack {
 		return contents.remove(position);
 	}
 	
+	/**
+	 * Removes the specified Takeable item from the sacl
+	 * @param item the Takeable to be removed
+	 * @return the removed Takeable object
+	 * @throws IllegalArgumentException if the item is not in the sack
+	 */
+	
+	public Takeable remove(Takeable item){
+		if(!contents.contains(item)) throw new IllegalArgumentException("Could not find item to be removed");
+		return contents.remove(contents.indexOf(item));
+	}
+	
 	/** 
 	 * Uses the Takeable item in the specified slot of the sack.
 	 * @param position the position of the item to be used in the sack.

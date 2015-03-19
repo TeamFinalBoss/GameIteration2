@@ -13,5 +13,6 @@ public enum SceneType {
 	KEY_BINDINGS,
 	SAVE,
 	LOAD,
-	DIALOGUE
+	DIALOGUE,
+	UPDATING
 }

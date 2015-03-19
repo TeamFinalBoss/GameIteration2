@@ -1,7 +1,5 @@
 package model.entity;
 
-import java.awt.Point;
-
 import model.gameObject.MapObject;
 import model.map.Direction;
 import model.map.pair.CoordinatePair;
@@ -10,6 +8,7 @@ import model.item.Takeable;
 import model.item.Equipable;
 import model.item.EquipSlot;
 import java.util.Map;
+import model.director.ActiveMapManager;
 
 /** 
  * The class Entity defines a common type for all entities (beings) in the game. 
@@ -21,18 +20,19 @@ import java.util.Map;
  * @version 1.1.0 2015-03-15
  */
 public class Entity extends MapObject{
-	private Inventory myInventory;
-	private Occupation myOccupation;
+    private Inventory myInventory;
+    private Occupation myOccupation;
     private Direction myDirection;
-    private int speed;
-    private Point location; 
-       
-    private static Entity player;
+    private ActiveMapManager activeMap; //forwards messages to the active map
+    private int speed; //what does this do? -Matt
+    private int currency;
+
         
     /* -------------------- CONSTRUCTORS --------------------*/
     public Entity(){
         myInventory = new Inventory(5, this);
         myOccupation = new Occupation();
+        activeMap = ActiveMapManager.getInstance();
     }
     
     public Entity(String objectName, String description, CoordinatePair location, 
@@ -47,6 +47,11 @@ public class Entity extends MapObject{
     	this.myDirection = direction;
     	this.myInventory = inventory;
 
+    }
+    
+    /* -------------------- PRIVATE UTILITY -------------------- */
+    private int max(int a, int b){
+    	return a > b ? a : b;
     }
     
     /* -------------------- INVENTORY ACCESSORS --------------------*/
@@ -78,6 +83,27 @@ public class Entity extends MapObject{
     }
     public Equipable unequip(EquipSlot slot){
     	return myInventory.unequip(slot);
+    }
+    public Takeable remove(Takeable item){
+    	return myInventory.remove(item);
+    }
+    public void drop(int position){
+    	//TODO: Remove item from sack, then add it to map at this entity's location
+    }
+    
+    /* -------------------- STAT MUTATORS -------------------- */
+    
+    /* -------------------- MISC. ACCESSORS -------------------- */
+    public int getCurrency(){
+    	return currency;
+    }
+
+    /* -------------------- MISC. MUTATORS -------------------- */
+    public void setCurrency(int newest){
+    	currency = max(newest, 0);
+    }
+    public void modifyCurrency(int modifier){
+    	currency = max(currency+modifier,0);
     }
     
     /* -------------------- PENDING SORTING ---------------------*/
