@@ -6,7 +6,8 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
-import view.window.GameWindow;
+import view.viewport.KeyBindingsErrorViewPort;
+import model.director.GameDirector;
 import controller.Controller;
 import controller.commands.Commandable;
 import controller.keyBindings.KeyBindings;
@@ -28,7 +29,9 @@ public class BindingsUpdate extends Observable implements Commandable, Observer,
 	private KeyBindings currentBindings;
 	private KeyBindingsUpdate bindingsUpdate;
 	private KeyBindingsOption currentSelection;
-	private GameWindow window;
+	private GameDirector director = GameDirector.getGameDirector();
+	private Controller controller = Controller.getInstance();
+	private KeyBindingsErrorViewPort port = KeyBindingsErrorViewPort.getInstance();
 	private String delimeter = " ";
 	
 	public BindingsUpdate() {
@@ -43,8 +46,9 @@ public class BindingsUpdate extends Observable implements Commandable, Observer,
 	
 	@Override
 	public void execute() {
-		window = new GameWindow(100,100);
-		window.addKeyController(this);
+		director.removeKeyListener(controller.getActiveListener());
+		director.addKeyListener(this);
+		port.setErrorString("Updating");
 	}
 
 	protected KeyBindingsUpdate getKeyBindingsUpdate() {
@@ -73,11 +77,13 @@ public class BindingsUpdate extends Observable implements Commandable, Observer,
 		Map<KeyBindingsOption, Integer> currentMapping = currentBindings.getBindingsReverse();
 		try {
 			bindingsUpdate.addUpdate(currentMapping.get(currentSelection), arg0.getKeyCode());
-			window.close();
+			director.removeKeyListener(this);
+			director.addKeyListener(controller.getActiveListener());
+			port.reset();
 			setChanged();
 			notifyObservers();
 		} catch(IllegalArgumentException e) {
-			System.out.println(e.getMessage());
+			port.setErrorString(e.getMessage() + " Please try again");
 		}
 		
 	}

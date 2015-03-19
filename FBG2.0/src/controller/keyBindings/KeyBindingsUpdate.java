@@ -3,8 +3,7 @@ package controller.keyBindings;
 import java.awt.event.KeyEvent;
 import java.util.HashMap;
 import java.util.Map;
-
-import controller.Controller;
+import java.util.Set;
 
 /**
  * @author Kyle Kyrazis
@@ -30,19 +29,20 @@ public class KeyBindingsUpdate {
 		this.newBindings = currentBindings.clone();
 	}
 	
-	//TODO do I need to verify key mappings don't overlap here?
+	//TODO OLD to NEW
 	public void addUpdate(Integer key, Integer value) {
-		if(!(newBindings.getBindings().containsKey(value))) {
+		if(!(newBindings.containsKey(value))) {
+			Integer newKey = key;
 			if(updateOptions.containsKey(key)) {
-				updateOptions.remove(key);
+				newKey = updateOptions.remove(key);
 			}
 			if(updateOptions.containsValue(value)) {
-				throw new IllegalArgumentException("Sorry but you can't have multiple options controlled by the same key");
+				throw new IllegalArgumentException("Unable to map multiple keys to the same option.");
 			}
 			updateOptions.put(key, value);
-			newBindings.updateBindingsKeyValue(key, value);
+			newBindings.updateBindingsKeyValue(newKey, value);
 		} else {
-			throw new IllegalArgumentException("Sorry but you can't multiple options to the same key");
+			throw new IllegalArgumentException("Unable to map multiple keys to the same option.");
 		}
 	}
 	
@@ -64,12 +64,13 @@ public class KeyBindingsUpdate {
 		}
 		return builder.toString();
 	}
-
 	
-	//TODO might be alot of errors
+	public Set<Map.Entry<Integer, Integer>> getSet() {
+		return this.updateOptions.entrySet();
+	}
+	
 	public void clear() {
 		updateOptions.clear();
-		newBindings.clear();
 		newBindings = currentBindings.clone();
 	}
 	

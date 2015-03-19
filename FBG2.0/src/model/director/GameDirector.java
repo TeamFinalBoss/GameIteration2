@@ -17,6 +17,7 @@ import java.util.Map;
 import model.map.GameMap;
 import view.window.GameWindow;
 import view.scene.Scene;
+import view.viewport.KeyBindingsErrorViewPort;
 import view.viewport.KeyBindingsMenuViewPort;
 import view.viewport.MainMenuViewPort;
 import view.viewport.PauseViewPort;
@@ -77,13 +78,13 @@ public class GameDirector implements Observer{
         pauseScene.addViewport(pauseVP);
         MainMenuViewPort keyBindingsVP = new KeyBindingsMenuViewPort();
         keyBindingsScene.addViewport(keyBindingsVP);
+        //TODO Fix this. Just a hack to see how the viewport stuff worked.
+        keyBindingsScene.addViewport(KeyBindingsErrorViewPort.getInstance());
         MainMenuViewPort saveVP = new MainMenuViewPort();
         MainMenuViewPort loadVP = new MainMenuViewPort();
         
         loadScene.addViewport(loadVP);
         saveScene.addViewport(saveVP);
-        
-        
         
         menuScene.addViewport(menuVP);//Add menuVP to menuScene
         controller.addObserver(menuVP, SceneType.MAIN_MENU);
@@ -188,5 +189,13 @@ public class GameDirector implements Observer{
 	@Override
 	public void update(SceneType type) {
 		activeScene = scenes.get(type);
+	}
+	
+	public void addKeyListener(KeyListener listener) {
+		window.addKeyController(listener);
+	}
+	
+	public void removeKeyListener(KeyListener listener) {
+		window.removeKeyController(listener);
 	}
 }
