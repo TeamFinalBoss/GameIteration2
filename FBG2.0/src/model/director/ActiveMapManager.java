@@ -15,6 +15,8 @@ import model.map.tile.AreaEffect;
 import model.map.tile.Trap;
 
 /**
+ * TODO make sure Entity supports useAbility(int)
+ * 
  * Maintains a list of all the different game maps and keeps track of the
  * current active map. It provides map info to external systems.
  *
@@ -269,12 +271,12 @@ public class ActiveMapManager {
         return activeMap.requestMovement(e, d);
     }
     public boolean moveAvatar(Direction d){
-        requestMovement(avatar, d);
+        return requestMovement(avatar, d);
     }
     public boolean useAbility(Entity e, int abilityToUse){
-        activeMap.useAbility(Entity e, int abilityToUse);
+        return activeMap.useAbility( e, abilityToUse);
     }
     public boolean useAvatarAbility(int abilityToUse){
-        useAbility(avatar, abilityToUse);
+        return useAbility(avatar, abilityToUse);
     }
 }
