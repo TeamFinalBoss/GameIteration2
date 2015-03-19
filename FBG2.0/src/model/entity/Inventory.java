@@ -77,6 +77,15 @@ public class Inventory {
 	}
 	
 	/**
+	 * Removes the specified item from the sack
+	 * @param item the Takeable item to be removed
+	 * @return the removed Takeable
+	 */
+	public Takeable remove(Takeable item){
+		return mySack.remove(item);
+	}
+	
+	/**
 	 * Inserts the specified item in the sack at the end of the order
 	 * @param newest the Takeable to be inserted
 	 * @return <code>true</code> iff the insertion was successful

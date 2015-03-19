@@ -1,9 +1,5 @@
 package model.ability;
 
-/*
- * TODO: finish this (pushed just so everyone can see it)
- */
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,14 +7,16 @@ import model.entity.Entity;
 
 /**
  * The purpose of this class is to serve as a container for Spells, passing commands downward from [TBD, Entity?]
- * @author Jason Owens
+ * @author Jason Owens, Matthew Kroeze
  */
 public class AbilityLibrary {
-    private List<Ability> knownAbilities;
+    private ArrayList<Ability> learnedAbilities;
+    private ArrayList<Ability> unlearnedAbilities;
     
-    /*-----------Constructors-----------*/
+    /* -------------------- CONSTRUCTORS -------------------- */
     public AbilityLibrary(){
-        knownAbilities = new ArrayList<>();
+        learnedAbilities = new ArrayList<Ability>();
+        unlearnedAbilities = new ArrayList<Ability>();
     }
     
     /*-----------Mutators-----------*/

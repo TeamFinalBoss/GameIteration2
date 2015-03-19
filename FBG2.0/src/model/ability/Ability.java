@@ -18,7 +18,7 @@ public abstract class Ability {
     private CombatCoordinator myCC;
     private Effect cost; //cost of cast, dont cast if cost can't be met
     
-    /*-----------Constructors-----------*/
+    /* -------------------- CONSTRUCTORS --------------------*/
 
     /**
     * @author Aaron Iglesias, Jason Owens
