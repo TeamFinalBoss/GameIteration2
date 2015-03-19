@@ -26,8 +26,8 @@ public class Entity extends MapObject{
     private Direction myDirection;
     private int speed;
     private Point location; 
-       
     private static Entity player;
+    
         
     /* -------------------- CONSTRUCTORS --------------------*/
     public Entity(){

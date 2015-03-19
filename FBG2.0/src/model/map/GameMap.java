@@ -38,6 +38,8 @@ public class GameMap extends Observable {
     
     private Tile[][] tiles;
     
+    private MotionValidator MV;
+    private MotionCoordinator MC;
     
     public GameMap() {
         Tile[][] t = new Tile[50][50];
@@ -215,6 +217,23 @@ public class GameMap extends Observable {
         super.addObserver(o);
         updateView();
     }
+    
+    
+    /*----------Mutators----------------*/
+
+   
+    public boolean requestMovement(Entity e, Direction dir){
+        CoordinatePair desiredLocation; 
+        desiredLocation = locationPlusDirection(e.getLocation(), dir);
+        
+        if(MV.canTraverse(e.getMotionType(), getItemAtCoordinate(desiredLocation), getTileAtCoordinate(desiredLocation).getMotionType())){
+           MC.move(e, desiredLocation);
+        }
+        else{
+            return false;
+        }
+    }
+    
     /**
      * This is used by MotionValidator and MotionCoordinator to get the next location.
      * @author Jason Owens
