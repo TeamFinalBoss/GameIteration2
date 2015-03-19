@@ -2,6 +2,7 @@ package model.map;
 
 import model.entity.Entity;
 import model.item.Item;
+import model.map.pair.CoordinatePair;
 import model.map.tile.AreaEffect;
 import model.map.tile.Trap;
 
@@ -29,8 +30,8 @@ public class MotionCoordinator {
 		return me;
 	}
 	
-	public void moveEntity(Entity e, Direction d, AreaEffect effect, Item i, Trap t){
-		e.moveEntity(d);
+	public void moveEntity(Entity e, CoordinatePair desiredLocation, AreaEffect effect, Item i, Trap t){
+		e.setLocation(desiredLocation);
 		
 		if (effect != null){
 			effect.activate(e);

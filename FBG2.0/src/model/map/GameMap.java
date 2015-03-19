@@ -256,7 +256,7 @@ public class GameMap extends Observable {
      * @param CP location of the trap which is queried
      * @return Trap that was removed from the map
      */
-    public Trap removeTrao(CoordinatePair CP){
+    public Trap removeTrap(CoordinatePair CP){
     	return this.traps.remove(CP);
     }
     
