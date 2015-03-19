@@ -16,7 +16,7 @@ public abstract class Usable extends Takeable{
     
   	
 	public Usable(){
-		super("Generic Usable", "Generic description", new CoordinatePair(), 0);
+		super("Generic Usable", "Generic description", new CoordinatePair(), 0, 1);
 		
 		this.id = "13";
 		this.className = "Usable";
@@ -25,11 +25,12 @@ public abstract class Usable extends Takeable{
 		//Other properties set here
 	}
 	
-	public Usable(String objectName, String description, CoordinatePair location, int value){
-		super(objectName, description, location, value);
+	public Usable(String objectName, String description, CoordinatePair location, int value, int durability){
+		super(objectName, description, location, value, durability);
 		
 		this.id = "13";
 		this.className = "Usable";
+                this.durability=durability; 
                
 		
 		//Other properties set here
