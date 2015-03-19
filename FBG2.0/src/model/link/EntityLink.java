@@ -1,5 +1,6 @@
 package model.link;
 
+import model.director.ActiveMapManager;
 import model.entity.Entity;
 
 /**
@@ -16,9 +17,16 @@ public class EntityLink extends Link{
 	 * Checks if an entity has a linked partner.
 	 * @return whether or not the entity has a linked partner
 	 */
-	public boolean isPartnerAlive() {
-		if(getPartner() == null) return false;
-		return true;
+	public void killPartner() {
+		EntityLink partner = getPartner();
+		if(partner == null) return;
+		
+		partner.killSelf();
+	}
+	
+	public void killSelf() {
+		ActiveMapManager.getInstance().removeEntityFromActiveMap((Entity) getOwner());
+		return;
 	}
 	
 }
