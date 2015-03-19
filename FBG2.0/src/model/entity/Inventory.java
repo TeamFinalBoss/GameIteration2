@@ -108,6 +108,6 @@ public class Inventory {
 	 * @return the equipment which was removed from the slot
 	 */
 	public Equipable unequip(EquipSlot slot){
-		return myArmory.unequip(slot);
+            return myArmory.unequip(slot);
 	}
 }

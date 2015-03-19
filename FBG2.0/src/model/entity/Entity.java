@@ -28,6 +28,7 @@ public class Entity extends MapObject{
     private ActiveMapManager activeMap; //forwards messages to the active map
     private int speed; //what does this do? -Matt
     private int currency;
+
         
     /* -------------------- CONSTRUCTORS --------------------*/
     public Entity(){
