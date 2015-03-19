@@ -44,7 +44,7 @@ public class ObstacleLink extends Link{
 	 * The link removes its owner from the active map.
 	 */
 	public void killSelf() {
-		ActiveMapManager.getInstance().removeItemFromActiveMap(getOwner());
+		ActiveMapManager.getInstance().removeItemFromActiveMap((Item) getOwner());
 		return;
 	}
 }
