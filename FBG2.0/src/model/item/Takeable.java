@@ -17,20 +17,39 @@ import model.entity.Entity;
  */
 public class Takeable extends Item {
 	
+	private int durability;
+	private int value;
+	
 	public Takeable(){
 		super("Generic Takeable", "Generic description", new CoordinatePair());
 		
 		this.id = "3";
 		this.className = "Takeable";
 		
+		this.durability = 1;
+		
 		//Other properties set here
 	}
 	
-	public Takeable(String objectName, String description, CoordinatePair location){
+	//created one more constructor for if the item is in an inventory to begin with
+	public Takeable(String objectName, String description, int value, int durability){
+		super(objectName, description, new CoordinatePair());
+		
+		this.id = "3";
+		this.className = "Takeable";
+		
+		this.durability = durability;
+		
+		//Other properties set here
+	}
+	
+	public Takeable(String objectName, String description, CoordinatePair location, int value, int durability){
 		super(objectName, description, location);
 		
 		this.id = "3";
 		this.className = "Takeable";
+		
+		this.durability = durability;
 		
 		//Other properties set here
 	}
