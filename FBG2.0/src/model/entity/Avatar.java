@@ -1,6 +1,7 @@
 
 package model.entity;
 
+
 /**
  *
  * @author ChrisMoscoso
@@ -21,4 +22,6 @@ public class Avatar extends Entity {
     public static Avatar getAvatar(){
         return avatar;
     }
+
+    
 }

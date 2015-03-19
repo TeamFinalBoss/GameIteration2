@@ -13,7 +13,8 @@ public enum Direction {
     South (0, 1),
     SouthWest (-1, -1),
     West (-1, 0),
-    NorthWest (1, -1);
+    NorthWest (1, -1),
+    None (0, 0);
     
     /**
      * This is the unit value for the horizontal displacement [-1, 0 ,1].
