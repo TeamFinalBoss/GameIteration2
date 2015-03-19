@@ -30,6 +30,7 @@ public class MotionCoordinator {
 		return me;
 	}
 	
+	
 	public void moveEntity(Entity e, CoordinatePair desiredLocation, AreaEffect effect, Item i, Trap t){
 		e.setLocation(desiredLocation);
 		

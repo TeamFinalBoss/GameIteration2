@@ -99,16 +99,14 @@ public class ActiveMapManager {
     /**
      * If map is in maps, set it as active map and return true. Else return false
      * 
+     * TODO: Determine if method signature is needed
+     * 
      * @author Michael Cohen
      * @param map to be set as active map
      * @return true if map was in maps, else false
      */
     public boolean setActiveMap(GameMap map){
     	if (this.maps.contains(map)){
-    		//Remove avatar from current active map and add it to the future
-    		//active map
-    		
-    		
     		this.activeMap = map;
     		
     		return true;
