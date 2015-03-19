@@ -77,6 +77,15 @@ public class Inventory {
 	}
 	
 	/**
+	 * Removes the specified item from the sack
+	 * @param item the Takeable item to be removed
+	 * @return the removed Takeable
+	 */
+	public Takeable remove(Takeable item){
+		return mySack.remove(item);
+	}
+	
+	/**
 	 * Inserts the specified item in the sack at the end of the order
 	 * @param newest the Takeable to be inserted
 	 * @return <code>true</code> iff the insertion was successful
@@ -99,6 +108,6 @@ public class Inventory {
 	 * @return the equipment which was removed from the slot
 	 */
 	public Equipable unequip(EquipSlot slot){
-		return myArmory.unequip(slot);
+            return myArmory.unequip(slot);
 	}
 }

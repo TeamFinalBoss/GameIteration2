@@ -1,5 +1,5 @@
 
-package model.ability.effects;
+package model.effect;
 
 import java.util.TimerTask;
 import model.entity.Entity;

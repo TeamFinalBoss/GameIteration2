@@ -1,11 +1,12 @@
-package model.ability;
+package model.entity;
 
-import model.ability.effects.Effect;
 import model.map.Direction;
 import model.director.CombatCoordinator;
+import model.effect.Effect;
 import model.map.pair.CoordinatePair;
+
 import java.util.ArrayList;
-import model.entity.Entity;
+
 import static java.lang.Math.pow;
 
 /**
@@ -18,7 +19,7 @@ public abstract class Ability {
     private CombatCoordinator myCC;
     private Effect cost; //cost of cast, dont cast if cost can't be met
     
-    /*-----------Constructors-----------*/
+    /* -------------------- CONSTRUCTORS --------------------*/
 
     /**
     * @author Aaron Iglesias, Jason Owens

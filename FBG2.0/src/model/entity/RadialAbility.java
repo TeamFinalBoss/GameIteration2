@@ -1,29 +1,30 @@
-package model.ability;
+package model.entity;
+
+import model.ability.Effect;
 
 /**
 *
 * @author Aaron Iglesias, Jason Owens
 */
-public class AngularAbility extends Ability
+public class RadialAbility extends Ability
 {
 	private double degree;
 	private double radius;
 
 	/**
 	* @author Aaron Iglesias, Jason Owens
-	* default constructor for AngularAbility
-	* @param radius
+	* default constructor for RadialAbility
 	*/
-	public AngularAbility()
+	public RadialAbility()
 	{
 		super();
-		degree = 90;
+		degree = 360;
 		radius = 1;
 	}
 
 	/**
 	* @author Aaron Iglesias, Jason Owens
-	* constructor for AngularAbility
+	* constructor for RadialAbility
 	* @param radius
 	*/
 	public AngularAbility(String name, Effect effect, CombatCoordinator myCC, Effect cost, double degree, double radius)
@@ -35,7 +36,7 @@ public class AngularAbility extends Ability
 
 	/**
 	* @author Aaron Iglesias, Jason Owens
-	* gets the degree of AngularAbility
+	* gets degree of RadialAbility
 	*/
 	public double getDegree()
 	{
@@ -44,16 +45,16 @@ public class AngularAbility extends Ability
 
 	/**
 	* @author Aaron Iglesias, Jason Owens
-	* gets the radius of AngularAbility
+	* gets radius of RadialAbility
 	*/
 	public double getRadius()
 	{
-        return radius;
+		return radius;
 	}
 
 	/**
 	* @author Aaron Iglesias, Jason Owens
-	* sets the degree of AngularAbility
+	* sets degree of RadialAbility
 	* @param degree
 	*/
 	public void setDegree(double degree)
@@ -66,7 +67,7 @@ public class AngularAbility extends Ability
 
 	/**
 	* @author Aaron Iglesias, Jason Owens
-	* sets the radius of AngularAbility
+	* sets radius of RadialAbility
 	* @param radius
 	*/
 	public void setRadius(double radius)
@@ -76,14 +77,5 @@ public class AngularAbility extends Ability
 			return;
 		this.radius = radius;
 	}
-
-	@Override
-	protected abstract ArrayList<CoordinatePair> getAffectedTiles(Entity entity)
-	{
-		Direction direction = entity.getDirection();
-		CoordinatePair coordinatePair = entity.getLocation();
-		
-
-		return;
-	}
+        
 }

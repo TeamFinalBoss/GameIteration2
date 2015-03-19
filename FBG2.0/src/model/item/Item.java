@@ -2,6 +2,7 @@ package model.item;
 
 import model.gameObject.MapObject;
 import model.map.pair.CoordinatePair;
+import model.entity.Entity; 
 
 /**
  * This abstract class defines a basic Item object which will be 
@@ -11,7 +12,7 @@ import model.map.pair.CoordinatePair;
  * ID: 2
  * 
  * @see MapObject
- * @author Michael Cohen
+ * @author ashishag, Michael Cohen
  *
  */
 public abstract class Item extends MapObject {
@@ -31,11 +32,18 @@ public abstract class Item extends MapObject {
 		this.className = "Item";
 		
 		//Other properties set here
-	}	
+	}
         
-        /**
-         * @author Jason Owens
-         * @return whether or not the item impedes movement 
-         */
-	public abstract boolean isTraversable();
+        // This is called when the entity activates the item
+        // returns if the entity can continue
+        // by default entity can continue
+        
+        public boolean activate(Entity e){
+            return true;
+        }
+	
+        
+	
+	
+	
 }

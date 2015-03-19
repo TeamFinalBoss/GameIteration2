@@ -1,37 +1,34 @@
-package model.ability;
-
-/*
- * TODO: finish this (pushed just so everyone can see it)
- */
+package model.entity;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import model.entity.Entity;
 
 /**
  * The purpose of this class is to serve as a container for Spells, passing commands downward from [TBD, Entity?]
- * @author Jason Owens
+ * @author Jason Owens, Matthew Kroeze
  */
 public class AbilityLibrary {
-    private Map<String,Ability> knownAbilities;
+
+    private ArrayList<Ability> learnedAbilities;
+    private ArrayList<Ability> unlearnedAbilities;
+
     
-    /*-----------Constructors-----------*/
+    /* -------------------- CONSTRUCTORS -------------------- */
     public AbilityLibrary(){
-        knownAbilities = new HashMap<>();
+        learnedAbilities = new ArrayList<Ability>();
+        unlearnedAbilities = new ArrayList<Ability>();
     }
     
     /*-----------Mutators-----------*/
     public void addAbility(Ability ability){
-        knownAbilities.put(ability.getName(), ability);        
+    	learnedAbilities.add(ability);     
     }
     public boolean forgetAbility(String abilityName){
-    	if(this.knownAbilities.containsKey(abilityName)) {
-    		knownAbilities.remove(abilityName);
-    		return true;
-    	}
+    	for(Ability s : learnedAbilities) {
+            if (s.getName().equals(abilityName)) {
+                return learnedAbilities.remove(s); 
+            }
+        }
         return false; //ability isn't known
     }
     
@@ -44,7 +41,12 @@ public class AbilityLibrary {
      * @param abilityName the name of the ability 
      */
     public boolean hasAbility(String abilityName){
-    	return this.knownAbilities.containsKey(abilityName);
+    	for(Ability s : learnedAbilities) {
+            if (abilityName.equals(s.getName())) {
+                return true;
+            }
+        }
+        return false;
     }
     
     
@@ -58,18 +60,16 @@ public class AbilityLibrary {
      *@params callingEntity the Entity using the ability
      */
     public boolean performActiveAbility(String abilityName, Entity callingEntity){
-    	if(this.knownAbilities.containsKey(abilityName)) {
-    		knownAbilities.get(abilityName).performAbility(callingEntity);
-    		return true;
-    	}
-    	return false;
+    	for(Ability a : learnedAbilities) {
+            if (a.getName().equals(abilityName)) {
+                a.performAbility(callingEntity);
+                return true;
+            }
+        }
+        return false;
     }
     
     public List<Ability>getAbilities() {
-    	List<Ability> abilities = new ArrayList<>();
-    	for(Map.Entry<String, Ability> entry : this.knownAbilities.entrySet()) {
-    		abilities.add(entry.getValue());
-    	}
-    	return abilities;
+    	return this.learnedAbilities;
     }
 }
