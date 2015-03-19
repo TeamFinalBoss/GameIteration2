@@ -1,10 +1,12 @@
 package model.factories;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import model.map.pair.CoordinatePair;
-import model.map.GameMap;
+import model.director.ActiveMapManager;
 import model.gameObject.MapObject;
+import model.item.Item;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -28,26 +30,26 @@ public class InteractiveFactory implements PlaceableObjectFactory{
 	 * @return the list of Interactive items created by this method
 	 * @see Interactive
 	 */
-	public ArrayList<MapObject> generate(Element head)
+	public List<MapObject> generate(Element head)
 	{
-		ArrayList<MapObject> items = new ArrayList<MapObject>();
+		List<MapObject> items = new ArrayList<MapObject>();
 		
 		NodeList nodes = head.getElementsByTagName("interactive");
 			
 		for(int i = 0; i < nodes.getLength(); i++)
 		{
 			Element item = (Element) nodes.item(i);
-			MapObject it = null;
+			Item it = null;
 				
 			switch(item.getAttribute("name")){
 			case "whatever":
-				it = new Interactive();
+				//it = new Interactive();
 				break;
 			}
 				
 			if(it == null) continue;
 				
-			GameMap.getInstance().addEntity(it, new CoordinatePair(Integer.parseInt(item.getAttribute("x")), Integer.parseInt(item.getAttribute("y"))));
+			ActiveMapManager.getInstance().addItemToActiveMap(it, new CoordinatePair(Integer.parseInt(item.getAttribute("x")), Integer.parseInt(item.getAttribute("y"))));
 				
 			items.add(it);
 		}

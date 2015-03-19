@@ -6,6 +6,8 @@ import model.dialogue.DialogueActions;
 import model.dialogue.DialogueTree;
 import model.dialogue.unique.DT_Default;
 import model.item.Takeable;
+import model.link.EntityLink;
+import model.link.Link;
 import model.map.Direction;
 import model.map.pair.CoordinatePair;
 
@@ -23,7 +25,7 @@ public class NPC extends Entity {
 		private DialogueTree dt;
 		private Storefront sf;
 		private boolean friendly;
-		private NPC partner;
+		private EntityLink partner;
 		
 		public NPC() {
 			super();
@@ -34,11 +36,11 @@ public class NPC extends Entity {
 			dt = new DT_Default();
 			sf = new Storefront();
 			friendly = true;
-			partner = null;
+			partner = new EntityLink(this, 0);
 		}
 		
 		public NPC(String objectName, String description, CoordinatePair location, 
-		    		Inventory inventory, Occupation occupation, Direction direction, int speed, DialogueTree dt, Storefront sf, boolean friendly, NPC partner){
+		    		Inventory inventory, Occupation occupation, Direction direction, int speed, DialogueTree dt, Storefront sf, boolean friendly, EntityLink partner){
 		    	super(objectName, description, location, inventory, occupation, direction, speed);
 		    	
 		    	this.className = "NPC";
@@ -69,7 +71,7 @@ public class NPC extends Entity {
 		 */
 		public Takeable sellItem(int position) {
 			Takeable t = sf.buyItem(position);
-			modCurrency(t.getValue());
+			modifyCurrency(t.getValue());
 			return t;
 		}
 		

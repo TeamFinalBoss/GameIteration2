@@ -2,10 +2,19 @@ package model.factories;
 
 
 import java.util.ArrayList;
+import java.util.List;
+
 import model.gameObject.MapObject;
+
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
+
+import model.director.ActiveMapManager;
+import model.entity.Armory;
+import model.entity.Inventory;
 import model.entity.Occupation;
+import model.entity.Sack;
+import model.item.Equipable;
 import model.item.Takeable;
 import model.map.GameMap;
 import model.map.pair.CoordinatePair;
@@ -38,9 +47,9 @@ public class EntityFactory implements PlaceableObjectFactory{
 	 * @return the list of Entities created by this method
 	 * @see Entity
 	 */
-	public ArrayList<MapObject> generate(Element head)
+	public List<MapObject> generate(Element head)
 	{
-		ArrayList<MapObject> entities = new ArrayList<MapObject>();
+		List<MapObject> entities = new ArrayList<MapObject>();
 		NodeList nodes = head.getElementsByTagName("entity");
 		
 		for(int i = 0; i < nodes.getLength(); i++)
@@ -50,12 +59,12 @@ public class EntityFactory implements PlaceableObjectFactory{
 			Element sackHead = (Element) e.getElementsByTagName("sack").item(0);
 			Element armoryHead = (Element) e.getElementsByTagName("armory").item(0);
 			
-			ArrayList<MapObject> sackContents = inventoryFactory.generate(sackHead);
-			ArrayList<MapObject> armoryContents = inventoryFactory.generate(armoryHead);
+			List<MapObject> sackContents = inventoryFactory.generate(sackHead);
+			List<MapObject> armoryContents = inventoryFactory.generate(armoryHead);
 			
 			Element s = (Element) e.getElementsByTagName("stats").item(0);
 			
-			PlayerStats stats = new PlayerStats(
+			Stats stats = new Stats(
 					Integer.parseInt(s.getAttribute("level")),
 					Integer.parseInt(s.getAttribute("livesleft")),
 					Integer.parseInt(s.getAttribute("strength")),
@@ -71,8 +80,7 @@ public class EntityFactory implements PlaceableObjectFactory{
 					Integer.parseInt(s.getAttribute("defense")),
 					Integer.parseInt(s.getAttribute("offense")));
 			
-			Inventory inv = new Inventory(new Sack(), new Armory());
-			StatMaster sm = new StatMaster(stats, new Stats());
+			Inventory inv = new Inventory(10, );
 			
 			Entity en = null;
 			
@@ -105,16 +113,11 @@ public class EntityFactory implements PlaceableObjectFactory{
 				en.equipItem((Equipable) item);
 			}
 			
-			GameMap.getInstance().addEntity(en, new CoordinatePair(Integer.parseInt(e.getAttribute("x")), Integer.parseInt(e.getAttribute("y"))));
+			ActiveMapManager.getInstance().addEntityToActiveMap(en, new CoordinatePair(Integer.parseInt(e.getAttribute("x")), Integer.parseInt(e.getAttribute("y"))));
 			
 			entities.add(en);
 		}
 		
 		return entities;
 	}
-
-    @Override
-    public ArrayList<model.util.MapObject> generate(Element head) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }
