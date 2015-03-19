@@ -40,7 +40,7 @@ public class ActiveMapManager {
     /*----------Constructors------------*/
     public ActiveMapManager(){
         maps = new ArrayList<>();
-        avatar = Avatar.getPlayer();
+       // avatar = Avatar.getPlayer();
     }
     
     public ActiveMapManager(Avatar avatar){
