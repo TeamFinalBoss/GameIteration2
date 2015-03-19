@@ -11,7 +11,7 @@ import model.entity.Entity;
  * Deals damage to an entity over time. Effect applied at applyEffect.
  * @author Jason Owens
  */
-public class DealDamageOverTimeEffect extends OverTimeEffect {
+public abstract class DealDamageOverTimeEffect extends OverTimeEffect {
     private int damagePerSecond;
     private double leftoverDamage; // very low DPS effects need this or else they'll never do damage
     double leftoverPerClick;
