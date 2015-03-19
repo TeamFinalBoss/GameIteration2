@@ -86,6 +86,34 @@ public class GameMap extends Observable {
             return false;
         }
     }
+    
+    
+    /**
+     * This method attempts to remove the provided entity
+     * from the Entity Locations collection and returns
+     * whether or not that removal was successful
+     * 
+     * @author Michael Cohen
+     * @param e the entity to be removed
+     * @return true if entity was removed, else false
+     */
+    public final boolean removeEntity(Entity e){
+    	return this.entities.remove(e);
+    }
+    
+    /**
+     * Removes and returns the entity from the map. If 
+     * the provided CoordinatePair is not present, a runtime exception is thrown 
+     * 
+     * @author Michael Cohen
+     * @param CP location of the object which is queried
+     * @return Entity that was removed from the map
+     */
+    public Entity removeEntity(CoordinatePair CP){
+    	return this.entities.remove(CP);
+    }
+    
+    
     /**
      * Adds an Item to the map at the valid coordinate pair specified if not
      * already occupied by another item.
