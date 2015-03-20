@@ -1,5 +1,6 @@
 package model.entity;
-
+//this code here is to remain for referencing while creating NPCs - but is not to be uncommented.
+/*
 import java.util.List;
 
 import model.dialogue.DialogueActions;
@@ -12,7 +13,7 @@ import model.link.EntityLink;
 import model.link.Link;
 import model.map.Direction;
 import model.map.pair.CoordinatePair;
-
+*/
 /** 
  * The class NPC defines only entities that are computer controlled,
  * can engage in conversation, and can attack the player.
@@ -22,6 +23,7 @@ import model.map.pair.CoordinatePair;
  * @author Aidan Pace
  */
 
+/*
 public class NPC extends Entity {
 
 		private DialogueTree dt;
@@ -59,7 +61,7 @@ public class NPC extends Entity {
 		 * 
 		 * @param position the position of the desired item in the storefront
 		 * @return the change in currency that would result from purchase
-		 */
+		 *//*
 		public int checkPayment(int position) {
 			return sf.payForItem(position);
 		}
@@ -70,7 +72,7 @@ public class NPC extends Entity {
 		 * 
 		 * @param position the position of the desired item in the storefront
 		 * @return the removed item
-		 */
+		 *//*
 		public Takeable sellItem(int position) {
 			Takeable t = sf.buyItem(position);
 			modifyCurrency(t.getValue());
@@ -82,28 +84,28 @@ public class NPC extends Entity {
 		 * 
 		 * @param item the item that is being added
 		 * @return the value of the item
-		 */
+		 *//*
 		public int buyItem(Takeable item) {
 			return sf.sellItem(item);
 		}
 		
 		/**
 		 * Resets the NPC's dialogue tree.
-		 */
+		 *//*
 		public void resetDialogue() {
 			dt.resetTree();
 		}
 		
 		/**
 		 * @return the dialogue tree's current active message
-		 */
+		 *//*
 		public String getDialogueMessage() {
 			return dt.getCurrentMessage();
 		}
 		
 		/**
 		 * @return a list of the dialogue tree's current active options
-		 */
+		 *//*
 		public List<String> getDialogueOptions() {
 			return dt.getOptions();
 		}
@@ -113,7 +115,7 @@ public class NPC extends Entity {
 		 * then it switches the current active dialogue to the one specified by the option selected.
 		 * @param num The number corresponding to the dialogue option selected
 		 * @return whether or not the conversation will end upon selection
-		 */
+		 *//*
 		public boolean traverseDialogue(int num) {
 			
 			//Actions//
@@ -142,3 +144,5 @@ public class NPC extends Entity {
 			}
 		}
 }
+*/
+

@@ -72,6 +72,12 @@ public class AbilityLibrary {
         return false;
     }
     
+    public boolean performActiveAbility(int position, Entity callingEntity){
+    	if(position >= learnedAbilities.size()) return false;
+    	learnedAbilities.get(position).performAbility(callingEntity);
+    	return true;
+    }
+    
     public List<Ability >getAbilities() {
     	return this.knownAbilities;
     }

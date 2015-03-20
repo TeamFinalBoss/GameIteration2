@@ -1,6 +1,7 @@
 package model.entity;
 
 import model.entity.ability.AbilityLibrary;
+import model.entity.ability.Ability;
 import model.entity.inventory.Inventory;
 import model.entity.stats.Stats;
 import model.gameObject.MapObject;
@@ -266,8 +267,13 @@ public abstract class Entity extends MapObject{
 	}
 	
 	/* -------------------- ABILITY ACCESSORS -------------------- */
+	public List<Ability> getAllAbilities(){
+		return myAbilities.getAbilities();
+	}
+	
+	/* -------------------- ABILITY USE -------------------- */
 	public void useAbility(int position){
-		myAbilities.useAbility(position);
+		myAbilities.performActiveAbility(position, this);
 	}
 	
     /* -------------------- MISC. ACCESSORS -------------------- */
