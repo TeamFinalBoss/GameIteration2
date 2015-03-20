@@ -50,5 +50,7 @@ public class HelmOfLight extends Equipable {
             
         }
     
-       
+        public Takeable copy() {
+    		return new HelmOfLight(this.getName(), this.getDescription(), this.getLocation(), this.getValue(), this.getSlot());
+    	}
 }

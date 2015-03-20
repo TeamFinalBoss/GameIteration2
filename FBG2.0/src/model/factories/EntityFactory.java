@@ -18,9 +18,6 @@ import model.item.Equipable;
 import model.item.Takeable;
 import model.map.GameMap;
 import model.map.pair.CoordinatePair;
-import model.stats.PlayerStats;
-import model.stats.StatMaster;
-import model.stats.Stats;
 
 /**
  * This class examines a parsed XML file for all entity entries,
@@ -65,7 +62,6 @@ public class EntityFactory implements PlaceableObjectFactory{
 			Element s = (Element) e.getElementsByTagName("stats").item(0);
 			
 			Stats stats = new Stats(
-					Integer.parseInt(s.getAttribute("level")),
 					Integer.parseInt(s.getAttribute("livesleft")),
 					Integer.parseInt(s.getAttribute("strength")),
 					Integer.parseInt(s.getAttribute("agility")),
@@ -80,7 +76,7 @@ public class EntityFactory implements PlaceableObjectFactory{
 					Integer.parseInt(s.getAttribute("defense")),
 					Integer.parseInt(s.getAttribute("offense")));
 			
-			Inventory inv = new Inventory(10, );
+			Inventory inv = new Inventory(10);
 			
 			Entity en = null;
 			
@@ -103,6 +99,7 @@ public class EntityFactory implements PlaceableObjectFactory{
 			}
 			
 			if(en == null) continue;
+			inv.setOwner(en);
 			
 			for(MapObject item : sackContents) {
 				en.addItem((Takeable) item);

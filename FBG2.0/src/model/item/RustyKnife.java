@@ -41,5 +41,9 @@ public class RustyKnife extends Weapon{
 		this.className = "RustyKnife";	
                 
 		//Other properties set here
-	} 
+	}
+	
+	public Takeable copy() {
+		return new RustyKnife(this.getName(), this.getDescription(), this.getLocation(), this.getDurability());
+	}
 }

@@ -63,5 +63,6 @@ public abstract class Takeable extends Item {
         public void setDurability(int durability){
             this.durability= durability;
         }
-       
+        
+        public abstract Takeable copy();
 }

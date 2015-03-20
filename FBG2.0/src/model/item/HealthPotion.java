@@ -44,7 +44,9 @@ public class HealthPotion extends Usable {
             return true;
         }
         
-        
+        public Takeable copy() {
+    		return new RustyKnife(this.getName(), this.getDescription(), this.getLocation(), this.getValue());
+    	}
 }
        
 
