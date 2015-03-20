@@ -11,10 +11,9 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import model.director.GameDirector;
-import model.entity.Avatar;
-import model.entity.Entity;
+import model.gameObject.entity.Entity;
+import model.gameObject.projectile.Projectile;
 import model.map.tile.Tile;
 
 /**
@@ -28,6 +27,7 @@ public class MapViewPort implements ViewPort, Observer {
     Tile[][] tiles;
 
     private ArrayList<Entity> entityList;
+    private ArrayList<Projectile> projectileList;
 
     int widthInTiles = 0, heightInTiles = 0;
     BufferedImage grass;
@@ -64,30 +64,32 @@ public class MapViewPort implements ViewPort, Observer {
         for (int i = startX; i < Math.min(startX + windowWidthInTiles, widthInTiles); i++) {
             for (int j = startY; j < startY + windowHeightInTiles; j++) {
 
-                for (Entity e : entityList) {
-                    if (e.equals(Avatar.getAvatar())) {
-                        g.setColor(Color.red);
-                    } else {
-                        g.setColor(Color.pink);
-                    }
-
-                    //Draw Entities
-                    if (e.getLocation().equals(new Point(i, j))) {
-                        g.fillRect((i - startX) * tileWidth,
-                                (j - startY) * tileHeight,
-                                tileWidth,
-                                tileHeight
-                        );
-                    }
-
-                }
-
                 //Draw Coordinates
                 g.setColor(Color.blue);
                 String coordinate = "(" + i + "," + j + ")";
                 int strX = (i - startX) * tileWidth + tileWidth / 2 - g.getFontMetrics().stringWidth(coordinate) / 2;
                 int strY = (j - startY) * tileHeight + tileHeight / 2;
                 g.drawString(coordinate, strX, strY);
+
+                //Draw Entities
+                for (Entity e : entityList) {
+                    if (e.getLocation().equals(new Point(i, j))) {
+                        Image entityImg = e.getSprite();
+                        g.drawImage(entityImg, (i - startX) * tileWidth, (j - startY) * tileHeight, null);
+                    }
+
+                }
+
+                //Draw Projectiles
+                try {
+                    for (Projectile p : projectileList) {
+                        if (p.getLocation().equals(new Point(i, j))) {
+                            Image entityImg = p.getSprite();
+                            g.drawImage(entityImg, (i - startX) * tileWidth, (j - startY) * tileHeight, null);
+                        }
+                    }
+                } catch (Exception e) {}
+
             }
         }
     }
@@ -100,6 +102,7 @@ public class MapViewPort implements ViewPort, Observer {
         heightInTiles = tiles[0].length;
 
         entityList = (ArrayList<Entity>) mapObjects[1];
+        projectileList = (ArrayList<Projectile>) mapObjects[2];
 
     }
 }

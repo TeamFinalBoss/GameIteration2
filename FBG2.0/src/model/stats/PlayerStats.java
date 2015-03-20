@@ -3,10 +3,10 @@ package model.stats;
 import model.util.Saveable;
 import view.viewport.StatusViewPort;
 
-public class PlayerStats extends Stats implements Saveable {
+public class PlayerStats extends Stats {
 
-    private int hpCurrent;
-    private int mpCurrent;
+    private int currentHP;
+    private int currentMP;
     private int level;
     private int livesLeft;
     private int experience;
@@ -21,35 +21,28 @@ public class PlayerStats extends Stats implements Saveable {
             int movement,
             int hpMax,
             int mpMax,
-            int hpCurrent,
-            int mpCurrent,
             int defense,
-            int offense) {
+            int offense, int speed) {
 
-        super(strength, agility, intellect, hardiness, movement, hpMax, mpMax, defense, offense);
+        super(strength, agility, intellect, hardiness, movement, hpMax, mpMax, defense, offense, speed);
 
-        this.hpCurrent = hpCurrent;
-        this.mpCurrent = mpCurrent;
+        this.currentHP = hpMax;
+        this.currentMP = mpMax;
         this.level = level;
         this.livesLeft = livesLeft;
         this.experience = experience;
     }
 
     public PlayerStats() {
-        super(1, 1, 1, 1, 1, 1, 1, 1, 1);
-        this.hpCurrent = 100;
-        this.mpCurrent = 100;
-        this.level = 1;
-        this.livesLeft = 1;
-        this.experience = 0;
+        this(1, 1, 1, 1, 1, 1, 1, 0, 100, 100, 1, 1, 1);
     }
 
     public int getHpCurrent() {
-        return hpCurrent;
+        return currentHP;
     }
 
     public int getMpCurrent() {
-        return mpCurrent;
+        return currentMP;
     }
 
     public int getLevel() {
@@ -65,17 +58,11 @@ public class PlayerStats extends Stats implements Saveable {
     }
 
     public void modhpCurrent(int hpAdded) {
-        hpCurrent += hpAdded;
-        if (hpCurrent > hpMax) {
-            hpCurrent = hpMax;
-        }
+        currentHP += hpAdded;
     }
 
     public void modmpCurrent(int mpAdded) {
-        mpCurrent += mpAdded;
-        if (mpCurrent > mpMax) {
-            mpCurrent = mpMax;
-        }
+        currentMP += mpAdded;        
     }
 
     public void modLevel(int levelAdded) {
@@ -91,22 +78,26 @@ public class PlayerStats extends Stats implements Saveable {
     }
 
     public void sethpCurrent(int hpNew) {
-        hpCurrent = hpNew;
+        currentHP = hpNew;
+        this.setChanged();
+        this.notifyObservers(this);
     }
 
     public void setmpCurrent(int mpNew) {
-        hpCurrent = mpNew;
+        currentMP = mpNew;
+        this.setChanged();
+        this.notifyObservers(this);
     }
 
     public void setLevel(int levelNew) {
-        hpCurrent = levelNew;
+        //hpCurrent = levelNew;
     }
 
     public void setLivesLeft(int livesNew) {
-        hpCurrent = livesNew;
+        //hpCurrent = livesNew;
     }
 
     public void setExperience(int experienceNew) {
-        hpCurrent = experienceNew;
+        //hpCurrent = experienceNew;
     }
 }

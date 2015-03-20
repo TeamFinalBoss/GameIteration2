@@ -1,14 +1,14 @@
 package model.map.tile;
 
-import model.entity.Entity;
-import model.gameObject.GameObject;
+
+import model.gameObject.SpriteObject;
 import static model.map.tile.Terrain.MotionType.ALL_PASS;
 
 /**
  *
  * @author ChrisMoscoso
  */
-public class Terrain extends GameObject {
+public class Terrain extends SpriteObject {
 
     public enum MotionType {
         ALL_PASS,

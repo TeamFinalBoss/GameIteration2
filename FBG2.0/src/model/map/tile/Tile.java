@@ -1,6 +1,6 @@
 package model.map.tile;
 
-import model.entity.Entity;
+import model.gameObject.entity.Entity;
 
 /**
  * This class represents the basic display unit in-game. Tiles contain a terrain and may contain a decal, 

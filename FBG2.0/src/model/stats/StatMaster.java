@@ -61,10 +61,10 @@ public class StatMaster {
 		return tempStats.getMovement() + baseStats.getMovement();
 	}
 	public int gethpMax(){
-		return tempStats.gethpMax() + baseStats.gethpMax();
+		return tempStats.getMaxHP() + baseStats.getMaxHP();
 	}
 	public int getmpMax(){
-		return tempStats.getmpMax() + baseStats.getmpMax();
+		return tempStats.getMaxMP() + baseStats.getMaxMP();
 	}
 	public int getOffense(){
 		return tempStats.getOffense() + baseStats.getOffense();

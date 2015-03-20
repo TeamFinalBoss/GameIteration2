@@ -48,7 +48,7 @@ public class GameEngine implements Runnable {
             updateGame();
             renderGame();
             try {
-                Thread.sleep(50);
+                Thread.sleep(100);
             } catch (InterruptedException ex) {
                 
             }

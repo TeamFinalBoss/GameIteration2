@@ -3,7 +3,7 @@ package controller;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import model.director.GameDirector;
-import model.entity.Avatar;
+import model.gameObject.entity.Avatar;
 import model.map.Direction;
 
 /**
@@ -39,6 +39,10 @@ public class AvatarKeyController implements KeyListener {
                 } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
                     avatar.setDirection(Direction.South);
                     avatar.isMovingY(true);
+                }
+                
+                if(e.getKeyCode() == KeyEvent.VK_1){
+                    avatar.shoot();
                 }
                 
                 

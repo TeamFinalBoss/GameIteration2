@@ -1,7 +1,7 @@
 package model.map.tile;
 
 import model.ability.Effect;
-import model.entity.Entity;
+import model.gameObject.entity.Entity;
 
 public abstract class AreaEffect {
 

@@ -1,13 +1,12 @@
 package model.map;
 
-import java.awt.Point;
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 import java.util.Observable;
 import java.util.Observer;
 import model.map.tile.Tile;
-import model.map.tile.Trap;
-import model.entity.Entity;
-import model.item.Item;
+import model.gameObject.entity.Entity;
+import model.gameObject.projectile.Projectile;
 
 /**
  * This is a container of all the entities, items, tiles, and traps. Currently,
@@ -24,6 +23,7 @@ import model.item.Item;
 public class GameMap extends Observable {
 
     private ArrayList<Entity> entityList;
+    private ArrayList<Projectile> projectileList;
     private Tile[][] tiles;
 
     public GameMap() {
@@ -35,27 +35,24 @@ public class GameMap extends Observable {
         }
 
         this.tiles = t;
-        
+
         entityList = new ArrayList<Entity>();
+        projectileList = new ArrayList<Projectile>();
     }
 
     public GameMap(Tile[][] tiles) {
         this.tiles = tiles;
-        
+
         entityList = new ArrayList<Entity>();
     }
 
-    
-    
-    public void addEntity(Entity e){
+    public void addEntity(Entity e) {
         entityList.add(e);
     }
 
-    
-
-    
-
-    
+    public void addProjectile(Projectile p) {
+        projectileList.add(p);
+    }
 
     /**
      * Returns how wide the map is in number of tiles.
@@ -82,7 +79,7 @@ public class GameMap extends Observable {
      */
     private void updateView() {
         setChanged();
-        Object[] objects = {tiles, entityList};
+        Object[] objects = {tiles, entityList, projectileList};
         notifyObservers(objects);
     }
 
@@ -92,20 +89,73 @@ public class GameMap extends Observable {
         updateView();
     }
 
+    public void regenerateEntities(){
+        for(Entity e : entityList){
+            e.regenerate();
+        }
+    }
+    
     public void moveGameObjects() {
-        for(Entity e: entityList){
+        for (Entity e : entityList) {
             e.move();
-            if(e.getLocation().x > this.getWidth() - 1){
-                e.getLocation().x = this.getWidth() - 1;
-            }else if(e.getLocation().x < 0){
-                e.getLocation().x = 0;
+            //boundEntity(e);//use this to bound entity at edge
+            warpEntity(e);// use this to warp the entity across edges
+        }
+        try {
+            for (Projectile p : projectileList) {
+                p.move();
+                boundProjectile(p);
             }
-            
-            if(e.getLocation().y > this.getHeight() - 1){
-                e.getLocation().y = this.getHeight() - 1;
-            }else if(e.getLocation().y < 0){
-                e.getLocation().y = 0;
-            }
+        } catch (ConcurrentModificationException e) {}
+    }
+
+    /**
+     * Removes the projectile from the map when it reaches the edge of the map.
+     *
+     * @param p the projectile to bound
+     */
+    public void boundProjectile(Projectile p) {
+        if (p.getLocation().x < 0
+                || p.getLocation().x > this.getWidth() - 1
+                || p.getLocation().y > this.getHeight() - 1
+                || p.getLocation().y < 0) {
+            projectileList.remove(p);
+        }
+    }
+
+    /**
+     * Does not let the entity pass the edge of the map.
+     *
+     * @param e the entity to bound
+     */
+    public void boundEntity(Entity e) {
+        if (e.getLocation().x > this.getWidth() - 1) {
+            e.getLocation().x = this.getWidth() - 1;
+        } else if (e.getLocation().x < 0) {
+            e.getLocation().x = 0;
+        }
+        if (e.getLocation().y > this.getHeight() - 1) {
+            e.getLocation().y = this.getHeight() - 1;
+        } else if (e.getLocation().y < 0) {
+            e.getLocation().y = 0;
+        }
+    }
+
+    /**
+     * If the entity passes the edge of the map warp him to the opposite edge.
+     *
+     * @param e the entity to warp
+     */
+    public void warpEntity(Entity e) {
+        if (e.getLocation().x > this.getWidth() - 1) {
+            e.getLocation().x = 0;
+        } else if (e.getLocation().x < 0) {
+            e.getLocation().x = this.getWidth() - 1;
+        }
+        if (e.getLocation().y > this.getHeight() - 1) {
+            e.getLocation().y = 0;
+        } else if (e.getLocation().y < 0) {
+            e.getLocation().y = this.getHeight() - 1;
         }
     }
 }

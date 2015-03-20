@@ -4,15 +4,16 @@ import java.util.Observable;
 import java.util.Observer;
 import model.util.Saveable;
 
-public class Stats extends Observable implements Saveable {
+public class Stats extends Observable {
 
     protected int strength;
     protected int agility;
     protected int intellect;
     protected int hardiness;
     protected int movement;
-    protected int hpMax;
-    protected int mpMax;
+    protected int maxHP;
+    protected int maxMP;
+    protected int speed;
     protected int defense;
     protected int offense;
 
@@ -21,31 +22,25 @@ public class Stats extends Observable implements Saveable {
             int intellect,
             int hardiness,
             int movement,
-            int hpMax,
-            int mpMax,
+            int maxHP,
+            int maxMP,
             int defense,
-            int offense) {
+            int offense, int speed) {
         this.strength = strength;
         this.agility = agility;
         this.intellect = intellect;
         this.hardiness = hardiness;
         this.movement = movement;
-        this.hpMax = hpMax;
-        this.mpMax = mpMax;
+        this.maxHP = maxHP;
+        this.maxMP = maxMP;
         this.defense = defense;
         this.offense = offense;
+        this.speed = speed;
     }
 
     public Stats() {
-        this.strength = 0;
-        this.agility = 0;
-        this.intellect = 0;
-        this.hardiness = 0;
-        this.movement = 0;
-        this.hpMax = 0;
-        this.mpMax = 0;
-        this.defense = 0;
-        this.offense = 0;
+        this(1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+        
     }
 
     public int getStrength() {
@@ -68,12 +63,12 @@ public class Stats extends Observable implements Saveable {
         return movement;
     }
 
-    public int gethpMax() {
-        return hpMax;
+    public int getMaxHP() {
+        return maxHP;
     }
 
-    public int getmpMax() {
-        return mpMax;
+    public int getMaxMP() {
+        return maxMP;
     }
 
     public int getOffense() {
@@ -83,6 +78,32 @@ public class Stats extends Observable implements Saveable {
     public int getDefense() {
         return defense;
     }
+
+    public int getHpMax() {
+        return maxHP;
+    }
+
+    public int getMpMax() {
+        return maxMP;
+    }
+
+    public int getSpeed() {
+        return speed;
+    }
+
+    public void setHpMax(int maxHP) {
+        this.maxHP = maxHP;
+    }
+
+    public void setMpMax(int maxMP) {
+        this.maxMP = maxMP;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+    
+    
 
     public void setStrength(int nextStr) {
         strength = verifyBounds(nextStr) ? nextStr : strength;
@@ -104,12 +125,12 @@ public class Stats extends Observable implements Saveable {
         movement = verifyBounds(nextMove) ? nextMove : movement;
     }
 
-    public void sethpMax(int nextHP) {
-        hpMax = nextHP;
+    public void setMaxHP(int nextHP) {
+        maxHP = nextHP;
     }
 
-    public void setmpMax(int nextMP) {
-        mpMax = verifyBounds(nextMP) ? nextMP : mpMax;
+    public void setMaxMP(int nextMP) {
+        maxMP = verifyBounds(nextMP) ? nextMP : maxMP;
     }
 
     public void setDefense(int nextDef) {
@@ -140,12 +161,12 @@ public class Stats extends Observable implements Saveable {
         movement = verifyBounds(movement + moveAdded) ? (movement + moveAdded) : 0;
     }
 
-    public void modhpMax(int hpAdded) {
-        hpMax += hpAdded;
+    public void modmaxHP(int hpAdded) {
+        maxHP += hpAdded;
     }
 
-    public void modmpMax(int mpAdded) {
-        mpMax = verifyBounds(mpMax + mpAdded) ? (mpMax + mpAdded) : 0;
+    public void modmaxMP(int mpAdded) {
+        maxMP = verifyBounds(maxMP + mpAdded) ? (maxMP + mpAdded) : 0;
     }
 
     public void modOffense(int offAdded) {
@@ -157,7 +178,7 @@ public class Stats extends Observable implements Saveable {
     }
 
     public Stats inverted() {
-        return new Stats(strength * -1, agility * -1, intellect * -1, hardiness * -1, movement * -1, hpMax * -1, mpMax * -1, defense * -1, offense * -1);
+        return new Stats(strength * -1, agility * -1, intellect * -1, hardiness * -1, movement * -1, maxHP * -1, maxMP * -1, defense * -1, offense * -1 , speed * -1);
     }
 
     protected boolean verifyBounds(int value) {
@@ -170,29 +191,12 @@ public class Stats extends Observable implements Saveable {
         modIntellect(modifier.getIntellect());
         modHardiness(modifier.getHardiness());
         modMovement(modifier.getMovement());
-        modhpMax(modifier.gethpMax());
-        modmpMax(modifier.getmpMax());
+        modmaxHP(modifier.getMaxHP());
+        modmaxMP(modifier.getMaxMP());
         modOffense(modifier.getOffense());
         modDefense(modifier.getDefense());
         this.hasChanged();
         this.notifyObservers(this);
-    }
-
-    @Override
-    public String toXML() {
-        String xml = "";
-        xml += "<stats>\n";
-        xml += "\t<strength>" + this.strength + "</strength>\n";
-        xml += "\t<agility>" + this.agility + "</agility>\n";
-        xml += "\t<intellect>" + this.intellect + "</intellect>\n";
-        xml += "\t<hardiness>" + this.hardiness + "</hardiness>\n";
-        xml += "\t<movement>" + this.movement + "</movement>\n";
-        xml += "\t<hpMax>" + this.hpMax + "</hpMax>\n";
-        xml += "\t<mpMax>" + this.mpMax + "</mpMax>\n";
-        xml += "\t<defense>" + this.defense + "</defense>\n";
-        xml += "\t<offense>" + this.offense + "</offense>\n";
-        xml += "</stats>";
-        return xml;
     }
 
     @Override

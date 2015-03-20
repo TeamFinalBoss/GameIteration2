@@ -1,6 +1,6 @@
 package model.director;
 
-import model.entity.Entity;
+import model.gameObject.entity.Entity;
 import java.util.ArrayList;
 import model.map.GameMap;
 

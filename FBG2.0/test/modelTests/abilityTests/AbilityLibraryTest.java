@@ -10,7 +10,7 @@ import exampleTest.DependencyInterface;
 import exampleTest.MainTestingClass;
 import model.ability.Ability;
 import model.ability.AbilityLibrary;
-import model.entity.Entity;
+import model.gameObject.entity.Entity;
 import model.map.Direction;
 
 

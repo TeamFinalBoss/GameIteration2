@@ -1,14 +1,17 @@
 package model.gameObject;
 
+import java.awt.Image;
 import java.awt.Point;
+import model.factory.SpriteFactory;
 
 
 
-public abstract class GameObject {
+public class SpriteObject {
 	protected int id;
 	private String name;
 	private String className;
 	private String description;
+        private String spritePath = null;
 	
 	
 	//Added this, necessary to save game state. 
@@ -16,23 +19,21 @@ public abstract class GameObject {
 	
 	
 	//This constructor should be called only after the subclass constructor is called
-	protected GameObject(){
-		id = 0; //will need to be changed later manually
+	public SpriteObject(){
 		name = "Generic Object";
 		className = "GameObject";
 		description = "Generic description";
-		location = new Point(); // default constructor, (0 , 0)
+		location = new Point(1, 1); // default constructor, (0 , 0)
 		
 	}
 	
-	protected GameObject(String className, String objectName, String description , int ID){
+	public SpriteObject(String className, String objectName, String description , int ID){
 		//this.id = -1;	//should always be overriden
 		this.name = objectName;
 		this.className = className;
 		this.description = description;
 		this.id = ID;
-		location = new Point(1, 1); // default constructor, (0 , 0)
-		
+		location = new Point(1, 1);
 	}
 	
         
@@ -50,5 +51,13 @@ public abstract class GameObject {
 	public String getDescription(){ return description; }
 	public String getName() { return name; }
 	public Point getLocation() { return location; };
-	public void setLocation(Point p) { location = p; };
+	public void setLocation(int x, int y) { location = new Point(x,y); };
+        
+        public Image getSprite(){
+            return SpriteFactory.getSprite(spritePath);
+        }
+        
+        public void setSpritePath(String spritePath){
+            this.spritePath = spritePath;
+        }
 }

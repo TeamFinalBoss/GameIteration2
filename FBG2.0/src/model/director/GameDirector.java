@@ -5,8 +5,8 @@ import controller.MenuKeyController;
 import model.menu.Menu;
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;
-import model.entity.Avatar;
-import model.entity.WalkInLoopAIEntity;
+import model.gameObject.entity.Avatar;
+import model.gameObject.entity.WalkInLoopAIEntity;
 import model.map.GameMap;
 import model.menu.Menu.MenuOption;
 import view.window.GameWindow;
@@ -40,6 +40,7 @@ public class GameDirector {
     private static AvatarKeyController avatarKC;
 
     private static GameMap map1;
+    private static GameMap activeMap;
 
     private GameDirector() {
         window = new GameWindow();
@@ -75,8 +76,10 @@ public class GameDirector {
 
         //Create Map
         map1 = new GameMap();
+        activeMap = map1;
         Avatar a = new Avatar();
         WalkInLoopAIEntity e = new WalkInLoopAIEntity();
+        e.setLocation(14, 7);
         map1.addEntity(Avatar.getAvatar());
         map1.addEntity(e);
         
@@ -120,7 +123,8 @@ public class GameDirector {
         if (!paused) {
             //The game is runnning
             if (map1 != null) {
-                map1.moveGameObjects();    
+                map1.moveGameObjects();  
+                map1.regenerateEntities();
             }
 
         } else {
@@ -149,7 +153,7 @@ public class GameDirector {
      * it renders the game to a bufferedImage. Then, it takes the bufferedImage
      * and paints it to the screen.
      */
-    public void drawGame() {
+    public static void drawGame() {
         BufferedImage gameImage = activeScene.getImage();//render the game to buffer
         window.paintImageToScreen(gameImage); //paint the buffer to screen
     }
@@ -205,6 +209,22 @@ public class GameDirector {
         return paused;
     }
 
+    /**
+     * Gets the active map
+     * @return the map that is active
+     */
+    public static GameMap getActiveMap() {
+        return activeMap;
+    }
+
+    /**
+     * Sets the active map
+     * @param activeMap is the new map to be active.
+     */
+    public static void setActiveMap(GameMap activeMap) {
+        GameDirector.activeMap = activeMap;
+    }
+    
     /**
      * Returns the user to the main menu. This is accomplished by simply setting
      * the menu scene to be active.

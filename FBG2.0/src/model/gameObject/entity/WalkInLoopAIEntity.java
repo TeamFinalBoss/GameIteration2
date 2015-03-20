@@ -1,6 +1,7 @@
 
-package model.entity;
+package model.gameObject.entity;
 
+import model.factory.SpriteFactory;
 import model.map.Direction;
 
 /**
@@ -13,7 +14,7 @@ public class WalkInLoopAIEntity extends Entity {
     private int currentStep = 0;
     
     public WalkInLoopAIEntity(){
-        
+        this.setSpritePath(SpriteFactory.RAT);
         Direction[] simpleLoop = {Direction.East, Direction.East, Direction.South, Direction.South, Direction.West, Direction.West, Direction.North, Direction.North};
         path = simpleLoop;
     }
@@ -28,9 +29,7 @@ public class WalkInLoopAIEntity extends Entity {
     
     @Override
     public void move(){
-        
-        location.translate(path[currentStep % path.length].dx * speed, path[currentStep % path.length].dy * speed);
-        //System.out.println()
+        location.translate(path[currentStep % path.length].dx * super.myStats.getSpeed(), path[currentStep % path.length].dy * super.myStats.getSpeed());
         currentStep++;
     }
 }

@@ -32,18 +32,54 @@ public class StatusViewPort implements ViewPort, Observer {
 
         if (stats != null) {
 
-            int healthBarMargin = (int) (width * 0.05);
-            int healthBarWidth = width - (healthBarMargin * 2);
+            int healthBarXMargin = (int) (width * 0.05);
+            int healthBarYMargin = 35;
+            int healthBarWidth = width - (healthBarXMargin * 2);
+            int healthBarHeight = 25;
             
-            double percentageOfHealthRemaining = 0.7;
+            double percentageOfHealthRemaining = (double) stats.getHpCurrent() / (double) stats.getMaxHP();
             
-            g.setColor(Color.green);
-            g.drawRect(healthBarMargin , 35, healthBarWidth, 25);
+            //Health bar
+            g.setColor(Color.LIGHT_GRAY);
+            g.fillRect(healthBarXMargin , healthBarYMargin, healthBarWidth, healthBarHeight);
             
-            g.setColor(Color.magenta);
-            g.fillRect(healthBarMargin, 35, (int) (healthBarWidth * percentageOfHealthRemaining), 25);
+            g.setColor(Color.GREEN);
+            g.fillRect(healthBarXMargin, healthBarYMargin, (int) (healthBarWidth * percentageOfHealthRemaining), healthBarHeight);
             
-            g.setFont(new Font("TimesRoman", Font.PLAIN, 16));
+            String health = stats.getHpCurrent() + "/" + stats.getMaxHP();
+            g.setColor(Color.BLACK);
+            g.drawString(health, healthBarWidth/2 + healthBarXMargin + g.getFontMetrics().stringWidth(health ) /2, healthBarYMargin + g.getFontMetrics().getHeight());
+            
+            drawUglyStats(g);
+            
+            //Mana bar
+            int manaBarXMargin = (int) (width * 0.15);
+            int manaBarWidth = width - (manaBarXMargin * 2);
+            int manaBarYMargin = healthBarYMargin + healthBarHeight;
+            int manaBarHeight = 25;
+            
+            double percentageOfManaRemaining = (double) stats.getMpCurrent() / (double) stats.getMaxHP();
+            
+            g.setColor(Color.LIGHT_GRAY);
+            g.fillRect(manaBarXMargin , manaBarYMargin, manaBarWidth, manaBarHeight);
+            
+            g.setColor(Color.BLUE);
+            g.fillRect(manaBarXMargin, manaBarYMargin, (int) (manaBarWidth * percentageOfManaRemaining), manaBarHeight);
+            
+            String mana = stats.getMpCurrent() + "/" + stats.getMaxMP();
+            g.setColor(Color.BLACK);
+            g.drawString(mana, manaBarWidth/2 + manaBarXMargin + g.getFontMetrics().stringWidth(mana ) /2, manaBarYMargin + g.getFontMetrics().getHeight());
+            
+
+        }
+    }
+    
+    /**
+     * This is how we did it in iteration 1. Will be deprecated soon.
+     * @param g 
+     */
+    public void drawUglyStats(Graphics g){
+        g.setFont(new Font("TimesRoman", Font.PLAIN, 16));
             g.setColor(new Color(0, 0, 0, 150));
             g.fillRect(width - 160, height - 400, width, height);
             g.setColor(new Color(255, 255, 0, 255));
@@ -54,18 +90,16 @@ public class StatusViewPort implements ViewPort, Observer {
             g.drawString("Experience: " + stats.getExperience(), width - 150, height - 260);
             g.drawString("Hardiness: " + stats.getHardiness(), width - 150, height - 240);
             g.drawString("Intellect: " + stats.getIntellect(), width - 150, height - 220);
-            //g.drawString("HP Current: " + stats.gethpCurrent(), width - 150, height - 200);
-            g.drawString("HP Max: " + stats.gethpMax(), width - 150, height - 180);
+            g.drawString("HP Current: " + stats.getHpCurrent(), width - 150, height - 200);
+            //g.drawString("HP Max: " + stats.getMaxHP(), width - 150, height - 180);
             //g.drawString("Level: " + stats.getLevels(), width - 150, height - 160);
             g.drawString("Lives: " + stats.getLivesLeft(), width - 150, height - 140);
-            //g.drawString("MP Current: " + stats.getmpCurrent(), width - 150, height - 120);
-            g.drawString("MP Max: " + stats.getmpMax(), width - 150, height - 100);
+            g.drawString("MP Current: " + stats.getMpCurrent(), width - 150, height - 120);
+            g.drawString("MP Max: " + stats.getMaxHP(), width - 150, height - 100);
             g.drawString("Movement: " + stats.getMovement(), width - 150, height - 80);
             g.drawString("Offense: " + stats.getOffense(), width - 150, height - 60);
             g.drawString("Strength: " + stats.getStrength(), width - 150, height - 40);
             //g.drawString("Offensive Rating: " + stats.getOffensiveRating(), width - 150, height - 360);
-
-        }
     }
 
     @Override

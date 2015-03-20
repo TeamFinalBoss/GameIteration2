@@ -19,9 +19,10 @@ public class ItemStats extends Stats{
 			int durability,
 			int value,
 			int defense,
-			int offense){
+			int offense,
+                        int speed){
 			
-			super(strength, agility, intellect, hardiness, movement, hpMax, mpMax, defense, offense);
+			super(strength, agility, intellect, hardiness, movement, hpMax, mpMax, defense, offense, speed);
 			
 			this.durability = durability;
 			this.value = value;
@@ -29,7 +30,7 @@ public class ItemStats extends Stats{
 		
 		public ItemStats()
 		{
-			super(0,0,0,0,0,0,0,0,0);
+			super(1,1,1,1,1,1,1,1,1, 1);
 			this.durability = 0;
 			this.value = 0;
 		}

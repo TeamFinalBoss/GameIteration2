@@ -1,4 +1,4 @@
-package model.entity;
+package model.gameObject.entity;
 
 import model.stats.Stats;
 import model.ability.AbilityLibrary;
