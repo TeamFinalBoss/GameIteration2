@@ -65,4 +65,5 @@ public abstract class Takeable extends Item {
         }
         
         public abstract Takeable copy();
+        public abstract boolean useInSack(Entity target); //return true iff use is successful
 }

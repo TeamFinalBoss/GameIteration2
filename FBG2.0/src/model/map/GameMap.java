@@ -8,7 +8,6 @@ import model.map.tile.AreaEffect;
 import model.map.tile.Tile;
 import model.map.tile.Trap;
 import model.map.pair.CoordinatePair;
-import model.entity.Avatar;
 import model.entity.Entity;
 import model.item.Interactive;
 import model.item.Item;
@@ -71,7 +70,7 @@ public class GameMap extends Observable {
         this.switchers = new Locations<>();
         this.traps = new Locations<>();
         
-        this.addEntity(Avatar.getPlayer(), new CoordinatePair(1, 1)); //TODO change to avatar
+        this.addEntity(AvatarInteractionManager.getInstance().getAvatar(), new CoordinatePair(1, 1)); //TODO change to avatar
         
     }
 

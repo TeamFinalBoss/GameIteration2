@@ -1,6 +1,6 @@
 package model.director;
 
-import model.entity.Avatar;
+import model.entity.SummonerAvatar;
 import model.entity.Entity;
 import model.item.Item;
 
@@ -37,7 +37,7 @@ public class ActiveMapManager {
     
     private ArrayList<GameMap> maps;
     private GameMap activeMap;
-    private Avatar avatar; 
+    private Entity avatar; 
     
     /*----------Constructors------------*/
     public ActiveMapManager(){
@@ -45,7 +45,7 @@ public class ActiveMapManager {
        // avatar = Avatar.getPlayer();
     }
     
-    public ActiveMapManager(Avatar avatar){
+    public ActiveMapManager(Entity avatar){
     	maps = new ArrayList<>();
     	this.avatar = avatar;
     }
@@ -54,6 +54,7 @@ public class ActiveMapManager {
     public static ActiveMapManager getInstance(){
         if(me == null){
             me = new ActiveMapManager();
+            me.avatar = new SummonerAvatar("Bob", "Generic descrip.", new CoordinatePair(10,10));
         }
         return me;
     }

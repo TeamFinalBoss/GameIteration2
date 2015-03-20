@@ -39,7 +39,7 @@ public abstract class Stats {
 	}
 	private boolean checkHitSuccess(int amount){
 		Random generator = new Random();
-		return (generator.nextInt(100)*amount > defense) > true : false;
+		return (generator.nextInt(100)*amount > defense) ? true : false;
 		
 	}
 	private int mitigateDamage(int amount){
