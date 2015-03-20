@@ -31,7 +31,7 @@ public class MotionCoordinator {
 	}
 	
 	
-	public void moveEntity(Entity e, CoordinatePair desiredLocation, AreaEffect effect, Item i, Trap t){
+	public void moveEntity(Entity e, CoordinatePair desiredLocation, AreaEffect effect, Item i, MapSwitcher switcher, Trap t){
 		e.setLocation(desiredLocation);
 		
 		if (effect != null){
@@ -44,6 +44,10 @@ public class MotionCoordinator {
 		
 		if(t != null){
 			t.activate(e); //TODO: Create this method for every item type
+		}
+		
+		if(switcher != null){
+			switcher.activate(e);
 		}
 	}
 }

@@ -34,6 +34,7 @@ public class GameMap extends Observable {
     private Locations<Item> items;
     private Locations<Trap> traps;
     private Locations<AreaEffect> effects;
+    private Locations<MapSwitcher> switchers;
     private ArrayList<Projectile> projectiles;
     
     private Tile[][] tiles;
@@ -53,9 +54,11 @@ public class GameMap extends Observable {
         this.items = new Locations<>();
         this.entities = new Locations<>();
         this.effects = new Locations<>();
+        this.switchers = new Locations<>();
+        this.traps = new Locations<>();
         
         this.addEntity(Avatar.getPlayer(), new CoordinatePair(1, 1)); //TODO change to avatar
-        this.traps = new Locations<>();
+        
     }
 
     public GameMap(Tile[][] tiles) {
@@ -64,9 +67,11 @@ public class GameMap extends Observable {
         this.items = new Locations<>();
         this.entities = new Locations<>();
         this.effects = new Locations<>();
+        this.switchers = new Locations<>();
+        this.traps = new Locations<>();
         
         this.addEntity(Avatar.getPlayer(), new CoordinatePair(1, 1)); //TODO change to avatar
-        this.traps = new Locations<>();
+        
     }
 
     /**
@@ -213,13 +218,59 @@ public class GameMap extends Observable {
     }
     
     /**
+     * Adds a switcher to the map at the valid coordinate pair specified if not
+     * already occupied by another switcher.
+     * 
+     * TODO: Determine if boolean signature is necessary
+     * 
+     * @author Michael Cohen
+     * @param switcher the switcher to be added to the map
+     * @param CP where the switcher is to be added
+     * @return true if switcher was added to the map
+     */
+    public final boolean addMapSwitcher(MapSwitcher switcher, CoordinatePair CP){
+    	if (CoordPairIsValid(CP), && switchers.getObjectAt(CP) == null) {
+    		this.switchers.addObject(switcher, CP);
+    		updateView();
+    		return true;
+    	} else {
+    		return false;
+    	}
+    }
+    
+    /**
+     * This method attempts to remove the provided switcher 
+     * from the MapSwitcher Locations collection and returns
+     * whether or not that removal was successful
+     * 
+     * TODO: determine if boolean signature is necessary
+     * 
+     * @author Michael Cohen
+     * @param switcher to be removed
+     * @return true if switcher was removed, else false
+     */
+    public final boolean removeMapSwitcher(MapSwitcher switcher){
+    	return this.switchers.remove(switcher);
+    }
+    
+    /**
+     * Removes and returns the switcher from the map. If 
+     * the provided CoordinatePair is not present, a runtime exception is thrown 
+     * 
+     * @param CP location of the switcher which is being queried
+     * @return MapSwitcher that was removed from the map
+     */
+    public MapSwitcher removeMapSwitcher(CoordinatePair CP){
+    	return this.switchers.remove(CP);
+    }
+    /**
      * Adds a trap to the map at the valid coordinate pair specified if not
      * already occupied by another trap.
      *
      * TODO: Determine if boolean signature is necessary 
      *
      * @author Jason Owens
-     * @return true if item was added to the map
+     * @return true if trap was added to the map
      * @param trap the trap to be added to the map
      * @param CP where the trap is to be added
      */

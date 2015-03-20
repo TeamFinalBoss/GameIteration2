@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.Observer;
 
 import model.map.Direction;
-
 import model.map.GameMap;
+import model.map.MapSwitcher;
 import model.map.pair.CoordinatePair;
 import model.map.tile.AreaEffect;
 import model.map.tile.Trap;
@@ -216,6 +216,40 @@ public class ActiveMapManager {
      */
     public AreaEffect removeAreaEffectFromActiveMapAt(CoordinatePair CP){
     	return this.activeMap.removeAreaEffect(CP);
+    }
+    
+    /**
+     * Attempts to add a switcher to the active map at the given CP
+     * 
+     * @author Michael Cohen
+     * @param switcher to be added
+     * @param CP coordinate pair to set as the switcher's location
+     */
+    public void addMapSwitcherToActiveMap(MapSwitcher switcher, CoordinatePair CP){
+    	this.activeMap.addMapSwitcher(switcher, CP);
+    }
+    
+    /**
+     * Attempts to remove a MapSwitcher from the active map
+     * 
+     * @author Michael Cohen
+     * @param switcher to be removed
+     */
+    public void removeMapSwitcherFromActiveMap(MapSwitcher switcher){
+    	this.activeMap.removeMapSwitcher(switcher);
+    }
+    
+    /**
+     * Attempts to remove a MapSwitcher from the active map at the
+     * given CoordinatePair. Returns MapSwitcher if it was present at the
+     * coordinate, else throws a runtime exception
+     * 
+     * @author Michael Cohen
+     * @param CP of expected MapSwitcher
+     * @return MapSwitcher that was removed if it was present
+     */
+    public MapSwitcher removeMapSwitcherFromActiveMap(CoordinatePair CP){
+    	return this.activeMap.removeMapSwitcher(CP);
     }
     
     /**
