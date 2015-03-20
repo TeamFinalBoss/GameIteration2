@@ -42,6 +42,17 @@ public abstract class Entity extends MapObject{
     protected abstract AbilityLibrary createAbilities();
     protected abstract Stats createStats();
     
+    /* -------------------- PROTECTED UTILITY -------------------- */
+    protected Stats getStats(){
+    	return myStats;
+    }
+    protected Inventory getInventory(){
+    	return myInventory;
+    }
+    protected AbilityLibrary getAbilities(){
+    	return myAbilities;
+    }
+    
     /* -------------------- CONSTRUCTORS --------------------*/
     public Entity(String objectName, 
     			  String description, 
@@ -97,7 +108,7 @@ public abstract class Entity extends MapObject{
     public void drop(int position){
     	activeMap.addItemToActiveMap(remove(position),getLocation());
     }
-    
+   
     /* -------------------- STATS ACCESSORS -------------------- */
     public int getLivesLeft(){
 		return myStats.livesLeft();
@@ -205,6 +216,9 @@ public abstract class Entity extends MapObject{
 	}
     
 	/* -------------------- STATS MODIFY MUTATORS -------------------- */
+	public void dealDamage(int amount){
+		myStats.dealDamage(amount);
+	}
 	public void modifyLivesLeft(int next){
 		myStats.modifyLivesLeft(next);
 	}
