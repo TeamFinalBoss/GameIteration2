@@ -5,11 +5,12 @@ import java.util.Map;
 
 import model.map.Direction;
 import controller.commands.Commandable;
-import controller.commands.game.DialogueSwitch;
-import controller.commands.game.InventorySwitch;
 import controller.commands.game.MoveAvatar;
-import controller.commands.game.PauseSwitch;
 import controller.commands.game.Skill;
+import controller.commands.sceneChangers.ArmorySwitch;
+import controller.commands.sceneChangers.DialogueSwitch;
+import controller.commands.sceneChangers.PauseSwitch;
+import controller.commands.sceneChangers.SackSwitch;
 import controller.keyBindings.KeyBindingsOption;
 import controller.keyBindings.KeyOptions;
 import controller.sceneControllers.SceneController;
@@ -46,7 +47,8 @@ public class GameControllerBuilder {
 		options.put(map.get(KeyBindingsOption.SKILL_8), new Skill(8));
 		options.put(map.get(KeyBindingsOption.SKILL_9), new Skill(9));
 			
-		options.put(map.get(KeyBindingsOption.INVENTORY), new InventorySwitch());
+		options.put(map.get(KeyBindingsOption.SACK), new SackSwitch());
+		options.put(map.get(KeyBindingsOption.ARMORY), new ArmorySwitch());
 		options.put(map.get(KeyBindingsOption.DIALOGUE), new DialogueSwitch());
 		options.put(map.get(KeyBindingsOption.PAUSE), new PauseSwitch());
 		

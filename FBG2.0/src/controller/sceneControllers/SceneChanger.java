@@ -3,7 +3,7 @@ package controller.sceneControllers;
 import java.util.ArrayList;
 import java.util.List;
 
-import controller.util.Observer;
+import controller.util.SceneObserver;
 
 /**
  * @author Kyle Kyrazis
@@ -12,12 +12,12 @@ import controller.util.Observer;
  *
  */
 public class SceneChanger {
-	private List<Observer> observers;
+	private List<SceneObserver> observers;
 	
 	private static SceneChanger sceneChanger = null;
 	
 	private SceneChanger() {
-		observers = new ArrayList<Observer>();
+		observers = new ArrayList<SceneObserver>();
 	}
 	
 	public static SceneChanger getInstance() {
@@ -27,21 +27,21 @@ public class SceneChanger {
 		return sceneChanger;
 	}
 	
-	public void registerObserver(Observer obs) {
+	public void registerObserver(SceneObserver obs) {
 		observers.add(obs);
 	}
 	
-	public void unregisterObserver(Observer obs) {
+	public void unregisterObserver(SceneObserver obs) {
 		observers.remove(obs);
 	}
 	
 	public void changeScene(SceneType type) {
-		for(Observer obs : observers) {
+		for(SceneObserver obs : observers) {
 			obs.update(type);
 		}
 	}
 	
-	public List<Observer> getObservers() {
+	public List<SceneObserver> getObservers() {
 		return observers;
 	}
 }

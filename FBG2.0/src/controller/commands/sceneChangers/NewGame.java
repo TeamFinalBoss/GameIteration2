@@ -1,8 +1,7 @@
-package controller.commands.pauseMenu;
+package controller.commands.sceneChangers;
 
 import model.director.GameDirector;
 import controller.commands.Commandable;
-import controller.sceneControllers.SceneChanger;
 import controller.sceneControllers.SceneType;
 
 /**
@@ -11,15 +10,14 @@ import controller.sceneControllers.SceneType;
  * This game is responsible for starting a new game
  *
  */
-public class NewGame implements Commandable {
+public class NewGame extends SceneChangerCommands implements Commandable {
 
 	private GameDirector gameDirector = GameDirector.getGameDirector();
-	private SceneChanger sceneChanger = SceneChanger.getInstance();
 	
 	@Override
 	public void execute() {
 		gameDirector.startNewGame();
-		sceneChanger.changeScene(SceneType.GAME);
+		super.switchScene(SceneType.GAME);
 	}
 
 }

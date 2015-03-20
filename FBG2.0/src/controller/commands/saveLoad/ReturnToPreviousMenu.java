@@ -3,9 +3,9 @@ package controller.commands.saveLoad;
 import controller.commands.Commandable;
 import controller.sceneControllers.SceneChanger;
 import controller.sceneControllers.SceneType;
-import controller.util.Observer;
+import controller.util.SceneObserver;
 
-public class ReturnToPreviousMenu implements Commandable, Observer {
+public class ReturnToPreviousMenu implements Commandable, SceneObserver {
 	
 	private SceneType type;
 	private SceneChanger changer = SceneChanger.getInstance();

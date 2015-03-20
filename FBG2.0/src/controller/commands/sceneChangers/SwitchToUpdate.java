@@ -1,4 +1,4 @@
-package controller.commands.keyBindings;
+package controller.commands.sceneChangers;
 
 import java.util.Observable;
 

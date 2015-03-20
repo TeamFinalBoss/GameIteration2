@@ -21,7 +21,8 @@ public class DefualtKeyBindingsBuilder {
 		bindings.addBinding(KeyEvent.VK_ENTER, KeyBindingsOption.CONFIRM);
 		bindings.addBinding(KeyEvent.VK_SHIFT, KeyBindingsOption.DIALOGUE);
 		bindings.addBinding(KeyEvent.VK_S, KeyBindingsOption.DROP);
-		bindings.addBinding(KeyEvent.VK_I, KeyBindingsOption.INVENTORY);
+		bindings.addBinding(KeyEvent.VK_I, KeyBindingsOption.SACK);
+		bindings.addBinding(KeyEvent.VK_B, KeyBindingsOption.ARMORY);
 		bindings.addBinding(KeyEvent.VK_TAB, KeyBindingsOption.NEAREST_ENTITY);
 		bindings.addBinding(KeyEvent.VK_ESCAPE, KeyBindingsOption.PAUSE);
 		bindings.addBinding(KeyEvent.VK_1, KeyBindingsOption.SKILL_1);

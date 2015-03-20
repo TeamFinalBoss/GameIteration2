@@ -19,16 +19,17 @@ public enum KeyBindingsOption {
 	SKILL_7("Skill 7"),
 	SKILL_8("Skill 8"),
 	SKILL_9("Skill 9"),
-	INVENTORY("Toggle Inventory"),
+	SACK("Toggle Sack"),
+	ARMORY("Toggle Armory"),
 	NEAREST_ENTITY("Target Nearest Entity"),
 	DIALOGUE("Toggle Dialogue"),
 	PAUSE("Toggle Pause"),
 	CONFIRM("Confirm"),
 	DROP("Drop"),
 	TILE_INFO("Tile Information"),
-	//TODO Do I need these?
 	SAVE("Save Updates"),
 	CANCEL("Cancel");
+	
 	
 	private KeyBindingsOption(String str) {
 		this.value = str;

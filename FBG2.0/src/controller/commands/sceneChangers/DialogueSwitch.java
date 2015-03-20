@@ -1,4 +1,4 @@
-package controller.commands.game;
+package controller.commands.sceneChangers;
 
 import controller.commands.Commandable;
 import controller.sceneControllers.SceneType;

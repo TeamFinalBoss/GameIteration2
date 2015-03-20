@@ -12,23 +12,24 @@ import controller.Controller;
 import controller.InputParser;
 import controller.KeyDispatcher;
 import controller.commands.Commandable;
-import controller.commands.game.PauseSwitch;
 import controller.commands.keyBindings.BindingsUpdate;
 import controller.commands.keyBindings.CancelBindingsUpdate;
 import controller.commands.keyBindings.SaveBindingsUpdate;
-import controller.commands.keyBindings.SwitchToUpdate;
 import controller.commands.menu.ConfirmMenuCommand;
 import controller.commands.menu.NextMenuCommand;
 import controller.commands.menu.PreviousMenuCommand;
 import controller.commands.pauseMenu.ExitGame;
-import controller.commands.pauseMenu.KeyBindingSwitch;
-import controller.commands.pauseMenu.LoadGame;
-import controller.commands.pauseMenu.NewGame;
-import controller.commands.pauseMenu.ResumeGame;
-import controller.commands.pauseMenu.SaveGame;
+import controller.commands.sack.SackDetails;
 import controller.commands.saveLoad.LoadFileCommand;
 import controller.commands.saveLoad.ReturnToPreviousMenu;
 import controller.commands.saveLoad.SaveFileCommand;
+import controller.commands.sceneChangers.KeyBindingSwitch;
+import controller.commands.sceneChangers.LoadGame;
+import controller.commands.sceneChangers.NewGame;
+import controller.commands.sceneChangers.PauseSwitch;
+import controller.commands.sceneChangers.ResumeGame;
+import controller.commands.sceneChangers.SaveGame;
+import controller.commands.sceneChangers.SwitchToUpdate;
 import controller.keyBindings.KeyBindings;
 import controller.keyBindings.KeyBindingsOption;
 import controller.keyBindings.KeyBindingsUpdate;
@@ -127,6 +128,12 @@ public class ControllerBuilder {
 				UpdatingControllerBuilder.buildUpdatingSceneController(update, keyBindings, bindingsUpdate);
 		
 		/******************************
+		 * Sack Controller
+		 *******************************/
+		SackDetails details = new SackDetails();
+		SceneController sackController = SackControllerBuilder.buildSackController(map, details);
+		
+		/******************************
 		 * Observers
 		 *******************************/
 		
@@ -151,12 +158,16 @@ public class ControllerBuilder {
 		updateObservables.add(bindingsUpdate);
 		updateObservables.add(updatingSwitch);
 		
+		List<Observable> sackObservables = new ArrayList<>();
+		sackObservables.add(details);
+		
 		observerMap.put(SceneType.MAIN_MENU, mainMenuObervables);
 		observerMap.put(SceneType.PAUSE_MENU, pauseMenuObservables);
 		observerMap.put(SceneType.SAVE, saveMenuObservables);
 		observerMap.put(SceneType.LOAD, loadMenuObservables);
 		observerMap.put(SceneType.KEY_BINDINGS, keyBindingsObservables);
 		observerMap.put(SceneType.UPDATING, updateObservables);
+		observerMap.put(SceneType.SACK,sackObservables);
 		
 		cont.addMap(observerMap);
 		
@@ -176,6 +187,7 @@ public class ControllerBuilder {
 		controllers.put(SceneType.SAVE, saveController);
 		controllers.put(SceneType.LOAD, loadController);
 		controllers.put(SceneType.UPDATING, updateController);
+		controllers.put(SceneType.SACK, sackController);
 		
 		
 		KeyDispatcher keyDispatcher = new KeyDispatcher(controllers, mainMenuController);
