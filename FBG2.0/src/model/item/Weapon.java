@@ -7,8 +7,8 @@ package model.item;
 
 import model.entity.Entity;
 import model.map.pair.CoordinatePair;
-import model.ability.effects.Effect;
-import model.ability.effects.DealDamageEffect;
+import model.effect.Effect;
+import model.effect.DealDamageEffect;
 
 /**
  * ID=17
@@ -43,10 +43,11 @@ public abstract class Weapon extends Equipable{
 		//Other properties set here
 	} 
         
-        @Override
-        public void use(Entity e){
+        
+        public void attack(Entity e){
             E1.applyEffect(e);
         }
+        
         
           public Effect getEffect(){
             return E1; 

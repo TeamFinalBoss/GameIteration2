@@ -12,7 +12,7 @@ import model.entity.Entity;
  * 
  * @see MapObject
  * @see Item
- * @author ashishag, Michael Cohen
+ * @author Ashish Aggarwal, Michael Cohen
  *
  */
 public abstract class Takeable extends Item {
@@ -20,8 +20,8 @@ public abstract class Takeable extends Item {
     protected int value;
     protected int durability; 
 	
-	private int durability;
-	private int value;
+	
+	
 	
 	public Takeable(){
 		super("Generic Takeable", "Generic description", new CoordinatePair());
@@ -46,18 +46,7 @@ public abstract class Takeable extends Item {
 
         }
 
-        public Takeable(String objectName, String description, int value, int durability){
-		super(objectName, description, new CoordinatePair());
-		
-		this.id = "3";
-		this.className = "Takeable";
-                this.value=value;
-                this.durability=durability;
-		
-		this.durability = durability;
-		
-		//Other properties set here
-	}
+
 
         public int getValue(){
             return value; 
@@ -67,10 +56,12 @@ public abstract class Takeable extends Item {
             this.value= value;
         }
         
-        public boolean useInSack(Entity target){
-        	//Check if Entity meets prerequisites for using the item
-        	//If prerequisites were met, use the item and return true
-        	//Else return false
-        	return true;
+         public int getDurability(){
+            return durability; 
         }
+        
+        public void setDurability(int durability){
+            this.durability= durability;
+        }
+       
 }

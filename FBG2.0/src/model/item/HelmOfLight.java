@@ -6,8 +6,7 @@
 package model.item;
 
 import model.map.pair.CoordinatePair;
-import model.entity.Armory;
-import model.entity.Sack;
+;
 
 /**
  * ID= 18;
@@ -40,7 +39,11 @@ public class HelmOfLight extends Equipable {
 		//Other properties set here
 	} 
         
-        @Override
+         @Override
+         public boolean meetsRequirements(){
+            return true;
+         }
+       
         public boolean useInSack(){
             return true;
         

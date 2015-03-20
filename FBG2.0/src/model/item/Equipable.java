@@ -43,9 +43,9 @@ public abstract class Equipable extends Usable {
             this.slot= slot;
         }
         
-        @Override
-        public boolean useInSack(){
-            return true;
-        }
        
+        // for Armours 
+        public boolean meetsRequirements(){
+            return false;
+        }
 }
