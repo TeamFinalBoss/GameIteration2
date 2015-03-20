@@ -1,12 +1,13 @@
 package model.factories;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import model.map.pair.CoordinatePair;
+import model.director.ActiveMapManager;
 import model.factories.PlaceableObjectFactory;
-import model.factories.PlaceableObjectFactory;
-import model.factories.PlaceableObjectFactory;
-import model.util.GameObject;
+import model.gameObject.MapObject;
+import model.item.Item;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -30,26 +31,26 @@ public class ObstacleFactory implements PlaceableObjectFactory{
 	 * @return the list of Obstacles created by this method
 	 * @see Obstacle
 	 */
-	public ArrayList<MapObject> generate(Element head)
+	public List<MapObject> generate(Element head)
 	{
-		ArrayList<MapObject> items = new ArrayList<MapObject>();
+		List<MapObject> items = new ArrayList<MapObject>();
 		
 		NodeList nodes = head.getElementsByTagName("obstacle");
 			
 		for(int i = 0; i < nodes.getLength(); i++)
 		{
 			Element item = (Element) nodes.item(i);
-			MapObject it = null;
+			Item it = null;
 				
 			switch(item.getAttribute("name")){
 			case "whatever":
-				it = new Obstacle();
+				//it = new Obstacle();
 				break;
 			}
 				
 			if(it == null) continue;
 				
-			GameMap.getInstance().addEntity(it, new CoordinatePair(Integer.parseInt(item.getAttribute("x")), Integer.parseInt(item.getAttribute("y"))));
+			ActiveMapManager.getInstance().addItemToActiveMap(it, new CoordinatePair(Integer.parseInt(item.getAttribute("x")), Integer.parseInt(item.getAttribute("y"))));
 				
 			items.add(it);
 		}

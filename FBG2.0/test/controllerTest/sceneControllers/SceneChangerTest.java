@@ -8,16 +8,16 @@ import org.junit.Test;
 
 import controller.sceneControllers.SceneChanger;
 import controller.sceneControllers.SceneType;
-import controller.util.Observer;
+import controller.util.SceneObserver;
 
 public class SceneChangerTest {
 
-	private Observer obs;
+	private SceneObserver obs;
 	private SceneChanger changer;
 	
 	@Before
 	public void setUp() {
-		obs = EasyMock.createNiceMock(Observer.class);
+		obs = EasyMock.createNiceMock(SceneObserver.class);
 		changer = SceneChanger.getInstance();
 	}
 	

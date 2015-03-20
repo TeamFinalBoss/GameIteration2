@@ -39,15 +39,17 @@ public class MapViewPort implements ViewPort, Observer {
                 //Draw tile
                 //TODO: Make it so it doesnt just draw grass       
                 g.drawImage(grass, i * 64, j * 64, 64, 64, null);
-
+/*
                 //Draw enitty
                 if (entities.getObjectAt(new CoordinatePair(i, j)) != null  ){
                     g.setColor(Color.blue);
                     g.drawRect(i*64, j*64, 63, 63);
                 }
-                
+                */
                 //Entity.getPlayer().getLocation();
+        
             }
+            
         }
     }
 

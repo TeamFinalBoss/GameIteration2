@@ -1,20 +1,18 @@
 package controller.commands.keyBindings;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
-import view.viewport.KeyBindingsErrorViewPort;
-import model.director.GameDirector;
 import controller.Controller;
-import controller.commands.Commandable;
+import controller.commands.ForwardingCommand;
 import controller.keyBindings.KeyBindings;
 import controller.keyBindings.KeyBindingsOption;
 import controller.keyBindings.KeyBindingsUpdate;
+import controller.sceneControllers.SceneChanger;
 import controller.sceneControllers.SceneType;
 import controller.util.Describeable;
+import controller.util.Errorable;
 
 
 
@@ -24,15 +22,15 @@ import controller.util.Describeable;
  * This class should be used for performing the mapping between old key and new key
  *
  */
-public class BindingsUpdate extends Observable implements Commandable, Observer, KeyListener   {
+public class BindingsUpdate extends Observable implements ForwardingCommand, Observer, Errorable   {
 
 	private KeyBindings currentBindings;
 	private KeyBindingsUpdate bindingsUpdate;
 	private KeyBindingsOption currentSelection;
-	private GameDirector director = GameDirector.getGameDirector();
-	private Controller controller = Controller.getInstance();
-	private KeyBindingsErrorViewPort port = KeyBindingsErrorViewPort.getInstance();
+
+	private SceneChanger changer = SceneChanger.getInstance();
 	private String delimeter = " ";
+	private String errorString;
 	
 	public BindingsUpdate() {
 		currentBindings = new KeyBindings();
@@ -44,11 +42,19 @@ public class BindingsUpdate extends Observable implements Commandable, Observer,
 		this.bindingsUpdate = bindingsUpdate;
 	}
 	
-	@Override
-	public void execute() {
-		director.removeKeyListener(controller.getActiveListener());
-		director.addKeyListener(this);
-		port.setErrorString("Updating");
+	
+	
+	public void execute(Integer value) {
+		Map<KeyBindingsOption, Integer> currentMapping = currentBindings.getBindingsReverse();
+		try {
+			bindingsUpdate.addUpdate(currentMapping.get(currentSelection), value);
+			errorString = null;
+			changer.changeScene(SceneType.KEY_BINDINGS);
+		} catch(IllegalArgumentException e) {
+			errorString = e.getMessage() + " Please try again.";
+		}
+		setChanged();
+		notifyObservers();
 	}
 
 	protected KeyBindingsUpdate getKeyBindingsUpdate() {
@@ -72,34 +78,6 @@ public class BindingsUpdate extends Observable implements Commandable, Observer,
 				KeyBindingsOption.fromString(finalString);
 	}
 
-	@Override
-	public void keyPressed(KeyEvent arg0) {
-		Map<KeyBindingsOption, Integer> currentMapping = currentBindings.getBindingsReverse();
-		try {
-			bindingsUpdate.addUpdate(currentMapping.get(currentSelection), arg0.getKeyCode());
-			director.removeKeyListener(this);
-			director.addKeyListener(controller.getActiveListener());
-			port.reset();
-			setChanged();
-			notifyObservers();
-		} catch(IllegalArgumentException e) {
-			port.setErrorString(e.getMessage() + " Please try again");
-		}
-		
-	}
-
-	@Override
-	public void keyReleased(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void keyTyped(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
 	public void clear() {
 		this.bindingsUpdate.clear();
 	}
@@ -112,6 +90,11 @@ public class BindingsUpdate extends Observable implements Commandable, Observer,
 		super.addObserver(o);
         setChanged();
         notifyObservers();
+	}
+
+	@Override
+	public String getErrorString() {
+		return this.errorString;
 	}
 
 }

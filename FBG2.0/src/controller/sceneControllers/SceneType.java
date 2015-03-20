@@ -6,11 +6,14 @@ package controller.sceneControllers;
  * TODO There's going to be more types needed to be added.
  */
 public enum SceneType {
-	INEVENTORY,
+	SACK,
 	GAME,
 	MAIN_MENU,
 	PAUSE_MENU,
 	KEY_BINDINGS,
 	SAVE,
-	LOAD
+	LOAD,
+	DIALOGUE,
+	UPDATING,
+	ARMORY
 }

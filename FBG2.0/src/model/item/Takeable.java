@@ -2,6 +2,7 @@ package model.item;
 
 import model.gameObject.MapObject;
 import model.map.pair.CoordinatePair;
+import model.entity.Entity;
 
 /**
  * This class defines an Item which can be taken and added to the Inventory
@@ -11,29 +12,56 @@ import model.map.pair.CoordinatePair;
  * 
  * @see MapObject
  * @see Item
- * @author Michael Cohen
+ * @author Ashish Aggarwal, Michael Cohen
  *
  */
-public class Takeable extends Item {
+public abstract class Takeable extends Item {
+    
+    protected int value;
+    protected int durability; 
+	
+	
+	
 	
 	public Takeable(){
 		super("Generic Takeable", "Generic description", new CoordinatePair());
 		
 		this.id = "3";
 		this.className = "Takeable";
+                this.value= 0; 
+                this.durability=1;
+		
+		this.durability = 1;
 		
 		//Other properties set here
 	}
 	
-	public Takeable(String objectName, String description, CoordinatePair location){
+	public Takeable(String objectName, String description, CoordinatePair location, int value, int durability){
 		super(objectName, description, location);
 		
 		this.id = "3";
 		this.className = "Takeable";
-		
-		//Other properties set here
-	}
-	
-	public void useInSack(){
-	}
+                this.value=value;
+                this.durability=durability;
+
+        }
+
+
+
+        public int getValue(){
+            return value; 
+        }
+        
+        public void setValue(int value){
+            this.value= value;
+        }
+        
+         public int getDurability(){
+            return durability; 
+        }
+        
+        public void setDurability(int durability){
+            this.durability= durability;
+        }
+       
 }

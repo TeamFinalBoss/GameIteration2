@@ -1,5 +1,6 @@
 package model.item;
 
+import model.entity.Entity;
 import model.gameObject.MapObject;
 import model.map.pair.CoordinatePair;
 
@@ -11,7 +12,7 @@ import model.map.pair.CoordinatePair;
  * 
  * @see MapObject
  * @see Item
- * @author Michael Cohen
+ * @author ashishag, Michael Cohen
  *
  */
 public class Obstacle extends Item {
@@ -32,4 +33,13 @@ public class Obstacle extends Item {
 		
 		//Other properties set here
 	}
+        
+        
+        // This is called when the entity activates the item
+        // returns if the entity can continue
+        // by default entity cannot continue on obstacle
+        @Override
+        public boolean activate(Entity e){
+            return false;
+        }
 }

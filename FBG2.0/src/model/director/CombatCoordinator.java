@@ -2,10 +2,11 @@
 package model.director;
 
 import java.util.ArrayList;
-import model.ability.effects.Effect;
+
 import model.map.GameMap;
 import model.map.pair.CoordinatePair;
-import model.ability.effects.Effect;
+import model.effect.Effect;
+import model.entity.Entity;
 
 /**
  *

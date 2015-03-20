@@ -12,20 +12,24 @@ import controller.Controller;
 import controller.InputParser;
 import controller.KeyDispatcher;
 import controller.commands.Commandable;
-import controller.commands.game.Pause;
 import controller.commands.keyBindings.BindingsUpdate;
 import controller.commands.keyBindings.CancelBindingsUpdate;
 import controller.commands.keyBindings.SaveBindingsUpdate;
-import controller.commands.load.ReturnToPreviousMenu;
 import controller.commands.menu.ConfirmMenuCommand;
 import controller.commands.menu.NextMenuCommand;
 import controller.commands.menu.PreviousMenuCommand;
 import controller.commands.pauseMenu.ExitGame;
-import controller.commands.pauseMenu.KeyBindingSwitch;
-import controller.commands.pauseMenu.LoadGame;
-import controller.commands.pauseMenu.NewGame;
-import controller.commands.pauseMenu.ResumeGame;
-import controller.commands.pauseMenu.SaveGame;
+import controller.commands.sack.SackDetails;
+import controller.commands.saveLoad.LoadFileCommand;
+import controller.commands.saveLoad.ReturnToPreviousMenu;
+import controller.commands.saveLoad.SaveFileCommand;
+import controller.commands.sceneChangers.KeyBindingSwitch;
+import controller.commands.sceneChangers.LoadGame;
+import controller.commands.sceneChangers.NewGame;
+import controller.commands.sceneChangers.PauseSwitch;
+import controller.commands.sceneChangers.ResumeGame;
+import controller.commands.sceneChangers.SaveGame;
+import controller.commands.sceneChangers.SwitchToUpdate;
 import controller.keyBindings.KeyBindings;
 import controller.keyBindings.KeyBindingsOption;
 import controller.keyBindings.KeyBindingsUpdate;
@@ -43,7 +47,6 @@ import controller.sceneControllers.SceneType;
  * 
  * This class builds the controller. If the controller is set up incorrectly then the error
  * is in this class for sure. Currently only builds the MainMenu and PauseMenu. 
- * TODO deal with saving the keybindings
  * 
  * @author Kyle Kyrazis
  */
@@ -52,9 +55,6 @@ public class ControllerBuilder {
 	private static Controller cont = Controller.getInstance();
 
 	private static KeyBindings bindings; 
-	//TODO Fix the fact that these are class level. Issue arises when trying to register as an
-	//observer before observer map has been fixed. 
-	private static BindingsUpdate update, cancelUpdate, saveUpdate;
 	
 	public static KeyListener build(KeyBindings keyBindings) {
 		bindings = keyBindings;
@@ -77,21 +77,12 @@ public class ControllerBuilder {
 		KeyOptions pauseMenuOptions = buildPauseMenuKeyOptions(pauseMenuMap, map);
 		SceneController pauseMenuController = buildController(pauseMenuOptions);
 		
-		/******************************
-		 * KeyBindingsController
-		 *******************************/
-		KeyBindingsUpdate update = new KeyBindingsUpdate(new HashMap<>(), bindings);
-		KeyBindingsMenu bindingsMenu = buildBindingsMenu(update);
-		Map<Integer, Commandable> keyBindingsMap = buildDefaultMenuBindings(bindingsMenu,map);
-		KeyOptions bindingsMenuOptions = buildBindingsMenuKeyOptions(keyBindingsMap, map, update);
-		SceneController keyBindingsController = buildController(bindingsMenuOptions);
 		
 		/******************************
 		 * Game Controller
 		 *******************************/
 		
-		KeyOptions gameOptions = buildGameKeyOptions(map);
-		SceneController gameController = buildController(gameOptions);
+		SceneController gameController = GameControllerBuilder.buildGameController(map);
 		
 		/******************************
 		 * Save Menu Controller
@@ -112,22 +103,78 @@ public class ControllerBuilder {
 		SceneController loadController = buildController(loadOptions);
 		
 		/******************************
+		 * KeyBindingsController
+		 *******************************/
+		KeyBindingsUpdate update = new KeyBindingsUpdate(new HashMap<Integer, Integer>(), bindings);
+		
+		BindingsUpdate cancelUpdate = new CancelBindingsUpdate(bindings, update);
+		BindingsUpdate saveUpdate= new SaveBindingsUpdate(bindings, update);
+		Observable updatingSwitch = new SwitchToUpdate();
+		
+		KeyBindingsMenu bindingsMenu = buildBindingsMenu(update,
+				(Commandable)cancelUpdate, (Commandable)saveUpdate, (Commandable)updatingSwitch);
+		Map<Integer, Commandable> keyBindingsMap = buildDefaultMenuBindings(bindingsMenu,map);
+		
+		
+		
+		SceneController keyBindingsController = KeyBindingsRemappingBuilder.buildController(
+				keyBindingsMap, map, update, (Commandable)cancelUpdate);
+		
+		/******************************
+		 * Updating Controller
+		 *******************************/
+		BindingsUpdate bindingsUpdate = new BindingsUpdate(keyBindings, update);
+		SceneController updateController =
+				UpdatingControllerBuilder.buildUpdatingSceneController(update, keyBindings, bindingsUpdate);
+		
+		/******************************
+		 * Sack Controller
+		 *******************************/
+		SackDetails details = new SackDetails();
+		SceneController sackController = SackControllerBuilder.buildSackController(map, details);
+		
+		/******************************
 		 * Observers
 		 *******************************/
 		
-		Map<SceneType, Observable> observerMap = new HashMap<>();
-		observerMap.put(SceneType.MAIN_MENU, mainMenu);
-		observerMap.put(SceneType.PAUSE_MENU, pauseMenu);
-		observerMap.put(SceneType.SAVE, saveMenu);
-		observerMap.put(SceneType.LOAD, loadMenu);
-		observerMap.put(SceneType.KEY_BINDINGS, bindingsMenu);
+		Map<SceneType, List<Observable>> observerMap = new HashMap<>();
+		
+		List<Observable> mainMenuObervables = new ArrayList<>();
+		mainMenuObervables.add(mainMenu);
+		
+		List<Observable> pauseMenuObservables = new ArrayList<>();
+		pauseMenuObservables.add(pauseMenu);
+		
+		List<Observable> saveMenuObservables = new ArrayList<>();
+		saveMenuObservables.add(saveMenu);
+		
+		List<Observable> loadMenuObservables = new ArrayList<>();
+		loadMenuObservables.add(loadMenu);
+		
+		List<Observable> keyBindingsObservables = new ArrayList<>();
+		keyBindingsObservables.add(bindingsMenu);
+		
+		List<Observable> updateObservables = new ArrayList<>();
+		updateObservables.add(bindingsUpdate);
+		updateObservables.add(updatingSwitch);
+		
+		List<Observable> sackObservables = new ArrayList<>();
+		sackObservables.add(details);
+		
+		observerMap.put(SceneType.MAIN_MENU, mainMenuObervables);
+		observerMap.put(SceneType.PAUSE_MENU, pauseMenuObservables);
+		observerMap.put(SceneType.SAVE, saveMenuObservables);
+		observerMap.put(SceneType.LOAD, loadMenuObservables);
+		observerMap.put(SceneType.KEY_BINDINGS, keyBindingsObservables);
+		observerMap.put(SceneType.UPDATING, updateObservables);
+		observerMap.put(SceneType.SACK,sackObservables);
 		
 		cont.addMap(observerMap);
 		
-		ControllerBuilder.update.register();
+		bindingsUpdate.register();
 		cancelUpdate.register();
 		saveUpdate.register();
-		ControllerBuilder.update.addObserver(bindingsMenu);
+		bindingsUpdate.addObserver(bindingsMenu);
 		/******************************
 		 * Controllers
 		 *******************************/
@@ -139,6 +186,8 @@ public class ControllerBuilder {
 		controllers.put(SceneType.GAME, gameController);
 		controllers.put(SceneType.SAVE, saveController);
 		controllers.put(SceneType.LOAD, loadController);
+		controllers.put(SceneType.UPDATING, updateController);
+		controllers.put(SceneType.SACK, sackController);
 		
 		
 		KeyDispatcher keyDispatcher = new KeyDispatcher(controllers, mainMenuController);
@@ -178,9 +227,9 @@ public class ControllerBuilder {
 	private static Map<SaveOption, Commandable> buildLoadCommands() {
 		Map<SaveOption, Commandable> map = new HashMap<>();
 		
-		map.put(SaveOption.OPTION_1, new controller.commands.save.Option1());
-		map.put(SaveOption.OPTION_2, new controller.commands.save.Option2());
-		map.put(SaveOption.OPTION_3, new controller.commands.save.Option3());
+		map.put(SaveOption.OPTION_1, new LoadFileCommand(0));
+		map.put(SaveOption.OPTION_2, new LoadFileCommand(1));
+		map.put(SaveOption.OPTION_3, new LoadFileCommand(2));
 		
 		return map;
 	}
@@ -207,9 +256,9 @@ public class ControllerBuilder {
 	private static Map<SaveOption, Commandable> buildSaveCommands() {
 		Map<SaveOption, Commandable> map = new HashMap<>();
 		
-		map.put(SaveOption.OPTION_1, new controller.commands.save.Option1());
-		map.put(SaveOption.OPTION_2, new controller.commands.save.Option2());
-		map.put(SaveOption.OPTION_3, new controller.commands.save.Option3());
+		map.put(SaveOption.OPTION_1, new SaveFileCommand(0));
+		map.put(SaveOption.OPTION_2, new SaveFileCommand(1));
+		map.put(SaveOption.OPTION_3, new SaveFileCommand(2));
 		
 		return map;
 	}
@@ -218,49 +267,29 @@ public class ControllerBuilder {
 			Map<Integer, Commandable> newCommands,
 			Map<KeyBindingsOption, Integer> currentBindings)
 	{
-		newCommands.put(currentBindings.get(KeyBindingsOption.PAUSE), new Pause());
+		newCommands.put(currentBindings.get(KeyBindingsOption.PAUSE), new PauseSwitch());
 	
 		return new KeyOptions(newCommands);
 	}
 	
-	/**********************************************************************************************
-	 * 	   Game Controller builder
-	 *
-	 ************************************************************************************************/
 	
-	private static KeyOptions buildGameKeyOptions(Map<KeyBindingsOption, Integer> map) {
-		Map<Integer, Commandable> options = new HashMap<Integer, Commandable>();
-		
-		options.put(map.get(KeyBindingsOption.PAUSE), new Pause());
-		
-		return new KeyOptions(options);
-	}
 
-
+	
+	
+	
 	/**********************************************************************************************
 	 * 	   Key Bindings Controller Builder
 	 * @param update 
 	 *
 	 ************************************************************************************************/
 	
-	private static KeyOptions buildBindingsMenuKeyOptions(
-			Map<Integer, Commandable> newCommands,
-			Map<KeyBindingsOption, Integer> currentBindings,
-			KeyBindingsUpdate update)
-	{
-		newCommands.put(
-				currentBindings.get(KeyBindingsOption.PAUSE),
-				cancelUpdate);
-		return new KeyOptions(newCommands);
-	}
 
-	private static KeyBindingsMenu buildBindingsMenu(KeyBindingsUpdate update) {
+
+	private static KeyBindingsMenu buildBindingsMenu(KeyBindingsUpdate update, Commandable cancelUpdate,
+			Commandable saveUpdate, Commandable updatingSwitch) {
 		
 		Map<KeyBindingsOption, Commandable> commands = new HashMap<>();
-
-		ControllerBuilder.update = new BindingsUpdate(bindings, update);
-		cancelUpdate = new CancelBindingsUpdate(bindings, update);
-		saveUpdate= new SaveBindingsUpdate(bindings, update);
+		
 		
 		for(KeyBindingsOption option : KeyBindingsOption.values()) {
 			if(option.equals(KeyBindingsOption.CANCEL)) {
@@ -268,7 +297,7 @@ public class ControllerBuilder {
 			} else if(option.equals(KeyBindingsOption.SAVE)) {
 				commands.put(KeyBindingsOption.SAVE, saveUpdate);
 			} else {
-				commands.put(option, ControllerBuilder.update);
+				commands.put(option, updatingSwitch);
 			}
 		}
 		
@@ -332,9 +361,6 @@ public class ControllerBuilder {
 		return new KeyOptions(newCommands);
 	}
 
-	
-	
-	
 	private static Menu buildMainMenu() {
 		List<MenuOption> options = new ArrayList<MenuOption>();
 		options.add(MenuOption.NEW_GAME);

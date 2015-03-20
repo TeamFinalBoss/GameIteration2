@@ -9,17 +9,17 @@ import model.item.EquipSlot;
  * @version 1.0.0 2015-03-14
  */
 public class Inventory {
-	Sack mySack;
-	Armory myArmory;
+	private Sack mySack;
+	private Armory myArmory;
 	
 	/* -------------------- CONSTRUCTORS -------------------- */
 	
 	/** Creates an <code>Inventory</code> instance with a Sack component and an Armory component.
 	 * @param sackCap the capacity of the <code>Sack</code> component of the <code>Inventory</code> 
 	 */
-	public Inventory(int sackCap){
-		mySack = new Sack(sackCap);
-		myArmory = new Armory();
+	public Inventory(int sackCap, Entity owner){
+		mySack = new Sack(sackCap, owner);
+		myArmory = new Armory(owner);
 	}
 	
 	/* -------------------- ACCESSORS -------------------- */
@@ -62,8 +62,8 @@ public class Inventory {
 	 * @param position indicates which item in the sack's ordered contents
 	 * 				   is to be used, where the first item is at position 0.
 	 */
-	public void use(int position){
-		mySack.use(position);
+	public boolean use(int position){
+		return mySack.use(position);
 	}
 	
 	/**
@@ -74,6 +74,15 @@ public class Inventory {
 	 */
 	public Takeable remove(int position){
 		return mySack.remove(position);
+	}
+	
+	/**
+	 * Removes the specified item from the sack
+	 * @param item the Takeable item to be removed
+	 * @return the removed Takeable
+	 */
+	public Takeable remove(Takeable item){
+		return mySack.remove(item);
 	}
 	
 	/**
@@ -99,6 +108,6 @@ public class Inventory {
 	 * @return the equipment which was removed from the slot
 	 */
 	public Equipable unequip(EquipSlot slot){
-		return myArmory.unequip(slot);
+            return myArmory.unequip(slot);
 	}
 }

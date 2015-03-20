@@ -4,11 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import controller.keyBindings.KeyBindingsUpdate;
-import controller.keyBindings.KeyOptions;
 import controller.sceneControllers.SceneChanger;
 import controller.sceneControllers.SceneController;
 import controller.sceneControllers.SceneType;
-import controller.util.Observer;
+import controller.util.SceneObserver;
 
 /**
  * @author Kyle Kyrazis
@@ -17,7 +16,7 @@ import controller.util.Observer;
  * Able to update itself whenever the controller needs to switch.
  *
  */
-public class KeyDispatcher implements Observer {
+public class KeyDispatcher implements SceneObserver {
 	private SceneController activeController;
 	private Map<SceneType, SceneController> sceneControllers;
 	private SceneChanger sceneChanger = SceneChanger.getInstance();

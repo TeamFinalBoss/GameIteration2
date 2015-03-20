@@ -1,13 +1,5 @@
 package model.director;
 
-import view.viewport.MapViewPort;
-import model.menu.Menu;
-import controller.Controller;
-import controller.sceneControllers.SceneChanger;
-import controller.sceneControllers.SceneType;
-import controller.util.Observer;
-import controller2.MenuKeyController;
-
 import java.awt.Dimension;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
@@ -15,12 +7,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 import model.map.GameMap;
-import view.window.GameWindow;
 import view.scene.Scene;
 import view.viewport.KeyBindingsErrorViewPort;
 import view.viewport.KeyBindingsMenuViewPort;
 import view.viewport.MainMenuViewPort;
-import view.viewport.PauseViewPort;
+import view.viewport.MapViewPort;
+import view.viewport.SackViewport;
+import view.window.GameWindow;
+import controller.Controller;
+import controller.sceneControllers.SceneChanger;
+import controller.sceneControllers.SceneType;
+import controller.util.SceneObserver;
 
 /**
  * This class is the director of our game, integrating the various subsystems.
@@ -31,7 +28,7 @@ import view.viewport.PauseViewPort;
  *
  * @author ChrisMoscoso
  */
-public class GameDirector implements Observer{
+public class GameDirector implements SceneObserver{
 
     private static Boolean paused = false;
     private static GameWindow window;
@@ -57,7 +54,10 @@ public class GameDirector implements Observer{
         scenes.put(SceneType.MAIN_MENU, menuScene);
         scenes.put(SceneType.PAUSE_MENU, pauseScene);
         scenes.put(SceneType.KEY_BINDINGS, keyBindingsScene);
+        scenes.put(SceneType.UPDATING, keyBindingsScene);
         scenes.put(SceneType.GAME, gameScene);
+        scenes.put(SceneType.SACK, gameScene);
+        scenes.put(SceneType.ARMORY, gameScene);
         scenes.put(SceneType.SAVE, saveScene);
         scenes.put(SceneType.LOAD, loadScene);
         
@@ -77,21 +77,26 @@ public class GameDirector implements Observer{
         MainMenuViewPort pauseVP = new MainMenuViewPort();
         pauseScene.addViewport(pauseVP);
         MainMenuViewPort keyBindingsVP = new KeyBindingsMenuViewPort();
+        
         keyBindingsScene.addViewport(keyBindingsVP);
-        //TODO Fix this. Just a hack to see how the viewport stuff worked.
-        keyBindingsScene.addViewport(KeyBindingsErrorViewPort.getInstance());
+        KeyBindingsErrorViewPort errorViewPort = new KeyBindingsErrorViewPort();
+        keyBindingsScene.addViewport(errorViewPort);
+        
         MainMenuViewPort saveVP = new MainMenuViewPort();
         MainMenuViewPort loadVP = new MainMenuViewPort();
-        
         loadScene.addViewport(loadVP);
         saveScene.addViewport(saveVP);
         
         menuScene.addViewport(menuVP);//Add menuVP to menuScene
+        
         controller.addObserver(menuVP, SceneType.MAIN_MENU);
         controller.addObserver(pauseVP, SceneType.PAUSE_MENU);
         controller.addObserver(keyBindingsVP, SceneType.KEY_BINDINGS);
         controller.addObserver(saveVP, SceneType.SAVE);
         controller.addObserver(loadVP, SceneType.LOAD);
+        controller.addObserver(errorViewPort,SceneType.UPDATING);
+        
+        
         sceneChanger.changeScene(SceneType.MAIN_MENU);
         activeScene = menuScene;
     }
@@ -103,6 +108,12 @@ public class GameDirector implements Observer{
         MapViewPort mapVP = new MapViewPort();
 
         gameScene.addViewport(mapVP);//Add mapVP to gameScene
+        
+        SackViewport sack = new SackViewport();
+        gameScene.addViewport(sack);
+        
+        controller.addObserver(sack, SceneType.SACK);
+        sceneChanger.registerObserver(sack);
        
         map.addObserver(mapVP);//Add mapVP as an Observer to map
         

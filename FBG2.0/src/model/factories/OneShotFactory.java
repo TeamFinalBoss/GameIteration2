@@ -1,9 +1,12 @@
 package model.factories;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import model.director.ActiveMapManager;
+import model.gameObject.MapObject;
+import model.item.Item;
 import model.map.pair.CoordinatePair;
-import model.util.GameObject;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -27,26 +30,26 @@ public class OneShotFactory implements PlaceableObjectFactory{
 	 * @return the list of One Shot items created by this method
 	 * @see OneShot
 	 */
-	public ArrayList<MapObject> generate(Element head)
+	public List<MapObject> generate(Element head)
 	{
-		ArrayList<MapObject> items = new ArrayList<MapObject>();
+		List<MapObject> items = new ArrayList<MapObject>();
 		
 		NodeList nodes = head.getElementsByTagName("oneshot");
 			
 		for(int i = 0; i < nodes.getLength(); i++)
 		{
 			Element item = (Element) nodes.item(i);
-			MapObject it = null;
+			Item it = null;
 				
 			switch(item.getAttribute("name")){
 			case "whatever":
-				it = new OneShot();
+				//it = new OneShot();
 				break;
 			}
 				
 			if(it == null) continue;
 				
-			GameMap.getInstance().addEntity(it, new CoordinatePair(Integer.parseInt(item.getAttribute("x")), Integer.parseInt(item.getAttribute("y"))));
+			ActiveMapManager.getInstance().addItemToActiveMap(it, new CoordinatePair(Integer.parseInt(item.getAttribute("x")), Integer.parseInt(item.getAttribute("y"))));
 				
 			items.add(it);
 		}

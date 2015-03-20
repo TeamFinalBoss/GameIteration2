@@ -3,37 +3,32 @@ package view.viewport;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.util.Observable;
+import java.util.Observer;
 
+import controller.util.Errorable;
 import model.director.GameDirector;
 
-public class KeyBindingsErrorViewPort implements ViewPort {
+public class KeyBindingsErrorViewPort implements ViewPort, Observer {
 
 	private int width;
-	private int height;
 	private final String defaultString = "Press Confirm to remap an option, \nnavigate to save to save your options, \n"
 									+ " or navigate to cancel to discard the changes.";
 	
 	private String errorString = null;
 	
-	private static KeyBindingsErrorViewPort port = null;
 	
-	private KeyBindingsErrorViewPort() {
+	public KeyBindingsErrorViewPort() {
 		
 	}
 	
-	public static KeyBindingsErrorViewPort getInstance() {
-		if(port == null) {
-			port = new KeyBindingsErrorViewPort();
-		}
-		return port;
-	}
+	
 	
 	@Override
 	public void draw(Graphics g) {
 		
 		 if (GameDirector.getSize() != null) {
 	            width = GameDirector.getSize().width;
-	            height = GameDirector.getSize().height;
 	    }
 		
 		g.setFont(new Font(g.getFont().getFamily(), Font.PLAIN, 30));
@@ -53,6 +48,12 @@ public class KeyBindingsErrorViewPort implements ViewPort {
 	}
 	public void reset() {
 		errorString = null;
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		Errorable error = (Errorable) o;
+		this.errorString = error.getErrorString();
 	}
 
 }

@@ -1,6 +1,7 @@
 package model.entity;
 
-import model.ability.AbilityLibrary;
+import model.entity.ability.AbilityLibrary;
+
 
 /**
  * An Occupation object belongs to a singular Entity and defines the valid
