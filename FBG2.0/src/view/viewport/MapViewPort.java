@@ -13,6 +13,7 @@ import java.util.Observer;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import model.director.GameDirector;
+import model.entity.Avatar;
 import model.entity.Entity;
 import model.map.tile.Tile;
 
@@ -25,7 +26,7 @@ public class MapViewPort implements ViewPort, Observer {
     private final int tileWidth = 64, tileHeight = 64;
 
     Tile[][] tiles;
-    
+
     private ArrayList<Entity> entityList;
 
     int widthInTiles = 0, heightInTiles = 0;
@@ -62,18 +63,26 @@ public class MapViewPort implements ViewPort, Observer {
         //Start drawing
         for (int i = startX; i < Math.min(startX + windowWidthInTiles, widthInTiles); i++) {
             for (int j = startY; j < startY + windowHeightInTiles; j++) {
-                //Draw 
-                
-                
-                //Draw Entities
-                if (entityList.get(0).getLocation().equals(new Point(i, j))) {
-                    g.setColor(Color.red);
-                    g.drawRect((i - startX) * tileWidth,
-                            (j - startY) * tileHeight,
-                            tileWidth,
-                            tileHeight
-                    );
+
+                for (Entity e : entityList) {
+                    if (e.equals(Avatar.getAvatar())) {
+                        g.setColor(Color.red);
+                    } else {
+                        g.setColor(Color.pink);
+                    }
+
+                    //Draw Entities
+                    if (e.getLocation().equals(new Point(i, j))) {
+                        g.fillRect((i - startX) * tileWidth,
+                                (j - startY) * tileHeight,
+                                tileWidth,
+                                tileHeight
+                        );
+                    }
+
                 }
+
+                //Draw Coordinates
                 g.setColor(Color.blue);
                 String coordinate = "(" + i + "," + j + ")";
                 int strX = (i - startX) * tileWidth + tileWidth / 2 - g.getFontMetrics().stringWidth(coordinate) / 2;
@@ -90,7 +99,6 @@ public class MapViewPort implements ViewPort, Observer {
         widthInTiles = tiles.length;
         heightInTiles = tiles[0].length;
 
-        
         entityList = (ArrayList<Entity>) mapObjects[1];
 
     }

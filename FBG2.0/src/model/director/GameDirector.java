@@ -6,6 +6,7 @@ import model.menu.Menu;
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 import model.entity.Avatar;
+import model.entity.WalkInLoopAIEntity;
 import model.map.GameMap;
 import model.menu.Menu.MenuOption;
 import view.window.GameWindow;
@@ -13,6 +14,7 @@ import view.scene.Scene;
 import view.viewport.MainMenuViewPort;
 import view.viewport.MapViewPort;
 import view.viewport.PauseMenuViewPort;
+import view.viewport.StatusViewPort;
 
 /**
  * This class is the director of our game, integrating the various subsystems.
@@ -74,7 +76,9 @@ public class GameDirector {
         //Create Map
         map1 = new GameMap();
         Avatar a = new Avatar();
+        WalkInLoopAIEntity e = new WalkInLoopAIEntity();
         map1.addEntity(Avatar.getAvatar());
+        map1.addEntity(e);
         
         //Create Pause Menu 
         MenuOption[] pauseMenuOptions = {MenuOption.RESUME_GAME, MenuOption.SAVE_GAME, MenuOption.RETURN_TO_MAIN_MENU};
@@ -85,14 +89,17 @@ public class GameDirector {
         //Create Viewports
         MapViewPort mapVP = new MapViewPort();
         PauseMenuViewPort pauseVP = new PauseMenuViewPort();
+        StatusViewPort statusVP = new StatusViewPort();
 
         //Add viewports to scene
         gameScene.addViewport(mapVP);
         gameScene.addViewport(pauseVP);
+        gameScene.addViewport(statusVP);
 
         //Add viewports as observers to model objects.
         map1.addObserver(mapVP);
         pauseMenu.addObserver(pauseVP);
+        a.addObserverOfStats(statusVP);
 
         //Add controllers to window
         pauseMenuKC = new MenuKeyController(pauseMenu, gameScene);

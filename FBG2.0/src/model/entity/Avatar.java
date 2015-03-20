@@ -1,6 +1,8 @@
 
 package model.entity;
 
+import view.viewport.StatusViewPort;
+
 
 /**
  *
@@ -21,6 +23,10 @@ public class Avatar extends Entity {
      */
     public static Avatar getAvatar(){
         return avatar;
+    }
+
+    public void addObserverOfStats(StatusViewPort statusVP) {
+        myStats.addObserver(statusVP);
     }
 
     

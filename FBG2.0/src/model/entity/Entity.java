@@ -2,6 +2,7 @@ package model.entity;
 
 import java.awt.Point;
 import model.map.Direction;
+import model.stats.PlayerStats;
 
 /**
  * The class Entity defines a common type for all entities (beings) in the game.
@@ -14,6 +15,8 @@ public class Entity {
     protected Inventory myInventory;
     protected Occupation myOccupation;
     protected Direction myDirection;
+    protected PlayerStats myStats;
+    
     protected int speed;
     protected Point location;    
     
@@ -27,12 +30,27 @@ public class Entity {
         speed = 1;
         myDirection = Direction.North;
         location = new Point(1,1);
+        myStats = new PlayerStats();
     }
     
     public Direction getDirection() {
         return myDirection;
     }
     
+    
+    /**
+     * Kill the entity in the game. 
+     */
+    public void kill(){
+        
+    }
+    
+    /**
+     * Sets the direction that the entity will face and move in.
+     * @param d the direction it will face.
+     * 
+     * POSTCONDITION: Entity's myDirection will equal d.
+     */
     public void setDirection(Direction d){
         myDirection = d;
     }
@@ -62,7 +80,7 @@ public class Entity {
     }
     
     /**
-     * Get the location of the entity on the map.
+     * Get the location of the entity.
      * @return the location of the entity as a point (unit is tiles)
      */
     public Point getLocation(){
@@ -78,6 +96,9 @@ public class Entity {
         location = new Point(x, y);
     }
     
+    /**
+     * Changes the entity's location by translating the position by the velocity.
+     */
     public void move() {
         /*System.out.println("IsMovingX:" + isMovingX);
         System.out.println("Speed: " + speed);
