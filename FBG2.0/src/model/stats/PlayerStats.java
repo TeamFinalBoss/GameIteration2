@@ -101,33 +101,6 @@ public class PlayerStats extends Stats  {
 			hpCurrent = experienceNew;
 		}
 		
-		@Override
-		public String toXML() {
-			String superXML = super.toXML();
-			BufferedReader reader = new BufferedReader(new StringReader(superXML));
-			String xml = "<PlayerStats>\n";
-			String curLine;
-			
-			try {
-				while((curLine = reader.readLine()) != null)
-				{
-					xml += "\t" + curLine + "\n";
-				}
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			xml += "\t<hpCurrent>" + hpCurrent + "</hpCurrent>\n";
-			xml += "\t<mpCurrent>" + mpCurrent + "</mpCurrent>\n";
-			xml += "\t<level>" + level + "</level>\n";
-			xml += "\t<livesLeft>" + livesLeft + "</livesLeft>\n";
-			xml += "\t<experience>" + experience + "</experience>\n";
-			
-			xml += "</PlayerStats>\n";
-			
-			return xml;
-		}
 		
 		
 }

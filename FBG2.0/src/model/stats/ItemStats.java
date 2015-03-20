@@ -61,30 +61,8 @@ public class ItemStats extends Stats{
 			value += valueMod;
 		}
 
-		@Override
-		public String toXML() {
-			String superXML = super.toXML();
-			BufferedReader reader = new BufferedReader(new StringReader(superXML));
-			String xml = "<ItemStat>\n";
 		
-			String curLine;
-			try {
-				while((curLine = reader.readLine()) != null)
-				{
-					xml += "\t" + curLine + "\n";
-				}
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			//xml += "\n";
-			xml += "\t<durability>" + this.durability + "</durability>\n";
-			xml += "\t<value>" + this.value + "</value>\n";
-			xml += "\n";
-			
-			xml += "</ItemStat>";
-			return xml;
-		}
+		
 		
 		
 	
