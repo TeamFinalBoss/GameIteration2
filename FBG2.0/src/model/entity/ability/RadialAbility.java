@@ -78,6 +78,12 @@ public class RadialAbility extends Ability
 		this.radius = radius;
 	}
 
+	/**
+	* @author Aaron Iglesias
+	* checks if entity falls within the range of an ability
+	* @param Entity caster, Entity entity
+	* @return boolean
+	*/
 	public boolean inRange(Entity caster, Entity entity)
 	{
 		if(degree == 0)
@@ -154,11 +160,11 @@ public class RadialAbility extends Ability
 
 		// point on left line
 		Lx = 1;
-		Ly = - Math.tan(Math.PI / 2 - radian) * Lx;
+		Ly = - Math.tan(Math.PI / 2 - radian / 2) * Lx;
 
 		// point on right line
 		Rx = 1;
-		Ry = Math.tan(Math.PI / 2 - radian) * Rx;
+		Ry = Math.tan(Math.PI / 2 - radian / 2) * Rx;
 
 		boolean rightOfLeftLine = ((0 - Lx) * (y - Ly) - (0 - Ly) * (x - Lx)) >= 0;
 		boolean leftOfRightLine = ((0 - Rx) * (y - Ry) - (0 - Ry) * (x - Rx)) <= 0;

@@ -95,17 +95,6 @@ public abstract class Ability {
     {
         this.effect = effect;
     }
-    
-    /**
-    *
-    * @author Jason Owens
-    * To be overridden by subclasses
-    * @param callingEntity 
-    * 
-    * @return ArrayList of Coordinates affected by ability
-    */
-    //returns CoordinatePairs relative to (0,0) as entity location
-    protected abstract ArrayList<CoordinatePair> getAffectedTiles(Entity entity);
 
     /**
     * @author Aaron Iglesias
