@@ -50,7 +50,7 @@ public abstract class Entity extends MapObject{
     	myInventory = createInventory();
     	myAbilities = createAbilities();
     	myStats = createStats();
-    	myDirection = Direction.NORTH;
+    	myDirection = Direction.North;
     	activeMap = ActiveMapManager.getInstance();
     	currency = 0;
     	motionType = MotionType.GROUND;
