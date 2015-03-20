@@ -12,7 +12,7 @@ public class SackDetails extends Observable implements IntegerObserver, Selectab
 	
 	public SackDetails() {
 		currentSelection = 0;
-		update(25);
+		update(50);
 	}
 	
 	public SackDetails(int selection, int displaySize) {

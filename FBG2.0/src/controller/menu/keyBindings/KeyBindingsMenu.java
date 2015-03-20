@@ -73,13 +73,13 @@ public class KeyBindingsMenu extends Observable implements Describeable, Menuabl
 
 	public void next() {
 		int index = bindingsOptions.indexOf(currentSelection);
-		index = ++index % bindingsOptions.size();
+		index = index + 1 <= bindingsOptions.size() - 1 ? index + 1 : index; 
 		setActiveOption(bindingsOptions.get(index));
 	}
 	
 	public void previous() {
 		int index = bindingsOptions.indexOf(currentSelection);
-		index = index - 1 < 0 ? bindingsOptions.size() - 1 : index - 1;
+		index = index - 1 < 0 ? 0 : index - 1;
 		setActiveOption(bindingsOptions.get(index));
 	}
 	

@@ -3,11 +3,16 @@ package view.viewport;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.util.Observable;
+
+import controller.util.Describeable;
 
 public class KeyBindingsMenuViewPort extends MainMenuViewPort {
 
 	private final int logoY = 100;
 	private final int maximumOptionsDisplayed = 9;
+	private int minimumRow = 0;
+	private int maximumRow = minimumRow + maximumOptionsDisplayed;
 	
 	public KeyBindingsMenuViewPort() {
 		
@@ -26,21 +31,36 @@ public class KeyBindingsMenuViewPort extends MainMenuViewPort {
 		g.setFont(new Font(g.getFont().getFamily(), Font.PLAIN, 30));
 		try {
         if (options != null) {
-            for (int i = activeOptionIndex; i < activeOptionIndex + maxIterations; i++) {
+            for (int i = minimumRow; i < minimumRow + maxIterations; i++) {
                 if (i == activeOptionIndex) {
                     g.setColor(Color.red);
                 } else {
                     g.setColor(Color.black);
                 }
-                int stringWidth = g.getFontMetrics().stringWidth(options[i % (options.length)]);
+                int stringWidth = g.getFontMetrics().stringWidth(options[i]);
                 int stringHeight = g.getFontMetrics().getHeight();
                 int padding = 25;
-                g.drawString(options[i % (options.length)], (width / 2) - (stringWidth / 2), (i  - activeOptionIndex) * (stringHeight + padding) + logoY + logoHeight + stringHeight + padding);
+                g.drawString(options[i], (width / 2) - (stringWidth / 2), (i - minimumRow ) * (stringHeight + padding) + logoY + logoHeight + stringHeight + padding);
             }
         }
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
 		}
 	}
+
+	@Override
+    public void update(Observable o, Object arg) {
+		super.update(o, arg);
+        int currentIndex = super.currentSelectionIndex();
+        if(currentIndex >= maximumRow) {
+        	++maximumRow;
+        	++minimumRow;
+        } else if(currentIndex < minimumRow) {
+        	--maximumRow;
+        	--minimumRow;
+        }
+    }
+
+	
 	
 }
