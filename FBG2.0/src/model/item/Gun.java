@@ -1,0 +1,63 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package model.item;
+
+import model.effect.DealDamageEffect;
+import model.effect.Effect;
+import model.entity.Entity;
+import model.map.pair.CoordinatePair;
+
+/**
+ *  ID=25;
+ * @author ashishag
+ */
+public class Gun extends Weapon{
+    
+    public Gun(){
+		super("Gun", "Generic description", new CoordinatePair(), 0, 1, 
+                        EquipSlot.HEAD, Effect E1);
+		
+		this.id = "25";
+		this.className = "Gun";
+                this.E1= new DealDamageEffect(80); 
+             
+                
+		
+		//Other properties set here
+	}
+	
+	public Gun(String objectName, String description, CoordinatePair 
+                location, int value, int durability, EquipSlot slot, Effect E1){
+		super(objectName, description, location, value, durability, slot, E1);
+		
+		this.id = "25";
+		this.className = "Gun";	
+                
+                this.durability=durability;
+		//Other properties set here
+	} 
+        
+        
+    @Override
+        public void attack(Entity e){
+            E1.applyEffect(e);
+        }
+        
+        
+    @Override
+          public Effect getEffect(){
+            return E1; 
+        }
+        
+    @Override
+        public void setEffect(Effect E1){
+            this.E1= E1;
+        }
+        
+        //TODO- Projectile motion has to be added
+    
+        public abstract void projectileEffect();
+}
