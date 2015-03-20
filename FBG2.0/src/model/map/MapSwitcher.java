@@ -33,8 +33,8 @@ public class MapSwitcher extends MapObject {
 		map1 = new GameMap();
 		map2 = new GameMap();
 		
-		this.id = "11";
-		this.className = "MapSwitcher";
+		this.setID("11");
+		this.setClassName("MapSwitcher");
 		
 		manager = ActiveMapManager.getInstance();
 		currentMapToggle = false;
@@ -43,8 +43,8 @@ public class MapSwitcher extends MapObject {
 	public MapSwitcher(String objectName, String description, GameMap m1, CoordinatePair l1, GameMap m2, CoordinatePair l2){
 		super(objectName, description, l1);
 		
-		this.id = "11";
-		this.className = "MapSwitcher";
+		this.setID("11");
+		this.setClassName("MapSwitcher");
 		
 		location1 = l1;
 		location2 = l2;

@@ -229,7 +229,7 @@ public class GameMap extends Observable {
      * @return true if switcher was added to the map
      */
     public final boolean addMapSwitcher(MapSwitcher switcher, CoordinatePair CP){
-    	if (CoordPairIsValid(CP), && switchers.getObjectAt(CP) == null) {
+    	if (CoordPairIsValid(CP) && switchers.getObjectAt(CP) == null) {
     		this.switchers.addObject(switcher, CP);
     		updateView();
     		return true;

@@ -21,9 +21,9 @@ public class Interactive extends Item {
 	public Interactive(){
 		super("Generic Interactive", "Generic description", new CoordinatePair());
 		
-		this.id = "4";
-		this.className = "Interactive";
-                this.hasBeenUsed= false; 
+		this.setID("4");
+		this.setClassName("Interactive");
+        this.hasBeenUsed= false; 
 		
 		//Other properties set here
 	}
@@ -32,8 +32,9 @@ public class Interactive extends Item {
                 boolean hasBeenUsed){
 		super(objectName, description, location);
 		
-		this.id = "4";
-		this.className = "Interactive";
+		this.setID("4");
+		this.setClassName("Interactive");
+
                 this.hasBeenUsed = hasBeenUsed;
 		
 		//Other properties set here

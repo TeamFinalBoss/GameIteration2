@@ -26,8 +26,8 @@ public abstract class Takeable extends Item {
 	public Takeable(){
 		super("Generic Takeable", "Generic description", new CoordinatePair());
 		
-		this.id = "3";
-		this.className = "Takeable";
+		this.setID("3");
+		this.setClassName("Takeable");
                 this.value= 0; 
                 this.durability=1;
 		
@@ -39,8 +39,8 @@ public abstract class Takeable extends Item {
 	public Takeable(String objectName, String description, CoordinatePair location, int value, int durability){
 		super(objectName, description, location);
 		
-		this.id = "3";
-		this.className = "Takeable";
+		this.setID("3");
+		this.setClassName("Takeable");
                 this.value=value;
                 this.durability=durability;
 

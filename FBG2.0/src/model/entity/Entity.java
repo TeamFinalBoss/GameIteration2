@@ -65,6 +65,9 @@ public abstract class Entity extends MapObject{
     	activeMap = ActiveMapManager.getInstance();
     	currency = 0;
     	motionType = MotionType.GROUND;
+    	
+		this.setID("1");
+		this.setClassName("Entity");
     }
     
     /* -------------------- PRIVATE UTILITY -------------------- */
