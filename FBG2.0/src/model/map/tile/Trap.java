@@ -21,9 +21,9 @@ public abstract class Trap extends MapObject{
 	
 	Trap(){
 		super("Generic Trap", "Generic description", new CoordinatePair());
-		
-		this.id = "7";
-		this.className = "Trap";
+	
+		this.setID("7");
+		this.setClassName("Trap");
 		
 		//Other properties set here
 		this.difficulty = 0;
@@ -33,8 +33,8 @@ public abstract class Trap extends MapObject{
 			int difficulty){
 		super(objectName, description, location);
 		
-		this.id = "7";
-		this.className = "Trap";
+		this.setID("7");
+		this.setClassName("Trap");
 		
 		//Other properties set here
 		this.difficulty = difficulty;

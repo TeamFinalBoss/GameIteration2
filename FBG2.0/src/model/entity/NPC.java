@@ -30,10 +30,10 @@ public class NPC extends Entity {
 		private EntityLink partner;
 		
 		public NPC() {
-			super();
+			super("Generic NPC", "Generic Description", new CoordinatePair());
 			
-			this.className = "NPC";
-			this.id = "10";
+			this.setID("10");
+			this.setClassName("NPC");
 			
 			dt = new DT_Default();
 			sf = new Storefront();
@@ -45,8 +45,8 @@ public class NPC extends Entity {
 		    		Inventory inventory, Occupation occupation, Direction direction, int speed, DialogueTree dt, Storefront sf, boolean friendly, EntityLink partner){
 		    	super(objectName, description, location, inventory, occupation, direction, speed);
 		    	
-		    	this.className = "NPC";
-		    	this.id = "10";
+				this.setID("10");
+				this.setClassName("NPC");
 		    	
 		    	this.dt = dt;
 		    	this.sf = sf;
