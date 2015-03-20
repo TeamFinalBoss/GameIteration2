@@ -1,4 +1,5 @@
-package model.entity;
+package model.entity.stats;
+
 
 public class SneakStats extends Stats {
 	/* -------------------- SMASHER SKILLS -------------------- */

@@ -1,6 +1,6 @@
-package model.entity;
+package model.entity.stats;
 
-public class Stats {
+public abstract class Stats {
 	/* -------------------- PRIMARY ATTRIBUTES -------------------- */
 	private int livesLeft;
 	private int strength;

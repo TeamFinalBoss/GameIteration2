@@ -33,4 +33,7 @@ public class Stick extends Takeable {
 		//Other properties set here
 	}
     
+	public Takeable copy() {
+		return new Stick(this.getName(), this.getDescription(), this.getLocation(), this.getValue(), this.getDurability());
+	}
 }

@@ -6,33 +6,30 @@
 package model.item;
 
 import model.map.pair.CoordinatePair;
-;
 
 /**
- * ID= 18;
+ * ID=21;
  * @author ashishag
  */
-public class HelmOfLight extends Equipable {
-     
-    
-   public HelmOfLight(){
+public class TreasureChest extends Equipable {
+    public TreasureChest(){
 		super("Generic Eqipable", "Generic description", 
                         new CoordinatePair(), 0, 1, EquipSlot.HEAD);
 		
-		this.id = "18";
-		this.className = "HelmOfLight";
+		this.id = "21";
+		this.className = "TreasureChest";
                 
                 
 		
 		//Other properties set here
 	}
 	
-	public HelmOfLight(String objectName, String description, 
+	public TreasureChest(String objectName, String description, 
                 CoordinatePair location, int value, EquipSlot slot){
 		super(objectName, description, location, value, 1, EquipSlot.HEAD);
 		
-		this.id = "18";
-		this.className = "HelmOfLight";
+		this.id = "21";
+		this.className = "TreasureChest";
                 this.slot= slot; 
                
 		
@@ -50,7 +47,5 @@ public class HelmOfLight extends Equipable {
             
         }
     
-        public Takeable copy() {
-    		return new HelmOfLight(this.getName(), this.getDescription(), this.getLocation(), this.getValue(), this.getSlot());
-    	}
+    
 }

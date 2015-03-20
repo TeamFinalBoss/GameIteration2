@@ -1,6 +1,5 @@
-package model.entity;
+package model.entity.inventory;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import model.item.Takeable;
@@ -9,7 +8,7 @@ import model.item.Takeable;
  * @author Aidan Pace & Code from Matthew Kroeze
  */
 public class Storefront {
-	private List<Takeable> contents;
+	private List<StoreEntry> contents;
 	
 	private void validatePosition(int position){
 		if(position < 0 || position >= contents.size()){
@@ -18,14 +17,20 @@ public class Storefront {
 	}
 	
 	public Storefront() {
-		contents = new ArrayList<Takeable>();
+		contents = new ArrayList<StoreEntry>();
 	}
 	
 	/** Returns the ordered contents of the store
 	 * @return an unmodifiable <code>List</code> of the store contents 
 	 */
 	public List<Takeable> contents() {
-		return Collections.unmodifiableList(contents);
+		List<Takeable> t = new ArrayList<Takeable>();
+		
+		for(StoreEntry e : contents) {
+			t.add(e.getItem());
+		}
+		
+		return t;
 	}
 	
 	/**
@@ -38,7 +43,7 @@ public class Storefront {
 	 */
 	public int payForItem(int position) {
 		validatePosition(position);
-		return (contents.get(position).getValue() * -1);
+		return (contents.get(position).getItem().getValue() * -1);
 	}
 	
 	/**
@@ -50,7 +55,10 @@ public class Storefront {
 	 */
 	public Takeable buyItem(int position) {
 		validatePosition(position);
-		return contents.remove(position);
+		StoreEntry e = contents.get(position);
+		Takeable i = e.vendItem();
+		if(e.getAmt() == 0) contents.remove(position);
+		return i;
 	}
 	
 	/**
@@ -62,8 +70,49 @@ public class Storefront {
 	 * @return the change in currency that will occur
 	 */
 	public int sellItem(Takeable item) {
-		contents.add(item);
+		
+		for(StoreEntry e : contents) {
+			if(e.getItem().getName().equals(item.getName())) {
+				e.addItem(item);
+				return item.getValue();
+			}
+		}
+		
+		StoreEntry n = new StoreEntry(item, 1);
+		contents.add(n);
 		return item.getValue();
+	}
+	
+	private class StoreEntry {
+		Takeable item;
+		int amt;
+		
+		public StoreEntry(Takeable item, int amt) {
+			this.item = item;
+			this.amt = amt;
+		}
+		
+		public Takeable getItem() { return item; }
+		public int getAmt() { return amt; }
+		
+		public void addItem(Takeable item) {
+			if(amt == -1) return;
+			amt += 1;
+			return;
+		}
+		
+		public Takeable vendItem() {
+			if(amt >= 0) {
+				amt -= 1;
+				return item.copy();
+			}
+			
+			if(amt == -1) {
+				return item.copy();
+			}
+			
+			return null;
+		}
 	}
 
 }

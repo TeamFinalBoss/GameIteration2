@@ -1,8 +1,12 @@
-package model.entity;
+package model.entity.inventory;
 import java.util.List;
+
+import model.entity.Entity;
 import model.item.Takeable;
 import model.item.Equipable;
+
 import java.util.Map;
+
 import model.item.EquipSlot;
 /** An Inventory object belongs to a singular Entity and holds the items of that entity.
  * @author Matthew Kroeze

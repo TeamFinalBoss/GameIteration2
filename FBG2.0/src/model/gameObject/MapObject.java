@@ -11,12 +11,12 @@ import model.map.pair.CoordinatePair;
  */
 
 public abstract class MapObject {
-	protected String id;
-	protected String name;
-	protected String className;
-	protected String description;
+	private String id;
+	private String name;
+	private String className;
+	private String description;
 	 
-	protected CoordinatePair location;
+	private CoordinatePair location;
 	
 	
 	//This constructor should be called only after the subclass constructor is called
