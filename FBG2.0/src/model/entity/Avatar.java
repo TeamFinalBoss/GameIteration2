@@ -14,6 +14,9 @@ import model.map.pair.CoordinatePair;
  * @author Michael Cohen
  *
  */
+
+public interface Avatar {}
+/*
 public class Avatar extends Entity {
 
 	private static Avatar avatar = null;
@@ -52,3 +55,4 @@ public class Avatar extends Entity {
 		return avatar;
 	}
 }
+*/

@@ -22,7 +22,7 @@ public abstract class SmasherEntity extends Entity{
 	}
 	
 	/* -------------------- CONSTRUCTORS -------------------- */
-	SmasherEntity(String objectName,
+	public SmasherEntity(String objectName,
 				  String description,
 				  CoordinatePair location){
 		super(objectName,description,location);

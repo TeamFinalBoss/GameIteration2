@@ -1,7 +1,9 @@
 package model.director;
 
-import model.entity.Avatar;
+import model.entity.Entity;
+import model.map.pair.CoordinatePair;
 import model.map.Direction;
+import model.entity.SummonerAvatar;
 
 /**
  * The purpose of this class is to handle commands, events, or general information
@@ -10,9 +12,9 @@ import model.map.Direction;
  * @author Jason Owens
  */
 public class AvatarInteractionManager {
-    private Avatar avatar;
+    private Entity avatar;
     private ActiveMapManager AMM;
-    
+    private static AvatarInteractionManager me = null;
     private int currentSlotInSack;
     private int currentSlotInArmory;
     
@@ -20,16 +22,23 @@ public class AvatarInteractionManager {
     public AvatarInteractionManager(){
        AMM = ActiveMapManager.getInstance();
     }
-    public AvatarInteractionManager(Avatar avatar){
+    public AvatarInteractionManager(Entity avatar){
         this.avatar = avatar;
     }
     
+    public static AvatarInteractionManager getInstance(){
+    	if(me == null){
+    		me = new AvatarInteractionManager();
+    		me.avatar = new SummonerAvatar("Bob", "My default avatar description", new CoordinatePair(10,10));
+    	}
+    	return me;
+    }
     
     public int getCurrentSlotInSack(){
         return currentSlotInSack;
     }
     
-    public int getCurrentSlotInArmory){
+    public int getCurrentSlotInArmory(){
         return currentSlotInArmory;
     }
     
@@ -52,6 +61,10 @@ public class AvatarInteractionManager {
     */
     public int getSackSize(){
         return avatar.getSackSize();
+    }
+    
+    public Entity getAvatar(){
+    	return avatar;
     }
     
     
