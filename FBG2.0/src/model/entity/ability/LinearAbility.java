@@ -1,7 +1,14 @@
 package model.entity.ability;
 
-import model.ability.Effect;
+import model.effect.Effect;
 import model.entity.Entity;
+
+import model.map.Direction;
+import model.director.CombatCoordinator;
+import model.map.pair.CoordinatePair;
+import java.util.ArrayList;
+import model.entity.Entity;
+import java.lang.Math.*;
 
 /**
 *
@@ -54,13 +61,25 @@ public class LinearAbility extends Ability
 		this.range = range;
 	}
 
-	@Override
-	protected abstract ArrayList<CoordinatePair> getAffectedTiles(Entity entity)
+	public boolean inRange(Entity caster, Entity entity)
 	{
-		Direction direction = entity.getDirection();
-		CoordinatePair coordinatePair = entity.getLocation();
-		
+		boolean inRange;
+		int x1, y1, x2, y2;
 
-		return;
+		CoordinatePair casterCoordinatePair = caster.getLocation();
+		CoordinatePair entityCoordinatePair = entity.getLocation();
+
+		x1 = casterCoordinatePair.getX();
+        y1 = casterCoordinatePair.getY();
+
+        x2 = entityCoordinatePair.getX();
+        y2 = entityCoordinatePair.getY();
+
+        inRange = Math.sqrt(Math.pow(x1 - x2,2) + Math.pow(y1 - y2, 2)) <= range;
+
+        if(inRange)
+        	return true;
+        else
+        	return false;
 	}
 }

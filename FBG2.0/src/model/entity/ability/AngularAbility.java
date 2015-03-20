@@ -1,9 +1,8 @@
 package model.entity.ability;
 
-import model.ability.Effect;
+import model.effect.Effect;
 import model.entity.Entity;
 
-import model.ability.effects.Effect;
 import model.map.Direction;
 import model.director.CombatCoordinator;
 import model.map.pair.CoordinatePair;
@@ -37,7 +36,7 @@ public class AngularAbility extends Ability
 	* constructor for AngularAbility
 	* @param radius
 	*/
-	public AngularAbility(String name, Effect effect, CombatCoordinator myCC, Effect cost, double degree, double radius)
+	public AngularAbility(String name, Effect effect, CombatCoordinator myCC, Effect cost, int degree, double radius)
 	{
 		super(name, effect, myCC, cost);
 		this.degree = degree;
@@ -67,7 +66,7 @@ public class AngularAbility extends Ability
 	* sets the degree of AngularAbility
 	* @param degree
 	*/
-	public void setDegree(double degree)
+	public void setDegree(int degree)
 	{
 		// invalid degree
 		if(degree < 0 || degree > 360)
@@ -94,7 +93,6 @@ public class AngularAbility extends Ability
 	* @param Entity entity, Entity caster
 	* @return boolean
 	*/
-	
 	public boolean inRange(Entity caster, Entity entity)
 	{
 		if(degree == 0)
@@ -103,12 +101,13 @@ public class AngularAbility extends Ability
 		CoordinatePair casterCoordinatePair = caster.getLocation();
 		CoordinatePair entityCoordinatePair = entity.getLocation();
 
-		// scale center of caster to coordinate (0,0)
-		// scale location of entity accordingly
+		// scale location of entity relative to caster's location
 		double x = entityCoordinatePair.getX() - casterCoordinatePair.getX();
 		double y = entityCoordinatePair.getY() - casterCoordinatePair.getY();
 
-		boolean inCircle = Math.pow(x,2) + Math.pow(y,2) <= Math.pow(radius,2);
+		boolean inCircle, rightOfLeftLine, leftOfRightLine;
+
+		inCircle = Math.pow(x,2) + Math.pow(y,2) <= Math.pow(radius,2);
 
 		if(!inCircle)
 			return false;
@@ -161,6 +160,7 @@ public class AngularAbility extends Ability
 		x = Math.cos(rotate) * x - Math.sin(rotate) * y;
 		y = Math.sin(rotate) * x + Math.cos(rotate) * y;
 
+		// check if entity is within semicircle
 		if(degree == 180)
 		{
 			if(Math.sqrt(Math.pow(x,2) + Math.pow(y,2)) <= radius)
@@ -177,11 +177,11 @@ public class AngularAbility extends Ability
 		Rx = 1;
 		Ry = Math.tan(Math.PI / 2 - radian / 2) * Rx;
 
-		boolean rightOfLeftLine = ((0 - Lx) * (y - Ly) - (0 - Ly) * (x - Lx)) >= 0;
-		boolean leftOfRightLine = ((0 - Rx) * (y - Ry) - (0 - Ry) * (x - Rx)) <= 0;
-
 		if(degree < 180)
 		{
+			rightOfLeftLine = ((0 - Lx) * (y - Ly) - (0 - Ly) * (x - Lx)) <= 0;
+			leftOfRightLine = ((0 - Rx) * (y - Ry) - (0 - Ry) * (x - Rx)) <= 0;
+
 			if(rightOfLeftLine && leftOfRightLine)
 				return true;
 			else
@@ -190,12 +190,14 @@ public class AngularAbility extends Ability
 
 		else // if(degree > 180)
 		{
-			if(rightOfLeftLine || leftOfRightLine)
+			rightOfLeftLine = ((0 - Lx) * (y - Ly) - (0 - Ly) * (x - Lx)) > 0;
+			leftOfRightLine = ((0 - Rx) * (y - Ry) - (0 - Ry) * (x - Rx)) > 0;
+
+			if(!(rightOfLeftLine && leftOfRightLine))
 				return true;
 			else
 				return false;
 		}
-
 	}
 
 	/*
