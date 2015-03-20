@@ -5,11 +5,10 @@
  */
 package model.effect;
 
-import model.entity.SummonerStats;
-import model.entity.SmasherStats;
-import model.entity.SneakStats;
-
 import model.entity.Entity;
+import model.entity.stats.SmasherStats;
+import model.entity.stats.SneakStats;
+import model.entity.stats.SummonerStats;
 
 /**
  * //Not complete; Matthew to assist;

@@ -1,5 +1,7 @@
-package model.entity;
+package model.entity.inventory;
+import model.entity.Entity;
 import model.item.Takeable;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Collections;

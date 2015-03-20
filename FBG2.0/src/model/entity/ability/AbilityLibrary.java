@@ -5,6 +5,9 @@ import java.util.List;
 
 import model.entity.Entity;
 
+
+//TODO: add the following operation: useAbility(int position)
+
 /**
  * The purpose of this class is to serve as a container for Spells, passing commands downward from [TBD, Entity?]
  * @author Jason Owens, Matthew Kroeze

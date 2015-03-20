@@ -1,4 +1,5 @@
-package model.entity;
+package model.entity.stats;
+
 
 public class SmasherStats extends Stats {
 	/* -------------------- SMASHER SKILLS -------------------- */

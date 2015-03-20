@@ -5,6 +5,8 @@ import java.util.List;
 import model.dialogue.DialogueActions;
 import model.dialogue.DialogueTree;
 import model.dialogue.unique.DT_Default;
+import model.entity.inventory.Inventory;
+import model.entity.inventory.Storefront;
 import model.item.Takeable;
 import model.link.EntityLink;
 import model.link.Link;

@@ -10,10 +10,10 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import model.director.ActiveMapManager;
-import model.entity.Armory;
-import model.entity.Inventory;
 import model.entity.Occupation;
-import model.entity.Sack;
+import model.entity.inventory.Armory;
+import model.entity.inventory.Inventory;
+import model.entity.inventory.Sack;
 import model.item.Equipable;
 import model.item.Takeable;
 import model.map.GameMap;

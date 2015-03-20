@@ -1,5 +1,6 @@
 package model.entity;
 
+import model.entity.inventory.Inventory;
 import model.map.Direction;
 import model.map.pair.CoordinatePair;
 
