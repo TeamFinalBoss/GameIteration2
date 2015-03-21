@@ -436,6 +436,7 @@ public class GameMap extends Observable {
         else{
             return false;
         }
+        return true;
     }
     
     public void useAbility(Entity e, int abilityToUse){
