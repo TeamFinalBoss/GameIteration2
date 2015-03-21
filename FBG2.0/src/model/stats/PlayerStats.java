@@ -31,7 +31,7 @@ public class PlayerStats extends Stats {
     }
 
     public PlayerStats() {
-        this(1, 1, 1, 1, 1, 1, 0, 100, 100, 1, 1, 1, 1, 1);
+        this(1, 1, 1, 1, 1, 1, 0, 100, 100, 1, 1, 1, 1, 10);
     }
 
     public int getCurrentHealth() {
@@ -66,6 +66,8 @@ public class PlayerStats extends Stats {
         currentMana += value;
         if(currentMana > maxMana) currentMana = maxMana;
         if(currentMana < 0) currentMana = 0;
+        this.setChanged();
+        this.notifyObservers(this);
     }
 
     public void setCurrentHealth(int value) {
@@ -103,4 +105,15 @@ public class PlayerStats extends Stats {
     public int getHealthRegenPerSecond() {
         return healthRegenPerSecond;
     }
+
+    public void setManaRegenPerSecond(int manaRegenPerSecond) {
+        this.manaRegenPerSecond = manaRegenPerSecond;
+    }
+
+    public void setHealthRegenPerSecond(int healthRegenPerSecond) {
+        this.healthRegenPerSecond = healthRegenPerSecond;
+    }
+    
+    
+
 }

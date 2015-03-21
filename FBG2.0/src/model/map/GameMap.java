@@ -1,11 +1,11 @@
 package model.map;
 
 import java.util.ArrayList;
-import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.Observable;
 import java.util.Observer;
 import model.director.CombatCoordinator;
+import model.gameObject.GameObject;
 import model.map.tile.Tile;
 import model.gameObject.entity.Entity;
 import model.gameObject.projectile.Projectile;
@@ -24,6 +24,7 @@ import model.gameObject.projectile.Projectile;
  */
 public class GameMap extends Observable {
 
+    private ArrayList<GameObject> gameObjList;
     private ArrayList<Entity> entityList;
     private ArrayList<Projectile> projectileList;
     private Tile[][] tiles;
@@ -38,8 +39,9 @@ public class GameMap extends Observable {
 
         this.tiles = t;
 
-        entityList = new ArrayList<Entity>();
-        projectileList = new ArrayList<Projectile>();
+        entityList = new ArrayList<>();
+        projectileList = new ArrayList<>();
+        gameObjList = new ArrayList<>();
     }
 
     public GameMap(Tile[][] tiles) {
@@ -50,10 +52,12 @@ public class GameMap extends Observable {
 
     public void addEntity(Entity e) {
         entityList.add(e);
+        gameObjList.add(e);
     }
 
     public void addProjectile(Projectile p) {
         projectileList.add(p);
+        gameObjList.add(p);
     }
 
     /**
@@ -179,4 +183,5 @@ public class GameMap extends Observable {
     public void checkProjectiles() {
         CombatCoordinator.checkCollideProjectiles(projectileList, entityList);
     }
+
 }

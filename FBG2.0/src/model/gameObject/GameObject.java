@@ -9,7 +9,6 @@ import model.factory.SpriteFactory;
 public class GameObject {
 	protected int id;
 	private String name;
-	private String className;
 	private String description;
         private String spritePath = null;
 	
@@ -21,7 +20,6 @@ public class GameObject {
 	//This constructor should be called only after the subclass constructor is called
 	public GameObject(){
 		name = "Generic Object";
-		className = "GameObject";
 		description = "Generic description";
 		location = new Point(1, 1); // default constructor, (0 , 0)
 		
@@ -30,7 +28,6 @@ public class GameObject {
 	public GameObject(String className, String objectName, String description , int ID){
 		//this.id = -1;	//should always be overriden
 		this.name = objectName;
-		this.className = className;
 		this.description = description;
 		this.id = ID;
 		location = new Point(1, 1);
@@ -47,7 +44,6 @@ public class GameObject {
         public int getState(){return 0;}
 	public int getID(){ return id; }
 	public void setID(int id) {this.id = id;}
-	public String getClassName(){ return className; }
 	public String getDescription(){ return description; }
 	public String getName() { return name; }
 	public Point getLocation() { return location; };

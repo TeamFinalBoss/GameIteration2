@@ -90,11 +90,19 @@ public class Stats extends Observable {
         return speed;
     }
 
+    /**
+     * Speed should be a number from 0 to getFPS.
+     *
+     * @param speed is how many frames it takes before an entity move to the
+     * next tile. Thus,ß ironcially a speed of 1 is faster than a speed of 30.
+     *
+     * PRECONDITIONS: speed > 0 < GameEngine.getFPS();
+     */
     public void setSpeed(int speed) {
         this.speed = speed;
         this.setChanged();
         this.notifyObservers(this);
-        
+
     }
 
     public void setStrength(int nextStr) {

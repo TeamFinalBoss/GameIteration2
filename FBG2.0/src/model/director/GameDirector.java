@@ -6,6 +6,7 @@ import controller.SackMouseController;
 import model.menu.Menu;
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;
+import java.util.Observable;
 import model.gameObject.entity.Avatar;
 import model.gameObject.entity.WalkInLoopAIEntity;
 import model.map.GameMap;
@@ -28,7 +29,7 @@ import view.viewport.StatusViewPort;
  *
  * @author ChrisMoscoso
  */
-public class GameDirector {
+public class GameDirector extends Observable {
 
     private static Boolean paused = false;
     private static GameWindow window;
@@ -44,9 +45,11 @@ public class GameDirector {
 
     private static GameMap map1;
     private static GameMap activeMap;
+    private boolean timeToRegenEntities = true;
 
     private GameDirector() {
         window = new GameWindow();
+        Scene.setSceneSize(window.getSize());
         startMenuScene();
     }
 
@@ -85,7 +88,7 @@ public class GameDirector {
         e.setLocation(14, 7);
         map1.addEntity(Avatar.getAvatar());
         map1.addEntity(e);
-        
+
         //Create Pause Menu 
         MenuOption[] pauseMenuOptions = {MenuOption.RESUME_GAME, MenuOption.SAVE_GAME, MenuOption.RETURN_TO_MAIN_MENU};
         pauseMenu = new Menu(pauseMenuOptions);
@@ -98,7 +101,6 @@ public class GameDirector {
         StatusViewPort statusVP = new StatusViewPort();
         SackViewPort sackVP = new SackViewPort();
         ArmoryViewPort armoryVP = new ArmoryViewPort();
-        
 
         //Add viewports to scene
         gameScene.addViewPort(mapVP);
@@ -125,7 +127,7 @@ public class GameDirector {
 
         //Set game scene as active scene
         activeScene = gameScene;
-        
+
     }
 
     /**
@@ -135,8 +137,9 @@ public class GameDirector {
     public void updateGame() {
         if (!paused) {
             //The game is runnning
+            tick();
             if (map1 != null) {
-                map1.moveGameObjects();  
+                map1.moveGameObjects();
                 map1.regenerateEntities();
                 map1.checkProjectiles();
             }
@@ -199,7 +202,7 @@ public class GameDirector {
      */
     public static void pauseGame() {
         paused = true;
-        if(pauseMenu != null){
+        if (pauseMenu != null) {
             pauseMenu.show();
         }
     }
@@ -209,7 +212,7 @@ public class GameDirector {
      */
     public static void resumeGame() {
         paused = false;
-        if(pauseMenu != null){
+        if (pauseMenu != null) {
             pauseMenu.hide();
         }
     }
@@ -225,6 +228,7 @@ public class GameDirector {
 
     /**
      * Gets the active map
+     *
      * @return the map that is active
      */
     public static GameMap getActiveMap() {
@@ -233,17 +237,26 @@ public class GameDirector {
 
     /**
      * Sets the active map
+     *
      * @param activeMap is the new map to be active.
      */
     public static void setActiveMap(GameMap activeMap) {
         GameDirector.activeMap = activeMap;
     }
-    
+
     /**
      * Returns the user to the main menu. This is accomplished by simply setting
      * the menu scene to be active.
      */
     public static void returnToMainMenu() {
         setActiveScene(menuScene);
+    }
+
+    /**
+     * Ticks all observing game timers.
+     */
+    private static void tick() {
+        GameDirector.getGameDirector().setChanged();
+        GameDirector.getGameDirector().notifyObservers();
     }
 }

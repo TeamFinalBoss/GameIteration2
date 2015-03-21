@@ -4,11 +4,15 @@ import model.gameObject.entity.inventory.Inventory;
 import java.awt.Point;
 import java.util.Observable;
 import java.util.Observer;
+import model.ability.AbilityLibrary;
 import model.director.GameDirector;
 import model.factory.SpriteFactory;
 import model.gameObject.GameObject;
 import model.map.Direction;
 import model.stats.PlayerStats;
+import model.stats.Stats;
+import model.util.gameTimer.GameTimer;
+import model.util.gameTimer.GameTimerListener;
 
 /**
  * The class Entity defines a common type for all entities (beings) in the game.
@@ -16,18 +20,23 @@ import model.stats.PlayerStats;
  * @author Matthew Kroeze, Chris Moscoso
  * @version 1.0.0 2015-03-14
  */
-public class Entity extends GameObject implements Observer{
+public class Entity extends GameObject implements Observer {
 
     protected Inventory myInventory;
     protected Occupation myOccupation;
     protected Direction myDirection;
     protected PlayerStats myStats;
 
+    protected boolean canMove = true;
+    protected boolean moveHasBeenCommanded = false;
+
     protected Point location;
 
     private static Entity player;
     private int isMovingY;
     private int isMovingX;
+    private boolean canRegenHealth = true;
+    private boolean canRegenMana = true;
 
     public Entity() {
         myInventory = new Inventory(5);
@@ -101,12 +110,9 @@ public class Entity extends GameObject implements Observer{
         isMovingY = b ? 1 : 0;
     }
 
-    
     public PlayerStats getPlayerStats() {
         return myStats;
     }
-    
-    
 
     /**
      * Get the location of the entity.
@@ -132,23 +138,101 @@ public class Entity extends GameObject implements Observer{
      * velocity.
      */
     public void move() {
-        location.translate(isMovingX * myDirection.dx * myStats.getSpeed(), isMovingY * myDirection.dy * myStats.getSpeed());
+        if (canMove && moveHasBeenCommanded) {
+            location.translate(isMovingX * myDirection.dx, isMovingY * myDirection.dy);
+            canMove = false;
+            moveHasBeenCommanded = false;
+            GameTimer x = new GameTimer(this.myStats.getSpeed());
+            x.setGameTimerListener(new GameTimerListener() {
+
+                @Override
+                public void trigger() {
+                    canMove = true;
+                }
+
+            });
+            x.start();
+        }
     }
-    
+
     /**
      * Regenerates a small portion of the entity's health and mana
      */
-    public void regenerate(){
-        myStats.modCurrentHealth(myStats.getHealthRegenPerSecond());
-        myStats.modCurrentMana(myStats.getManaRegenPerSecond());
-       
+    public void regenerate() {
+        if (myStats.getCurrentHealth() < myStats.getMaxHealth() && canRegenHealth) {
+            this.regenerateHealth();
+        }
+
+        if (myStats.getCurrentMana() < myStats.getMaxMana() && canRegenMana) {
+            this.regenerateMana();
+        }
+    }
+
+    public boolean moveHasBeenCommanded() {
+        return moveHasBeenCommanded;
+    }
+
+    private void setMoveHasBeenCommanded(boolean moveHasBeenCommanded) {
+        this.moveHasBeenCommanded = moveHasBeenCommanded;
+    }
+
+    /**
+     * Public method to set move has been commanded.
+     */
+    public void setMoveHasBeenCommanded() {
+        setMoveHasBeenCommanded(true);
     }
 
     @Override
     //Called when stats object updates
     public void update(Observable o, Object arg) {
-        if (myStats.getCurrentHealth() <= 0){
+        if (myStats.getCurrentHealth() <= 0) {
             this.die();
         }
+    }
+
+    private void regenerateHealth() {
+        if (canRegenHealth) {
+
+            canRegenHealth = false;
+            GameTimer globalRegenTimer = new GameTimer();
+            globalRegenTimer.setGameTimerListener(new GameTimerListener() {
+
+                @Override
+                public void trigger() {
+                    canRegenHealth = true;
+                    myStats.modCurrentHealth(myStats.getHealthRegenPerSecond());
+                }
+
+            });
+
+            globalRegenTimer.start();
+        }
+    }
+
+    private void regenerateMana() {
+        if (canRegenMana) {
+
+            canRegenMana = false;
+            GameTimer globalRegenTimer = new GameTimer();
+            globalRegenTimer.setGameTimerListener(new GameTimerListener() {
+
+                @Override
+                public void trigger() {
+                    canRegenMana = true;
+                    myStats.modCurrentMana(myStats.getManaRegenPerSecond());
+                }
+
+            });
+
+            globalRegenTimer.start();
+        }
+    }
+
+    public class Occupation {
+
+        AbilityLibrary myAbilities;
+        Stats myStats;
+
     }
 }

@@ -30,33 +30,38 @@ public class AvatarKeyController implements KeyListener {
                 if (e.getKeyCode() == KeyEvent.VK_UP) {
                     avatar.setDirection(Direction.North);
                     avatar.isMovingY(true);
+                    avatar.setMoveHasBeenCommanded();
                 } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
                     avatar.setDirection(Direction.East);
                     avatar.isMovingX(true);
+                    avatar.setMoveHasBeenCommanded();
                 } else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
                     avatar.setDirection(Direction.West);
                     avatar.isMovingX(true);
+                    avatar.setMoveHasBeenCommanded();
+
                 } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
                     avatar.setDirection(Direction.South);
                     avatar.isMovingY(true);
+                    avatar.setMoveHasBeenCommanded();
+
                 }
-                
-                if(e.getKeyCode() == KeyEvent.VK_1){
+
+                if (e.getKeyCode() == KeyEvent.VK_1) {
                     avatar.shoot();
                 }
-                
-                if(e.getKeyCode() == KeyEvent.VK_I){
+
+                if (e.getKeyCode() == KeyEvent.VK_I) {
                     avatar.toggleSack();
                 }
-                if(e.getKeyCode() == KeyEvent.VK_K){
+                if (e.getKeyCode() == KeyEvent.VK_K) {
                     avatar.toggleArmory();
                 }
-                
 
                 if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
                     GameDirector.pauseGame();
                 }
-                
+
             }
         }
 

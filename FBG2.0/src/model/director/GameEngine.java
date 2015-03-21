@@ -1,5 +1,7 @@
 package model.director;
 
+import java.util.Observable;
+
 
 /**
  * The game engine is responsible for updating the game and rendering it to the
@@ -10,10 +12,11 @@ package model.director;
  *
  * @author ChrisMoscoso
  */
-public class GameEngine implements Runnable {
+public class GameEngine extends Observable implements Runnable {
+
 
     private Thread thread;
-    private int FPS; //Right now the game enginer runs at an arbitrary 
+    private static int FPS; //Right now the game enginer runs at an arbitrary 
     private GameDirector director;
 
     public GameEngine() {
@@ -46,9 +49,10 @@ public class GameEngine implements Runnable {
     public void run() {
         while (true) {
             updateGame();
+            
             renderGame();
             try {
-                Thread.sleep(100);
+                Thread.sleep(33);
             } catch (InterruptedException ex) {
                 
             }
@@ -67,5 +71,9 @@ public class GameEngine implements Runnable {
      */
     private void renderGame(){
         director.drawGame();
+    }
+
+    public static int getFPS() {
+        return FPS;
     }
 }

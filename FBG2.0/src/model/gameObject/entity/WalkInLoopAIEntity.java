@@ -3,6 +3,8 @@ package model.gameObject.entity;
 
 import model.factory.SpriteFactory;
 import model.map.Direction;
+import model.util.gameTimer.GameTimer;
+import model.util.gameTimer.GameTimerListener;
 
 /**
  *
@@ -17,6 +19,8 @@ public class WalkInLoopAIEntity extends Entity {
         this.setSpritePath(SpriteFactory.RAT);
         Direction[] simpleLoop = {Direction.East, Direction.East, Direction.South, Direction.South, Direction.West, Direction.West, Direction.North, Direction.North};
         path = simpleLoop;
+        this.myStats.setSpeed(5);
+        this.myStats.setHealthRegenPerSecond(10);
     }
     
     /**
@@ -29,7 +33,20 @@ public class WalkInLoopAIEntity extends Entity {
     
     @Override
     public void move(){
-        location.translate(path[currentStep % path.length].dx * super.myStats.getSpeed(), path[currentStep % path.length].dy * super.myStats.getSpeed());
-        currentStep++;
+        if(canMove){
+            location.translate(path[currentStep % path.length].dx, path[currentStep % path.length].dy);
+            currentStep++;
+            canMove = false;
+            GameTimer movement = new GameTimer(myStats.getSpeed());
+            movement.setGameTimerListener(new GameTimerListener(){
+
+                @Override
+                public void trigger() {
+                    canMove = true;
+                }
+                
+            });
+            movement.start();
+        }
     }
 }

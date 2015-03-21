@@ -48,7 +48,7 @@ public class GameWindow {
     public GameWindow(int width, int height) {
         frame = new JFrame();
         frame.setSize(new Dimension(width, height));
-        frame.setTitle("FINAL BOSS 2.0");
+        frame.setTitle("FINAL BOSS 2.0 FAST TRACK");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //frame.setResizable(false);
         frame.setVisible(true);
