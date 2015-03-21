@@ -2,9 +2,6 @@ package model.dialogue;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-
-import model.map.pair.Pair;
 
 
 /** 
@@ -62,7 +59,11 @@ public class DialogueElement {
 	 * @returns Dialogue element at that position in list
 	 */
 	public DialogueElement returnOption(int num) {
-		return options.get(num).getElement();
+		if(num > 0 && num <= options.size()) {
+			return options.get(num-1).getElement();
+		}
+		
+		return null;
 	}
 	
 	/** 

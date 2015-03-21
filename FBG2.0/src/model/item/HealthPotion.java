@@ -44,10 +44,14 @@ public class HealthPotion extends Usable {
             return true;
         }
         
+    @Override
         public Takeable copy() {
     		return new HealthPotion(this.getName(), this.getDescription(), this.getLocation(), this.getValue());
     	}
+        
+        public void HealPotion(int durability){
+            HealthPotion("Generic HealthPotion", "Generic description", 
+             new CoordinatePair(), 1, durability);
+        }
 }
-       
-
-
+    

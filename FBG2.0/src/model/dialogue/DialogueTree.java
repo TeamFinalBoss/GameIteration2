@@ -79,6 +79,8 @@ public abstract class DialogueTree {
 	 * @param num Number corresponding to a dialogue option on the current dialogue element.
 	 */
 	public void traverse(int num) {
-		current = current.returnOption(num);
+		DialogueElement newElement = current.returnOption(num);
+		
+		if(newElement != null) current = newElement;
 	}
 }

@@ -10,17 +10,22 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import model.director.ActiveMapManager;
+import model.effect.Dispellable;
 import model.effect.Effect;
 import model.entity.Entity;
-import model.entity.Occupation;
+import model.entity.MotionType;
+import model.entity.SmasherAvatar;
 import model.entity.SmasherEntity;
+import model.entity.SneakAvatar;
 import model.entity.SneakEntity;
+import model.entity.SummonerAvatar;
 import model.entity.SummonerEntity;
 import model.entity.inventory.Armory;
 import model.entity.inventory.Inventory;
 import model.entity.inventory.Sack;
 import model.item.Equipable;
 import model.item.Takeable;
+import model.map.Direction;
 import model.map.GameMap;
 import model.map.pair.CoordinatePair;
 
@@ -110,11 +115,49 @@ public class EntityFactory implements PlaceableObjectFactory{
 			if(en == null) continue;
 			
 			en.setCurrency(Integer.parseInt(e.getAttribute("currency")));
-			en.setDirection(Integer.parseInt(e.getAttribute("direction")));
+			
+			switch(Integer.parseInt(e.getAttribute("direction"))) {
+			case 0:
+				en.setDirection(Direction.North);
+				break;
+			case 1:
+				en.setDirection(Direction.NorthWest);
+				break;
+			case 2:
+				en.setDirection(Direction.West);
+				break;
+			case 3:
+				en.setDirection(Direction.SouthWest);
+				break;
+			case 4:
+				en.setDirection(Direction.South);
+				break;
+			case 5:
+				en.setDirection(Direction.SouthEast);
+				break;
+			case 6:
+				en.setDirection(Direction.East);
+				break;
+			case 7:
+				en.setDirection(Direction.NorthEast);
+				break;
+			}
+			
+			switch(Integer.parseInt(e.getAttribute("motiontype"))) {
+			case 0:
+				en.setMotionType(MotionType.GROUND);
+				break;
+			case 1:
+				en.setMotionType(MotionType.WATER);
+				break;
+			case 2:
+				en.setMotionType(MotionType.UNATTAINABLE);
+				break;
+			}
 			
 			
 			Element effectHead = (Element) e.getElementsByTagName("effects").item(0);
-			List<Dispellable> activeFX = effectReader.generate(effectHead, en);
+			List<Dispellable> activeFX = effectReader.generate(effectHead);
 			
 			for(MapObject item : sackContents) {
 				en.insert((Takeable) item);

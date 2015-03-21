@@ -41,7 +41,16 @@ public class Sword extends Weapon {
 		//Other properties set here
 	} 
     
+     @Override
         public Takeable copy() {
 		return new Sword(this.getName(), this.getDescription(), this.getLocation(), this.getDurability());
 	}
+        
+        public void Sword(int durability){
+            Sword("Sword", "Generic_description", new CoordinatePair(), 5, durability, 
+                EquipSlot.HEAD, new DealDamageEffect(50));
+        }
+      
 }
+
+

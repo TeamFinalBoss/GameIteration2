@@ -2,12 +2,7 @@ package model.factories;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import model.map.pair.CoordinatePair;
-import model.effect.AllowMovement;
-import model.effect.DoneDamage;
-import model.effect.Effect;
-import model.entity.Entity;
+import model.effect.Dispellable;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -31,9 +26,9 @@ public class EffectReader {
 	 * @return the list of effects created by this method
 	 * @see Dispellable
 	 */
-	public List<Dispellable> generate(Element head, Entity applyTo)
+	public List<Dispellable> generate(Element head)
 	{
-		ArrayList<Dispellable items = new ArrayList<Dispellable>();
+		ArrayList<Dispellable> items = new ArrayList<Dispellable>();
 		NodeList nodes = head.getElementsByTagName("effect");
 			
 		for(int i = 0; i < nodes.getLength(); i++)
@@ -42,11 +37,8 @@ public class EffectReader {
 			Dispellable e = null;
 			
 			switch(item.getAttribute("name")) {
-			case "allowmovement":
-				e = new AllowMovement(applyTo);
-				break;
-			case "donedamage":
-				e = new DoneDamage(Integer.parseInt(item.getAttribute("dmg")));
+			case "waiting...":
+				//e = new ...
 				break;
 			}
 				
@@ -54,5 +46,7 @@ public class EffectReader {
 				
 			items.add(e);
 		}
+		
+		return items;
 	}
 }
