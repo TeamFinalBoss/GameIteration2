@@ -8,7 +8,16 @@ import model.director.ActiveMapManager;
 import model.entity.Entity;
 import model.factories.PlaceableObjectFactory;
 import model.gameObject.MapObject;
+import model.item.Gun;
+import model.item.HealthPotion;
+import model.item.HelmOfDark;
+import model.item.HelmOfLight;
+import model.item.HermesBoots;
 import model.item.Item;
+import model.item.JesusBoots;
+import model.item.RustyKnife;
+import model.item.Stick;
+import model.item.Sword;
 import model.item.Takeable;
 
 import org.w3c.dom.Element;
@@ -43,13 +52,7 @@ public class TakeableFactory implements PlaceableObjectFactory{
 			for(int i = 0; i < nodes.getLength(); i++)
 			{
 				Element item = (Element) nodes.item(i);
-				Item it = null;
-				
-				switch(item.getAttribute("name")){
-				case "whatever":
-					//it = new Takeable("whatever", "it does nothing", Integer.parseInt(item.getAttribute("durability")));
-					break;
-				}
+				Item it = switchName(item);
 				
 				if(it == null) continue;
 				
@@ -62,16 +65,11 @@ public class TakeableFactory implements PlaceableObjectFactory{
 			for(int i = 0; i < nodes.getLength(); i++)
 			{
 				Element item = (Element) nodes.item(i);
-				Item it = null;
-				
-				switch(item.getAttribute("name")){
-				case "whatever":
-					//it = new Takeable("whatever", "it does nothing", Integer.parseInt(item.getAttribute("durability")), new CoordinatePair(Integer.parseInt(item.getAttribute("x")), Integer.parseInt(item.getAttribute("y"))));
-					break;
-				}
+				Item it = switchName(item);
 				
 				if(it == null) continue;
 				
+				it.setLocation(new CoordinatePair(Integer.parseInt(item.getAttribute("x")), Integer.parseInt(item.getAttribute("y"))));
 				ActiveMapManager.getInstance().addItemToActiveMap(it, new CoordinatePair(Integer.parseInt(item.getAttribute("x")), Integer.parseInt(item.getAttribute("y"))));
 				
 				items.add(it);
@@ -79,5 +77,47 @@ public class TakeableFactory implements PlaceableObjectFactory{
 		}
 		
 		return items;
+	}
+	
+	private Item switchName(Element item){
+		Item it = null;
+		
+		switch(item.getAttribute("name")){
+		case "gun":
+			it = new Gun(Integer.parseInt(item.getAttribute("durability"));
+			break;
+			
+		case "healthpotion":
+			it = new HealthPotion(Integer.parseInt(item.getAttribute("durability"));
+			break;
+			
+		case "helmofdark":
+			it = new HelmOfDark(Integer.parseInt(item.getAttribute("durability"));
+			break;
+			
+		case "helmoflight":
+			it = new HelmOfLight(Integer.parseInt(item.getAttribute("durability"));
+			break;
+			
+		case "hermesboots":
+			it = new HermesBoots(Integer.parseInt(item.getAttribute("durability"));
+			break;
+			
+		case "jesusboots":
+			it = new JesusBoots(Integer.parseInt(item.getAttribute("durability"));
+			break;
+		
+		case "rustyknife":
+			it = new RustyKnife(Integer.parseInt(item.getAttribute("durability"));
+			break;
+			
+		case "stick":
+			it = new Stick(Integer.parseInt(item.getAttribute("durability"));
+			break;
+			
+		case "sword":
+			it = new Sword(Integer.parseInt(item.getAttribute("durability"));
+			break;
+		}
 	}
 }

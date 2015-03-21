@@ -59,4 +59,10 @@ public class HermesBoots extends Equipable{
                 this.getSlot());
     }
     
+    
+   public void HermesBoots(int durability){
+            HermesBoots("HermesBoots", "Generic description", new CoordinatePair(), 
+                        0, 1, EquipSlot.FEET);
+}
+    
 }

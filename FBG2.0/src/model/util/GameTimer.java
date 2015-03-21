@@ -5,6 +5,7 @@
  */
 package model.util;
 
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -16,7 +17,11 @@ import java.util.TimerTask;
 public class GameTimer{
     private static GameTimer gt = null;
     private Timer myTimer;
+    
+    ArrayList<TimerTask> myEvents;
+    
     public GameTimer(){
+        myEvents = new ArrayList<>();
         myTimer = new Timer();
     }
     
@@ -27,7 +32,16 @@ public class GameTimer{
         return gt;
     }
     
-    public void addEvent(TimerTask event, long timeInMil){
+    /**
+     * This is the method that activates all TimerTask's run methods
+     */
+    public void update(){
+        
+        
+    }
+    
+    public void addEvent(TimerTask event, int timeInMil){
+        
         myTimer.schedule(event, timeInMil);
     }
 }

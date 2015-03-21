@@ -10,5 +10,5 @@ import model.entity.Entity;
 public interface Effect {    
     public void applyEffect(Entity entityToEffect);
 
-    public void applyEffect();
+  
 }

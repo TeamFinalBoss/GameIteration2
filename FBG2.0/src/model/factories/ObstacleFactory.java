@@ -7,6 +7,8 @@ import model.map.pair.CoordinatePair;
 import model.director.ActiveMapManager;
 import model.factories.PlaceableObjectFactory;
 import model.gameObject.MapObject;
+import model.item.Door;
+import model.item.DoorOpener;
 import model.item.Item;
 
 import org.w3c.dom.Element;
@@ -43,13 +45,15 @@ public class ObstacleFactory implements PlaceableObjectFactory{
 			Item it = null;
 				
 			switch(item.getAttribute("name")){
-			case "whatever":
-				//it = new Obstacle();
+			case "door":
+				it = new Door();
+				((Door) it).setLink(Integer.parseInt(item.getAttribute("link")));
 				break;
 			}
 				
 			if(it == null) continue;
 				
+			it.setLocation(new CoordinatePair(Integer.parseInt(item.getAttribute("x")), Integer.parseInt(item.getAttribute("y"))));
 			ActiveMapManager.getInstance().addItemToActiveMap(it, new CoordinatePair(Integer.parseInt(item.getAttribute("x")), Integer.parseInt(item.getAttribute("y"))));
 				
 			items.add(it);
