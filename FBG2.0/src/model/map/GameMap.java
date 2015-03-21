@@ -1,6 +1,7 @@
 package model.map;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -453,6 +454,39 @@ public class GameMap extends Observable {
           
         }
         return returnThis; 
+    }
+
+    /**
+     * @author Jason Owens
+     * @param center
+     * @param radius
+     * @param containedTiles
+     * @param containedProjectiles
+     * @param containedEntities
+     * @param containedTraps
+     * @param containedItems
+     * @param containedAreaEffects 
+     */
+    public void getEverythingInRange(CoordinatePair center, int radius, List<Tile> containedTiles, List<Projectile> containedProjectiles, List<Entity> containedEntities, List<Trap> containedTraps, List<Item> containedItems, List<AreaEffect> containedAreaEffects) {
+        
+        
+        for(Entity e: entities){
+            if(center.getDistance(e.getLocation(), radius)){
+                
+            }
+        }
+        for(Item i: Item){
+    
+        }
+        for(Trap e: Trap){
+    
+        }
+        for(AreaEffect ae: AreaEffect){
+    
+        }
+        for(Projectile p: Projectile){
+    
+        }
     }
 }
     
