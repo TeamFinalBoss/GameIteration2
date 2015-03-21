@@ -58,6 +58,9 @@ public class GameMap extends Observable {
         this.switchers = new Locations<>();
         this.traps = new Locations<>();
         
+        this.MC = MotionCoordinator.getInstance();
+        this.MV = MotionValidator.getInstance();
+        
         this.addEntity(AvatarInteractionManager.getInstance().getAvatar(), new CoordinatePair(1, 1)); //TODO change to avatar
         
     }
@@ -481,7 +484,7 @@ public class GameMap extends Observable {
                 returnThis.addX(-1); 
                 break;    
             case East:
-                returnThis.addX(-1); 
+                returnThis.addX(1); 
                 break;  
           
         }
