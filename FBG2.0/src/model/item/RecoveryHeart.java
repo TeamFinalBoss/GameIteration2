@@ -47,4 +47,10 @@ public class RecoveryHeart extends OneShot {
         public void RecoveryHeart(int durability){
             RecoveryHeart("Generic RecoveryHeart", "Generic description", new CoordinatePair());
         }
+        
+        
+        public RecoveryHeart copy() {
+    		return new RecoveryHeart (this.getName(), this.getDescription(), 
+                        this.getLocation());
+    	}
 }

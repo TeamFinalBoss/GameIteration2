@@ -41,6 +41,7 @@ public class Sword extends Weapon {
 		//Other properties set here
 	} 
     
+     @Override
         public Takeable copy() {
 		return new Sword(this.getName(), this.getDescription(), this.getLocation(), this.getDurability());
 	}
