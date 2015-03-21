@@ -7,6 +7,8 @@ import model.entity.stats.Stats;
 import model.gameObject.MapObject;
 import model.map.Direction;
 import model.map.pair.CoordinatePair;
+import model.util.GameTimer;
+import model.effect.AllowMovement;
 
 import java.util.List;
 
@@ -35,6 +37,8 @@ public abstract class Entity extends MapObject{
     private ActiveMapManager activeMap; //forwards messages to the active map
     private int currency;
     private MotionType motionType;
+    private VisibleMap mySight;
+    private boolean canMove;
 
     /* -------------------- PROTECTED COMPONENT CREATION -------------------- */
     protected Inventory createInventory(){
@@ -296,5 +300,15 @@ public abstract class Entity extends MapObject{
     }
     public void setMotionType(MotionType newest){
     	motionType = newest;
+    }
+    public void modifyLocation(CoordinatePair change){
+    	if(!canMove) return false;
+    	super.modifyLocation(change);
+    	canMove = false;
+    	GameTimer.getInstance().addEvent(new AllowMovement(this), (int) 1000/getMovement());
+    	return true;
+    }
+    public void setMovementPermission(boolean newest){
+    	canMove = newest;
     }
 }

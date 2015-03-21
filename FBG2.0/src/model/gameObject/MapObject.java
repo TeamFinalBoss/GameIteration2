@@ -112,4 +112,9 @@ public abstract class MapObject {
 	 * @param p the CoordinatePair to be set 
 	 */
 	public void setLocation(CoordinatePair p) { location = p; }
+	
+	public boolean modifyLocation(CoordinatePair p){
+		location.add(p);
+		return true;
+	}
 }
