@@ -8,14 +8,14 @@ import model.map.tile.AreaEffect;
 import model.map.tile.Tile;
 import model.map.tile.Trap;
 import model.map.pair.CoordinatePair;
-import model.entity.Avatar;
 import model.entity.Entity;
 import model.item.Interactive;
 import model.item.Item;
 import model.item.Obstacle;
 import model.item.OneShot;
 import model.item.Takeable;
-
+import model.director.ActiveMapManager;
+import model.director.AvatarInteractionManager;
 /**
  * This is a container of all the entities, items, tiles, and traps. Currently,
  * of the four types of objects on the map only one object per type can occupy a
@@ -57,7 +57,7 @@ public class GameMap extends Observable {
         this.switchers = new Locations<>();
         this.traps = new Locations<>();
         
-        this.addEntity(Avatar.getPlayer(), new CoordinatePair(1, 1)); //TODO change to avatar
+        this.addEntity(AvatarInteractionManager.getInstance().getAvatar(), new CoordinatePair(1, 1)); //TODO change to avatar
         
     }
 
@@ -70,7 +70,7 @@ public class GameMap extends Observable {
         this.switchers = new Locations<>();
         this.traps = new Locations<>();
         
-        this.addEntity(Avatar.getPlayer(), new CoordinatePair(1, 1)); //TODO change to avatar
+        this.addEntity(AvatarInteractionManager.getInstance().getAvatar(), new CoordinatePair(1, 1)); //TODO change to avatar
         
     }
 

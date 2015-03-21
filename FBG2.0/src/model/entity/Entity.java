@@ -1,6 +1,7 @@
 package model.entity;
 
 import model.entity.ability.AbilityLibrary;
+import model.entity.ability.Ability;
 import model.entity.inventory.Inventory;
 import model.entity.stats.Stats;
 import model.gameObject.MapObject;
@@ -41,6 +42,17 @@ public abstract class Entity extends MapObject{
     }
     protected abstract AbilityLibrary createAbilities();
     protected abstract Stats createStats();
+    
+    /* -------------------- PROTECTED UTILITY -------------------- */
+    protected Stats getStats(){
+    	return myStats;
+    }
+    protected Inventory getInventory(){
+    	return myInventory;
+    }
+    protected AbilityLibrary getAbilities(){
+    	return myAbilities;
+    }
     
     /* -------------------- CONSTRUCTORS --------------------*/
     public Entity(String objectName, 
@@ -100,7 +112,7 @@ public abstract class Entity extends MapObject{
     public void drop(int position){
     	activeMap.addItemToActiveMap(remove(position),getLocation());
     }
-    
+   
     /* -------------------- STATS ACCESSORS -------------------- */
     public int getLivesLeft(){
 		return myStats.livesLeft();
@@ -208,6 +220,9 @@ public abstract class Entity extends MapObject{
 	}
     
 	/* -------------------- STATS MODIFY MUTATORS -------------------- */
+	public void dealDamage(int amount){
+		myStats.dealDamage(amount);
+	}
 	public void modifyLivesLeft(int next){
 		myStats.modifyLivesLeft(next);
 	}
@@ -252,8 +267,13 @@ public abstract class Entity extends MapObject{
 	}
 	
 	/* -------------------- ABILITY ACCESSORS -------------------- */
+	public List<Ability> getAllAbilities(){
+		return myAbilities.getAbilities();
+	}
+	
+	/* -------------------- ABILITY USE -------------------- */
 	public void useAbility(int position){
-		myAbilities.useAbility(position);
+		myAbilities.performActiveAbility(position, this);
 	}
 	
     /* -------------------- MISC. ACCESSORS -------------------- */
