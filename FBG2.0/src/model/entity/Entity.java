@@ -301,7 +301,7 @@ public abstract class Entity extends MapObject{
     public void setMotionType(MotionType newest){
     	motionType = newest;
     }
-    public void modifyLocation(CoordinatePair change){
+    public boolean modifyLocation(CoordinatePair change){
     	if(!canMove) return false;
     	super.modifyLocation(change);
     	canMove = false;
