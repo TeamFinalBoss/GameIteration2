@@ -39,7 +39,7 @@ public class MotionCoordinator {
 		}
 		
 		if (i != null){
-                    i.useOnMap(e); //TODO: Create this method for every item type
+                    i.activate(e); //TODO: Create this method for every item type
 		}
 		
 		if(t != null){
