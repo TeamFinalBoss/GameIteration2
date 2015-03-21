@@ -399,8 +399,8 @@ public class GameMap extends Observable {
         CoordinatePair desiredLocation; 
         desiredLocation = locationPlusDirection(e.getLocation(), dir);
         
-        if(MV.canTraverse(e.getMotionType(), getItemAtCoordinate(desiredLocation), getTileAtCoordinate(desiredLocation).getMotionType())){
-           MC.move(e, desiredLocation);
+        if(MV.canTraverse(e.getMotionType(), getItemAtCoordinate(desiredLocation), getTileAtCoordinate(desiredLocation).getMotionType())){ 
+           MC.moveEntity(e, desiredLocation);
         }
         else{
             return false;

@@ -27,7 +27,8 @@ public class GameTimer{
         return gt;
     }
     
-    public void addEvent(TimerTask event, long timeInMil){
+    public void addEvent(TimerTask event, int timeInMil){
+        //myTasks.add(event);
         myTimer.schedule(event, timeInMil);
     }
 }

@@ -222,7 +222,8 @@ public abstract class Entity extends MapObject{
 	public void setEquipArmor(int next){
 		myStats.setEquipArmor(next);
 	}
-    
+            
+        
 	/* -------------------- STATS MODIFY MUTATORS -------------------- */
 	public void dealDamage(int amount){
 		myStats.dealDamage(amount);
@@ -269,7 +270,7 @@ public abstract class Entity extends MapObject{
 	public void modifyEquipArmor(int next){
 		myStats.setEquipArmor(next);
 	}
-	
+        
 	/* -------------------- ABILITY ACCESSORS -------------------- */
 	public List<Ability> getAllAbilities(){
 		return myAbilities.getAbilities();
@@ -290,6 +291,7 @@ public abstract class Entity extends MapObject{
     public MotionType getMotionType(){
     	return motionType;
     }
+    
 
     /* -------------------- MISC. MUTATORS -------------------- */
     public void setCurrency(int newest){
