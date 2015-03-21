@@ -2,6 +2,7 @@ package model.director;
 
 import controller.AvatarKeyController;
 import controller.MenuKeyController;
+import controller.SackMouseController;
 import model.menu.Menu;
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;
@@ -11,9 +12,11 @@ import model.map.GameMap;
 import model.menu.Menu.MenuOption;
 import view.window.GameWindow;
 import view.scene.Scene;
+import view.viewport.ArmoryViewPort;
 import view.viewport.MainMenuViewPort;
 import view.viewport.MapViewPort;
 import view.viewport.PauseMenuViewPort;
+import view.viewport.SackViewPort;
 import view.viewport.StatusViewPort;
 
 /**
@@ -55,7 +58,7 @@ public class GameDirector {
         menuScene = new Scene();
 
         MainMenuViewPort menuVP = new MainMenuViewPort();
-        menuScene.addViewport(menuVP);
+        menuScene.addViewPort(menuVP);
 
         //Add observers to model object
         mainMenu.addObserver(menuVP);
@@ -93,22 +96,32 @@ public class GameDirector {
         MapViewPort mapVP = new MapViewPort();
         PauseMenuViewPort pauseVP = new PauseMenuViewPort();
         StatusViewPort statusVP = new StatusViewPort();
+        SackViewPort sackVP = new SackViewPort();
+        ArmoryViewPort armoryVP = new ArmoryViewPort();
+        
 
         //Add viewports to scene
-        gameScene.addViewport(mapVP);
-        gameScene.addViewport(pauseVP);
-        gameScene.addViewport(statusVP);
+        gameScene.addViewPort(mapVP);
+        gameScene.addViewPort(pauseVP);
+        gameScene.addViewPort(statusVP);
+        gameScene.addViewPort(sackVP);
+        //gameScene.addViewPort(armoryVP);
 
         //Add viewports as observers to model objects.
         map1.addObserver(mapVP);
         pauseMenu.addObserver(pauseVP);
         a.addObserverOfStats(statusVP);
+        a.addObserverOfArmory(armoryVP);
+        a.addObserverOfSack(sackVP);
 
         //Add controllers to window
         pauseMenuKC = new MenuKeyController(pauseMenu, gameScene);
         window.addKeyController(pauseMenuKC);
         avatarKC = new AvatarKeyController(Avatar.getAvatar());
         window.addKeyController(avatarKC);
+        SackMouseController sackMC = new SackMouseController(a.getSack(), sackVP);
+        window.addMouseController(sackMC);
+        window.addMouseMotionController(sackMC);
 
         //Set game scene as active scene
         activeScene = gameScene;

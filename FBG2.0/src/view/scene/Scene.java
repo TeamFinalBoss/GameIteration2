@@ -27,7 +27,7 @@ public class Scene {
      *
      * @param view the viewport to be added
      */
-    public void addViewport(ViewPort view) {
+    public void addViewPort(ViewPort view) {
         viewports.add(view);
     }
 
@@ -36,7 +36,7 @@ public class Scene {
      *
      * @param views the array of viewports to be added
      */
-    public void addViewports(ViewPort[] views) {
+    public void addViewPorts(ViewPort[] views) {
         viewports.addAll(Arrays.asList(views));
     }
 

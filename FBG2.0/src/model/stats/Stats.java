@@ -90,76 +90,107 @@ public class Stats extends Observable {
         return speed;
     }
 
-    public void setMpMax(int maxMana) {
-        this.maxMana = maxMana;
-    }
-
     public void setSpeed(int speed) {
         this.speed = speed;
+        this.setChanged();
+        this.notifyObservers(this);
+        
     }
 
     public void setStrength(int nextStr) {
         strength = verifyBounds(nextStr) ? nextStr : strength;
+        this.setChanged();
+        this.notifyObservers(this);
     }
 
     public void setAgility(int nextAgi) {
         agility = verifyBounds(nextAgi) ? nextAgi : agility;
+        this.setChanged();
+        this.notifyObservers(this);
     }
 
     public void setIntellect(int nextInt) {
         intellect = verifyBounds(nextInt) ? nextInt : intellect;
+        this.setChanged();
+        this.notifyObservers(this);
     }
 
     public void setHardiness(int nextHard) {
         hardiness = verifyBounds(nextHard) ? nextHard : hardiness;
+        this.setChanged();
+        this.notifyObservers(this);
     }
 
     public void setMaxHealth(int nextHP) {
         maxHealth = nextHP;
+        this.setChanged();
+        this.notifyObservers(this);
     }
 
     public void setMaxMana(int nextMP) {
         maxMana = verifyBounds(nextMP) ? nextMP : maxMana;
+        this.setChanged();
+        this.notifyObservers(this);
     }
 
     public void setDefense(int nextDef) {
         defense = verifyBounds(nextDef) ? nextDef : defense;
+        this.setChanged();
+        this.notifyObservers(this);
     }
 
     public void setOffense(int nextOff) {
         offense = verifyBounds(nextOff) ? nextOff : offense;
+        this.setChanged();
+        this.notifyObservers(this);
     }
 
     public void modStrength(int strAdded) {
         strength = verifyBounds(strength + strAdded) ? (strength + strAdded) : 0;
+        this.setChanged();
+        this.notifyObservers(this);
     }
 
     public void modAgility(int agiAdded) {
         agility = verifyBounds(agility + agiAdded) ? (agility + agiAdded) : 0;
+        this.setChanged();
+        this.notifyObservers(this);
     }
 
     public void modIntellect(int intAdded) {
         intellect = verifyBounds(intellect + intAdded) ? (intellect + intAdded) : 0;
+        this.setChanged();
+        this.notifyObservers(this);
     }
 
     public void modHardiness(int hardAdded) {
         hardiness = verifyBounds(hardiness + hardAdded) ? (hardiness + hardAdded) : 0;
+        this.setChanged();
+        this.notifyObservers(this);
     }
 
     public void modmaxHealth(int hpAdded) {
         maxHealth += hpAdded;
+        this.setChanged();
+        this.notifyObservers(this);
     }
 
     public void modMaxMana(int mpAdded) {
         maxMana = verifyBounds(maxMana + mpAdded) ? (maxMana + mpAdded) : 0;
+        this.setChanged();
+        this.notifyObservers(this);
     }
 
     public void modOffense(int offAdded) {
         offense = verifyBounds(offense + offAdded) ? (offense + offAdded) : 0;
+        this.setChanged();
+        this.notifyObservers(this);
     }
 
     public void modDefense(int defAdded) {
         defense = verifyBounds(defense + defAdded) ? (defense + defAdded) : 0;
+        this.setChanged();
+        this.notifyObservers(this);
     }
 
     public Stats inverted() {
@@ -179,14 +210,14 @@ public class Stats extends Observable {
         modMaxMana(modifier.getMaxMana());
         modOffense(modifier.getOffense());
         modDefense(modifier.getDefense());
-        this.hasChanged();
+        this.setChanged();
         this.notifyObservers(this);
     }
 
     @Override
     public void addObserver(Observer o) {
         super.addObserver(o);
-        this.hasChanged();
+        this.setChanged();
         this.notifyObservers(this);
     }
 }

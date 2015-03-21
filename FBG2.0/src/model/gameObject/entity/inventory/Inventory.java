@@ -15,8 +15,8 @@ import model.item.EquipSlot;
  */
 public class Inventory {
 
-    Sack mySack;
-    Armory myArmory;
+    private Sack mySack;
+    private Armory myArmory;
 
     /* -------------------- CONSTRUCTORS -------------------- */
     /**
@@ -75,8 +75,8 @@ public class Inventory {
      *
      * @param position indicates which item in the sack's ordered contents is to
      * be used, where the first item is at position 0.
-     * 
-     * 
+     *
+     *
      */
     public void use(int position) {
         mySack.use(position);
@@ -121,4 +121,22 @@ public class Inventory {
     public Equipable unequip(EquipSlot slot) {
         return myArmory.unequip(slot);
     }
+
+    /**
+     * Getter for the inventory's sack
+     * @return the sack.
+     */
+    public Sack getMySack() {
+        return mySack;
+    }
+
+    /**
+     * Getter for the inventory's armory.
+     * @return the armory
+     */
+    public Armory getMyArmory() {
+        return myArmory;
+    }
+
+    
 }

@@ -45,6 +45,12 @@ public class AvatarKeyController implements KeyListener {
                     avatar.shoot();
                 }
                 
+                if(e.getKeyCode() == KeyEvent.VK_I){
+                    avatar.toggleSack();
+                }
+                if(e.getKeyCode() == KeyEvent.VK_K){
+                    avatar.toggleArmory();
+                }
                 
 
                 if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
