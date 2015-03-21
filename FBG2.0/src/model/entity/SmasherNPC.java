@@ -1,4 +1,5 @@
 package model.entity;
+//this code here is to remain for referencing while creating NPCs - but is not to be uncommented.
 
 import java.util.List;
 
@@ -6,6 +7,7 @@ import model.dialogue.DialogueActions;
 import model.dialogue.DialogueTree;
 import model.dialogue.unique.DT_Default;
 import model.entity.inventory.Inventory;
+import model.entity.inventory.NPCInventory;
 import model.entity.inventory.Storefront;
 import model.item.Takeable;
 import model.link.EntityLink;
@@ -22,36 +24,32 @@ import model.map.pair.CoordinatePair;
  * @author Aidan Pace
  */
 
-public class NPC extends Entity {
+
+public abstract class SmasherNPC extends SmasherEntity {
 
 		private DialogueTree dt;
-		private Storefront sf;
 		private boolean friendly;
 		private EntityLink partner;
 		
-		public NPC() {
-			super();
-			
-			this.className = "NPC";
-			this.id = "10";
-			
-			dt = new DT_Default();
-			sf = new Storefront();
-			friendly = true;
-			partner = new EntityLink(this, 0);
+		protected Inventory createInventory(){
+			return new NPCInventory(10,this);
+		}
+		protected boolean createFriendly(){
+			return false;
+		}
+		protected DialogueTree createDialogueTree(){
+			return new DT_Default();
 		}
 		
-		public NPC(String objectName, String description, CoordinatePair location, 
-		    		Inventory inventory, Occupation occupation, Direction direction, int speed, DialogueTree dt, Storefront sf, boolean friendly, EntityLink partner){
-		    	super(objectName, description, location, inventory, occupation, direction, speed);
-		    	
-		    	this.className = "NPC";
-		    	this.id = "10";
-		    	
-		    	this.dt = dt;
-		    	this.sf = sf;
-		    	this.friendly = friendly;
-		    	this.partner = partner;
+		protected NPCInventory getInventory(){
+			return (NPCInventory) super.getInventory();
+		}
+
+		public SmasherNPC(String objectName, String description, CoordinatePair location) {
+			super(objectName, description, location);
+			dt = createDialogueTree();
+			friendly = createFriendly();
+			partner = new EntityLink(this, 0);
 		}
 		
 		/**
@@ -61,7 +59,7 @@ public class NPC extends Entity {
 		 * @return the change in currency that would result from purchase
 		 */
 		public int checkPayment(int position) {
-			return sf.payForItem(position);
+			return getInventory().payForItem(position);
 		}
 		
 		/**
@@ -72,7 +70,7 @@ public class NPC extends Entity {
 		 * @return the removed item
 		 */
 		public Takeable sellItem(int position) {
-			Takeable t = sf.buyItem(position);
+			Takeable t = getInventory().buyItem(position);
 			modifyCurrency(t.getValue());
 			return t;
 		}
@@ -84,7 +82,7 @@ public class NPC extends Entity {
 		 * @return the value of the item
 		 */
 		public int buyItem(Takeable item) {
-			return sf.sellItem(item);
+			return getInventory().sellItem(item);
 		}
 		
 		/**
@@ -141,4 +139,10 @@ public class NPC extends Entity {
 				return false;
 			}
 		}
+		
+		public void setLink(int newLink){
+			partner = new EntityLink(this,newLink);
+		}
 }
+*/
+

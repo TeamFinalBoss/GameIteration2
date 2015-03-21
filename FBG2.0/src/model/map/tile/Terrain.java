@@ -3,9 +3,11 @@ package model.map.tile;
 import model.entity.Entity;
 import model.entity.MotionType;
 import model.gameObject.MapObject;
+import model.map.pair.CoordinatePair;
 
 /**
  *
+ * ID: 12
  * @author ChrisMoscoso, Jason Owens
  */
 public class Terrain extends MapObject {
@@ -26,7 +28,11 @@ public class Terrain extends MapObject {
      * @param type 
      */
     public Terrain(String name, String description, MotionType type){
+        super(name, description, new CoordinatePair());
+        this.motiontype = type;
         
+		this.setID("12");
+		this.setClassName("Terrain");
 
     }
 

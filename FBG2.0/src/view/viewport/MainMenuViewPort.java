@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -13,6 +14,7 @@ import java.util.Observer;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
+import view.MousePoint;
 import model.director.GameDirector;
 import controller.util.Describeable;
 
@@ -21,7 +23,7 @@ import controller.util.Describeable;
  *
  * @author ChrisMoscoso
  */
-public class MainMenuViewPort implements ViewPort, Observer {
+public class MainMenuViewPort implements ViewPort, Observer, MousePoint {
 
     private String[] options;
     private int activeOptionIndex;
@@ -103,5 +105,11 @@ public class MainMenuViewPort implements ViewPort, Observer {
     protected int getLogoHeight() {
     	return this.logoHeight;
     }
+
+	@Override
+	public int getActiveLocation(Point point) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
     
 }

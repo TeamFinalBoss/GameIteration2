@@ -18,8 +18,8 @@ public class OneShot extends Item {
 	public OneShot(){
 		super("Generic One Shot", "Generic description", new CoordinatePair());
 		
-		this.id = "6";
-		this.className = "One Shot";
+		this.setID("6");
+		this.setClassName("One Shot");
 		
 		//Other properties set here
 	}
@@ -27,8 +27,8 @@ public class OneShot extends Item {
 	public OneShot(String objectName, String description, CoordinatePair location){
 		super(objectName, description, location);
 		
-		this.id = "6";
-		this.className = "One Shot";
+		this.setID("6");
+		this.setClassName("One Shot");
 		
 		//Other properties set here
 	}

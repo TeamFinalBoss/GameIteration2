@@ -21,9 +21,9 @@ public abstract class Trap extends MapObject{
 	
 	Trap(){
 		super("Generic Trap", "Generic description", new CoordinatePair());
-		
-		this.id = "7";
-		this.className = "Trap";
+	
+		this.setID("7");
+		this.setClassName("Trap");
 		
 		//Other properties set here
 		this.difficulty = 0;
@@ -33,8 +33,8 @@ public abstract class Trap extends MapObject{
 			int difficulty){
 		super(objectName, description, location);
 		
-		this.id = "7";
-		this.className = "Trap";
+		this.setID("7");
+		this.setClassName("Trap");
 		
 		//Other properties set here
 		this.difficulty = difficulty;
@@ -53,6 +53,18 @@ public abstract class Trap extends MapObject{
 		if(CallerLevel >= difficulty) return true;
 		return false;
 	}
+	
+    /**
+     * This method arbitrarily describes whether an entity can
+     * 'observe' this area effect
+     * 
+     * @author Michael Cohen
+     * @param observation skill needed to see the item
+     * @return true if observation >= 50
+     */
+    public boolean canSee(int observation){
+    	return observation >= 50;
+    }
 	
 	/**
 	 * Method to be overridden by subclasses to provide unique functionality

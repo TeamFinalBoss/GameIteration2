@@ -1,5 +1,7 @@
 package model.entity.stats;
 
+import java.util.Random;
+
 public abstract class Stats {
 	/* -------------------- PRIMARY ATTRIBUTES -------------------- */
 	private int livesLeft;
@@ -34,6 +36,14 @@ public abstract class Stats {
 		offense = weaponOffense + (strength*10) + (level*20);
 		defense = (agility*10) + (level*20);
 		armor = equipArmor + (hardiness*30);
+	}
+	private boolean checkHitSuccess(int amount){
+		Random generator = new Random();
+		return (generator.nextInt(100)*amount > defense) ? true : false;
+		
+	}
+	private int mitigateDamage(int amount){
+		return amount - armor;
 	}
 	
 	/* -------------------- PROTECTED UTILITY -------------------- */
@@ -197,6 +207,11 @@ public abstract class Stats {
 	}
 	
 	/* -------------------- MODIFY MUTATORS -------------------- */
+	public void dealDamage(int amount){
+		if(!checkHitSuccess(amount)) return;
+		amount = mitigateDamage(amount);
+		modifyCurrentHP(amount);
+	}
 	public void modifyLivesLeft(int modifier){
 		livesLeft = max(livesLeft+modifier,0);
 		updateDerived();

@@ -1,18 +1,25 @@
 package model.director;
 
-import model.entity.Avatar;
+import model.entity.SummonerAvatar;
 import model.entity.Entity;
 import model.item.Item;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Observer;
 
 import model.map.Direction;
 import model.map.GameMap;
 import model.map.MapSwitcher;
+import model.map.Projectile;
 import model.map.pair.CoordinatePair;
 import model.map.tile.AreaEffect;
+import model.map.tile.Tile;
 import model.map.tile.Trap;
+
+//TODO: add following function: public void getEverythingInRange(CoordinatePair center, int radius, 
+//      List<Tile> containedTiles, List<Projectile> containedProjectiles, List<Entity> containedEntities, 
+//		List<Trap> containedTraps, List<Item> containedItems, List<AreaEffect> containedAreaEffects)
 
 /**
  * TODO make sure Entity supports useAbility(int)
@@ -37,7 +44,7 @@ public class ActiveMapManager {
     
     private ArrayList<GameMap> maps;
     private GameMap activeMap;
-    private Avatar avatar; 
+    private Entity avatar; 
     
     /*----------Constructors------------*/
     public ActiveMapManager(){
@@ -45,7 +52,7 @@ public class ActiveMapManager {
        // avatar = Avatar.getPlayer();
     }
     
-    public ActiveMapManager(Avatar avatar){
+    public ActiveMapManager(Entity avatar){
     	maps = new ArrayList<>();
     	this.avatar = avatar;
     }
@@ -54,6 +61,7 @@ public class ActiveMapManager {
     public static ActiveMapManager getInstance(){
         if(me == null){
             me = new ActiveMapManager();
+            me.avatar = new SummonerAvatar();
         }
         return me;
     }
@@ -66,6 +74,16 @@ public class ActiveMapManager {
     public GameMap getActiveMap(){
         return activeMap;
     }
+        
+    public void getEverythingInRange(CoordinatePair center, int radius, 
+      List<Tile> containedTiles, List<Projectile> containedProjectiles, List<Entity> containedEntities, 
+		List<Trap> containedTraps, List<Item> containedItems, List<AreaEffect> containedAreaEffects){
+        
+        activeMap.getEverythingInRange( center,  radius, 
+      containedTiles, containedProjectiles, containedEntities, 
+		 containedTraps,  containedItems, containedAreaEffects);
+        
+    }
     
     /**
      * Adds a map to the list of possible maps
@@ -75,8 +93,7 @@ public class ActiveMapManager {
      */
     public void addMap(GameMap map){
     	maps.add(map);
-    }
-    
+    }   
     /**
      * Removes a map from the list of possible maps.
      * Returns true if map was present and removed

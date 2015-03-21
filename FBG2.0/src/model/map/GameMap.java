@@ -1,6 +1,7 @@
 package model.map;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -8,14 +9,14 @@ import model.map.tile.AreaEffect;
 import model.map.tile.Tile;
 import model.map.tile.Trap;
 import model.map.pair.CoordinatePair;
-import model.entity.Avatar;
 import model.entity.Entity;
 import model.item.Interactive;
 import model.item.Item;
 import model.item.Obstacle;
 import model.item.OneShot;
 import model.item.Takeable;
-
+import model.director.ActiveMapManager;
+import model.director.AvatarInteractionManager;
 /**
  * This is a container of all the entities, items, tiles, and traps. Currently,
  * of the four types of objects on the map only one object per type can occupy a
@@ -57,7 +58,7 @@ public class GameMap extends Observable {
         this.switchers = new Locations<>();
         this.traps = new Locations<>();
         
-        this.addEntity(Avatar.getPlayer(), new CoordinatePair(1, 1)); //TODO change to avatar
+        this.addEntity(AvatarInteractionManager.getInstance().getAvatar(), new CoordinatePair(1, 1)); //TODO change to avatar
         
     }
 
@@ -70,7 +71,7 @@ public class GameMap extends Observable {
         this.switchers = new Locations<>();
         this.traps = new Locations<>();
         
-        this.addEntity(Avatar.getPlayer(), new CoordinatePair(1, 1)); //TODO change to avatar
+        this.addEntity(AvatarInteractionManager.getInstance().getAvatar(), new CoordinatePair(1, 1)); //TODO change to avatar
         
     }
 
@@ -229,7 +230,7 @@ public class GameMap extends Observable {
      * @return true if switcher was added to the map
      */
     public final boolean addMapSwitcher(MapSwitcher switcher, CoordinatePair CP){
-    	if (CoordPairIsValid(CP), && switchers.getObjectAt(CP) == null) {
+    	if (CoordPairIsValid(CP) && switchers.getObjectAt(CP) == null) {
     		this.switchers.addObject(switcher, CP);
     		updateView();
     		return true;
@@ -399,8 +400,8 @@ public class GameMap extends Observable {
         CoordinatePair desiredLocation; 
         desiredLocation = locationPlusDirection(e.getLocation(), dir);
         
-        if(MV.canTraverse(e.getMotionType(), getItemAtCoordinate(desiredLocation), getTileAtCoordinate(desiredLocation).getMotionType())){
-           MC.move(e, desiredLocation);
+        if(MV.canTraverse(e.getMotionType(), getItemAtCoordinate(desiredLocation), getTileAtCoordinate(desiredLocation).getMotionType())){ 
+           MC.moveEntity(e, desiredLocation);
         }
         else{
             return false;
@@ -453,6 +454,39 @@ public class GameMap extends Observable {
           
         }
         return returnThis; 
+    }
+
+    /**
+     * @author Jason Owens
+     * @param center
+     * @param radius
+     * @param containedTiles
+     * @param containedProjectiles
+     * @param containedEntities
+     * @param containedTraps
+     * @param containedItems
+     * @param containedAreaEffects 
+     */
+    public void getEverythingInRange(CoordinatePair center, int radius, List<Tile> containedTiles, List<Projectile> containedProjectiles, List<Entity> containedEntities, List<Trap> containedTraps, List<Item> containedItems, List<AreaEffect> containedAreaEffects) {
+        
+        
+        for(Entity e: entities){
+            if(center.getDistance(e.getLocation(), radius)){
+                
+            }
+        }
+        for(Item i: Item){
+    
+        }
+        for(Trap e: Trap){
+    
+        }
+        for(AreaEffect ae: AreaEffect){
+    
+        }
+        for(Projectile p: Projectile){
+    
+        }
     }
 }
     

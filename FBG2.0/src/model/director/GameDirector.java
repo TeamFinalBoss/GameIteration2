@@ -2,11 +2,13 @@ package model.director;
 
 import java.awt.Dimension;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.Map;
 
 import model.map.GameMap;
+import view.MousePoint;
 import view.scene.Scene;
 import view.viewport.KeyBindingsErrorViewPort;
 import view.viewport.KeyBindingsMenuViewPort;
@@ -70,6 +72,7 @@ public class GameDirector implements SceneObserver{
     public void startMainMenuScene() {
     	KeyListener listener = controller.buildController();
         window.addKeyController(listener);//Add controller to menu
+        window.addMouseController(controller.getMouseParser());
 
         
         MainMenuViewPort menuVP = new MainMenuViewPort();
@@ -88,6 +91,8 @@ public class GameDirector implements SceneObserver{
         saveScene.addViewport(saveVP);
         
         menuScene.addViewport(menuVP);//Add menuVP to menuScene
+        
+        controller.getMouseParser().setMousePoint((MousePoint)menuVP);
         
         controller.addObserver(menuVP, SceneType.MAIN_MENU);
         controller.addObserver(pauseVP, SceneType.PAUSE_MENU);

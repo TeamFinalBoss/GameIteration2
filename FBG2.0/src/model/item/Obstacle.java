@@ -19,8 +19,9 @@ public class Obstacle extends Item {
 	public Obstacle(){
 		super("Generic Obstacle", "Generic description", new CoordinatePair());
 		
-		this.id = "5";
-		this.className = "Obstacle";
+		this.setID("5");
+		this.setClassName("Obstacle");
+
 		
 		//Other properties set here
 	}
@@ -28,8 +29,8 @@ public class Obstacle extends Item {
 	public Obstacle(String objectName, String description, CoordinatePair location){
 		super(objectName, description, location);
 		
-		this.id = "5";
-		this.className = "Obstacle";
+		this.setID("5");
+		this.setClassName("Obstacle");
 		
 		//Other properties set here
 	}

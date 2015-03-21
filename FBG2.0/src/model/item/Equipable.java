@@ -1,7 +1,7 @@
 package model.item;
 
 
-
+import model.entity.Entity;
 import model.map.pair.CoordinatePair;
 /**
  * ID=15
@@ -45,7 +45,10 @@ public abstract class Equipable extends Usable {
         
        
         // for Armours 
-        public boolean meetsRequirements(){
+        public boolean meetsRequirements(Entity target){
             return false;
         }
+        
+        public abstract void onUnequip(Entity target); //undo the effects that were applied when the item was equipped
+        public abstract void onEquip(Entity target); //carry out the effects that are to happen when this item is equipped to this entity
 }

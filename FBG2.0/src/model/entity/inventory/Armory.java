@@ -47,11 +47,11 @@ public class Armory {
 		//fail if owner of armory does not meet the equipment's requirements
 		if(!newest.meetsRequirements(owner)) throw new IllegalArgumentException("Equip failed: Owner does not meet equipment requirements");
 		//unequip the slot if something is already occupying it
-		if(contents.containsKey(newest.slot())){
-			old = unequip(newest.slot());
+		if(contents.containsKey(newest.getSlot())){
+			old = unequip(newest.getSlot());
 		}
 		//insert the new equipment into the armory
-		contents.put(newest.slot(), newest);
+		contents.put(newest.getSlot(), newest);
 		//inform the equipable that it has been equipped so that it may perform its on-equip effects
 		newest.onEquip(owner);
 		//return whatever equipment was removed

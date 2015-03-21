@@ -23,8 +23,8 @@ public abstract class AreaEffect extends MapObject {
     public AreaEffect() {
     	super("Generic AreaEffect", "Generic description", new CoordinatePair());
     	
-    	this.id = "8";
-    	this.className = "Area Effect";
+		this.setID("8");
+		this.setClassName("Area Effect");
     	
     	//Other properties set here
         effect = null;
@@ -35,11 +35,23 @@ public abstract class AreaEffect extends MapObject {
     		Effect effect) {
     	super(objectName, description, location);
     	
-    	this.id = "8";
-    	this.className = "Area Effect";
+		this.setID("8");
+		this.setClassName("Area Effect");
     	
     	//Other properties set here
         this.effect = effect;
+    }
+    
+    /**
+     * This method arbitrarily describes whether an entity can
+     * 'observe' this area effect
+     * 
+     * @author Michael Cohen
+     * @param observation skill needed to see the item
+     * @return true if observation >= 50
+     */
+    public boolean canSee(int observation){
+    	return observation >= 50;
     }
 
     /**

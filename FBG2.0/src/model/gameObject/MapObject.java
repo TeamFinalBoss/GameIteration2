@@ -74,6 +74,14 @@ public abstract class MapObject {
 	public String getClassName(){ return className; }
 	
 	/**
+	 * Sets class name
+	 * 
+	 * @author Michael Cohen
+	 * @param className the string to be set as className
+	 */
+	public void setClassName(String className){ this.className = className; }
+	
+	/**
 	 * Gets Description
 	 * 
 	 * @author Chris Moscoso
@@ -104,4 +112,9 @@ public abstract class MapObject {
 	 * @param p the CoordinatePair to be set 
 	 */
 	public void setLocation(CoordinatePair p) { location = p; }
+	
+	public boolean modifyLocation(CoordinatePair p){
+		location.add(p);
+		return true;
+	}
 }

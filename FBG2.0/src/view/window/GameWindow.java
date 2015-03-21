@@ -6,13 +6,17 @@ import java.awt.Graphics;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.awt.image.BufferedImage;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import controller.mouse.MouseParser;
 import model.director.GameDirector;
 
 /**
@@ -91,10 +95,12 @@ public class GameWindow {
     /**
      * Adds a mouse controller to the windows main panel
      *
-     * @param m the mouse controller to be added
+     * @param mouseParser the mouse controller to be added
      */
-    public void addMouseController(MouseListener m) {
-        frame.addMouseListener(m);
+    public void addMouseController(MouseAdapter mouseParser) {
+        frame.addMouseListener(mouseParser);
+        frame.addMouseMotionListener(mouseParser);
+        frame.addMouseWheelListener(mouseParser);
     }
 
     /**

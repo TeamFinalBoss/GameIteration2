@@ -21,8 +21,8 @@ public abstract class Item extends MapObject {
 	public Item(){
 		super("Generic Item", "Generic description", new CoordinatePair());
 		
-		this.id = "2";
-		this.className = "Item";
+		this.setID("2");
+		this.setClassName("Item");
 	
 		//Other properties set here
 	}
@@ -30,8 +30,8 @@ public abstract class Item extends MapObject {
 	public Item(String objectName, String description, CoordinatePair location){
 		super(objectName, description, location);
 		
-		this.id = "2";
-		this.className = "Item";
+		this.setID("2");
+		this.setClassName("Item");
 		
 		//Other properties set here
 	}

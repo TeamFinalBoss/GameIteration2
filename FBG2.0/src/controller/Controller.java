@@ -11,6 +11,7 @@ import controller.builder.ControllerBuilder;
 import controller.builder.DefualtKeyBindingsBuilder;
 import controller.keyBindings.KeyBindings;
 import controller.keyBindings.KeyBindingsUpdate;
+import controller.mouse.MouseParser;
 import controller.sceneControllers.SceneType;
 
 /**
@@ -23,6 +24,7 @@ public class Controller {
 	private KeyDispatcher dispatcher;
 	private Map<SceneType, List<Observable>> describeable;
 	private KeyListener activeListener;
+	private MouseParser parser;
 	
 	private static Controller controller = null;
 	
@@ -55,6 +57,7 @@ public class Controller {
 	public void updateControllerKeyBindings(KeyBindingsUpdate bindings) {
 		dispatcher.updateKeyOptions(bindings);
 		keyBindings.updateBindings(bindings);
+		parser.setOptions(keyBindings.getBindingsReverse());
 	}
 
 	public void addObserver(Observer o, SceneType type) {
@@ -70,5 +73,12 @@ public class Controller {
 	public KeyListener getActiveListener() {
 		return this.activeListener;
 	}
+
+	public void setMouseAdapter(MouseParser parser) {
+		this.parser = parser;
+	}
 	
+	public MouseParser getMouseParser() {
+		return this.parser;
+	}
 }
