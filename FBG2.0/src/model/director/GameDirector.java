@@ -5,7 +5,10 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
 
 import model.map.GameMap;
 import view.MousePoint;
@@ -75,8 +78,10 @@ public class GameDirector implements SceneObserver{
         window.addKeyController(listener);//Add controller to menu
         window.addMouseController(controller.getMouseParser());
 
+        List<Observable> mainMenuObservables = controller.getObservables(SceneType.MAIN_MENU);
         
         MainMenuViewPort menuVP = new MainMenuViewPort();
+        ((Observable)menuVP).addObserver((Observer) mainMenuObservables.get(0));
         
         MainMenuViewPort pauseVP = new MainMenuViewPort();
         pauseScene.addViewport(pauseVP);
@@ -110,9 +115,8 @@ public class GameDirector implements SceneObserver{
     public void startNewGame() {
         
         GameMap map = new GameMap();
-        
-        
-        
+        ActiveMapManager.getInstance().addMap(map);
+        ActiveMapManager.getInstance().setActiveMap(map);
        
         MapViewPort mapVP = new MapViewPort();
 

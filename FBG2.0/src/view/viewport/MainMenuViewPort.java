@@ -17,13 +17,14 @@ import javax.swing.ImageIcon;
 import view.MousePoint;
 import model.director.GameDirector;
 import controller.util.Describeable;
+import controller.util.Selectable;
 
 /**
  * The MainMenuViewPort draws the main menu
  *
  * @author ChrisMoscoso
  */
-public class MainMenuViewPort implements ViewPort, Observer, MousePoint {
+public class MainMenuViewPort extends Observable implements ViewPort, Observer, MousePoint, Selectable {
 
     private String[] options;
     private int activeOptionIndex;
@@ -34,6 +35,7 @@ public class MainMenuViewPort implements ViewPort, Observer, MousePoint {
     private final int logoY = 100;
     private int[] stringWidth;
     private int stringHeight;
+
     
     public MainMenuViewPort(){
         
@@ -116,7 +118,7 @@ public class MainMenuViewPort implements ViewPort, Observer, MousePoint {
     }
 
 	@Override
-	public int getActiveLocation(Point point) {
+	public void getActiveLocation(Point point) {
 		if (options != null) {
 			int checkWidth;
 			int checkHeight;
@@ -133,18 +135,18 @@ public class MainMenuViewPort implements ViewPort, Observer, MousePoint {
 				System.out.println("X " + point.getX() + " Y" + point.getY());
 				if(withinYBounds(stringHeight, i, point) && withinXBounds(stringWidth[i],i,point)) {
 					activeOptionIndex = i;
-					return i;
+					setChanged();
+					notifyObservers();
 				}
 			}
 		}
-		return -1;
 	}
 
 	private boolean withinYBounds(int checkHeight, int i, Point point) {
 		int heightLowerBounds = (i * (checkHeight + padding) + logoY + logoHeight + checkHeight + padding);
 		int heightUpperBounds = heightLowerBounds - checkHeight;
 		
-		System.out.println("Lower" + heightLowerBounds + " Higher" + heightUpperBounds);
+		//System.out.println("Lower" + heightLowerBounds + " Higher" + heightUpperBounds);
 
 		return (((int)point.getY() <= heightLowerBounds) && ((int)point.getY() >= heightUpperBounds));
 	}
@@ -153,9 +155,14 @@ public class MainMenuViewPort implements ViewPort, Observer, MousePoint {
 		int widthLeftBounds = width/2 - checkWidth/2;
 		int widthRightBounds = width/2 + checkWidth/2;
 		
-		System.out.println("Left" + widthLeftBounds + " Right" + widthRightBounds);
+		//System.out.println("Left" + widthLeftBounds + " Right" + widthRightBounds);
 	
 		return (((int)point.getX() >= widthLeftBounds) && ((int)point.getX() <= widthRightBounds));
+	}
+
+	@Override
+	public int getCurrentIndex() {
+		return this.activeOptionIndex;
 	}
     
 }

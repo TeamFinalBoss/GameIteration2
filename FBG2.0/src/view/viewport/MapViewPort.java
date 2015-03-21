@@ -7,7 +7,12 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
+
 import javax.imageio.ImageIO;
+
+import model.director.ActiveMapManager;
+import model.director.AvatarInteractionManager;
+import model.entity.Entity;
 import model.map.Locations;
 import model.map.pair.CoordinatePair;
 import model.map.tile.Tile;
@@ -39,14 +44,19 @@ public class MapViewPort implements ViewPort, Observer {
                 //Draw tile
                 //TODO: Make it so it doesnt just draw grass       
                 g.drawImage(grass, i * 64, j * 64, 64, 64, null);
-/*
+
                 //Draw enitty
                 if (entities.getObjectAt(new CoordinatePair(i, j)) != null  ){
-                    g.setColor(Color.blue);
+                	Entity avatar = AvatarInteractionManager.getInstance().getAvatar();
+                	if(entities.getObjectAt(new CoordinatePair(i, j)).equals(avatar)) {
+                		 g.setColor(Color.blue);
+                	} else {
+                		g.setColor(Color.red);
+                	}
                     g.drawRect(i*64, j*64, 63, 63);
                 }
-                */
-                //Entity.getPlayer().getLocation();
+                
+                
         
             }
             

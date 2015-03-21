@@ -31,11 +31,12 @@ public class MouseParser extends MouseAdapter {
 	}
 	
 	public void mouseClicked(MouseEvent e) {
-		
+		Integer value = options.get(KeyBindingsOption.CONFIRM);
+		dispatcher.useKey(value);
 	}
 	
 	public void mouseMoved(MouseEvent e) {
-		int value = point.getActiveLocation(e.getPoint());
+		point.getActiveLocation(e.getPoint());
 	}
 	
 	public void mouseWheelMoved(MouseWheelEvent e) {

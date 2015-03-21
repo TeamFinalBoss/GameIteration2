@@ -9,6 +9,7 @@ import java.util.Observer;
 
 import controller.commands.Commandable;
 import controller.util.Describeable;
+import controller.util.Selectable;
 
 
 /**
@@ -19,7 +20,7 @@ import controller.util.Describeable;
  * TODO I think this class needs to be updated, but for now it should work.
  *
  */
-public class Menu extends Observable implements Describeable, Menuable {
+public class Menu extends Observable implements Describeable, Menuable, Observer {
 	private List<MenuOption> menuOptions;
 	private MenuOption activeOption;
 	private Map<MenuOption, Commandable> menuCommands;
@@ -94,5 +95,13 @@ public class Menu extends Observable implements Describeable, Menuable {
 	@Override
 	public void confirm() {
 		menuCommands.get(activeOption).execute();
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		Selectable selectable = (Selectable) o;
+		this.activeOption = this.menuOptions.get(selectable.getCurrentIndex());
+		setChanged();
+		notifyObservers();
 	}
 }

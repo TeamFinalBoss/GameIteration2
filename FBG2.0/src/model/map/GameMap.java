@@ -439,7 +439,7 @@ public class GameMap extends Observable {
         }
     }
     
-    public boolean useAbility(Entity e, int abilityToUse){
+    public void useAbility(Entity e, int abilityToUse){
         e.useAbility(abilityToUse);
     }
     
