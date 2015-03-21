@@ -3,7 +3,7 @@ package model.entity;
 import model.map.pair.CoordinatePair;
 
 public class SummonerAvatar extends SummonerEntity{
-	public SummonerAvatar(String objectName, String description, CoordinatePair location){
-		super(objectName, description, location);
+	public SummonerAvatar(){
+		super("The Summoner", "A myserious being from a distant plane", new CoordinatePair(1,1));
 	}
 }

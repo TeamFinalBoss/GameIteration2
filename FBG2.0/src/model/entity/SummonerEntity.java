@@ -7,7 +7,7 @@ import model.map.pair.CoordinatePair;
 public abstract class SummonerEntity extends Entity {
 	/* -------------------- PROTECTED CREATION ------------------- */
 	protected SummonerLibrary createAbilities(){
-		return new SummonerLibrary();
+		return new SummonerLibrary(this);
 	}
 	protected SummonerStats createStats(){
 		return new SummonerStats();

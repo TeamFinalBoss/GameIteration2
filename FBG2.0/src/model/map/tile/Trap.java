@@ -54,6 +54,18 @@ public abstract class Trap extends MapObject{
 		return false;
 	}
 	
+    /**
+     * This method arbitrarily describes whether an entity can
+     * 'observe' this area effect
+     * 
+     * @author Michael Cohen
+     * @param observation skill needed to see the item
+     * @return true if observation >= 50
+     */
+    public boolean canSee(int observation){
+    	return observation >= 50;
+    }
+	
 	/**
 	 * Method to be overridden by subclasses to provide unique functionality
 	 * when the trap is touched.
