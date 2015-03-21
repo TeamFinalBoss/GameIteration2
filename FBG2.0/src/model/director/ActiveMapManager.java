@@ -14,6 +14,10 @@ import model.map.pair.CoordinatePair;
 import model.map.tile.AreaEffect;
 import model.map.tile.Trap;
 
+//TODO: add following function: public void getEverythingInRange(CoordinatePair center, int radius, 
+//      List<Tile> containedTiles, List<Projectile> containedProjectiles, List<Entity> containedEntities, 
+//		List<Trap> containedTraps, List<Item> containedItems, List<AreaEffect> containedAreaEffects)
+
 /**
  * TODO make sure Entity supports useAbility(int)
  * 

@@ -6,12 +6,18 @@ import model.entity.inventory.Inventory;
 import model.entity.stats.Stats;
 import model.gameObject.MapObject;
 import model.map.Direction;
+import model.map.Projectile;
 import model.map.pair.CoordinatePair;
+import model.map.tile.AreaEffect;
+import model.map.tile.Tile;
+import model.map.tile.Trap;
 import model.util.GameTimer;
 import model.effect.AllowMovement;
 
+import java.util.Collections;
 import java.util.List;
 
+import model.item.Item;
 import model.item.Takeable;
 import model.item.Equipable;
 import model.item.EquipSlot;
@@ -34,10 +40,10 @@ public abstract class Entity extends MapObject{
     private AbilityLibrary myAbilities;
     private Stats myStats;
     private Direction myDirection;
+    private VisibleMap visibleMap;
     private ActiveMapManager activeMap; //forwards messages to the active map
     private int currency;
     private MotionType motionType;
-    private VisibleMap mySight;
     private boolean canMove;
 
     /* -------------------- PROTECTED COMPONENT CREATION -------------------- */
@@ -280,6 +286,27 @@ public abstract class Entity extends MapObject{
 	public void useAbility(int position){
 		myAbilities.performActiveAbility(position, this);
 	}
+	
+	/* -------------------- VISIBLE MAP ACCESSORS -------------------- */
+	public List<Tile> getVisibleTiles(){
+		return visibleMap.getVisibleTiles();
+	}
+	public List<Projectile> getVisibleProjectiles(){
+		return visibleMap.getVisibleProjectiles();
+	}
+	public List<Entity> getVisibleEntities(){
+		return visibleMap.getVisibleEntities();
+	}
+	public List<Trap> getVisibleTraps(){
+		return visibleMap.getVisibleTraps();
+	}
+	public List<Item> getVisibleItems(){
+		return visibleMap.getVisibleItems();
+	}
+	public List<AreaEffect> getVisibleAreaEffects(){
+		return visibleMap.getVisibleAreaEffects();
+	}
+	
 	
     /* -------------------- MISC. ACCESSORS -------------------- */
     public int getCurrency(){
