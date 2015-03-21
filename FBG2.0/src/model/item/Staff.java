@@ -52,6 +52,11 @@ public class Staff extends Weapon {
             return true;
             
         }
+        
+         public void Staff(int durability){
+            Staff("Staff", "Generic_description", new CoordinatePair(),
+                0, durability, EquipSlot.HEAD, new DealDamageEffect(10));
+        }
     
     
 }
