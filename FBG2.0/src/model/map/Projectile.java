@@ -63,4 +63,6 @@ public class Projectile extends TimerTask{
         isActive = false; //change this if we ever implement piercing projectiles
         //affect Entity here, may move this to Combat Coordinator
     }
+    
+    public abstract boolean canSee();
 }
