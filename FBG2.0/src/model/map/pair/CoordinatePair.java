@@ -61,7 +61,7 @@ public class CoordinatePair {
     * @param location1, location2
     * @return distance
     */
-    public double getDistance(CoordinatePair location1, Coordinate location2)
+    public double getDistance(CoordinatePair location1, CoordinatePair location2)
     {
         int x1 = location1.getX();
         int y2 = location2.getY();
@@ -69,7 +69,7 @@ public class CoordinatePair {
         int y1 = location1.getY();
         int x2 = location2.getX();
         
-        double distance = pow(pow(x1 - x2, 2) + pow(y1 - y2, 2), 0.5);
+        double distance = Math.pow(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2), 0.5);
         
         return distance;
     }
