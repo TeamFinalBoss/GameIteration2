@@ -8,7 +8,7 @@ public class NPCInventory extends Inventory {
 	Storefront myStore;
 	
 	/* -------------------- CONSTRUCTORS -------------------- */
-	NPCInventory(int size, Entity owner){
+	public NPCInventory(int size, Entity owner){
 		super(size, owner);
 		myStore = new Storefront();
 	}
