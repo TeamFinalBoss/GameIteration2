@@ -52,4 +52,9 @@ public class RustyKnife extends Weapon{
         public boolean canSee(int observationSkill){
             return false; 
         }
+        
+        public void RustyKnife(int durability){
+            RustyKnife("RustyKnife", "Generic_description", new CoordinatePair(),
+                0, durability, EquipSlot.HEAD, new DealDamageEffect(10));
+        }
 }

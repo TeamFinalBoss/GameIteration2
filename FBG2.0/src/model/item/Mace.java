@@ -46,5 +46,10 @@ public class Mace extends Weapon {
                         this.getLocation(), this.getValue(), 
                         this.getDurability());
     	}
+        
+        public void Mace(int durability){
+            Mace("Generic Mace", "Generic description", new CoordinatePair(), 
+                        0, durability, EquipSlot.HEAD, new DealDamageEffect(20));
+        }
     
 }
