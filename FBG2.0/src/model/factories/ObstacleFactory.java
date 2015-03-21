@@ -8,7 +8,6 @@ import model.director.ActiveMapManager;
 import model.factories.PlaceableObjectFactory;
 import model.gameObject.MapObject;
 import model.item.Door;
-import model.item.DoorOpener;
 import model.item.Item;
 
 import org.w3c.dom.Element;

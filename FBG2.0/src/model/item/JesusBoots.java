@@ -47,7 +47,6 @@ public class JesusBoots extends Equipable{
         
        
         // for Armours 
-        @Override
         public boolean meetsRequirements(){
             return false;
         }
