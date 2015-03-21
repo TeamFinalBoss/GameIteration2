@@ -64,5 +64,5 @@ public class Projectile extends TimerTask{
         //affect Entity here, may move this to Combat Coordinator
     }
     
-    public abstract boolean canSee();
+    public abstract boolean canSee(int observationLevel);
 }
