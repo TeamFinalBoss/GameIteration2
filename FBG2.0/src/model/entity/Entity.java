@@ -67,6 +67,33 @@ public abstract class Entity extends MapObject{
     protected AbilityLibrary getAbilities(){
     	return myAbilities;
     }
+    protected Direction motionToDirection(CoordinatePair change){
+    	if(change.getX() > 0 && change.getY() > 0){
+    		return Direction.NorthEast;
+    	}
+    	if(change.getX() > 0 && change.getY() < 0){
+    		return Direction.NorthWest;
+    	}
+    	if(change.getX() < 0 && change.getY() > 0){
+    		return Direction.SouthEast;
+    	}
+    	if(change.getX() < 0 && change.getY() < 0){
+    		return Direction.SouthWest;
+    	}
+    	if(change.getX() > 0){
+    		return Direction.West;
+    	}
+    	if(change.getX() < 0){
+    		return Direction.East;
+    	}
+    	if(change.getY() > 0){
+    		return Direction.North;
+    	}
+    	if(change.getY() < 0){
+    		return Direction.South;
+    	}
+    	return myDirection;
+    }
     
     /* -------------------- CONSTRUCTORS --------------------*/
     public Entity(String objectName, 
@@ -132,155 +159,204 @@ public abstract class Entity extends MapObject{
     /* -------------------- STATS ACCESSORS -------------------- */
     public int getLivesLeft(){
 		return myStats.livesLeft();
+		myAbilities.update();
 	}
 	public int getStrength(){
 		return myStats.strength();
+		myAbilities.update();
 	}
 	public int getAgility(){
 		return myStats.agility();
+		myAbilities.update();
 	}
 	public int getIntellect(){
 		return myStats.intellect();
+		myAbilities.update();
 	}
 	public int getHardiness(){
 		return myStats.hardiness();
+		myAbilities.update();
 	}
 	public int getExperience(){
 		return myStats.experience();
+		myAbilities.update();
 	}
 	public int getMovement(){
 		return myStats.movement();
+		myAbilities.update();
 	}
 	public int getLevel(){
 		return myStats.level();
+		myAbilities.update();
 	}
 	public int getMaxHP(){
 		return myStats.maxHP();
+		myAbilities.update();
 	}
 	public int getMaxMP(){
 		return myStats.maxMP();
+		myAbilities.update();
 	}
 	public int getOffense(){
 		return myStats.offense();
+		myAbilities.update();
 	}
 	public int getDefense(){
 		return myStats.defense();
+		myAbilities.update();
 	}
 	public int getArmor(){
 		return myStats.armor();
+		myAbilities.update();
 	}
 	public int getBindWounds(){
 		return myStats.bindWounds();
+		myAbilities.update();
 	}
 	public int getBargain(){
 		return myStats.bargain();
+		myAbilities.update();
 	}
 	public int getObservation(){
 		return myStats.observation();
+		myAbilities.update();
 	}
 	public int getCurrentHP(){
 		return myStats.currentHP();
+		myAbilities.update();
 	}
 	public int getCurrentMP(){
 		return myStats.currentMP();
+		myAbilities.update();
 	}
 	public int getWeaponOffense(){
 		return myStats.weaponOffense();
+		myAbilities.update();
 	}
 	public int getEquipArmor(){
 		return myStats.equipArmor();
+		myAbilities.update();
 	}
 	
 	/* -------------------- STATS SET MUTATORS -------------------- */
 	public void setLivesLeft(int next){
 		myStats.setLivesLeft(next);
+		myAbilities.update();
 	}
 	public void setStrength(int next){
 		myStats.setStrength(next);
+		myAbilities.update();
 	}
 	public void setAgility(int next){
 		myStats.setAgility(next);
+		myAbilities.update();
 	}
 	public void setIntellect(int next){
 		myStats.setIntellect(next);
+		myAbilities.update();
 	}
 	public void setHardiness(int next){
 		myStats.setHardiness(next);
+		myAbilities.update();
 	}
 	public void setExperience(int next){
 		myStats.setExperience(next);
+		myAbilities.update();
 	}
 	public void setMovement(int next){
 		myStats.setMovement(next);
+		myAbilities.update();
 	}
 	public void setBindWounds(int next){
 		myStats.setBindWounds(next);
+		myAbilities.update();
 	}
 	public void setBargain(int next){
 		myStats.setBargain(next);
+		myAbilities.update();
 	}
 	public void setObservation(int next){
 		myStats.setObservation(next);
+		myAbilities.update();
 	}
 	public void setCurrentHP(int next){
 		myStats.setCurrentHP(next);
+		myAbilities.update();
 	}
 	public void setCurrentMP(int next){
 		myStats.setCurrentMP(next);
+		myAbilities.update();
 	}
 	public void setWeaponOffense(int next){
 		myStats.setWeaponOffense(next);
+		myAbilities.update();
 	}
 	public void setEquipArmor(int next){
 		myStats.setEquipArmor(next);
+		myAbilities.update();
 	}
             
         
 	/* -------------------- STATS MODIFY MUTATORS -------------------- */
 	public void dealDamage(int amount){
 		myStats.dealDamage(amount);
+		myAbilities.update();
 	}
 	public void modifyLivesLeft(int next){
 		myStats.modifyLivesLeft(next);
+		myAbilities.update();
 	}
 	public void modifyStrength(int next){
 		myStats.setStrength(next);
+		myAbilities.update();
 	}
 	public void modifyAgility(int next){
 		myStats.setAgility(next);
+		myAbilities.update();
 	}
 	public void modifyIntellect(int next){
 		myStats.setIntellect(next);
+		myAbilities.update();
 	}
 	public void modifyHardiness(int next){
 		myStats.modifyHardiness(next);
+		myAbilities.update();
 	}
 	public void modifyExperience(int next){
 		myStats.modifyExperience(next);
+		myAbilities.update();
 	}
 	public void modifyMovement(int next){
 		myStats.modifyMovement(next);
+		myAbilities.update();
 	}
 	public void modifyBindWounds(int next){
 		myStats.modifyBindWounds(next);
+		myAbilities.update();
 	}
 	public void modifyBargain(int next){
 		myStats.setBargain(next);
+		myAbilities.update();
 	}
 	public void modifyObservation(int next){
 		myStats.setObservation(next);
+		myAbilities.update();
 	}
 	public void modifyCurrentHP(int next){
 		myStats.setCurrentHP(next);
+		myAbilities.update();
 	}
 	public void modifyCurrentMP(int next){
 		myStats.setCurrentMP(next);
+		myAbilities.update();
 	}
 	public void modifyWeaponOffense(int next){
 		myStats.setWeaponOffense(next);
+		myAbilities.update();
 	}
 	public void modifyEquipArmor(int next){
 		myStats.setEquipArmor(next);
+		myAbilities.update();
 	}
         
 	/* -------------------- ABILITY ACCESSORS -------------------- */
@@ -347,11 +423,15 @@ public abstract class Entity extends MapObject{
     public boolean modifyLocation(CoordinatePair change){
     	if(!canMove) return false;
     	super.modifyLocation(change);
+    	setDirection(motionToDirection(change));
     	canMove = false;
     	GameTimer.getInstance().addEvent(new AllowMovement(this), (int) 1000/getMovement());
     	return true;
     }
     public void setMovementPermission(boolean newest){
     	canMove = newest;
+    }
+    public void setDirection(Direction newest){
+    	myDirection = newest;
     }
 }

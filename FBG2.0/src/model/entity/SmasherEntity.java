@@ -7,7 +7,7 @@ import model.map.pair.CoordinatePair;
 public abstract class SmasherEntity extends Entity{
 	/* -------------------- PROTECTED CREATION ------------------- */
 	protected SmasherLibrary createAbilities(){
-		return new SmasherLibrary();
+		return new SmasherLibrary(this);
 	}
 	protected SmasherStats createStats(){
 		return new SmasherStats();

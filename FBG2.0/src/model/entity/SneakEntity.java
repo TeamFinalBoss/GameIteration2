@@ -7,7 +7,7 @@ import model.map.pair.CoordinatePair;
 public abstract class SneakEntity extends Entity {
 	/* -------------------- PROTECTED CREATION ------------------- */
 	protected SneakLibrary createAbilities(){
-		return new SneakLibrary();
+		return new SneakLibrary(this);
 	}
 	protected SneakStats createStats(){
 		return new SneakStats();
