@@ -83,9 +83,9 @@ public class MapViewPort implements ViewPort, Observer {
                         if (!e.equals(Avatar.getAvatar())) {
                             double percentageOfHealth = (double) e.getPlayerStats().getCurrentHealth() / (double) e.getPlayerStats().getMaxHealth();
                             g.setColor(Color.gray);
-                            g.fillRect((i - startX) * tileWidth, (j - startY) * tileHeight, tileWidth, 3);
+                            g.fillRoundRect((i - startX) * tileWidth, (j - startY) * tileHeight, tileWidth, 3, 5, 5);
                             g.setColor(Color.green);
-                            g.fillRect((i - startX) * tileWidth, (j - startY) * tileHeight, (int) (tileWidth * percentageOfHealth), 3);
+                            g.fillRoundRect((i - startX) * tileWidth, (j - startY) * tileHeight, (int) (tileWidth * percentageOfHealth), 3, 5, 5);
                         }
                     }
                 }

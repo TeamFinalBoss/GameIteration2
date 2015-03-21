@@ -1,7 +1,7 @@
 package model.map.tile;
 
 import model.gameObject.entity.Entity;
-import model.gameObject.SpriteObject;
+import model.gameObject.GameObject;
 
 /**
  * The purpose of this abstract class is to have an object that has a unique effect happen
@@ -10,7 +10,7 @@ import model.gameObject.SpriteObject;
  * 
  * @author Aidan Pace
  */
-public abstract class Trap extends SpriteObject{
+public abstract class Trap extends GameObject{
 
 	private int difficulty;
 	

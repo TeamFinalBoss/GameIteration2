@@ -1,4 +1,4 @@
-package model.gameObject.entity;
+package model.gameObject.entity.inventory;
 import model.item.Equipable;
 import model.item.EquipSlot;
 

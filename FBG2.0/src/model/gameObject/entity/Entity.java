@@ -1,11 +1,12 @@
 package model.gameObject.entity;
 
+import model.gameObject.entity.inventory.Inventory;
 import java.awt.Point;
 import java.util.Observable;
 import java.util.Observer;
 import model.director.GameDirector;
 import model.factory.SpriteFactory;
-import model.gameObject.SpriteObject;
+import model.gameObject.GameObject;
 import model.map.Direction;
 import model.stats.PlayerStats;
 
@@ -15,7 +16,7 @@ import model.stats.PlayerStats;
  * @author Matthew Kroeze, Chris Moscoso
  * @version 1.0.0 2015-03-14
  */
-public class Entity extends SpriteObject implements Observer{
+public class Entity extends GameObject implements Observer{
 
     protected Inventory myInventory;
     protected Occupation myOccupation;

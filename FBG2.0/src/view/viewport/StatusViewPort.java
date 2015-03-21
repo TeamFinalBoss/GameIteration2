@@ -32,8 +32,8 @@ public class StatusViewPort implements ViewPort, Observer {
 
         if (stats != null) {
 
-            int healthBarXMargin = (int) (width * 0.05);
-            int healthBarYMargin = 35;
+            int healthBarXMargin = (int) (width * 0.20);
+            int healthBarYMargin = height - 135;
             int healthBarWidth = width - (healthBarXMargin * 2);
             int healthBarHeight = 25;
             
@@ -41,10 +41,10 @@ public class StatusViewPort implements ViewPort, Observer {
             
             //Health bar
             g.setColor(Color.LIGHT_GRAY);
-            g.fillRect(healthBarXMargin , healthBarYMargin, healthBarWidth, healthBarHeight);
+            g.fillRoundRect(healthBarXMargin , healthBarYMargin, healthBarWidth, healthBarHeight, 25, 25);
             
             g.setColor(Color.GREEN);
-            g.fillRect(healthBarXMargin, healthBarYMargin, (int) (healthBarWidth * percentageOfHealthRemaining), healthBarHeight);
+            g.fillRoundRect(healthBarXMargin, healthBarYMargin, (int) (healthBarWidth * percentageOfHealthRemaining), healthBarHeight, 25, 25);
             
             String health = stats.getCurrentHealth() + "/" + stats.getMaxHealth();
             g.setColor(Color.BLACK);
@@ -53,7 +53,7 @@ public class StatusViewPort implements ViewPort, Observer {
             drawUglyStats(g);
             
             //Mana bar
-            int manaBarXMargin = (int) (width * 0.15);
+            int manaBarXMargin = (int) (width * 0.25);
             int manaBarWidth = width - (manaBarXMargin * 2);
             int manaBarYMargin = healthBarYMargin + healthBarHeight;
             int manaBarHeight = 25;
@@ -61,10 +61,10 @@ public class StatusViewPort implements ViewPort, Observer {
             double percentageOfManaRemaining = (double) stats.getCurrentMana() / (double) stats.getMaxHealth();
             
             g.setColor(Color.LIGHT_GRAY);
-            g.fillRect(manaBarXMargin , manaBarYMargin, manaBarWidth, manaBarHeight);
+            g.fillRoundRect(manaBarXMargin , manaBarYMargin, manaBarWidth, manaBarHeight, 25, 25);
             
             g.setColor(Color.BLUE);
-            g.fillRect(manaBarXMargin, manaBarYMargin, (int) (manaBarWidth * percentageOfManaRemaining), manaBarHeight);
+            g.fillRoundRect(manaBarXMargin, manaBarYMargin, (int) (manaBarWidth * percentageOfManaRemaining), manaBarHeight, 25, 25);
             
             String mana = stats.getCurrentMana() + "/" + stats.getMaxMana();
             g.setColor(Color.BLACK);

@@ -6,7 +6,7 @@ import model.factory.SpriteFactory;
 
 
 
-public class SpriteObject {
+public class GameObject {
 	protected int id;
 	private String name;
 	private String className;
@@ -19,7 +19,7 @@ public class SpriteObject {
 	
 	
 	//This constructor should be called only after the subclass constructor is called
-	public SpriteObject(){
+	public GameObject(){
 		name = "Generic Object";
 		className = "GameObject";
 		description = "Generic description";
@@ -27,7 +27,7 @@ public class SpriteObject {
 		
 	}
 	
-	public SpriteObject(String className, String objectName, String description , int ID){
+	public GameObject(String className, String objectName, String description , int ID){
 		//this.id = -1;	//should always be overriden
 		this.name = objectName;
 		this.className = className;

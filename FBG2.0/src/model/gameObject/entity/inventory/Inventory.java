@@ -1,4 +1,4 @@
-package model.gameObject.entity;
+package model.gameObject.entity.inventory;
 
 import java.util.List;
 import model.item.Takeable;

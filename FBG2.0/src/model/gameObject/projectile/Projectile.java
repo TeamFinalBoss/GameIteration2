@@ -2,7 +2,7 @@
 package model.gameObject.projectile;
 
 import java.awt.Point;
-import model.gameObject.SpriteObject;
+import model.gameObject.GameObject;
 import model.map.Direction;
 import model.stats.PlayerStats;
 
@@ -10,7 +10,7 @@ import model.stats.PlayerStats;
  *
  * @author ChrisMoscoso
  */
-public class Projectile extends SpriteObject{
+public class Projectile extends GameObject{
 
     private Point location;
     private Direction myDirection;
