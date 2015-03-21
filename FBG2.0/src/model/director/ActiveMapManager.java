@@ -58,7 +58,7 @@ public class ActiveMapManager {
     public static ActiveMapManager getInstance(){
         if(me == null){
             me = new ActiveMapManager();
-            me.avatar = new SummonerAvatar("Bob", "Generic descrip.", new CoordinatePair(10,10));
+            me.avatar = new SummonerAvatar();
         }
         return me;
     }
