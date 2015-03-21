@@ -9,12 +9,12 @@ import model.entity.Entity;
 import model.factories.PlaceableObjectFactory;
 import model.gameObject.MapObject;
 import model.item.Gun;
+import model.item.Halo;
 import model.item.HealthPotion;
-import model.item.HelmOfDark;
-import model.item.HelmOfLight;
 import model.item.HermesBoots;
 import model.item.Item;
 import model.item.JesusBoots;
+import model.item.Mace;
 import model.item.RustyKnife;
 import model.item.Stick;
 import model.item.Sword;
@@ -91,12 +91,8 @@ public class TakeableFactory implements PlaceableObjectFactory{
 			it = new HealthPotion(Integer.parseInt(item.getAttribute("durability"));
 			break;
 			
-		case "helmofdark":
-			it = new HelmOfDark(Integer.parseInt(item.getAttribute("durability"));
-			break;
-			
-		case "helmoflight":
-			it = new HelmOfLight(Integer.parseInt(item.getAttribute("durability"));
+		case "halo":
+			it = new Halo(Integer.parseInt(item.getAttribute("durabiity"));
 			break;
 			
 		case "hermesboots":
@@ -109,6 +105,10 @@ public class TakeableFactory implements PlaceableObjectFactory{
 		
 		case "rustyknife":
 			it = new RustyKnife(Integer.parseInt(item.getAttribute("durability"));
+			break;
+			
+		case "mace":
+			it = new Mace(Integer.parseInt(item.getAttribute("durability")));
 			break;
 			
 		case "stick":
