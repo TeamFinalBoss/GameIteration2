@@ -5,7 +5,6 @@ import java.util.List;
 
 import model.map.pair.CoordinatePair;
 import model.director.ActiveMapManager;
-import model.entity.Entity;
 import model.factories.PlaceableObjectFactory;
 import model.gameObject.MapObject;
 import model.item.Gun;
@@ -84,40 +83,44 @@ public class TakeableFactory implements PlaceableObjectFactory{
 		
 		switch(item.getAttribute("name")){
 		case "gun":
-			it = new Gun(Integer.parseInt(item.getAttribute("durability"));
+			it = new Gun();
 			break;
 			
 		case "healthpotion":
-			it = new HealthPotion(Integer.parseInt(item.getAttribute("durability"));
+			it = new HealthPotion();
 			break;
 			
 		case "halo":
-			it = new Halo(Integer.parseInt(item.getAttribute("durabiity"));
+			it = new Halo();
 			break;
 			
 		case "hermesboots":
-			it = new HermesBoots(Integer.parseInt(item.getAttribute("durability"));
+			it = new HermesBoots();
 			break;
 			
 		case "jesusboots":
-			it = new JesusBoots(Integer.parseInt(item.getAttribute("durability"));
+			it = new JesusBoots();
 			break;
 		
 		case "rustyknife":
-			it = new RustyKnife(Integer.parseInt(item.getAttribute("durability"));
+			it = new RustyKnife();
 			break;
 			
 		case "mace":
-			it = new Mace(Integer.parseInt(item.getAttribute("durability")));
+			it = new Mace();
 			break;
 			
 		case "stick":
-			it = new Stick(Integer.parseInt(item.getAttribute("durability"));
+			it = new Stick();
 			break;
 			
 		case "sword":
-			it = new Sword(Integer.parseInt(item.getAttribute("durability"));
+			it = new Sword();
 			break;
 		}
+		
+		((Takeable) it).setDurability(Integer.parseInt(item.getAttribute("durability")));
+		
+		return it;
 	}
 }
