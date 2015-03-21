@@ -467,26 +467,12 @@ public class GameMap extends Observable {
      * @param containedItems
      * @param containedAreaEffects 
      */
-    public void getEverythingInRange(CoordinatePair center, int radius, List<Tile> containedTiles, List<Projectile> containedProjectiles, List<Entity> containedEntities, List<Trap> containedTraps, List<Item> containedItems, List<AreaEffect> containedAreaEffects) {
-        
-        
-        for(Entity e: entities){
-            if(center.getDistance(e.getLocation(), radius)){
-                
-            }
-        }
-        for(Item i: Item){
-    
-        }
-        for(Trap e: Trap){
-    
-        }
-        for(AreaEffect ae: AreaEffect){
-    
-        }
-        for(Projectile p: Projectile){
-    
-        }
+    public void getEverythingInRange(CoordinatePair center, int radius, List<Tile> containedTiles, List<Projectile> containedProjectiles,
+            List<Entity> containedEntities, List<Trap> containedTraps, List<Item> containedItems, List<AreaEffect> containedAreaEffects) {
+       
+        entities.getSesInRange(center, radius, containedEntities);
+        items.getSesInRange(center, radius, containedItems);
+        effects.getSesInRange(center, radius, containedAreaEffects);
     }
 }
     
