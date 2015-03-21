@@ -408,6 +408,9 @@ public abstract class Entity extends MapObject{
     public MotionType getMotionType(){
     	return motionType;
     }
+    public boolean canSee(int observation){
+    	return true;
+    }
     
 
     /* -------------------- MISC. MUTATORS -------------------- */
