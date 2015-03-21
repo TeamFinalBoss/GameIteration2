@@ -62,7 +62,7 @@ public class Locations<S extends MapObject> {
     public void getSesInRange(CoordinatePair center, int radius, List<S> list){
         for(S object: locations){
            
-            if(center.getDistance(object.getLocation()) <= radius){
+            if(center.getDistance(object.getLocation(), center) <= radius){
                 list.add(object);
             }
         }
