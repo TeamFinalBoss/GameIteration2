@@ -1,5 +1,3 @@
-package model.entity.ability;
-
 import model.effect.Effect;
 import model.entity.Entity;
 
@@ -95,7 +93,7 @@ public class AngularAbility extends Ability
 	*/
 	public boolean inRange(Entity caster, Entity entity)
 	{
-		if(degree == 0)
+		if(degree == 0 || radius == 0)
 			return false;
 
 		CoordinatePair casterCoordinatePair = caster.getLocation();
@@ -169,11 +167,13 @@ public class AngularAbility extends Ability
 				return false;
 		}
 
-		// point on left line
+		// first point on left line
+		// the second point on left line is (0,0)
 		Lx = 1;
 		Ly = - Math.tan(Math.PI / 2 - radian / 2) * Lx;
 
 		// point on right line
+		// the second point on right line is (0,0)
 		Rx = 1;
 		Ry = Math.tan(Math.PI / 2 - radian / 2) * Rx;
 

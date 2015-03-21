@@ -82,6 +82,9 @@ public class RadialAbility extends Ability
 	*/
 	public boolean inRange(Entity caster, Entity entity)
 	{
+		if(radius == 0)
+			return false;
+		
 		CoordinatePair casterCoordinatePair = caster.getLocation();
 		CoordinatePair entityCoordinatePair = entity.getLocation();
 
