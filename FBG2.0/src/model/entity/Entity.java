@@ -158,84 +158,104 @@ public abstract class Entity extends MapObject{
    
     /* -------------------- STATS ACCESSORS -------------------- */
     public int getLivesLeft(){
-		return myStats.livesLeft();
 		myAbilities.update();
+		return myStats.livesLeft();
+
 	}
 	public int getStrength(){
-		return myStats.strength();
 		myAbilities.update();
+		return myStats.strength();
+
 	}
 	public int getAgility(){
-		return myStats.agility();
 		myAbilities.update();
+		return myStats.agility();
+
 	}
 	public int getIntellect(){
-		return myStats.intellect();
 		myAbilities.update();
+		return myStats.intellect();
+
 	}
 	public int getHardiness(){
-		return myStats.hardiness();
 		myAbilities.update();
+		return myStats.hardiness();
+
 	}
 	public int getExperience(){
-		return myStats.experience();
 		myAbilities.update();
+		return myStats.experience();
+
 	}
 	public int getMovement(){
-		return myStats.movement();
 		myAbilities.update();
+		return myStats.movement();
+
 	}
 	public int getLevel(){
-		return myStats.level();
 		myAbilities.update();
+		return myStats.level();
+
 	}
 	public int getMaxHP(){
-		return myStats.maxHP();
 		myAbilities.update();
+		return myStats.maxHP();
+
 	}
 	public int getMaxMP(){
-		return myStats.maxMP();
 		myAbilities.update();
+		return myStats.maxMP();
+
 	}
 	public int getOffense(){
-		return myStats.offense();
 		myAbilities.update();
+		return myStats.offense();
+
 	}
 	public int getDefense(){
-		return myStats.defense();
 		myAbilities.update();
+		return myStats.defense();
+
 	}
 	public int getArmor(){
-		return myStats.armor();
 		myAbilities.update();
+		return myStats.armor();
+
 	}
 	public int getBindWounds(){
-		return myStats.bindWounds();
 		myAbilities.update();
+		return myStats.bindWounds();
+
 	}
 	public int getBargain(){
-		return myStats.bargain();
 		myAbilities.update();
+		return myStats.bargain();
+
 	}
 	public int getObservation(){
-		return myStats.observation();
 		myAbilities.update();
+		return myStats.observation();
+
 	}
 	public int getCurrentHP(){
-		return myStats.currentHP();
 		myAbilities.update();
+		return myStats.currentHP();
+
 	}
 	public int getCurrentMP(){
-		return myStats.currentMP();
 		myAbilities.update();
+		return myStats.currentMP();
+
 	}
 	public int getWeaponOffense(){
-		return myStats.weaponOffense();
 		myAbilities.update();
+		return myStats.weaponOffense();
+
 	}
 	public int getEquipArmor(){
-		return myStats.equipArmor();
 		myAbilities.update();
+		return myStats.equipArmor();
+
 	}
 	
 	/* -------------------- STATS SET MUTATORS -------------------- */
@@ -407,6 +427,9 @@ public abstract class Entity extends MapObject{
     }
     public MotionType getMotionType(){
     	return motionType;
+    }
+    public boolean canSee(int observation){
+    	return true;
     }
     
 

@@ -18,7 +18,7 @@ public class Gun extends Weapon{
     
     public Gun(){
 		super("Gun", "Generic description", new CoordinatePair(), 0, 1, 
-                        EquipSlot.HEAD, Effect E1);
+                        EquipSlot.HEAD, new DealDamageEffect(80);
 		
 		this.id = "25";
 		this.className = "Gun";
@@ -57,6 +57,17 @@ public class Gun extends Weapon{
             this.E1= E1;
         }
         
+    @Override
+        public boolean canSee(int observationSkill){
+            return false; 
+        }
+        
+    @Override
+        public Takeable copy() {
+    		return new Gun(this.getName(), this.getDescription(), 
+                        this.getLocation(), this.getValue(), 
+                        this.getDurability(), this.getSlot(), this.getEffect());
+    	}
         //TODO- Projectile motion has to be added
     
         public abstract void projectileEffect();

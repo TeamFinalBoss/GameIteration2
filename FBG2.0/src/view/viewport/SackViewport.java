@@ -19,6 +19,10 @@ public class SackViewport implements ViewPort, Observer, SceneObserver {
 	private int currentMinRow = 0;
 	private boolean canDraw = false;
 	private int maximumNumberOfRows = 5;
+	private SceneType lastType;
+	private SceneType currentType;
+	
+	
 	
 	public SackViewport() {
 	}
@@ -65,11 +69,20 @@ public class SackViewport implements ViewPort, Observer, SceneObserver {
 
 	@Override
 	public void update(SceneType type) {
-		if((type == SceneType.ARMORY && canDraw == true) || type == SceneType.SACK ) {
-			canDraw = true;
+		
+		if(!canDraw) {
+			if(type.equals(SceneType.SACK)) {
+				canDraw = true;
+			}
 		} else {
-			canDraw = false;
+			if(type.equals(SceneType.GAME) || (currentType.equals(SceneType.SACK) && type.equals(SceneType.ARMORY))) {
+				canDraw = false;
+			}
 		}
+		
+		currentType = type;
+		
+		
 	}
 
 }

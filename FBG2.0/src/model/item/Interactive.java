@@ -1,6 +1,7 @@
 package model.item;
 
 import model.gameObject.MapObject;
+import model.link.ObstacleLink;
 import model.map.pair.CoordinatePair;
 
 /**
@@ -17,6 +18,7 @@ import model.map.pair.CoordinatePair;
 public class Interactive extends Item {
     
         protected boolean hasBeenUsed;
+        protected ObstacleLink link;
 	
 	public Interactive(){
 		super("Generic Interactive", "Generic description", new CoordinatePair());
@@ -24,6 +26,7 @@ public class Interactive extends Item {
 		this.setID("4");
 		this.setClassName("Interactive");
         this.hasBeenUsed= false; 
+        this.link = new ObstacleLink(this, 0);
 		
 		//Other properties set here
 	}
@@ -34,6 +37,7 @@ public class Interactive extends Item {
 		
 		this.setID("4");
 		this.setClassName("Interactive");
+		this.link = new ObstacleLink(this, 0);
 
                 this.hasBeenUsed = hasBeenUsed;
 		
@@ -52,6 +56,10 @@ public class Interactive extends Item {
         public void setUsedStatus(boolean hasBeenUsed){
             this.hasBeenUsed = hasBeenUsed;
             
+        }
+        
+        public void setLink(int newLink) {
+        	this.link = new ObstacleLink(this, newLink);
         }
         
         //Try to use item and returns if it ables to use items successfully 
