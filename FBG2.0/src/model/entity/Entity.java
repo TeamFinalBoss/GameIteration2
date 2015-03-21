@@ -13,7 +13,10 @@ import model.map.tile.Tile;
 import model.map.tile.Trap;
 import model.util.GameTimer;
 import model.effect.AllowMovement;
+import model.effect.Dispellable;
+import model.effect.Effect;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -38,6 +41,7 @@ import model.director.ActiveMapManager;
 public abstract class Entity extends MapObject{
     private Inventory myInventory;
     private AbilityLibrary myAbilities;
+    private ArrayList<Dispellable> activeEffects;
     private Stats myStats;
     private Direction myDirection;
     private VisibleMap visibleMap;
@@ -76,9 +80,11 @@ public abstract class Entity extends MapObject{
     	activeMap = ActiveMapManager.getInstance();
     	currency = 0;
     	motionType = MotionType.GROUND;
-    	
+    	activeEffects = new ArrayList<Dispellable>();
+    	visibleMap = new VisibleMap(this);
 		this.setID("1");
 		this.setClassName("Entity");
+		visibleMap.update();
     }
     
     /* -------------------- PRIVATE UTILITY -------------------- */
@@ -305,6 +311,14 @@ public abstract class Entity extends MapObject{
 	}
 	public List<AreaEffect> getVisibleAreaEffects(){
 		return visibleMap.getVisibleAreaEffects();
+	}
+	
+    /* -------------------- ACTIVE EFFECT MUTATORS -------------------- */
+	public void addEffect(Dispellable effect){
+		activeEffects.add(effect);
+	}
+	public void removeEffect(Dispellable effect){
+		activeEffects.remove(effect);
 	}
 	
 	
