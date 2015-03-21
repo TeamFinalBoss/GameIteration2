@@ -40,14 +40,17 @@ public class HealthPotion extends Usable {
         public boolean useInSack(Entity e){
             //e.heal(12);
             Effect ee = new HealEffect(10);
-            ee.applyEffect();
+            ee.applyEffect(e);
             return true;
         }
         
         public Takeable copy() {
     		return new HealthPotion(this.getName(), this.getDescription(), this.getLocation(), this.getValue());
     	}
+        
+        public void HealPotion(int durability){
+            HealthPotion("Generic HealthPotion", "Generic description", 
+             new CoordinatePair(), 1, durability);
+        }
 }
-       
-
-
+    

@@ -6,6 +6,7 @@ import java.util.List;
 import model.director.ActiveMapManager;
 import model.gameObject.MapObject;
 import model.item.Item;
+import model.item.RecoveryHeart;
 import model.map.pair.CoordinatePair;
 
 import org.w3c.dom.Element;
@@ -42,13 +43,14 @@ public class OneShotFactory implements PlaceableObjectFactory{
 			Item it = null;
 				
 			switch(item.getAttribute("name")){
-			case "whatever":
-				//it = new OneShot();
+			case "recoveryheart":
+				it = new RecoveryHeart();
 				break;
 			}
 				
 			if(it == null) continue;
 				
+			it.setLocation(new CoordinatePair(Integer.parseInt(item.getAttribute("x")), Integer.parseInt(item.getAttribute("y"))));
 			ActiveMapManager.getInstance().addItemToActiveMap(it, new CoordinatePair(Integer.parseInt(item.getAttribute("x")), Integer.parseInt(item.getAttribute("y"))));
 				
 			items.add(it);

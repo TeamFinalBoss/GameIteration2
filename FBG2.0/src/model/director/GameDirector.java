@@ -2,12 +2,15 @@ package model.director;
 
 import java.awt.Dimension;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.Map;
 
 import model.map.GameMap;
+import view.MousePoint;
 import view.scene.Scene;
+import view.viewport.ArmoryViewport;
 import view.viewport.KeyBindingsErrorViewPort;
 import view.viewport.KeyBindingsMenuViewPort;
 import view.viewport.MainMenuViewPort;
@@ -70,6 +73,7 @@ public class GameDirector implements SceneObserver{
     public void startMainMenuScene() {
     	KeyListener listener = controller.buildController();
         window.addKeyController(listener);//Add controller to menu
+        window.addMouseController(controller.getMouseParser());
 
         
         MainMenuViewPort menuVP = new MainMenuViewPort();
@@ -88,6 +92,8 @@ public class GameDirector implements SceneObserver{
         saveScene.addViewport(saveVP);
         
         menuScene.addViewport(menuVP);//Add menuVP to menuScene
+        
+        controller.getMouseParser().setMousePoint((MousePoint)menuVP);
         
         controller.addObserver(menuVP, SceneType.MAIN_MENU);
         controller.addObserver(pauseVP, SceneType.PAUSE_MENU);
@@ -112,8 +118,13 @@ public class GameDirector implements SceneObserver{
         SackViewport sack = new SackViewport();
         gameScene.addViewport(sack);
         
+        ArmoryViewport armory = new ArmoryViewport();
+        gameScene.addViewport(armory);
+        
         controller.addObserver(sack, SceneType.SACK);
+        controller.addObserver(armory, SceneType.ARMORY);
         sceneChanger.registerObserver(sack);
+        sceneChanger.registerObserver(armory);
        
         map.addObserver(mapVP);//Add mapVP as an Observer to map
         

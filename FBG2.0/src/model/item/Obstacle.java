@@ -2,6 +2,7 @@ package model.item;
 
 import model.entity.Entity;
 import model.gameObject.MapObject;
+import model.link.ObstacleLink;
 import model.map.pair.CoordinatePair;
 
 /**
@@ -16,11 +17,15 @@ import model.map.pair.CoordinatePair;
  *
  */
 public class Obstacle extends Item {
+	
+	protected ObstacleLink link;
+	
 	public Obstacle(){
 		super("Generic Obstacle", "Generic description", new CoordinatePair());
 		
 		this.setID("5");
 		this.setClassName("Obstacle");
+		this.link = new ObstacleLink(this, 0);
 
 		
 		//Other properties set here
@@ -31,8 +36,13 @@ public class Obstacle extends Item {
 		
 		this.setID("5");
 		this.setClassName("Obstacle");
+		this.link = new ObstacleLink(this, 0);
 		
 		//Other properties set here
+	}
+	
+	public void setLink(int newLink) {
+		this.link = new ObstacleLink(this, newLink);
 	}
         
         

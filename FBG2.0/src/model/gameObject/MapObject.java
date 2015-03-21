@@ -11,9 +11,9 @@ import model.map.pair.CoordinatePair;
  */
 
 public abstract class MapObject {
-	private String id;
+	public String id;
 	private String name;
-	private String className;
+	public String className;
 	private String description;
 	 
 	private CoordinatePair location;
@@ -112,4 +112,9 @@ public abstract class MapObject {
 	 * @param p the CoordinatePair to be set 
 	 */
 	public void setLocation(CoordinatePair p) { location = p; }
+	
+	public boolean modifyLocation(CoordinatePair p){
+		location.add(p);
+		return true;
+	}
 }

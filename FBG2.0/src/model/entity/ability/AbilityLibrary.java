@@ -16,20 +16,24 @@ public class AbilityLibrary {
     private ArrayList<Ability> learnedAbilities;
     private ArrayList<Ability> unlearnedAbilities;
     
+    private Entity owner;
+    
     /* -------------------- CONSTRUCTORS -------------------- */
-    public AbilityLibrary(){
+    public AbilityLibrary(Entity myEntity){
         learnedAbilities = new ArrayList<Ability>();
         unlearnedAbilities = new ArrayList<Ability>();
+        owner = myEntity;
     }
     
     /*-----------Mutators-----------*/
     public void addAbility(Ability ability){
-        knownAbilities.add(ability);        
+        learnedAbilities.add(ability); 
+        unlearnedAbilities.remove(ability);
     }
     public boolean forgetAbility(String abilityName){
-         for(Ability s : knownAbilities) {
+         for(Ability s : learnedAbilities) {
             if (s.getName().equals(abilityName)) {
-                return knownAbilities.remove(s); 
+                return learnedAbilities.remove(s); 
             }
         }
         return false; //ability isn't known
@@ -44,7 +48,7 @@ public class AbilityLibrary {
      * @param abilityName the name of the ability 
      */
     public boolean hasAbility(String abilityName){
-        for(Ability s : knownAbilities) {
+        for(Ability s : learnedAbilities) {
             if (abilityName.equals(s.getName())) {
                 return true;
             }
@@ -63,7 +67,7 @@ public class AbilityLibrary {
      *@params callingEntity the Entity using the ability
      */
     public boolean performActiveAbility(String abilityName, Entity callingEntity){
-        for(Ability a : knownAbilities) {
+        for(Ability a : learnedAbilities) {
             if (a.getName().equals(abilityName)) {
                 a.performAbility(callingEntity);
                 return true;
@@ -72,6 +76,18 @@ public class AbilityLibrary {
         return false;
     }
     
+    
+    /**
+     * Checks to see if a skill can be moved from unlearnedSkills to LearnedSkill based 
+     * on new Stats.
+     * @author Jason Owens
+     * 
+     */
+    public void update(){
+        
+    }
+    
+    
     public boolean performActiveAbility(int position, Entity callingEntity){
     	if(position >= learnedAbilities.size()) return false;
     	learnedAbilities.get(position).performAbility(callingEntity);
@@ -79,6 +95,6 @@ public class AbilityLibrary {
     }
     
     public List<Ability >getAbilities() {
-    	return this.knownAbilities;
+    	return this.learnedAbilities;
     }
 }

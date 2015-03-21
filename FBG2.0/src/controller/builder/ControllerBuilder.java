@@ -12,6 +12,7 @@ import controller.Controller;
 import controller.InputParser;
 import controller.KeyDispatcher;
 import controller.commands.Commandable;
+import controller.commands.armory.ArmoryDetails;
 import controller.commands.keyBindings.BindingsUpdate;
 import controller.commands.keyBindings.CancelBindingsUpdate;
 import controller.commands.keyBindings.SaveBindingsUpdate;
@@ -40,6 +41,7 @@ import controller.menu.Menuable;
 import controller.menu.keyBindings.KeyBindingsMenu;
 import controller.menu.save.SaveLoadMenu;
 import controller.menu.save.SaveOption;
+import controller.mouse.MouseParser;
 import controller.sceneControllers.SceneController;
 import controller.sceneControllers.SceneType;
 
@@ -134,6 +136,12 @@ public class ControllerBuilder {
 		SceneController sackController = SackControllerBuilder.buildSackController(map, details);
 		
 		/******************************
+		 * Armory Controller
+		 *******************************/
+		ArmoryDetails armoryDetails = new ArmoryDetails();
+		SceneController armoryController = ArmoryControllerBuilder.buildArmoryController(map, armoryDetails);
+		
+		/******************************
 		 * Observers
 		 *******************************/
 		
@@ -161,6 +169,9 @@ public class ControllerBuilder {
 		List<Observable> sackObservables = new ArrayList<>();
 		sackObservables.add(details);
 		
+		List<Observable> armoryObservables = new ArrayList<>();
+		armoryObservables.add(armoryDetails);
+		
 		observerMap.put(SceneType.MAIN_MENU, mainMenuObervables);
 		observerMap.put(SceneType.PAUSE_MENU, pauseMenuObservables);
 		observerMap.put(SceneType.SAVE, saveMenuObservables);
@@ -168,6 +179,7 @@ public class ControllerBuilder {
 		observerMap.put(SceneType.KEY_BINDINGS, keyBindingsObservables);
 		observerMap.put(SceneType.UPDATING, updateObservables);
 		observerMap.put(SceneType.SACK,sackObservables);
+		observerMap.put(SceneType.ARMORY, armoryObservables);
 		
 		cont.addMap(observerMap);
 		
@@ -188,10 +200,15 @@ public class ControllerBuilder {
 		controllers.put(SceneType.LOAD, loadController);
 		controllers.put(SceneType.UPDATING, updateController);
 		controllers.put(SceneType.SACK, sackController);
+		controllers.put(SceneType.ARMORY, armoryController);
 		
 		
 		KeyDispatcher keyDispatcher = new KeyDispatcher(controllers, mainMenuController);
 		cont.setDispatcher(keyDispatcher);
+		
+		MouseParser parser = new MouseParser(map, keyDispatcher);
+		cont.setMouseAdapter(parser);
+		
 		return new InputParser(keyDispatcher);
 	}
 	

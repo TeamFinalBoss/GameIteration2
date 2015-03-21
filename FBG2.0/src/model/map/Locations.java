@@ -5,6 +5,7 @@ import model.map.pair.Pair;
 import model.map.pair.CoordinatePair;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 
@@ -18,7 +19,7 @@ import java.util.ArrayList;
  */
 public class Locations<S extends MapObject> {
 
-    ArrayList<S> locations;
+    private ArrayList<S> locations;
 
     public Locations() {
         locations = new ArrayList<S>();
@@ -43,6 +44,30 @@ public class Locations<S extends MapObject> {
         return null;//Jason changed this. Returning null is more useful and isn't dangerous.
         //throw new RuntimeException("CoordinatePair not contained in Locations");
     }
+    
+    /**
+     * @author Jason Owens
+     * @param obj the item we're searching for
+     * @return the coordinate pair of the item we're searching for
+     */
+    public CoordinatePair getLocationOf(S obj){
+        for(S object: locations){
+            if(object == obj){
+                return obj.getLocation();
+            }
+        }
+        return null;
+    }
+    
+    public void getSesInRange(CoordinatePair center, int radius, List<S> list){
+        for(S object: locations){
+           
+            if(center.getDistance(object.getLocation(), center) <= radius){
+                list.add(object);
+            }
+        }
+    }
+    
     
     /**
      * Adds an object to the locations collection

@@ -2,10 +2,11 @@ package controller.commands.sack;
 
 import java.util.Observable;
 
+import controller.commands.util.Inventoryable;
 import controller.util.IntegerObserver;
 import controller.util.Selectable;
 
-public class SackDetails extends Observable implements IntegerObserver, Selectable {
+public class SackDetails extends Observable implements IntegerObserver, Selectable, Inventoryable {
 	private int currentSelection;
 	private final int itemsPerRow = 5;
 	private int displaySize;
@@ -48,19 +49,8 @@ public class SackDetails extends Observable implements IntegerObserver, Selectab
 	}
 	
 	public void update(int size) {
-		int intermediate = size % itemsPerRow;
-		if(intermediate != 0) {
-			displaySize = itemsPerRow % intermediate;
-		} else {
-			displaySize = size;
-		}
-		/*
-		if(size != 0) {
-			displaySize = itemsPerRow % ( size % itemsPerRow ); 
-		} else {
-			displaySize = 25;
-		}
-		*/
+		//integer math is nice.
+		displaySize = (size / itemsPerRow) * itemsPerRow;
 	}
 
 	@Override

@@ -20,6 +20,7 @@ public abstract class Ability {
     private CombatCoordinator myCC;
     private Effect cost; //cost of cast, dont cast if cost can't be met
     
+    
     /* -------------------- CONSTRUCTORS --------------------*/
 
     /**
@@ -114,4 +115,12 @@ public abstract class Ability {
         
         return distance;
     }
+    
+    /**
+     * @author Jason Owens
+     * @param entityToLearn
+     * @return whether or not the entity given meets the stats requirements for this ability
+     */
+    public abstract boolean meetsStatRequirements(Entity entityToLearn);
+    
 }

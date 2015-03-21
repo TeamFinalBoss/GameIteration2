@@ -16,6 +16,8 @@ import model.entity.Entity;
  *
  */
 public abstract class Item extends MapObject {
+    
+    int observationSkill;
 	public Item(){
 		super("Generic Item", "Generic description", new CoordinatePair());
 		
@@ -42,6 +44,10 @@ public abstract class Item extends MapObject {
             return true;
         }
 	
+        public boolean canSee(int observationSkill){
+            return true; 
+        }
+     
         
 	
 	

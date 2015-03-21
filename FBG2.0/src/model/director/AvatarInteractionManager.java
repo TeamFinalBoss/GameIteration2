@@ -4,6 +4,7 @@ import model.entity.Entity;
 import model.map.pair.CoordinatePair;
 import model.map.Direction;
 import model.entity.SummonerAvatar;
+import model.item.EquipSlot;
 
 /**
  * The purpose of this class is to handle commands, events, or general information
@@ -29,9 +30,44 @@ public class AvatarInteractionManager {
     public static AvatarInteractionManager getInstance(){
     	if(me == null){
     		me = new AvatarInteractionManager();
-    		me.avatar = new SummonerAvatar("Bob", "My default avatar description", new CoordinatePair(10,10));
+    		me.avatar = new SummonerAvatar();//"Bob", "My default avatar description", new CoordinatePair(10,10));
     	}
     	return me;
+    }
+    
+    /**
+     * uses the abilityToUseth ability
+     * @param abilityTouse 
+     */
+    public void useAbility(int abilityTouse){
+        avatar.useAbility(abilityTouse);        
+    }
+    
+    /**
+     * Uses an item from the sack
+     * @author Jason Owens
+     * @param slotNumber 
+     */
+    public void useItemAtSackSlot(int slotNumber){
+        avatar.use(slotNumber);
+    }
+    
+    /**
+     * Uses an item from the sack
+     * @author Jason Owens
+     * @param slotNumber 
+     */
+    public void unequipAtSlot(EquipSlot slot){
+        avatar.unequip(slot);
+    }
+    
+    /**
+     * TODO make this push to view
+     * 
+     * @author Jason Owens
+     */
+    public void update(){
+        //pushToView(avatar.getSackContents(), currentSlotInArmory, currentSlotInSack);
     }
     
     public int getCurrentSlotInSack(){
@@ -41,7 +77,6 @@ public class AvatarInteractionManager {
     public int getCurrentSlotInArmory(){
         return currentSlotInArmory;
     }
-    
     
     /**
      * Moves the avatar
@@ -53,10 +88,8 @@ public class AvatarInteractionManager {
     }
     
     /**
-    * Should return the number of slots used in the sack including blank ones, if I understand
-    * ArrayLists correctly. So, if you have 10 items and you remove the 5th one, it will still
-    * return 10, but then if you add a new item it will still be 10 because the new item is 
-    * going into the old, now empty slot.
+    * Returns the number of items in the sack
+    * @return sack size
     * @author Jason Owens
     */
     public int getSackSize(){
@@ -66,6 +99,10 @@ public class AvatarInteractionManager {
     public Entity getAvatar(){
     	return avatar;
     }
+    
+	public void dropItemAtSlot(int currentIndex) {
+		avatar.drop(currentIndex);
+	}
     
     
     

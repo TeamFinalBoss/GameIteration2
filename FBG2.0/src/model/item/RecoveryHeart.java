@@ -5,6 +5,7 @@
  */
 package model.item;
 
+import model.effect.DealDamageEffect;
 import model.effect.Effect;
 import model.entity.Entity;
 import model.map.pair.CoordinatePair;
@@ -15,7 +16,7 @@ import model.map.pair.CoordinatePair;
  */
 public class RecoveryHeart extends OneShot {
     public RecoveryHeart(){
-		super("Generic One Shot", "Generic description", new CoordinatePair());
+		super("Generic RecoveryHeart", "Generic description", new CoordinatePair());
 		
 		this.id = "22";
 		this.className = "RecoveryHeart";
@@ -41,5 +42,9 @@ public class RecoveryHeart extends OneShot {
                w.applyEffect();
             
             
+        }
+        
+        public void RecoveryHeart(int durability){
+            RecoveryHeart("Generic RecoveryHeart", "Generic description", new CoordinatePair());
         }
 }

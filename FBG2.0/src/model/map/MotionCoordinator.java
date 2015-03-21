@@ -39,15 +39,15 @@ public class MotionCoordinator {
 		}
 		
 		if (i != null){
-			i.useOnMap(e); //TODO: Create this method for every item type
+                    i.useOnMap(e); //TODO: Create this method for every item type
 		}
 		
 		if(t != null){
-			t.activate(e); //TODO: Create this method for every item type
+                    t.activate(e); //TODO: Create this method for every item type
 		}
 		
 		if(switcher != null){
-			switcher.activate(e);
+                    switcher.activate(e);
 		}
 	}
 }

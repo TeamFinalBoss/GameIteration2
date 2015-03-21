@@ -1,6 +1,7 @@
 package model.map;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -356,6 +357,34 @@ public class GameMap extends Observable {
     public Item getItemAtCoordinate(CoordinatePair location) {
         return items.getObjectAt(location);
     }
+    
+    /**
+     * @author Jason Owens
+     * @param location
+     * @return AreaEffect at Coordinate
+     */
+    public AreaEffect getAreaEffectAtCoordinate(CoordinatePair location){
+        return effects.getObjectAt(location);
+    }
+    
+    /**
+     * @author Jason Owens
+     * @param location
+     * @return MapSwitcher at Coordinate
+     */
+    public MapSwitcher getSwitcherAtCoordinate(CoordinatePair location){
+        return switchers.getObjectAt(location);
+    }
+    
+    /**
+     * @author Jason Owens
+     * @param location
+     * @return Trap at Coordinate
+     */
+    public Trap getTrapAtCoordinate(CoordinatePair location){
+        return traps.getObjectAt(location);
+    }
+    
     /**
      * Returns how wide the map is in number of tiles.
      *
@@ -399,13 +428,16 @@ public class GameMap extends Observable {
         CoordinatePair desiredLocation; 
         desiredLocation = locationPlusDirection(e.getLocation(), dir);
         
-        if(MV.canTraverse(e.getMotionType(), getItemAtCoordinate(desiredLocation), getTileAtCoordinate(desiredLocation).getMotionType())){
-           MC.move(e, desiredLocation);
+        if(MV.canTraverse(e.getMotionType(), getItemAtCoordinate(desiredLocation), getTileAtCoordinate(desiredLocation).getMotionType())){ 
+            MC.moveEntity(e, desiredLocation, getAreaEffectAtCoordinate(desiredLocation), getItemAtCoordinate(desiredLocation),
+                    getSwitcherAtCoordinate(desiredLocation), getTrapAtCoordinate(desiredLocation));
+            e.setDirection(dir);
         }
         else{
             return false;
         }
     }
+    
     public boolean useAbility(Entity e, int abilityToUse){
         e.useAbility(abilityToUse);
     }
@@ -453,6 +485,36 @@ public class GameMap extends Observable {
           
         }
         return returnThis; 
+    }
+
+    /**
+     * @author Jason Owens
+     * @param center
+     * @param radius
+     * @param containedTiles
+     * @param containedProjectiles
+     * @param containedEntities
+     * @param containedTraps
+     * @param containedItems
+     * @param containedAreaEffects 
+     */
+    public void getEverythingInRange(CoordinatePair center, int radius, List<Tile> containedTiles, List<Projectile> containedProjectiles,
+            List<Entity> containedEntities, List<Trap> containedTraps, List<Item> containedItems, List<AreaEffect> containedAreaEffects) {
+       
+        int centerX = center.getX();
+        int centerY = center.getY();
+        
+        for(int i = centerX-radius; i!= centerX+radius; ++i){
+            for(int j = centerY-radius; j!= centerY + radius; ++j){
+                if(center.getDistance(new CoordinatePair(i,j), center)<=radius){
+                    containedTiles.add(tiles[i][j]);
+                }
+            }
+        }
+        
+        entities.getSesInRange(center, radius, containedEntities);
+        items.getSesInRange(center, radius, containedItems);
+        effects.getSesInRange(center, radius, containedAreaEffects);
     }
 }
     
