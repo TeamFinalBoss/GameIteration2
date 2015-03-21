@@ -1,58 +1,59 @@
 package model.stats;
 
+public class ItemStats extends Stats {
 
-import model.stats.Stats;
+    private int durability;
+    private int goldValue;
 
+    public ItemStats(
+            int strength,
+            int agility,
+            int intellect,
+            int hardiness,
+            int maxHealth,
+            int maxMana,
+            int durability,
+            int value,
+            int defense,
+            int offense,
+            int speed,
+            int healthRegenPerSec,
+            int manaRegenPerSec
+    ) {
 
-public class ItemStats extends Stats{
-	private int durability;
-	private int value;
-	
-	public ItemStats(
-			int strength,
-			int agility,
-			int intellect,
-			int hardiness,
-			int movement,
-			int hpMax,
-			int mpMax,
-			int durability,
-			int value,
-			int defense,
-			int offense,
-                        int speed){
-			
-			super(strength, agility, intellect, hardiness, movement, hpMax, mpMax, defense, offense, speed);
-			
-			this.durability = durability;
-			this.value = value;
-		}
-		
-		public ItemStats()
-		{
-			super(1,1,1,1,1,1,1,1,1, 1);
-			this.durability = 0;
-			this.value = 0;
-		}
-		
-		public int getDurability() {
-			return durability;
-		}
-		public int getValue() {
-			return value;
-		}
-		
-		public void setDurability(int durabilityNew) {
-			durability = durabilityNew;
-		}
-		public void setValue(int valueNew) {
-			value = valueNew;
-		}
-		
-		public void modDurability(int durabilityMod) {
-			durability += durabilityMod;
-		}
-		public void modValue(int valueMod) {
-			value += valueMod;
-		}
+        super(strength, agility, intellect, hardiness, maxHealth, maxMana, defense, offense, speed, healthRegenPerSec, manaRegenPerSec);
+
+        this.durability = durability;
+        this.goldValue = value;
+    }
+
+    public ItemStats() {
+        super(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+        this.durability = 10;
+        this.goldValue = 10;
+    }
+
+    public int getDurability() {
+        return durability;
+    }
+
+    public int getValue() {
+        return goldValue;
+    }
+
+    public void setDurability(int durabilityNew) {
+        durability = durabilityNew;
+    }
+
+    public void setGoldValue(int value) {
+        goldValue = value;
+    }
+
+    public void modDurability(int durabilityMod) {
+        durability += durabilityMod;
+    }
+
+    public void modGoldValue(int value) {
+        goldValue += value;
+    }
 }

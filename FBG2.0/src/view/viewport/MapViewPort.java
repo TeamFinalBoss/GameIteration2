@@ -8,10 +8,12 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 import java.util.Observable;
 import java.util.Observer;
 import javax.imageio.ImageIO;
 import model.director.GameDirector;
+import model.gameObject.entity.Avatar;
 import model.gameObject.entity.Entity;
 import model.gameObject.projectile.Projectile;
 import model.map.tile.Tile;
@@ -76,8 +78,16 @@ public class MapViewPort implements ViewPort, Observer {
                     if (e.getLocation().equals(new Point(i, j))) {
                         Image entityImg = e.getSprite();
                         g.drawImage(entityImg, (i - startX) * tileWidth, (j - startY) * tileHeight, null);
-                    }
 
+                        //Draw Entity Health Bars for all entities - avatar
+                        if (!e.equals(Avatar.getAvatar())) {
+                            double percentageOfHealth = (double) e.getPlayerStats().getCurrentHealth() / (double) e.getPlayerStats().getMaxHealth();
+                            g.setColor(Color.gray);
+                            g.fillRect((i - startX) * tileWidth, (j - startY) * tileHeight, tileWidth, 3);
+                            g.setColor(Color.green);
+                            g.fillRect((i - startX) * tileWidth, (j - startY) * tileHeight, (int) (tileWidth * percentageOfHealth), 3);
+                        }
+                    }
                 }
 
                 //Draw Projectiles
@@ -88,8 +98,8 @@ public class MapViewPort implements ViewPort, Observer {
                             g.drawImage(entityImg, (i - startX) * tileWidth, (j - startY) * tileHeight, null);
                         }
                     }
-                } catch (Exception e) {}
-
+                } catch (ConcurrentModificationException e) {
+                }
             }
         }
     }
@@ -101,8 +111,11 @@ public class MapViewPort implements ViewPort, Observer {
         widthInTiles = tiles.length;
         heightInTiles = tiles[0].length;
 
-        entityList = (ArrayList<Entity>) mapObjects[1];
-        projectileList = (ArrayList<Projectile>) mapObjects[2];
+        ArrayList<Entity> e = (ArrayList<Entity>) mapObjects[1];
+        entityList = e;
+
+        ArrayList<Projectile> p = (ArrayList<Projectile>) mapObjects[2];
+        projectileList = p;
 
     }
 }

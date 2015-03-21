@@ -4,6 +4,7 @@ package model.gameObject.projectile;
 import java.awt.Point;
 import model.gameObject.SpriteObject;
 import model.map.Direction;
+import model.stats.PlayerStats;
 
 /**
  *
@@ -11,25 +12,31 @@ import model.map.Direction;
  */
 public class Projectile extends SpriteObject{
 
-    Point location;
-    Direction myDirection;
-    int speed = 2; //Temporary. TODO: This should come from a stats object.
+    private Point location;
+    private Direction myDirection;
+    private int speed = 2; //Temporary. TODO: This should come from the projectile's stats object.
+    private PlayerStats s;
     
     /**
      * The default constructor should never really be called.
      */
     public Projectile(){
-        this(1,1, Direction.East);//default
+        this(1,1, Direction.East, new PlayerStats());//default
         
     }
     
-    public Projectile(int x, int y, Direction direction) {
+    public Projectile(int x, int y, Direction direction, PlayerStats s) {
         this.setLocation(x, y);
         myDirection = direction;
+        this.s = s;
     }
 
     public Direction getDirection() {
         return myDirection;
+    }
+
+    public PlayerStats getPlayerStats() {
+        return s;
     }
 
     

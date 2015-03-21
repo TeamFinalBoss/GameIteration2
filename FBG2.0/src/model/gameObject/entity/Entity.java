@@ -1,6 +1,9 @@
 package model.gameObject.entity;
 
 import java.awt.Point;
+import java.util.Observable;
+import java.util.Observer;
+import model.director.GameDirector;
 import model.factory.SpriteFactory;
 import model.gameObject.SpriteObject;
 import model.map.Direction;
@@ -12,7 +15,7 @@ import model.stats.PlayerStats;
  * @author Matthew Kroeze, Chris Moscoso
  * @version 1.0.0 2015-03-14
  */
-public class Entity extends SpriteObject {
+public class Entity extends SpriteObject implements Observer{
 
     protected Inventory myInventory;
     protected Occupation myOccupation;
@@ -31,6 +34,7 @@ public class Entity extends SpriteObject {
         myDirection = Direction.South;
         location = new Point(1, 1);
         myStats = new PlayerStats();
+        myStats.addObserver(this);
     }
 
     public Direction getDirection() {
@@ -40,7 +44,8 @@ public class Entity extends SpriteObject {
     /**
      * Kill the entity in the game.
      */
-    public void kill() {
+    public void die() {
+        GameDirector.getActiveMap().removeEntity(this);
     }
 
     /**
@@ -95,6 +100,13 @@ public class Entity extends SpriteObject {
         isMovingY = b ? 1 : 0;
     }
 
+    
+    public PlayerStats getPlayerStats() {
+        return myStats;
+    }
+    
+    
+
     /**
      * Get the location of the entity.
      *
@@ -124,11 +136,18 @@ public class Entity extends SpriteObject {
     
     /**
      * Regenerates a small portion of the entity's health and mana
-     * TODO: make it based off of a stats object
      */
     public void regenerate(){
-        myStats.modhpCurrent(1);
-        myStats.modmpCurrent(1);
+        myStats.modCurrentHealth(myStats.getHealthRegenPerSecond());
+        myStats.modCurrentMana(myStats.getManaRegenPerSecond());
        
+    }
+
+    @Override
+    //Called when stats object updates
+    public void update(Observable o, Object arg) {
+        if (myStats.getCurrentHealth() <= 0){
+            this.die();
+        }
     }
 }

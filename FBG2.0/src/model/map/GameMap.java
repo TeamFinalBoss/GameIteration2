@@ -2,8 +2,10 @@ package model.map;
 
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
+import java.util.Iterator;
 import java.util.Observable;
 import java.util.Observer;
+import model.director.CombatCoordinator;
 import model.map.tile.Tile;
 import model.gameObject.entity.Entity;
 import model.gameObject.projectile.Projectile;
@@ -83,44 +85,59 @@ public class GameMap extends Observable {
         notifyObservers(objects);
     }
 
-    @Override //Same as super but we want to update the view immediately when the view gets added
+    @Override //Same as super but we want to update the view as soon as the view gets added as an Observer
     public void addObserver(Observer o) {
         super.addObserver(o);
         updateView();
     }
 
-    public void regenerateEntities(){
-        for(Entity e : entityList){
+    /**
+     * Regenerates all the entities on the map.
+     */
+    public void regenerateEntities() {
+        for (Entity e : entityList) {
             e.regenerate();
         }
     }
     
+    
+    /**
+     * 
+     */
+    public void removeEntity(Entity e){
+        entityList.remove(e);
+    }
+
+    /**
+     * Moves all the game objects to move.
+     */
     public void moveGameObjects() {
         for (Entity e : entityList) {
             e.move();
             //boundEntity(e);//use this to bound entity at edge
             warpEntity(e);// use this to warp the entity across edges
         }
-        try {
-            for (Projectile p : projectileList) {
-                p.move();
-                boundProjectile(p);
+
+        for (Iterator<Projectile> iterator = projectileList.iterator(); iterator.hasNext();) {
+            Projectile p = iterator.next();
+            p.move();
+            if (isOutsideMap(p)) {
+                iterator.remove();
             }
-        } catch (ConcurrentModificationException e) {}
+        }
     }
 
     /**
      * Removes the projectile from the map when it reaches the edge of the map.
      *
-     * @param p the projectile to bound
+     * @param p the projectile to check
+     * @return
      */
-    public void boundProjectile(Projectile p) {
-        if (p.getLocation().x < 0
+    public boolean isOutsideMap(Projectile p) {
+        return p.getLocation().x < 0
                 || p.getLocation().x > this.getWidth() - 1
                 || p.getLocation().y > this.getHeight() - 1
-                || p.getLocation().y < 0) {
-            projectileList.remove(p);
-        }
+                || p.getLocation().y < 0;
     }
 
     /**
@@ -157,5 +174,9 @@ public class GameMap extends Observable {
         } else if (e.getLocation().y < 0) {
             e.getLocation().y = this.getHeight() - 1;
         }
+    }
+
+    public void checkProjectiles() {
+        CombatCoordinator.checkCollideProjectiles(projectileList, entityList);
     }
 }

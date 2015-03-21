@@ -2,6 +2,7 @@ package model.factory;
 
 import model.map.Direction;
 import model.gameObject.projectile.Projectile;
+import model.stats.PlayerStats;
 
 /**
  *
@@ -16,10 +17,11 @@ public class ProjectileFactory {
      * @param x the x location of the projectile
      * @param y the y location of the projectile
      * @param direction the direction of the projectile
+     * @param s the player's stats from the entity that spawn the fireball
      * @return a new fireball projectile.
      */
-    public static Projectile newFireBall(int x, int y, Direction direction) {
-        Projectile p = new Projectile(x, y, direction);
+    public static Projectile newFireBall(int x, int y, Direction direction, PlayerStats s) {
+        Projectile p = new Projectile(x, y, direction, s);
         switch (p.getDirection()) {
             case North:
                 p.setSpritePath(SpriteFactory.FIREBALL_NORTH);

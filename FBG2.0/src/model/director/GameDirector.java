@@ -125,6 +125,7 @@ public class GameDirector {
             if (map1 != null) {
                 map1.moveGameObjects();  
                 map1.regenerateEntities();
+                map1.checkProjectiles();
             }
 
         } else {

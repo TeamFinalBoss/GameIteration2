@@ -1,15 +1,13 @@
 package model.stats;
 
-import model.util.Saveable;
-import view.viewport.StatusViewPort;
-
 public class PlayerStats extends Stats {
 
-    private int currentHP;
-    private int currentMP;
+    private int currentHealth;
+    private int currentMana;
     private int level;
     private int livesLeft;
     private int experience;
+    
 
     public PlayerStats(int level,
             int livesLeft,
@@ -18,31 +16,30 @@ public class PlayerStats extends Stats {
             int intellect,
             int hardiness,
             int experience,
-            int movement,
-            int hpMax,
-            int mpMax,
+            int maxHealth,
+            int maxMana,
             int defense,
-            int offense, int speed) {
+            int offense, int speed, int healthRegenPerSec, int manaRegenPerSec) {
 
-        super(strength, agility, intellect, hardiness, movement, hpMax, mpMax, defense, offense, speed);
+        super(strength, agility, intellect, hardiness, maxHealth, maxMana, defense, offense, speed, healthRegenPerSec, manaRegenPerSec);
 
-        this.currentHP = hpMax;
-        this.currentMP = mpMax;
+        this.currentHealth = maxHealth;
+        this.currentMana = maxMana;
         this.level = level;
         this.livesLeft = livesLeft;
         this.experience = experience;
     }
 
     public PlayerStats() {
-        this(1, 1, 1, 1, 1, 1, 1, 0, 100, 100, 1, 1, 1);
+        this(1, 1, 1, 1, 1, 1, 0, 100, 100, 1, 1, 1, 1, 1);
     }
 
-    public int getHpCurrent() {
-        return currentHP;
+    public int getCurrentHealth() {
+        return currentHealth;
     }
 
-    public int getMpCurrent() {
-        return currentMP;
+    public int getCurrentMana() {
+        return currentMana;
     }
 
     public int getLevel() {
@@ -57,47 +54,53 @@ public class PlayerStats extends Stats {
         return experience;
     }
 
-    public void modhpCurrent(int hpAdded) {
-        currentHP += hpAdded;
-    }
-
-    public void modmpCurrent(int mpAdded) {
-        currentMP += mpAdded;        
-    }
-
-    public void modLevel(int levelAdded) {
-        level += levelAdded;
-    }
-
-    public void modLivesLeft(int livesAdded) {
-        livesLeft += livesAdded;
-    }
-
-    public void modExperience(int experienceAdded) {
-        experience += experienceAdded;
-    }
-
-    public void sethpCurrent(int hpNew) {
-        currentHP = hpNew;
+    public void modCurrentHealth(int value) {
+        currentHealth += value;
+        if(currentHealth > maxHealth) currentHealth = maxHealth;
+        if(currentHealth < 0) currentHealth = 0;
         this.setChanged();
         this.notifyObservers(this);
     }
 
-    public void setmpCurrent(int mpNew) {
-        currentMP = mpNew;
+    public void modCurrentMana(int value) {
+        currentMana += value;
+        if(currentMana > maxMana) currentMana = maxMana;
+        if(currentMana < 0) currentMana = 0;
+    }
+
+    public void setCurrentHealth(int value) {
+        currentHealth = value;
         this.setChanged();
         this.notifyObservers(this);
     }
 
-    public void setLevel(int levelNew) {
-        //hpCurrent = levelNew;
+    public void setCurrentMana(int value) {
+        currentMana = value;
+        this.setChanged();
+        this.notifyObservers(this);
+    }
+    
+    public void gainLevel(){
+        level++;
+    }
+    
+    public void gainLife(){
+        livesLeft++;
+    }
+    
+    public void lostLife(){
+        livesLeft--;
     }
 
-    public void setLivesLeft(int livesNew) {
-        //hpCurrent = livesNew;
+    public void gainExperience(int value) {
+        experience += value;
     }
 
-    public void setExperience(int experienceNew) {
-        //hpCurrent = experienceNew;
+    public int getManaRegenPerSecond() {
+        return manaRegenPerSecond;
+    }
+
+    public int getHealthRegenPerSecond() {
+        return healthRegenPerSecond;
     }
 }

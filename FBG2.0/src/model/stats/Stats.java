@@ -2,7 +2,6 @@ package model.stats;
 
 import java.util.Observable;
 import java.util.Observer;
-import model.util.Saveable;
 
 public class Stats extends Observable {
 
@@ -10,37 +9,41 @@ public class Stats extends Observable {
     protected int agility;
     protected int intellect;
     protected int hardiness;
-    protected int movement;
-    protected int maxHP;
-    protected int maxMP;
+    protected int maxHealth;
+    protected int maxMana;
     protected int speed;
     protected int defense;
     protected int offense;
+    protected int manaRegenPerSecond;
+    protected int healthRegenPerSecond;
 
     public Stats(int strength,
             int agility,
             int intellect,
             int hardiness,
-            int movement,
-            int maxHP,
-            int maxMP,
+            int maxHealth,
+            int maxMana,
             int defense,
-            int offense, int speed) {
+            int offense,
+            int speed,
+            int manaRegenPerSec,
+            int healthRegenPerSec) {
         this.strength = strength;
         this.agility = agility;
         this.intellect = intellect;
         this.hardiness = hardiness;
-        this.movement = movement;
-        this.maxHP = maxHP;
-        this.maxMP = maxMP;
+        this.maxHealth = maxHealth;
+        this.maxMana = maxMana;
         this.defense = defense;
         this.offense = offense;
         this.speed = speed;
+        this.manaRegenPerSecond = manaRegenPerSec;
+        this.healthRegenPerSecond = healthRegenPerSec;
     }
 
     public Stats() {
-        this(1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
-        
+        this(1, 1, 1, 1, 100, 100, 1, 1, 1, 1, 1);
+
     }
 
     public int getStrength() {
@@ -59,16 +62,12 @@ public class Stats extends Observable {
         return hardiness;
     }
 
-    public int getMovement() {
-        return movement;
+    public int getMaxHealth() {
+        return maxHealth;
     }
 
-    public int getMaxHP() {
-        return maxHP;
-    }
-
-    public int getMaxMP() {
-        return maxMP;
+    public int getMaxMana() {
+        return maxMana;
     }
 
     public int getOffense() {
@@ -80,30 +79,24 @@ public class Stats extends Observable {
     }
 
     public int getHpMax() {
-        return maxHP;
+        return maxHealth;
     }
 
     public int getMpMax() {
-        return maxMP;
+        return maxMana;
     }
 
     public int getSpeed() {
         return speed;
     }
 
-    public void setHpMax(int maxHP) {
-        this.maxHP = maxHP;
-    }
-
-    public void setMpMax(int maxMP) {
-        this.maxMP = maxMP;
+    public void setMpMax(int maxMana) {
+        this.maxMana = maxMana;
     }
 
     public void setSpeed(int speed) {
         this.speed = speed;
     }
-    
-    
 
     public void setStrength(int nextStr) {
         strength = verifyBounds(nextStr) ? nextStr : strength;
@@ -121,16 +114,12 @@ public class Stats extends Observable {
         hardiness = verifyBounds(nextHard) ? nextHard : hardiness;
     }
 
-    public void setMovement(int nextMove) {
-        movement = verifyBounds(nextMove) ? nextMove : movement;
+    public void setMaxHealth(int nextHP) {
+        maxHealth = nextHP;
     }
 
-    public void setMaxHP(int nextHP) {
-        maxHP = nextHP;
-    }
-
-    public void setMaxMP(int nextMP) {
-        maxMP = verifyBounds(nextMP) ? nextMP : maxMP;
+    public void setMaxMana(int nextMP) {
+        maxMana = verifyBounds(nextMP) ? nextMP : maxMana;
     }
 
     public void setDefense(int nextDef) {
@@ -157,16 +146,12 @@ public class Stats extends Observable {
         hardiness = verifyBounds(hardiness + hardAdded) ? (hardiness + hardAdded) : 0;
     }
 
-    public void modMovement(int moveAdded) {
-        movement = verifyBounds(movement + moveAdded) ? (movement + moveAdded) : 0;
+    public void modmaxHealth(int hpAdded) {
+        maxHealth += hpAdded;
     }
 
-    public void modmaxHP(int hpAdded) {
-        maxHP += hpAdded;
-    }
-
-    public void modmaxMP(int mpAdded) {
-        maxMP = verifyBounds(maxMP + mpAdded) ? (maxMP + mpAdded) : 0;
+    public void modMaxMana(int mpAdded) {
+        maxMana = verifyBounds(maxMana + mpAdded) ? (maxMana + mpAdded) : 0;
     }
 
     public void modOffense(int offAdded) {
@@ -178,11 +163,11 @@ public class Stats extends Observable {
     }
 
     public Stats inverted() {
-        return new Stats(strength * -1, agility * -1, intellect * -1, hardiness * -1, movement * -1, maxHP * -1, maxMP * -1, defense * -1, offense * -1 , speed * -1);
+        return new Stats(strength * -1, agility * -1, intellect * -1, hardiness * -1, maxHealth * -1, maxMana * -1, defense * -1, offense * -1, speed * -1, healthRegenPerSecond * -1, manaRegenPerSecond * -1);
     }
 
     protected boolean verifyBounds(int value) {
-        return (value < 0) ? false : true;
+        return (value >= 0);
     }
 
     public void mergeStats(Stats modifier) {
@@ -190,9 +175,8 @@ public class Stats extends Observable {
         modAgility(modifier.getAgility());
         modIntellect(modifier.getIntellect());
         modHardiness(modifier.getHardiness());
-        modMovement(modifier.getMovement());
-        modmaxHP(modifier.getMaxHP());
-        modmaxMP(modifier.getMaxMP());
+        modmaxHealth(modifier.getMaxHealth());
+        modMaxMana(modifier.getMaxMana());
         modOffense(modifier.getOffense());
         modDefense(modifier.getDefense());
         this.hasChanged();

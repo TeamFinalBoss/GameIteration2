@@ -15,7 +15,9 @@ public class Avatar extends Entity {
 
     public Avatar() {
         super();
-        super.myStats.setMovement(2);
+        super.myStats.setSpeed(2);
+        super.myStats.setOffense(4);
+        super.myStats.setIntellect(10);
         avatar = this;
         this.setSpritePath(SpriteFactory.PLAYER_SOUTH);
     }
@@ -30,10 +32,10 @@ public class Avatar extends Entity {
 
     public void shoot() {
         int manaCostToShoot = 20;
-        int current = myStats.getMpCurrent();
+        int current = myStats.getCurrentMana();
         if (current >= manaCostToShoot) { 
-            CombatCoordinator.spawnProjectile(ProjectileFactory.newFireBall(location.x, location.y, myDirection));
-            myStats.setmpCurrent(current - manaCostToShoot);
+            CombatCoordinator.spawnProjectile(ProjectileFactory.newFireBall(location.x + myDirection.dx, location.y + myDirection.dy, myDirection, myStats));
+            myStats.setCurrentMana(current - manaCostToShoot);
         }
 
     }
