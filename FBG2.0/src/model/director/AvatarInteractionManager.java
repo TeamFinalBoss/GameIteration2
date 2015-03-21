@@ -32,6 +32,7 @@ public class AvatarInteractionManager {
     		me.avatar = new SummonerAvatar("Bob", "My default avatar description", new CoordinatePair(10,10));
     	}
     	return me;
+    }
     public void useAbility(int abilityTouse){
         avatar.useAbility(abilityTouse);
     }
