@@ -32,8 +32,14 @@ public class AvatarInteractionManager {
     		me.avatar = new SummonerAvatar("Bob", "My default avatar description", new CoordinatePair(10,10));
     	}
     	return me;
+    }
+    
+    /**
+     * uses the abilityToUseth ability
+     * @param abilityTouse 
+     */
     public void useAbility(int abilityTouse){
-        avatar.useAbility(abilityTouse);
+        avatar.useAbility(abilityTouse);        
     }
     
     /**
@@ -60,7 +66,7 @@ public class AvatarInteractionManager {
      * @author Jason Owens
      */
     public void update(){
-        pushToView(avatar.getSackContents(), currentSlotInArmory, currentSlotInSack);
+        //pushToView(avatar.getSackContents(), currentSlotInArmory, currentSlotInSack);
     }
     
     public int getCurrentSlotInSack(){
@@ -71,9 +77,6 @@ public class AvatarInteractionManager {
         return currentSlotInArmory;
     }
     
-    public void useAbility(){
-        avatar.
-    }
     
     /**
      * Moves the avatar
