@@ -108,8 +108,11 @@ public class GameDirector implements SceneObserver{
     }
 
     public void startNewGame() {
+        
         GameMap map = new GameMap();
-
+        
+        
+        
        
         MapViewPort mapVP = new MapViewPort();
 

@@ -432,6 +432,7 @@ public class GameMap extends Observable {
             MC.moveEntity(e, desiredLocation, getAreaEffectAtCoordinate(desiredLocation), getItemAtCoordinate(desiredLocation),
                     getSwitcherAtCoordinate(desiredLocation), getTrapAtCoordinate(desiredLocation));
             e.setDirection(dir);
+            return true;
         }
         else{
             return false;
