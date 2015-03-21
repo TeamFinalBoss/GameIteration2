@@ -46,6 +46,16 @@ public class TreasureChest extends Equipable {
         
             
         }
+        
+        public void TreasureChest(int durability){
+            TreasureChest("Generic Eqipable", "Generic_description", 
+                        new CoordinatePair(), 0, durability);
+        }
+
+    @Override
+    public Takeable copy() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     
 }

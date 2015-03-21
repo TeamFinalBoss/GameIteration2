@@ -43,7 +43,13 @@ public class RustyKnife extends Weapon{
 		//Other properties set here
 	}
 	
+     @Override
 	public Takeable copy() {
 		return new RustyKnife(this.getName(), this.getDescription(), this.getLocation(), this.getDurability());
 	}
+        
+     @Override
+        public boolean canSee(int observationSkill){
+            return false; 
+        }
 }

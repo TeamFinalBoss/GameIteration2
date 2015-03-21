@@ -58,4 +58,9 @@ public class JesusBoots extends Equipable{
                 this.getLocation(), this.getValue(), this.getDurability(), 
                 this.getSlot());
     }
+    
+    
+    public void JesusBoots(int durability){
+            JesusBoots("HermesBoots", "Generic description", new CoordinatePair(), 
+                        0, 1, EquipSlot.FEET);
 }

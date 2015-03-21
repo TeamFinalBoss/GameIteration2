@@ -9,6 +9,6 @@ package model.item;
  *
  * @author ashishag
  */
-public class HelmOfDark {
+    public class Hornes {
     
 }

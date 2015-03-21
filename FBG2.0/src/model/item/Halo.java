@@ -12,10 +12,10 @@ import model.map.pair.CoordinatePair;
  * ID= 18;
  * @author ashishag
  */
-public class HelmOfLight extends Equipable {
+public class Halo extends Equipable {
      
     
-   public HelmOfLight(){
+   public Halo(){
 		super("Generic Eqipable", "Generic description", 
                         new CoordinatePair(), 0, 1, EquipSlot.HEAD);
 		
@@ -27,8 +27,8 @@ public class HelmOfLight extends Equipable {
 		//Other properties set here
 	}
 	
-	public HelmOfLight(String objectName, String description, 
-                CoordinatePair location, int value, EquipSlot slot){
+	public Halo(String objectName, String description, 
+                CoordinatePair location, int value,  EquipSlot slot){
 		super(objectName, description, location, value, 1, EquipSlot.HEAD);
 		
 		this.id = "18";
@@ -50,7 +50,17 @@ public class HelmOfLight extends Equipable {
             
         }
     
+   @Override
         public Takeable copy() {
-    		return new HelmOfLight(this.getName(), this.getDescription(), this.getLocation(), this.getValue(), this.getSlot());
+    		return new Halo(this.getName(), this.getDescription(), 
+                        this.getLocation(), this.getValue(), this.getSlot());
     	}
+        
+        public void Halo(int durability){
+            Halo("Generic Halo", "Generic_description", 
+                        new CoordinatePair(), 0, 1,EquipSlot.HEAD );
+                        
+}
+
+   
 }
