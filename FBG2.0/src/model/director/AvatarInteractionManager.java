@@ -4,6 +4,7 @@ import model.entity.Entity;
 import model.map.pair.CoordinatePair;
 import model.map.Direction;
 import model.entity.SummonerAvatar;
+import model.item.EquipSlot;
 
 /**
  * The purpose of this class is to handle commands, events, or general information
@@ -51,8 +52,8 @@ public class AvatarInteractionManager {
      * @author Jason Owens
      * @param slotNumber 
      */
-    public void unequipAtSlot(int slotNumber){
-        avatar.drop(slotNumber);
+    public void unequipAtSlot(EquipSlot slot){
+        avatar.unequip(slot);
     }
     
     /**
@@ -71,10 +72,7 @@ public class AvatarInteractionManager {
     public int getCurrentSlotInArmory(){
         return currentSlotInArmory;
     }
-    
-    public void useAbility(){
-        avatar.
-    }
+   
     
     /**
      * Moves the avatar
@@ -97,6 +95,10 @@ public class AvatarInteractionManager {
     public Entity getAvatar(){
     	return avatar;
     }
+    
+	public void dropItemAtSlot(int currentIndex) {
+		avatar.drop(currentIndex);
+	}
     
     
     

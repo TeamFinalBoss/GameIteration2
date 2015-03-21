@@ -10,8 +10,7 @@ public class SackDrop extends SackActiveSelection implements Commandable {
 
 	@Override
 	public void execute() {
-		int index = super.getDetails().getCurrentIndex();
-		//TODO Drop the item here.
+		super.drop();
 	}
 
 }

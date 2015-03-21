@@ -10,8 +10,7 @@ public class SackConfirm extends SackActiveSelection implements Commandable {
 
 	@Override
 	public void execute() {
-		// TODO Use the selected item.
-		int value = super.getDetails().getCurrentIndex();
+		super.confirm();
 	}
 
 }

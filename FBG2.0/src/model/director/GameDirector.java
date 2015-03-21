@@ -10,6 +10,7 @@ import java.util.Map;
 import model.map.GameMap;
 import view.MousePoint;
 import view.scene.Scene;
+import view.viewport.ArmoryViewport;
 import view.viewport.KeyBindingsErrorViewPort;
 import view.viewport.KeyBindingsMenuViewPort;
 import view.viewport.MainMenuViewPort;
@@ -117,8 +118,13 @@ public class GameDirector implements SceneObserver{
         SackViewport sack = new SackViewport();
         gameScene.addViewport(sack);
         
+        ArmoryViewport armory = new ArmoryViewport();
+        gameScene.addViewport(armory);
+        
         controller.addObserver(sack, SceneType.SACK);
+        controller.addObserver(armory, SceneType.ARMORY);
         sceneChanger.registerObserver(sack);
+        sceneChanger.registerObserver(armory);
        
         map.addObserver(mapVP);//Add mapVP as an Observer to map
         
