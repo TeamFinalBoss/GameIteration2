@@ -57,10 +57,8 @@ public class GameMap extends Observable {
         this.effects = new Locations<>();
         this.switchers = new Locations<>();
         this.traps = new Locations<>();
-        
         this.MC = MotionCoordinator.getInstance();
         this.MV = MotionValidator.getInstance();
-        
         this.addEntity(AvatarInteractionManager.getInstance().getAvatar(), new CoordinatePair(1, 1)); //TODO change to avatar
         
     }
@@ -73,6 +71,8 @@ public class GameMap extends Observable {
         this.effects = new Locations<>();
         this.switchers = new Locations<>();
         this.traps = new Locations<>();
+        this.MC = MotionCoordinator.getInstance();
+        this.MV = MotionValidator.getInstance();
         
         this.addEntity(AvatarInteractionManager.getInstance().getAvatar(), new CoordinatePair(1, 1)); //TODO change to avatar
         
