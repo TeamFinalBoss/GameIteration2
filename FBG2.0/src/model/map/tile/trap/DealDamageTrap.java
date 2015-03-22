@@ -15,8 +15,8 @@ import model.entity.Entity;
 public class DealDamageTrap extends Trap {
 
     @Override
-    void Activate(Entity caller) {
-        DealDamageEffect effect = new DealDamageEffect();
+    public void Activate(Entity caller) {
+        DealDamageEffect effect = new DealDamageEffect(40);
         effect.applyEffect(caller);
     }
     

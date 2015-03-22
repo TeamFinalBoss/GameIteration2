@@ -19,15 +19,39 @@ import model.map.tile.*;
  * This class 
  */
 public class TileFactory {
-    public List<Tile> generate(Element head)
+    public Tile[][] generate(Element head)
     {
-    	List<Tile> items = new ArrayList<Tile>();
+    	Tile[][] tiles;
     	
-    	NodeList nodes = head.getElementsByTagName("tile");
+    	int width , height;
+    	width = Integer.parseInt(head.getAttribute("width"));
+    	height = Integer.parseInt(head.getAttribute("height"));
     	
+    	tiles = new Tile[height][width];
     	
+    	NodeList nodes = head.getElementsByTagName("tile"); 
+    	int count = 0;
     	
-		return null;
+    	for(int i = 0; i < height; ++i)
+    	{
+    		for(int j = 0; j < width; ++j)
+    		{
+    			//TODO: change when id's have a meaning corresponding to a Terrain
+    			if(false)
+    			{
+    				continue;
+    			}
+    			
+    			//Default case: make a grass tile
+    			else
+    			{
+    				tiles[i][j] = new Tile(new Terrain());
+    			}
+    		}
+    	}
+    	
+    	return tiles;
+   
     	
     }
 }

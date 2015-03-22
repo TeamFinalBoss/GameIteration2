@@ -23,8 +23,8 @@ public class SackViewport extends Observable implements ViewPort, Observer, Mous
 	private static int maximumNumberOfRows = 5;
 	private static final int sizeOfBox = 64;
 	private static int startX;
-	private static int startY;
-	private static final int offset = 31;
+	private static int startY = 0;
+	private static final int offset = 0;
 	private static final int Ypadding = 10;
 	private static final int Xpadding = 17;
 	private static int height;

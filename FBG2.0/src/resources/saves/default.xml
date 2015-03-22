@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gamesave>
+<avatar occupation="smasher" map="3" currency="0" motiontype="0" direction="0" x="1" y="1">
+   <stats livesLeft="3" strength="3" agility="3" intellect="3" hardiness="3" experience="3" movement="3" bindWounds="3" stat1="3" stat2="3" stat3="3" stat4="3" currentHp="3" currentMp="3" offense="3" defense="3" bargain="3" observation="3" />
+   	<sack>
+   	    <item name="sword" durability="100" />
+   	</sack>
+   	<armory>
+   	</armory>
+   	<effects>
+   	</effects>
+</avatar>
+<map id="1">
+    <obstacle name="door" link="4" x="1" y="1" />
+    <interactive name="dooropener" link="4" x="2" y="2" />
+    <oneshot name="recoveryHeart" x="1" y="2" />
+    <takeable name="sword" durability="20" x="2" y="1" />
+</map>
+<map id="2">
+    <obstacle name="door" link="4" x="1" y="1" />
+</map>
+</gamesave>

@@ -69,16 +69,16 @@ public class EntityFactory implements PlaceableObjectFactory{
 			
 			Entity en = null;
 			
-			switch(e.getAttribute("class")) {
+			switch(e.getAttribute("occupation")) {
 			case "smasher":
 				en = switchSmasherType(e);
 				if(en == null) break;
 				
 				CommonStats(s, en);
-				((SmasherEntity) en).setOneHanded(Integer.parseInt(s.getAttribute("onehanded")));
-				((SmasherEntity) en).setTwoHanded(Integer.parseInt(s.getAttribute("twohanded")));
-				((SmasherEntity) en).setBrawling(Integer.parseInt(s.getAttribute("brawling")));
-				((SmasherEntity) en).setChakra(Integer.parseInt(s.getAttribute("chakra")));
+				((SmasherEntity) en).setOneHanded(Integer.parseInt(s.getAttribute("stat1")));
+				((SmasherEntity) en).setTwoHanded(Integer.parseInt(s.getAttribute("stat2")));
+				((SmasherEntity) en).setBrawling(Integer.parseInt(s.getAttribute("stat3")));
+				((SmasherEntity) en).setChakra(Integer.parseInt(s.getAttribute("stat4")));
 				
 				break;
 				
@@ -87,10 +87,10 @@ public class EntityFactory implements PlaceableObjectFactory{
 				if(en == null) break;
 				
 				CommonStats(s, en);
-				((SneakEntity) en).setPickPokcet(Integer.parseInt(s.getAttribute("pickpocket")));
-				((SneakEntity) en).setTrap(Integer.parseInt(s.getAttribute("trap")));
-				((SneakEntity) en).setCreep(Integer.parseInt(s.getAttribute("creep")));
-				((SneakEntity) en).setRangedWeapon(Integer.parseInt(s.getAttribute("ranged")));
+				((SneakEntity) en).setPickPokcet(Integer.parseInt(s.getAttribute("stat1")));
+				((SneakEntity) en).setTrap(Integer.parseInt(s.getAttribute("stat2")));
+				((SneakEntity) en).setCreep(Integer.parseInt(s.getAttribute("stat3")));
+				((SneakEntity) en).setRangedWeapon(Integer.parseInt(s.getAttribute("stat4")));
 				
 				break;
 				
@@ -99,10 +99,10 @@ public class EntityFactory implements PlaceableObjectFactory{
 				if(en == null) break;
 				
 				CommonStats(s, en);
-				((SummonerEntity) en).setEnchantment(Integer.parseInt(s.getAttribute("enchantment")));
-				((SummonerEntity) en).setBane(Integer.parseInt(s.getAttribute("bane")));
-				((SummonerEntity) en).setBoon(Integer.parseInt(s.getAttribute("boon")));
-				((SummonerEntity) en).setStaff(Integer.parseInt(s.getAttribute("staff")));
+				((SummonerEntity) en).setEnchantment(Integer.parseInt(s.getAttribute("stat1")));
+				((SummonerEntity) en).setBane(Integer.parseInt(s.getAttribute("stat2")));
+				((SummonerEntity) en).setBoon(Integer.parseInt(s.getAttribute("stat3")));
+				((SummonerEntity) en).setStaff(Integer.parseInt(s.getAttribute("stat4")));
 				
 				break;
 			}
@@ -183,11 +183,11 @@ public class EntityFactory implements PlaceableObjectFactory{
 		e.setHardiness(Integer.parseInt(s.getAttribute("hardiness")));
 		e.setExperience(Integer.parseInt(s.getAttribute("experience")));
 		e.setMovement(Integer.parseInt(s.getAttribute("movement")));
-		e.setBindWounds(Integer.parseInt(s.getAttribute("bindwounds")));
+		e.setBindWounds(Integer.parseInt(s.getAttribute("bindWounds")));
 		e.setBargain(Integer.parseInt(s.getAttribute("bargain")));
 		e.setObservation(Integer.parseInt(s.getAttribute("observation")));
-		e.setCurrentHP(Integer.parseInt(s.getAttribute("currenthp")));
-		e.setCurrentMP(Integer.parseInt(s.getAttribute("currentmp")));
+		e.setCurrentHP(Integer.parseInt(s.getAttribute("currentHp")));
+		e.setCurrentMP(Integer.parseInt(s.getAttribute("currentMp")));
 		e.setWeaponOffense(Integer.parseInt(s.getAttribute("offense")));
 		e.setEquipArmor(Integer.parseInt(s.getAttribute("defense")));
 	}

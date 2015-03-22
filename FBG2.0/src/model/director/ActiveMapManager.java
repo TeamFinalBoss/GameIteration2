@@ -1,3 +1,4 @@
+
 package model.director;
 
 import model.entity.SummonerAvatar;
@@ -11,7 +12,7 @@ import java.util.Observer;
 import model.map.Direction;
 import model.map.GameMap;
 import model.map.MapSwitcher;
-import model.map.Projectile;
+import model.map.projectiles.Projectile;
 import model.map.pair.CoordinatePair;
 import model.map.areaEffect.AreaEffect;
 import model.map.tile.Tile;
@@ -79,9 +80,7 @@ public class ActiveMapManager {
       List<Tile> containedTiles, List<Projectile> containedProjectiles, List<Entity> containedEntities, 
 		List<Trap> containedTraps, List<Item> containedItems, List<AreaEffect> containedAreaEffects){
         
-       /* activeMap.getEverythingInRange( center,  radius, 
-        
-        activeMap.getEverythingInRange( center,  radius, 
+      /*activeMap.getEverythingInRange( center,  radius, 
       containedTiles, containedProjectiles, containedEntities, 
 		 containedTraps,  containedItems, containedAreaEffects);*/
         
@@ -125,6 +124,10 @@ public class ActiveMapManager {
     	return;
     }
     
+    public List<GameMap> getMaps() {
+    	return maps;
+    }
+    
     /**
      * If map is in maps, set it as active map and return true. Else return false
      * 
@@ -152,7 +155,7 @@ public class ActiveMapManager {
      */
     public boolean setActiveMap(int mapID) {
     	for(GameMap m : this.maps) {
-    		if(m.getID == mapID) {
+    		if(m.getID() == mapID) {
     			this.activeMap = m;
     			return true;
     		}

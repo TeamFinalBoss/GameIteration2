@@ -6,7 +6,7 @@ import model.entity.inventory.Inventory;
 import model.entity.stats.Stats;
 import model.gameObject.MapObject;
 import model.map.Direction;
-import model.map.Projectile;
+import model.map.projectiles.Projectile;
 import model.map.pair.CoordinatePair;
 import model.map.areaEffect.AreaEffect;
 import model.map.tile.Tile;
@@ -314,6 +314,7 @@ public abstract class Entity extends MapObject{
 	}
 	public void setCurrentHP(int next){
 		myStats.setCurrentHealth(next);
+		if(getCurrentHP() <= 0) die();
 		myAbilities.update();
 	}
 	public void setCurrentMP(int next){
@@ -388,6 +389,7 @@ public abstract class Entity extends MapObject{
 	}
 	public void modifyCurrentHP(int next){
 		myStats.modifyCurrentHP(next);
+		if(getCurrentHP() <= 0) die();
 		myAbilities.update();
 	}
 	public void modifyCurrentMP(int next){
@@ -466,6 +468,9 @@ public abstract class Entity extends MapObject{
     }
 
     /* -------------------- MISC. MUTATORS -------------------- */
+    public void die(){
+    	ActiveMapManager.getInstance().removeEntityFromActiveMap(this);
+    }
     public void setCurrency(int newest){
     	currency = max(newest, 0);
     }
