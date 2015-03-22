@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
+import model.director.GameDirector;
 import controller.commands.Commandable;
 
 public class LoadFileCommand extends SaveFiles implements Commandable{
@@ -23,17 +24,7 @@ public class LoadFileCommand extends SaveFiles implements Commandable{
 	@Override
 	public void execute() {
 		File file = super.getFileAtIndex(index);
-		try {
-			InputStream fileStream = new FileInputStream(file);
-			
-			fileStream.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			System.out.println("Error with loading a file in LoadFileCommand");
-		} catch (IOException e) {
-			e.printStackTrace();
-			System.out.println("Error with loading a file in LoadFileCommand");
-		}
+		GameDirector.getGameDirector().startNewGame(file);
 		
 	}
 

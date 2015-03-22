@@ -3,6 +3,7 @@ package model.director;
 import java.awt.Dimension;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -138,12 +139,18 @@ public class GameDirector extends Observable implements SceneObserver{
         sceneChanger.changeScene(SceneType.MAIN_MENU);
         activeScene = menuScene;
     }
-
-    public void startNewGame() {
+    
+public void startNewGame(File def) {
         
+        /*
         GameMap map = new GameMap();
         ActiveMapManager.getInstance().addMap(map);
         ActiveMapManager.getInstance().setActiveMap(map);
+        */
+    	
+    	MapInstantiator.getInstance().loadFullGame(def);
+    	AvatarInteractionManager.getInstance().setAvatar(MapInstantiator.getInstance().createAvatarFromFile(def));
+    	
        
         MapViewPort mapVP = new MapViewPort();
 
@@ -173,7 +180,54 @@ public class GameDirector extends Observable implements SceneObserver{
         controller.getMouseParser().setMousePointClick(SceneType.ARMORY, (MousePointClick)armory);
         controller.getMouseParser().setMousePointClick(SceneType.SACK, (MousePointClick)sack);
        
-        map.addObserver(mapVP);//Add mapVP as an Observer to map
+        ActiveMapManager.getInstance().getActiveMap().addObserver(mapVP);//Add mapVP as an Observer to map
+        
+        sceneChanger.changeScene(SceneType.GAME);
+        activeScene = gameScene;
+    }
+
+    public void startNewGame() {
+        
+        /*
+        GameMap map = new GameMap();
+        ActiveMapManager.getInstance().addMap(map);
+        ActiveMapManager.getInstance().setActiveMap(map);
+        */
+    	
+    	File def = new File("./src/resources/saves/default.xml");
+    	MapInstantiator.getInstance().loadFullGame(def);
+    	AvatarInteractionManager.getInstance().setAvatar(MapInstantiator.getInstance().createAvatarFromFile(def));
+    	
+       
+        MapViewPort mapVP = new MapViewPort();
+
+        gameScene.addViewport(mapVP);//Add mapVP to gameScene
+        
+        SackViewport sack = new SackViewport();
+        gameScene.addViewport(sack);
+        
+        ArmoryViewport armory = new ArmoryViewport();
+        gameScene.addViewport(armory);
+        
+        StatsUpdateViewport statsPort = new StatsUpdateViewport();
+        gameScene.addViewport(statsPort);
+        
+        controller.addObserver(sack, SceneType.SACK);
+        controller.addObserver(armory, SceneType.ARMORY);
+        controller.addObserver(statsPort, SceneType.STATS_UPDATING);
+        
+        List<Observable> sackObservables = controller.getObservables(SceneType.SACK);
+        ((Observable)sack).addObserver((Observer) sackObservables.get(0));
+        controller.getMouseParser().setMousePoint(SceneType.SACK, (MousePoint)sack);
+        
+        List<Observable> armoryObservables = controller.getObservables(SceneType.ARMORY);
+        ((Observable)armory).addObserver((Observer) armoryObservables.get(0));
+        controller.getMouseParser().setMousePoint(SceneType.ARMORY, (MousePoint)armory);
+        
+        controller.getMouseParser().setMousePointClick(SceneType.ARMORY, (MousePointClick)armory);
+        controller.getMouseParser().setMousePointClick(SceneType.SACK, (MousePointClick)sack);
+       
+        ActiveMapManager.getInstance().getActiveMap().addObserver(mapVP);//Add mapVP as an Observer to map
         
         sceneChanger.changeScene(SceneType.GAME);
         activeScene = gameScene;
