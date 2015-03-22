@@ -104,6 +104,7 @@ public abstract class AbilityLibrary {
     
     
     public boolean performActiveAbility(int position, Entity callingEntity){
+        position = position -1;
     	if(position >= learnedAbilities.size()) 
             return false;
     	learnedAbilities.get(position).performAbility(callingEntity);

@@ -87,6 +87,5 @@ public abstract class ProjectileAbility extends Ability
 		return vector;
 	}
 
-    public abstract void applyEffect(Effect effect);
     public abstract boolean meetsStatRequirements(Entity caster);
 }
