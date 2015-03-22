@@ -35,7 +35,7 @@ public class EntityFactory implements PlaceableObjectFactory{
 	TakeableFactory inventoryFactory;
 	EffectReader effectReader;
 
-	EntityFactory()
+	public EntityFactory()
 	{
 		inventoryFactory = new TakeableFactory();
 		effectReader = new EffectReader();
