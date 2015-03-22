@@ -19,6 +19,8 @@ public abstract class Projectile extends TimerTask{
     private long lifetime; //this may change based on how we implement time
     private int refreshRate;
     
+    private Entity castingEntity;
+    
     private GameTimer myTimer;
     
     private boolean isActive;
@@ -34,14 +36,15 @@ public abstract class Projectile extends TimerTask{
     Projectile(){
         throw new UnsupportedOperationException("Do not use default Projectile constructor.");
     }
-    Projectile(long initialLifetime, Vector velocity, PreciseCoordinatePair initialLocation, Effect effects){
+    Projectile(long initialLifetime, Vector velocity, PreciseCoordinatePair initialLocation, Effect effects, Entity castingEntity){
         lifetime = initialLifetime;
         this.velocity = velocity;
         location = initialLocation;
         this.effects = effects;
         myTimer = GameTimer.getInstance();
-        myTimer.addEvent(this, 0); //immediately calls run
+//        myTimer.addEvent(this, 0); //immediately calls run
         refreshRate = 10; //projectiles refresh every 10 milliseconds (20 times a second)
+        this.castingEntity = castingEntity;
         ActiveMapManager.getInstance().addProjectileToMap(this);
     }
     

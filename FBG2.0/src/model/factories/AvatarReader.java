@@ -64,15 +64,15 @@ public class AvatarReader {
 			
 			Entity en = null;
 			
-			switch(e.getAttribute("class")) {
+			switch(e.getAttribute("occupation")) {
 			case "smasher":
 				en = new SmasherAvatar();
 				
 				CommonStats(s, en);
-				((SmasherEntity) en).setOneHanded(Integer.parseInt(s.getAttribute("onehanded")));
-				((SmasherEntity) en).setTwoHanded(Integer.parseInt(s.getAttribute("twohanded")));
-				((SmasherEntity) en).setBrawling(Integer.parseInt(s.getAttribute("brawling")));
-				((SmasherEntity) en).setChakra(Integer.parseInt(s.getAttribute("chakra")));
+				((SmasherEntity) en).setOneHanded(Integer.parseInt(s.getAttribute("stat1")));
+				((SmasherEntity) en).setTwoHanded(Integer.parseInt(s.getAttribute("stat2")));
+				((SmasherEntity) en).setBrawling(Integer.parseInt(s.getAttribute("stat3")));
+				((SmasherEntity) en).setChakra(Integer.parseInt(s.getAttribute("stat4")));
 				
 				break;
 				
@@ -80,10 +80,10 @@ public class AvatarReader {
 				en = new SneakAvatar();
 				
 				CommonStats(s, en);
-				((SneakEntity) en).setPickPokcet(Integer.parseInt(s.getAttribute("pickpocket")));
-				((SneakEntity) en).setTrap(Integer.parseInt(s.getAttribute("trap")));
-				((SneakEntity) en).setCreep(Integer.parseInt(s.getAttribute("creep")));
-				((SneakEntity) en).setRangedWeapon(Integer.parseInt(s.getAttribute("ranged")));
+				((SneakEntity) en).setPickPokcet(Integer.parseInt(s.getAttribute("stat1")));
+				((SneakEntity) en).setTrap(Integer.parseInt(s.getAttribute("stat2")));
+				((SneakEntity) en).setCreep(Integer.parseInt(s.getAttribute("stat3")));
+				((SneakEntity) en).setRangedWeapon(Integer.parseInt(s.getAttribute("stat4")));
 				
 				break;
 				
@@ -91,10 +91,10 @@ public class AvatarReader {
 				en = new SummonerAvatar();
 				
 				CommonStats(s, en);
-				((SummonerEntity) en).setEnchantment(Integer.parseInt(s.getAttribute("enchantment")));
-				((SummonerEntity) en).setBane(Integer.parseInt(s.getAttribute("bane")));
-				((SummonerEntity) en).setBoon(Integer.parseInt(s.getAttribute("boon")));
-				((SummonerEntity) en).setStaff(Integer.parseInt(s.getAttribute("staff")));
+				((SummonerEntity) en).setEnchantment(Integer.parseInt(s.getAttribute("stat1")));
+				((SummonerEntity) en).setBane(Integer.parseInt(s.getAttribute("stat2")));
+				((SummonerEntity) en).setBoon(Integer.parseInt(s.getAttribute("stat3")));
+				((SummonerEntity) en).setStaff(Integer.parseInt(s.getAttribute("stat4")));
 				
 				break;
 			}

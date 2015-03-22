@@ -1,5 +1,7 @@
 package controller.commands.armory;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -11,9 +13,11 @@ import model.item.EquipSlot;
 public class ArmoryDetails extends Observable implements Selectable, Inventoryable, Observer {
 
 	private Node currentTree;
+	private Map<EquipSlot, Node> map;
 	private AvatarInteractionManager manager = AvatarInteractionManager.getInstance();
 	
 	public ArmoryDetails() {
+		map = new HashMap<>();
 		this.currentTree = buildTree();
 	}
 	
@@ -77,6 +81,13 @@ public class ArmoryDetails extends Observable implements Selectable, Inventoryab
 		legs.setPrevious(chest);
 		feet.setPrevious(legs);
 		
+		map.put(EquipSlot.HEAD, head);
+		map.put(EquipSlot.TORSO, chest);
+		map.put(EquipSlot.MAIN_HAND, mainHand);
+		map.put(EquipSlot.OFF_HAND, offHand);
+		map.put(EquipSlot.FEET, feet);
+		map.put(EquipSlot.LEGS, legs);
+		
 		return head;
 	}
 	
@@ -89,6 +100,10 @@ public class ArmoryDetails extends Observable implements Selectable, Inventoryab
 		private Node next;
 		private int currentSelection;
 		private EquipSlot slot;
+		private boolean checkedLeft;
+		private boolean checkedRight;
+		private boolean checkedNext;
+		private boolean checkedPrevious;
 		
 		public Node(int selection, EquipSlot slot) {
 			this.currentSelection = selection;
@@ -141,25 +156,66 @@ public class ArmoryDetails extends Observable implements Selectable, Inventoryab
 			} else if(hasNoChildren()) {
 				return null;
 			} else {
-				Node value = next.changeToIndex(currentIndex);
-				if(value != null) {
-					return value;
+				Node value = null;
+				if(hasNext() && !checkedNext) {
+					checkedNext = true;
+					value = next.changeToIndex(currentIndex);
+					if(value != null) {
+						return value;
+					}
 				}
-				value = previous.changeToIndex(currentIndex);
-				if(value != null) {
-					return value;
+				
+				if(hasRight() && !checkedRight) {
+					checkedRight = true;
+					value = right.changeToIndex(currentIndex);
+					
+					if(value != null) {
+						return value;
+					}
 				}
-				value = right.changeToIndex(currentIndex);
-				if(value != null) {
-					return value;
+				
+				if(hasPrevious() && !checkedPrevious) {
+					checkedPrevious = true;
+					value = previous.changeToIndex(currentIndex);
+					if(value != null) {
+						return value;
+					}
 				}
-				value = left.changeToIndex(currentIndex);
-				return value;
+				if(hasLeft() && !checkedLeft) {
+					checkedLeft = true;
+					value = left.changeToIndex(currentIndex);
+					if(value != null) {
+						return value;
+					}
+				}
+				return null;
+				
 			}
 		}
-
+		private boolean hasNext() {
+			return next != null;
+		}
+		
+		private boolean hasPrevious() {
+			return previous != null;
+		}
+		
+		private boolean hasRight() {
+			return right != null;
+		}
+		
+		private boolean hasLeft() {
+			return left != null;
+		}
 		private boolean hasNoChildren() {
-			return next == null && previous == null && right == null && left == null;
+			return !hasNext() && !hasRight() && !hasPrevious() && !hasLeft();
+		}
+
+		public void reset() {
+			checkedLeft = false;
+			checkedRight = false;
+			checkedNext = false;
+			checkedPrevious = false;
 		}
 		
 	}
@@ -176,7 +232,14 @@ public class ArmoryDetails extends Observable implements Selectable, Inventoryab
 		Selectable select = (Selectable)o;
 		int currentIndex = select.getCurrentIndex();
 		currentTree = currentTree.changeToIndex(currentIndex);
+		reset();
 		
+	}
+
+	private void reset() {
+		for(Map.Entry<EquipSlot, Node> entry : map.entrySet()) {
+			entry.getValue().reset();
+		}
 	}
 
 	

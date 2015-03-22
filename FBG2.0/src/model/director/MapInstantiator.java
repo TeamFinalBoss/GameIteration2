@@ -1,9 +1,9 @@
 package model.director;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -21,9 +21,11 @@ import model.factories.InteractiveFactory;
 import model.factories.ObstacleFactory;
 import model.factories.OneShotFactory;
 import model.factories.TakeableFactory;
+import model.factories.TileFactory;
 import model.gameObject.MapObject;
 import model.item.Item;
 import model.map.GameMap;
+import model.map.pair.CoordinatePair;
 
 public class MapInstantiator {
 	private static MapInstantiator me = null;
@@ -67,7 +69,7 @@ public class MapInstantiator {
 		return new AvatarReader().generateAndAddToMap(head);
 	}
 	
-	public void createMapsFromFile(File f) {
+	public void loadFullGame(File f) {
 		
 		//clear maps
 		ActiveMapManager.getInstance().clearMaps();
@@ -95,6 +97,14 @@ public class MapInstantiator {
             e.printStackTrace();
         }
 		
+		List<GameMap> maps = new ArrayList<GameMap>();
+		File[] list = new File("./src/resources/maps/").listFiles();
+		for(File file : list) {
+			if(file.isFile()) {
+				maps.add(createMap(file));
+			}
+		}
+		
 		Element head = doc.getDocumentElement();
 		
 		NodeList nodes = head.getElementsByTagName("map");
@@ -103,39 +113,93 @@ public class MapInstantiator {
 		{
 			Element e = (Element) nodes.item(i);
 			
-			GameMap m = new GameMap(Integer.parseInt(e.getAttribute("id")));
+			int mapid = Integer.parseInt(e.getAttribute("id"));
 			
 			for(MapObject o : new EntityFactory().generate(e)) {
 				Entity n = (Entity) o;
 				
-				m.addEntity(n, n.getLocation());
+				addEntity(maps, mapid, n, n.getLocation());
 			}
 			
 			for(MapObject o : new InteractiveFactory().generate(e)) {
 				Item n = (Item) o;
 				
-				m.addItem(n, n.getLocation());
+				addItem(maps, mapid, n, n.getLocation());
 			}
 			
 			for(MapObject o : new TakeableFactory().generate(e)) {
 				Item n = (Item) o;
 				
-				m.addItem(n, n.getLocation());
+				addItem(maps, mapid, n, n.getLocation());
 			}
 			
 			for(MapObject o : new OneShotFactory().generate(e)) {
 				Item n = (Item) o;
 				
-				m.addItem(n, n.getLocation());
+				addItem(maps, mapid, n, n.getLocation());
 			}
 			
 			for(MapObject o : new ObstacleFactory().generate(e)) {
 				Item n = (Item) o;
 				
-				m.addItem(n, n.getLocation());
+				addItem(maps, mapid, n, n.getLocation());
 			}
 			
-			ActiveMapManager.getInstance().addMap(m);
+			for(GameMap m : maps) {
+				ActiveMapManager.getInstance().addMap(m);
+			}
 		}
+	}
+	
+	private void addEntity(List<GameMap> maps, int mapid, Entity e, CoordinatePair location) {
+		for( GameMap m : maps) {
+			if(m.getID() == mapid) {
+				m.addEntity(e, location);
+				return;
+			}
+		}
+	}
+	
+	private void addItem(List<GameMap> maps, int mapid, Item i, CoordinatePair location) {
+		for( GameMap m : maps) {
+			if(m.getID() == mapid) {
+				m.addItem(i, location);
+				return;
+			}
+		}
+	}
+	
+	private GameMap createMap(File f) {
+		Document doc = null;
+		
+		try{
+
+			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder builder = null;
+			//Get the DOM builder
+			builder = factory.newDocumentBuilder();
+			doc = builder.parse(f);
+		} catch (ParserConfigurationException e) {
+            // TODO Auto-generated catch block
+            System.out.println("Parser Coniguration Exception");
+            e.printStackTrace();
+        } catch (SAXException e) {
+            // TODO Auto-generated catch block
+            System.out.println("SAXException");
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            System.out.println("IO Exception");
+            e.printStackTrace();
+        }
+		
+		Element head = doc.getDocumentElement();
+		
+		Element maphead = (Element) head.getElementsByTagName("map").item(0);
+		
+		GameMap m = new GameMap(new TileFactory().generate(maphead));
+		m.setID(Integer.parseInt(maphead.getAttribute("id")));
+		
+		return m;
 	}
 }

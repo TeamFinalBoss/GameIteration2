@@ -21,5 +21,24 @@ public abstract class AvatarCommands implements Commandable {
 		manager.useAbility(ability);
 	}
 	
+	protected void increaseAgility() {
+		manager.increaseAgility();
+	}
+	
+	protected void incraseStrength() {
+		manager.increaseStrength();
+	}
+	
+	protected void increaseIntellect() {
+		manager.increaseIntellect();
+	}
+	
+	protected void increaseHardiness() {
+		manager.increaseHardiness();
+	}
+	
+	protected void increaseMovement() {
+		manager.increaseMovement();
+	}
 	public abstract void execute();
 }

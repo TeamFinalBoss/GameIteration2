@@ -11,6 +11,7 @@ import controller.commands.sceneChangers.ArmorySwitch;
 import controller.commands.sceneChangers.DialogueSwitch;
 import controller.commands.sceneChangers.PauseSwitch;
 import controller.commands.sceneChangers.SackSwitch;
+import controller.commands.sceneChangers.StatsUpdateSwitch;
 import controller.keyBindings.KeyBindingsOption;
 import controller.keyBindings.KeyOptions;
 import controller.sceneControllers.SceneController;
@@ -51,6 +52,7 @@ public class GameControllerBuilder {
 		options.put(map.get(KeyBindingsOption.ARMORY), new ArmorySwitch());
 		options.put(map.get(KeyBindingsOption.DIALOGUE), new DialogueSwitch());
 		options.put(map.get(KeyBindingsOption.PAUSE), new PauseSwitch());
+		options.put(map.get(KeyBindingsOption.STATS_UPDATE), new StatsUpdateSwitch());
 		
 		KeyOptions keyOptions =  new KeyOptions(options);
 		return new SceneController(keyOptions);
