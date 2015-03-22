@@ -130,7 +130,7 @@ public class AvatarReader {
 				break;
 			}
 			
-			switch(Integer.parseInt(e.getAttribute("motiontype"))) {
+			switch(Integer.parseInt(e.getAttribute("motionType"))) {
 			case 0:
 				en.setMotionType(MotionType.GROUND);
 				break;
