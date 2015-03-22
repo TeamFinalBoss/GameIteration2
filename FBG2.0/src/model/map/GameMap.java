@@ -454,7 +454,7 @@ public class GameMap extends Observable {
         
         System.out.println("Map calls update");
         setChanged();
-        Object[] objects = new Object[5];
+        Object[] objects = new Object[6];
         Entity avatar = AvatarInteractionManager.getInstance().getAvatar();
         
         objects[0] = tiles;
@@ -462,6 +462,7 @@ public class GameMap extends Observable {
         objects[2] = entities;
         objects[3] = items;
         objects[4] = traps;
+        objects[5] = projectiles;
         //objects = {tiles, avatar,entities, items, traps};
         notifyObservers(objects);
     }
