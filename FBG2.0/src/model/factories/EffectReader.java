@@ -2,13 +2,7 @@ package model.factories;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import model.map.pair.CoordinatePair;
-import model.effect.AllowMovement;
 import model.effect.Dispellable;
-import model.effect.DoneDamage;
-import model.effect.Effect;
-import model.entity.Entity;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -20,7 +14,7 @@ import org.w3c.dom.NodeList;
  * @author Aidan Pace
  */
 public class EffectReader {
-	EffectReader() {
+	public EffectReader() {
 	}
 	
 	/**

@@ -8,9 +8,9 @@ import model.gameObject.MapObject;
 import model.map.Direction;
 import model.map.Projectile;
 import model.map.pair.CoordinatePair;
-import model.map.tile.AreaEffect;
+import model.map.areaEffect.AreaEffect;
 import model.map.tile.Tile;
-import model.map.tile.Trap;
+import model.map.tile.trap.Trap;
 import model.util.GameTimer;
 import model.effect.AllowMovement;
 import model.effect.Dispellable;
@@ -28,6 +28,7 @@ import model.item.EquipSlot;
 import java.util.Map;
 
 import model.director.ActiveMapManager;
+import model.director.AvatarInteractionManager;
 
 /** 
  * The class Entity defines a common type for all entities (beings) in the game. 
@@ -49,6 +50,8 @@ public abstract class Entity extends MapObject{
     private int currency;
     private MotionType motionType;
     private boolean canMove;
+    private String occupation;
+    private String type;
 
     /* -------------------- PROTECTED COMPONENT CREATION -------------------- */
     protected Inventory createInventory(){
@@ -56,6 +59,8 @@ public abstract class Entity extends MapObject{
     }
     protected abstract AbilityLibrary createAbilities();
     protected abstract Stats createStats();
+    protected abstract String setOccupation();
+    protected abstract String setType();
     
     /* -------------------- PROTECTED UTILITY -------------------- */
     protected Stats getStats(){
@@ -112,6 +117,8 @@ public abstract class Entity extends MapObject{
 		this.setID("1");
 		this.setClassName("Entity");
 		visibleMap.update();
+		occupation = setOccupation();
+		type = setType();
     }
     
     /* -------------------- PRIVATE UTILITY -------------------- */
@@ -280,7 +287,12 @@ public abstract class Entity extends MapObject{
 		myAbilities.update();
 	}
 	public void setExperience(int next){
+		int initial = getLevel();
 		myStats.setExperience(next);
+		if(initial > getLevel()){
+			AvatarInteractionManager.getInstance().modifySkillPoints(10);
+			AvatarInteractionManager.getInstance().modifyStatPoints(10);
+		}
 		myAbilities.update();
 	}
 	public void setMovement(int next){
@@ -322,6 +334,12 @@ public abstract class Entity extends MapObject{
 		myStats.dealDamage(amount);
 		myAbilities.update();
 	}
+	public void levelUp(){
+		myStats.levelUp();
+		AvatarInteractionManager.getInstance().modifySkillPoints(10);
+		AvatarInteractionManager.getInstance().modifyStatPoints(10);
+		myAbilities.update();
+	}
 	public void modifyLivesLeft(int next){
 		myStats.modifyLivesLeft(next);
 		myAbilities.update();
@@ -343,7 +361,12 @@ public abstract class Entity extends MapObject{
 		myAbilities.update();
 	}
 	public void modifyExperience(int next){
+		int initial = getLevel();
 		myStats.modifyExperience(next);
+		if(initial > getLevel()){
+			AvatarInteractionManager.getInstance().modifySkillPoints(10);
+			AvatarInteractionManager.getInstance().modifyStatPoints(10);
+		}
 		myAbilities.update();
 	}
 	public void modifyMovement(int next){
@@ -416,7 +439,9 @@ public abstract class Entity extends MapObject{
 	public void removeEffect(Dispellable effect){
 		activeEffects.remove(effect);
 	}
-	
+	public List<Dispellable> getEffects(){
+		return activeEffects;
+	}
 	
     /* -------------------- MISC. ACCESSORS -------------------- */
     public int getCurrency(){
@@ -431,7 +456,12 @@ public abstract class Entity extends MapObject{
     public boolean canSee(int observation){
     	return true;
     }
-    
+    public String getOccupation(){
+    	return occupation;
+    }
+    public String getType(){
+    	return type;
+    }
 
     /* -------------------- MISC. MUTATORS -------------------- */
     public void setCurrency(int newest){

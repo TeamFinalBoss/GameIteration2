@@ -17,30 +17,35 @@ import javax.swing.ImageIcon;
 import view.MousePoint;
 import model.director.GameDirector;
 import controller.util.Describeable;
+import controller.util.Selectable;
 
 /**
  * The MainMenuViewPort draws the main menu
  *
  * @author ChrisMoscoso
  */
-public class MainMenuViewPort implements ViewPort, Observer, MousePoint {
+public class MainMenuViewPort extends Observable implements ViewPort, Observer, MousePoint, Selectable {
 
     private String[] options;
     private int activeOptionIndex;
     private int width, height;
-    private int logoHeight;
-    private int padding = 25;
+    private int logoHeight = 174;
+    private final int padding = 25;
     private Graphics graphics;
     private final int logoY = 100;
-    private int[] stringWidth;
-    private int stringHeight;
+    protected int[] stringWidth;
+    private int stringHeight = 39;
+
     
     public MainMenuViewPort(){
         
     }
-
+    
+    
+    
     @Override
     public void draw(Graphics g) {
+
         if (GameDirector.getSize() != null) {
             width = GameDirector.getSize().width;
             height = GameDirector.getSize().height;
@@ -55,7 +60,7 @@ public class MainMenuViewPort implements ViewPort, Observer, MousePoint {
 
         /*DRAW LOGO*/
         BufferedImage fbLogo;
-        logoHeight = 0;
+ 
         
        try {
             fbLogo = ImageIO.read(new File("src/resources/img/FinalBoss.png"));
@@ -72,8 +77,9 @@ public class MainMenuViewPort implements ViewPort, Observer, MousePoint {
     }
     
     protected void drawMenu(Graphics g) {
-    	 g.setFont(new Font(g.getFont().getFamily(), Font.PLAIN, 30));
     	 graphics = g;
+    	 g.setFont(new Font(g.getFont().getFamily(), Font.PLAIN, 30));
+    	 
          if (options != null) {
         	 stringWidth = new int[options.length];
              for (int i = 0; i < options.length; i++) {
@@ -116,46 +122,41 @@ public class MainMenuViewPort implements ViewPort, Observer, MousePoint {
     }
 
 	@Override
-	public int getActiveLocation(Point point) {
+	public void getActiveLocation(Point point) {
 		if (options != null) {
-			int checkWidth;
-			int checkHeight;
 			for (int i = 0; i < options.length; i++) {
-				//graphics.setColor(Color.BLUE);
-				//if(i > 1) {
-				//	graphics.setColor(Color.GREEN);
-				//}
-				//graphics.setFont(new Font(graphics.getFont().getFamily(), Font.PLAIN, 30));
-				//checkWidth = graphics.getFontMetrics().stringWidth(options[i]);
-				//checkHeight = graphics.getFontMetrics().getHeight();
-          
-				graphics.drawRect((width/2 - stringWidth[i]/2),(i * (stringHeight + padding) + logoY + logoHeight + stringHeight + padding) - stringHeight, stringWidth[i], stringHeight);
-				System.out.println("X " + point.getX() + " Y" + point.getY());
-				if(withinYBounds(stringHeight, i, point) && withinXBounds(stringWidth[i],i,point)) {
+				if(withinYBounds(stringHeight, i, (int)point.getY()) && withinXBounds(stringWidth[i],i,(int)point.getX())) {
 					activeOptionIndex = i;
-					return i;
+					setChanged();
+					notifyObservers();
 				}
 			}
 		}
-		return -1;
 	}
 
-	private boolean withinYBounds(int checkHeight, int i, Point point) {
-		int heightLowerBounds = (i * (checkHeight + padding) + logoY + logoHeight + checkHeight + padding);
-		int heightUpperBounds = heightLowerBounds - checkHeight;
+	protected boolean withinYBounds(int checkHeight, int i, int y) {
+		int heightUpperBounds = (i * (checkHeight + padding) + logoY + logoHeight + checkHeight + padding);
+		int heightLowerBounds = heightUpperBounds + checkHeight;
 		
-		System.out.println("Lower" + heightLowerBounds + " Higher" + heightUpperBounds);
-
-		return (((int)point.getY() <= heightLowerBounds) && ((int)point.getY() >= heightUpperBounds));
+		return ((y <= heightLowerBounds) && (y >= heightUpperBounds));
 	}
 
-	private boolean withinXBounds(int checkWidth, int i, Point point) {
+	protected boolean withinXBounds(int checkWidth, int i, int x) {
 		int widthLeftBounds = width/2 - checkWidth/2;
 		int widthRightBounds = width/2 + checkWidth/2;
 		
-		System.out.println("Left" + widthLeftBounds + " Right" + widthRightBounds);
-	
-		return (((int)point.getX() >= widthLeftBounds) && ((int)point.getX() <= widthRightBounds));
+		return ((x >= widthLeftBounds) && (x <= widthRightBounds));
+	}
+
+	@Override
+	public int getCurrentIndex() {
+		return this.activeOptionIndex;
+	}
+
+
+
+	protected void setActiveIndex(int i) {
+		this.activeOptionIndex = i;
 	}
     
 }

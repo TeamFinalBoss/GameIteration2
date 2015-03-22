@@ -3,8 +3,8 @@ package model.map;
 import model.entity.Entity;
 import model.item.Item;
 import model.map.pair.CoordinatePair;
-import model.map.tile.AreaEffect;
-import model.map.tile.Trap;
+import model.map.areaEffect.AreaEffect;
+import model.map.tile.trap.Trap;
 
 /**
  * This singleton class executes movement commands for entities and activates any 
@@ -39,7 +39,7 @@ public class MotionCoordinator {
 		}
 		
 		if (i != null){
-                    i.useOnMap(e); //TODO: Create this method for every item type
+                    i.activate(e); //TODO: Create this method for every item type
 		}
 		
 		if(t != null){

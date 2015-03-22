@@ -80,6 +80,8 @@ public class BindingsUpdate extends Observable implements ForwardingCommand, Obs
 
 	public void clear() {
 		this.bindingsUpdate.clear();
+		setChanged();
+		notifyObservers();
 	}
 
 	public void register() {

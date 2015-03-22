@@ -5,7 +5,7 @@
  */
 package model.item;
 
-import model.effect.DealDamageEffect;
+import model.effect.GoDownEffect;
 import model.effect.Effect;
 import model.entity.Entity;
 import model.map.pair.CoordinatePair;
@@ -18,11 +18,11 @@ public class Gun extends Weapon{
     
     public Gun(){
 		super("Gun", "Generic description", new CoordinatePair(), 0, 1, 
-                        EquipSlot.HEAD, new DealDamageEffect(80));
+                        EquipSlot.HEAD, new GoDownEffect(80));
 		
 		this.id = "25";
 		this.className = "Gun";
-                this.E1= new DealDamageEffect(80); 
+                this.E1= new GoDownEffect(80); 
              
                 
 		
@@ -70,11 +70,46 @@ public class Gun extends Weapon{
     	}
         
         
-        public void Gun(int durability){
-            Gun("Gun", "Generic description", new CoordinatePair(), 0, durability , 
-                        EquipSlot.HEAD, new DealDamageEffect(80));
+        public Gun(int durability){
+            super("Gun", "Generic description", new CoordinatePair(), 0, durability , 
+                        EquipSlot.HEAD, new GoDownEffect(80));
         }
         //TODO- Projectile motion has to be added
     
-        public abstract void projectileEffect();
+      
+        
+    @Override
+        public void onUnequip(Entity target){
+            target.modifyAgility(-10);
+            target.modifyWeaponOffense(-10);
+        }
+        
+    /**
+     *
+     * @param target
+     */
+    @Override
+    public void onEquip(Entity target){
+            target.modifyAgility(10);
+            target.modifyWeaponOffense(10);
+        }
+    
+    @Override 
+        public boolean useInSack(Entity e){
+            if (!meetsRequirements(e)){
+                return false;
+            }
+            else{
+           e.equip(this);
+           return true;
+            }
+            
+        }
+        
+    @Override
+        public boolean meetsRequirements(Entity e){
+        return e.getLevel() >= 2;
+        }
+        
+        
 }

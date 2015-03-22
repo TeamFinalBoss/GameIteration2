@@ -2,39 +2,48 @@ package view.viewport;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.util.Observable;
 import java.util.Observer;
 
-import controller.sceneControllers.SceneType;
-import controller.util.SceneObserver;
+import model.director.GameDirector;
+import view.MousePoint;
+import controller.commands.sceneChangers.ArmorySackMaintainer;
 import controller.util.Selectable;
 
-public class SackViewport implements ViewPort, Observer, SceneObserver {
+public class SackViewport extends Observable implements ViewPort, Observer, MousePoint, Selectable {
 	
 	private int currentSelection;
 	private final int itemsPerRow = 5;
-	private int numberOfItems = 50;
-	private final int maxNumberOfItemsDrawn = 50;
-	private int currentMaxRow = 4;
-	private int currentMinRow = 0;
-	private boolean canDraw = false;
-	private int maximumNumberOfRows = 5;
-	private SceneType lastType;
-	private SceneType currentType;
-	
-	
-	
+	private static int currentMaxRow = 4;
+	private static int currentMinRow = 0;
+	private static int maximumNumberOfRows = 5;
+	private static final int sizeOfBox = 64;
+	private static int startX;
+	private static int startY = 0;
+	private static final int offset = 31;
+	private static final int Ypadding = 10;
+	private static final int Xpadding = 17;
+	private static int height;
+	private static int width;
+	private Graphics graph;
+
 	public SackViewport() {
+		width = GameDirector.getSize().width;
+		height = GameDirector.getSize().height;
+		startX = width - (itemsPerRow * sizeOfBox) - Xpadding;
+		startY = height - (maximumNumberOfRows * sizeOfBox) - offset - Ypadding;
 	}
 
 	
 
 	@Override
 	public void draw(Graphics g) {
-		if(canDraw) {
+		graph = g;
+		if(canDraw()) {
 			//I is the row J is the column
-			for(int i = 0; i < itemsPerRow; ++i) {
-				for(int j = 0; j < maximumNumberOfRows; ++j) {
+			for(int i = 0; i < maximumNumberOfRows; ++i) {
+				for(int j = 0; j < itemsPerRow; ++j) {
 					//actually draw item using i, j, items per row and other shit.
 					drawItem(g,i,j);				
 				}
@@ -42,13 +51,19 @@ public class SackViewport implements ViewPort, Observer, SceneObserver {
 		}
 	}
 	
+	private boolean canDraw() {
+		return ArmorySackMaintainer.isPressedSack();
+	}
+
+
+
 	private void drawItem(Graphics g, int i, int j) {
-		if((i * itemsPerRow + j) + (itemsPerRow * currentMinRow) == currentSelection) {
-			g.setColor(Color.blue);
+		if((i * itemsPerRow + j) + (maximumNumberOfRows * currentMinRow) == currentSelection) {
+			g.setColor(Color.GREEN);
 		} else {
 			g.setColor(Color.ORANGE);
 		}
-		g.drawRect(j * 31, i * 31, 31, 31);
+		g.drawRect((j * sizeOfBox) + startX, (i * sizeOfBox)+ startY, sizeOfBox - 1, sizeOfBox - 1);
 	}
 
 	@Override
@@ -67,22 +82,39 @@ public class SackViewport implements ViewPort, Observer, SceneObserver {
 
 
 
+
+
 	@Override
-	public void update(SceneType type) {
-		
-		if(!canDraw) {
-			if(type.equals(SceneType.SACK)) {
-				canDraw = true;
-			}
-		} else {
-			if(type.equals(SceneType.GAME) || (currentType.equals(SceneType.SACK) && type.equals(SceneType.ARMORY))) {
-				canDraw = false;
+	public int getCurrentIndex() {
+		return this.currentSelection;
+	}
+	
+	protected boolean withinYBounds(int i, int y) {
+		int heightUpperBounds = (i*sizeOfBox) + i + startY + offset;
+		int heightLowerBounds = heightUpperBounds + sizeOfBox;
+		return ((y <= heightLowerBounds) && (y >= heightUpperBounds));
+	}
+
+	protected boolean withinXBounds(int j, int x) {
+		int widthLeftBounds = (j * sizeOfBox) + j + startX;
+		int widthRightBounds = widthLeftBounds + sizeOfBox;
+
+		return ((x >= widthLeftBounds) && (x <= widthRightBounds));
+	}
+
+
+
+	@Override
+	public void getActiveLocation(Point point) {
+		for(int i = 0; i < maximumNumberOfRows; ++i) {
+			for(int j = 0; j < itemsPerRow; ++j) {
+				if(withinXBounds(j,(int)point.getX()) && withinYBounds(i,(int)point.getY())) {	
+					currentSelection = ((i * itemsPerRow) + j) + (maximumNumberOfRows * currentMinRow);
+					setChanged();
+					notifyObservers();
+				}
 			}
 		}
-		
-		currentType = type;
-		
-		
 	}
 
 }

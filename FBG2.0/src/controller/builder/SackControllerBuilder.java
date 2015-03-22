@@ -11,9 +11,10 @@ import controller.commands.sack.SackDrop;
 import controller.commands.sack.SackNext;
 import controller.commands.sack.SackPrevious;
 import controller.commands.sack.SackUp;
+import controller.commands.sceneChangers.ArmorySackSwitcher;
 import controller.commands.sceneChangers.ArmorySwitch;
-import controller.commands.sceneChangers.ArmorySackSwitch;
 import controller.commands.sceneChangers.ResumeGame;
+import controller.commands.sceneChangers.SackArmorySwitch;
 import controller.keyBindings.KeyBindingsOption;
 import controller.keyBindings.KeyOptions;
 import controller.sceneControllers.SceneController;
@@ -29,7 +30,7 @@ public class SackControllerBuilder {
 		commands.put(map.get(KeyBindingsOption.LEFT), new SackPrevious(details));
 		commands.put(map.get(KeyBindingsOption.CONFIRM), new SackConfirm(details));
 		commands.put(map.get(KeyBindingsOption.ARMORY), new ArmorySwitch());
-		commands.put(map.get(KeyBindingsOption.SACK), new ResumeGame());
+		commands.put(map.get(KeyBindingsOption.SACK), new SackArmorySwitch());
 		commands.put(map.get(KeyBindingsOption.PAUSE), new ResumeGame());
 		commands.put(map.get(KeyBindingsOption.DROP), new SackDrop(details));
 		

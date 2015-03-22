@@ -40,6 +40,10 @@ public class Controller {
 		describeable = new HashMap<>();
 	}
 	
+	public List<Observable> getObservables(SceneType type) {
+		return this.describeable.get(type);
+	}
+	
 	public void addMap(Map<SceneType, List<Observable>> map) {
 		describeable = map;
 	}

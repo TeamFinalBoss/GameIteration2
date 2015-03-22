@@ -1,12 +1,12 @@
 package controller.commands.game;
 
-import model.director.ActiveMapManager;
+import model.director.AvatarInteractionManager;
 import model.map.Direction;
 import controller.commands.Commandable;
 
 public abstract class AvatarCommands implements Commandable {
 	
-	ActiveMapManager manager = ActiveMapManager.getInstance();
+	AvatarInteractionManager manager = AvatarInteractionManager.getInstance();
 	
 	public AvatarCommands() {
 		
@@ -18,7 +18,7 @@ public abstract class AvatarCommands implements Commandable {
 	}
 	
 	protected void useAbility(int ability) {
-		manager.useAvatarAbility(ability);
+		manager.useAbility(ability);
 	}
 	
 	public abstract void execute();

@@ -12,7 +12,7 @@ import model.entity.Entity;
  * The purpose of this class is to serve as a container for Spells, passing commands downward from [TBD, Entity?]
  * @author Jason Owens, Matthew Kroeze
  */
-public class AbilityLibrary {
+public abstract class AbilityLibrary {
     private ArrayList<Ability> learnedAbilities;
     private ArrayList<Ability> unlearnedAbilities;
     
@@ -26,17 +26,26 @@ public class AbilityLibrary {
     }
     
     /*-----------Mutators-----------*/
-    public void addAbility(Ability ability){
+    protected void addAbility(Ability ability){
         learnedAbilities.add(ability); 
         unlearnedAbilities.remove(ability);
     }
-    public boolean forgetAbility(String abilityName){
+    protected boolean forgetAbility(String abilityName){
          for(Ability s : learnedAbilities) {
             if (s.getName().equals(abilityName)) {
+            	unlearnedAbilities.add(s);
                 return learnedAbilities.remove(s); 
             }
         }
         return false; //ability isn't known
+    }
+    
+    protected void addToLibrary(Ability ability){
+    	unlearnedAbilities.add(ability);
+    }
+    
+    protected boolean removeFromLibrary(Ability ability){
+    	return (learnedAbilities.remove(ability) || unlearnedAbilities.remove(ability));
     }
     
      /*-----------Accessors-----------*/
@@ -55,6 +64,8 @@ public class AbilityLibrary {
         }
         return false;
     }
+    
+    /*-----------Accessors-----------*/
     
     
     /**
@@ -84,7 +95,11 @@ public class AbilityLibrary {
      * 
      */
     public void update(){
-        
+    	for (Ability ability : unlearnedAbilities){
+            if (ability.meetsStatRequirements(owner)){
+                    addAbility(ability);
+            }
+    	}
     }
     
     
@@ -94,7 +109,7 @@ public class AbilityLibrary {
     	return true;
     }
     
-    public List<Ability >getAbilities() {
+    public List<Ability> getAbilities() {
     	return this.learnedAbilities;
     }
 }

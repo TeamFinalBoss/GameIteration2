@@ -13,6 +13,7 @@ import controller.keyBindings.KeyBindingsOption;
 import controller.keyBindings.KeyBindingsUpdate;
 import controller.menu.Menuable;
 import controller.util.Describeable;
+import controller.util.Selectable;
 
 /**
  * @author Kyle Kyrazis
@@ -107,6 +108,14 @@ public class KeyBindingsMenu extends Observable implements Describeable, Menuabl
 
 	@Override
 	public void update(Observable o, Object arg) {
+		
+		try {
+			Selectable selectable = (Selectable) o;
+			this.currentSelection = this.bindingsOptions.get(selectable.getCurrentIndex());	
+		} catch(Exception e) {
+			
+		}
+		
 		setChanged();
 		notifyObservers();
 	}

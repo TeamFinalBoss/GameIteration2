@@ -5,7 +5,10 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
 
 import model.map.GameMap;
 import view.MousePoint;
@@ -31,7 +34,7 @@ import controller.util.SceneObserver;
  *
  * @author ChrisMoscoso
  */
-public class GameDirector implements SceneObserver{
+public class GameDirector extends Observable implements SceneObserver{
 
     private static Boolean paused = false;
     private static GameWindow window;
@@ -75,25 +78,48 @@ public class GameDirector implements SceneObserver{
         window.addKeyController(listener);//Add controller to menu
         window.addMouseController(controller.getMouseParser());
 
+        List<Observable> mainMenuObservables = controller.getObservables(SceneType.MAIN_MENU);
         
         MainMenuViewPort menuVP = new MainMenuViewPort();
+        ((Observable)menuVP).addObserver((Observer) mainMenuObservables.get(0));
+        
+        menuScene.addViewport(menuVP);//Add menuVP to menuScene
+        
+        List<Observable> pauseMenuObservables = controller.getObservables(SceneType.PAUSE_MENU);
         
         MainMenuViewPort pauseVP = new MainMenuViewPort();
         pauseScene.addViewport(pauseVP);
+        
+        ((Observable)pauseVP).addObserver((Observer) pauseMenuObservables.get(0));
+        
+        
+        List<Observable> keyMenuObservables = controller.getObservables(SceneType.KEY_BINDINGS);
         MainMenuViewPort keyBindingsVP = new KeyBindingsMenuViewPort();
         
+        
         keyBindingsScene.addViewport(keyBindingsVP);
+        ((Observable)keyBindingsVP).addObserver((Observer) keyMenuObservables.get(0));
         KeyBindingsErrorViewPort errorViewPort = new KeyBindingsErrorViewPort();
         keyBindingsScene.addViewport(errorViewPort);
         
         MainMenuViewPort saveVP = new MainMenuViewPort();
+        saveScene.addViewport(saveVP);
+        List<Observable> saveMenuObservables = controller.getObservables(SceneType.SAVE);
+        ((Observable)saveVP).addObserver((Observer) saveMenuObservables.get(0));
+        
+        
         MainMenuViewPort loadVP = new MainMenuViewPort();
         loadScene.addViewport(loadVP);
-        saveScene.addViewport(saveVP);
+        List<Observable> loadMenuObservables = controller.getObservables(SceneType.LOAD);
+        ((Observable)loadVP).addObserver((Observer) loadMenuObservables.get(0));
         
-        menuScene.addViewport(menuVP);//Add menuVP to menuScene
         
-        controller.getMouseParser().setMousePoint((MousePoint)menuVP);
+        controller.getMouseParser().setMousePoint(SceneType.MAIN_MENU,(MousePoint)menuVP);
+        controller.getMouseParser().setMousePoint(SceneType.PAUSE_MENU,(MousePoint)pauseVP);
+        controller.getMouseParser().setMousePoint(SceneType.KEY_BINDINGS, (MousePoint)keyBindingsVP);
+        controller.getMouseParser().setMousePoint(SceneType.LOAD, (MousePoint)loadVP);
+        controller.getMouseParser().setMousePoint(SceneType.SAVE, (MousePoint)saveVP);
+        
         
         controller.addObserver(menuVP, SceneType.MAIN_MENU);
         controller.addObserver(pauseVP, SceneType.PAUSE_MENU);
@@ -108,8 +134,10 @@ public class GameDirector implements SceneObserver{
     }
 
     public void startNewGame() {
+        
         GameMap map = new GameMap();
-
+        ActiveMapManager.getInstance().addMap(map);
+        ActiveMapManager.getInstance().setActiveMap(map);
        
         MapViewPort mapVP = new MapViewPort();
 
@@ -123,8 +151,14 @@ public class GameDirector implements SceneObserver{
         
         controller.addObserver(sack, SceneType.SACK);
         controller.addObserver(armory, SceneType.ARMORY);
-        sceneChanger.registerObserver(sack);
-        sceneChanger.registerObserver(armory);
+        
+        List<Observable> sackObservables = controller.getObservables(SceneType.SACK);
+        ((Observable)sack).addObserver((Observer) sackObservables.get(0));
+        controller.getMouseParser().setMousePoint(SceneType.SACK, (MousePoint)sack);
+        
+        List<Observable> armoryObservables = controller.getObservables(SceneType.ARMORY);
+        ((Observable)armory).addObserver((Observer) armoryObservables.get(0));
+        controller.getMouseParser().setMousePoint(SceneType.ARMORY, (MousePoint)armory);
        
         map.addObserver(mapVP);//Add mapVP as an Observer to map
         
@@ -132,6 +166,16 @@ public class GameDirector implements SceneObserver{
         activeScene = gameScene;
     }
 
+    
+    /**
+     * Checks if game is paused
+     *
+     * @return true if the game is paused
+     */
+    public static boolean gameIsPaused() {
+        return paused;
+    }
+    
     /**
      * This is where execution of the game logic and updating of the model takes
      * place

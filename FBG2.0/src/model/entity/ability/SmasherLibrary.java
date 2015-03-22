@@ -1,5 +1,13 @@
 package model.entity.ability;
 
-public class SmasherLibrary extends AbilityLibrary {
+import model.entity.Entity;
 
+public class SmasherLibrary extends AbilityLibrary {
+    public SmasherLibrary(Entity owner){
+            super(owner);
+    }
+    
+    public void update(){
+
+    }
 }

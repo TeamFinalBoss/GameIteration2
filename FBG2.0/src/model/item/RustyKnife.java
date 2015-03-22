@@ -5,7 +5,8 @@
  */
 package model.item;
 
-import model.effect.DealDamageEffect;
+import model.effect.GoDownEffect;
+import model.entity.Entity;
 
 import model.map.pair.CoordinatePair;
 
@@ -19,7 +20,7 @@ public class RustyKnife extends Weapon{
     //durability
      public RustyKnife(){
 		super("RustyKnife", "Generic_description", new CoordinatePair(),
-                0, 1, EquipSlot.HEAD, new DealDamageEffect(10));
+                0, 1, EquipSlot.HEAD, new GoDownEffect(10));
                 this.id = "19";
 		this.className = "RustyKnife";
                 
@@ -33,7 +34,7 @@ public class RustyKnife extends Weapon{
 	public RustyKnife(String objectName, String description, CoordinatePair 
                 location, int durability ){
 		super(objectName, description, location, 5, durability, 
-                EquipSlot.HEAD, new DealDamageEffect(10) );
+                EquipSlot.HEAD, new GoDownEffect(10) );
                 
  
 		
@@ -53,8 +54,37 @@ public class RustyKnife extends Weapon{
             return false; 
         }
         
-        public void RustyKnife(int durability){
-            RustyKnife("RustyKnife", "Generic_description", new CoordinatePair(),
-                0, durability, EquipSlot.HEAD, new DealDamageEffect(10));
+        public RustyKnife(int durability){
+            super("RustyKnife", "Generic_description", new CoordinatePair(),
+                0, durability, EquipSlot.HEAD, new GoDownEffect(10));
+        }
+        
+        @Override
+        public void onUnequip(Entity target){
+            target.modifyAgility(-10);
+            target.modifyWeaponOffense(-5);
+        }
+        
+   @Override
+        public void onEquip(Entity target){
+            target.modifyAgility(10);
+            target.modifyWeaponOffense(5);
+        }
+        
+        @Override 
+        public boolean useInSack(Entity e){
+            if (!meetsRequirements(e)){
+                return false;
+            }
+            else{
+           e.equip(this);
+           return true;
+            }
+            
+        }
+        
+    @Override
+        public boolean meetsRequirements(Entity e){
+        return e.getLevel() >= 1 && e.getCurrentHP()>=5 && e.getAgility()>=5;
         }
 }

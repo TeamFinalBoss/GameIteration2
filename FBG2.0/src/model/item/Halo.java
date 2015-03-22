@@ -5,6 +5,7 @@
  */
 package model.item;
 
+import model.entity.Entity;
 import model.map.pair.CoordinatePair;
 ;
 
@@ -39,7 +40,7 @@ public class Halo extends Equipable {
 		//Other properties set here
 	} 
         
-         @Override
+      
          public boolean meetsRequirements(){
             return true;
          }
@@ -56,11 +57,43 @@ public class Halo extends Equipable {
                         this.getLocation(), this.getValue(), this.getSlot());
     	}
         
-        public void Halo(int durability){
-            Halo("Generic Halo", "Generic_description", 
+        public Halo(int durability){
+            super("Generic Halo", "Generic_description", 
                         new CoordinatePair(), 0, 1,EquipSlot.HEAD );
                         
 }
+        
+   @Override
+        public void onUnequip(Entity target){
+            target.modifyAgility(-10);
+            target.modifyWeaponOffense(-5);
+        }
+        
+   @Override
+        public void onEquip(Entity target){
+            target.modifyAgility(10);
+            target.modifyWeaponOffense(5);
+        }
 
+        
+        
+        @Override 
+        public boolean useInSack(Entity e){
+            if (!meetsRequirements(e)){
+                return false;
+            }
+            else{
+           e.equip(this);
+           return true;
+            }
+            
+        }
+        
+    @Override
+        public boolean meetsRequirements(Entity e){
+        return e.getLevel() >= 1;
+        
+        }
+        
    
 }

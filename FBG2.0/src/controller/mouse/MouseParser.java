@@ -5,56 +5,40 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
 
 import view.MousePoint;
 import controller.KeyDispatcher;
 import controller.keyBindings.KeyBindingsOption;
+import controller.sceneControllers.SceneChanger;
+import controller.sceneControllers.SceneType;
+import controller.util.SceneObserver;
 
 public class MouseParser extends MouseAdapter {
-	private Map<KeyBindingsOption, Integer> options;
-	private KeyDispatcher dispatcher;
-	//TODO migrate this to a observer
-	private MousePoint point;
+	private MouseDispatcher mouseDispatcher;
 	
-	public MouseParser() {
-		this.options = new HashMap<>();
-		this.dispatcher = new KeyDispatcher();
+	public MouseParser(MouseDispatcher mouseDispatcher) {
+		this.mouseDispatcher = mouseDispatcher;
 	}
 	
-	public MouseParser(Map<KeyBindingsOption, Integer> map, KeyDispatcher dispatcher) {
-		this.options = map;
-		this.dispatcher = dispatcher;
-	}
-	
-	public void setOptions(Map<KeyBindingsOption, Integer> map) {
-		this.options = map;
-	}
 	
 	public void mouseClicked(MouseEvent e) {
-		
+		mouseDispatcher.mouseClicked(e);
 	}
 	
 	public void mouseMoved(MouseEvent e) {
-		int value = point.getActiveLocation(e.getPoint());
+		mouseDispatcher.mouseMoved(e.getPoint());
 	}
-	
 	public void mouseWheelMoved(MouseWheelEvent e) {
-		KeyBindingsOption option;
-		int count = e.getWheelRotation();
-		if(count < 0) {
-			option = KeyBindingsOption.UP;
-			count *=-1;
-		} else {
-			option = KeyBindingsOption.DOWN;
-		}
-		
-		for(int i = 0; i < count; i++) {
-			Integer value = options.get(option);
-			dispatcher.useKey(value);
-		}
+		mouseDispatcher.mouseWheelMoved(e);
 	}
 
-	public void setMousePoint(MousePoint menuVP) {
-		this.point = menuVP;
+	public void setMousePoint(SceneType type, MousePoint point) {
+		mouseDispatcher.addPoint(type,point);
 	}
+	
+	public void setOptions(Map<KeyBindingsOption, Integer> bindingsReverse) {
+		mouseDispatcher.setOptions(bindingsReverse);
+	}	
 }

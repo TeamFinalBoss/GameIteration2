@@ -13,9 +13,9 @@ import model.map.GameMap;
 import model.map.MapSwitcher;
 import model.map.Projectile;
 import model.map.pair.CoordinatePair;
-import model.map.tile.AreaEffect;
+import model.map.areaEffect.AreaEffect;
 import model.map.tile.Tile;
-import model.map.tile.Trap;
+import model.map.tile.trap.Trap;
 
 //TODO: add following function: public void getEverythingInRange(CoordinatePair center, int radius, 
 //      List<Tile> containedTiles, List<Projectile> containedProjectiles, List<Entity> containedEntities, 
@@ -79,9 +79,11 @@ public class ActiveMapManager {
       List<Tile> containedTiles, List<Projectile> containedProjectiles, List<Entity> containedEntities, 
 		List<Trap> containedTraps, List<Item> containedItems, List<AreaEffect> containedAreaEffects){
         
+       /* activeMap.getEverythingInRange( center,  radius, 
+        
         activeMap.getEverythingInRange( center,  radius, 
       containedTiles, containedProjectiles, containedEntities, 
-		 containedTraps,  containedItems, containedAreaEffects);
+		 containedTraps,  containedItems, containedAreaEffects);*/
         
     }
     
@@ -114,6 +116,16 @@ public class ActiveMapManager {
     }
     
     /**
+     * Clears all maps.
+     * 
+     * @author Aidan Pace
+     */
+    public void clearMaps() {
+    	this.maps.clear();
+    	return;
+    }
+    
+    /**
      * If map is in maps, set it as active map and return true. Else return false
      * 
      * TODO: Determine if method signature is needed
@@ -127,6 +139,23 @@ public class ActiveMapManager {
     		this.activeMap = map;
     		
     		return true;
+    	}
+    	return false;
+    }
+    
+    /**\
+     * Set the active map to the map with the given mapID int
+     * 
+     * @author Aidan Pace
+     * @param mapID the requested mapID
+     * @return true if map was in maps, else false
+     */
+    public boolean setActiveMap(int mapID) {
+    	for(GameMap m : this.maps) {
+    		if(m.getID == mapID) {
+    			this.activeMap = m;
+    			return true;
+    		}
     	}
     	return false;
     }
@@ -256,6 +285,7 @@ public class ActiveMapManager {
     	this.activeMap.removeMapSwitcher(switcher);
     }
     
+    
     /**
      * Attempts to remove a MapSwitcher from the active map at the
      * given CoordinatePair. Returns MapSwitcher if it was present at the
@@ -327,5 +357,9 @@ public class ActiveMapManager {
     }
     public boolean useAvatarAbility(int abilityToUse){
         return useAbility(avatar, abilityToUse);
+    }
+
+    Entity getEntityAtCoordinate(CoordinatePair CP) {
+        return activeMap.getEntityAtCoordinate(CP);
     }
 }

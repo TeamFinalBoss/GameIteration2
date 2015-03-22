@@ -5,9 +5,9 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-import model.map.tile.AreaEffect;
+import model.map.areaEffect.AreaEffect;
 import model.map.tile.Tile;
-import model.map.tile.Trap;
+import model.map.tile.trap.Trap;
 import model.map.pair.CoordinatePair;
 import model.entity.Entity;
 import model.item.Interactive;
@@ -17,6 +17,7 @@ import model.item.OneShot;
 import model.item.Takeable;
 import model.director.ActiveMapManager;
 import model.director.AvatarInteractionManager;
+
 /**
  * This is a container of all the entities, items, tiles, and traps. Currently,
  * of the four types of objects on the map only one object per type can occupy a
@@ -42,6 +43,7 @@ public class GameMap extends Observable {
     
     private MotionValidator MV;
     private MotionCoordinator MC;
+    private int mapID;
     
     public GameMap() {
         Tile[][] t = new Tile[50][50];
@@ -51,27 +53,51 @@ public class GameMap extends Observable {
             }
         }
 
+        this.mapID = 1;
         this.tiles = t;
         this.items = new Locations<>();
         this.entities = new Locations<>();
         this.effects = new Locations<>();
         this.switchers = new Locations<>();
         this.traps = new Locations<>();
-        
-        this.addEntity(AvatarInteractionManager.getInstance().getAvatar(), new CoordinatePair(1, 1)); //TODO change to avatar
+        this.MC = MotionCoordinator.getInstance();
+        this.MV = MotionValidator.getInstance();
+        //this.addEntity(AvatarInteractionManager.getInstance().getAvatar(), new CoordinatePair(1, 1)); //TODO change to avatar
         
     }
 
-    public GameMap(Tile[][] tiles) {
-        this.tiles = tiles;
-        
+    public GameMap(int mapID) {
+    	Tile[][] t = new Tile[50][50];
+        for (int i = 0; i < 50; i++) {
+            for (int j = 0; j < 50; j++) {
+                t[i][j] = new Tile();
+            }
+        }
+
+        this.mapID = mapID;
+        this.tiles = t;
         this.items = new Locations<>();
         this.entities = new Locations<>();
         this.effects = new Locations<>();
         this.switchers = new Locations<>();
         this.traps = new Locations<>();
+        this.MC = MotionCoordinator.getInstance();
+        this.MV = MotionValidator.getInstance();
+    }
+
+    public GameMap(Tile[][] tiles) {
+        this.tiles = tiles;
         
-        this.addEntity(AvatarInteractionManager.getInstance().getAvatar(), new CoordinatePair(1, 1)); //TODO change to avatar
+        this.mapID = 1;
+        this.items = new Locations<>();
+        this.entities = new Locations<>();
+        this.effects = new Locations<>();
+        this.switchers = new Locations<>();
+        this.traps = new Locations<>();
+        this.MC = MotionCoordinator.getInstance();
+        this.MV = MotionValidator.getInstance();
+        
+        //this.addEntity(AvatarInteractionManager.getInstance().getAvatar(), new CoordinatePair(1, 1)); //TODO change to avatar
         
     }
 
@@ -95,6 +121,13 @@ public class GameMap extends Observable {
         }
     }
     
+    public void setID(int mapID) {
+    	this.mapID = mapID;
+    }
+    
+    public int getID() {
+    	return mapID;
+    }
     
     /**
      * This method attempts to remove the provided entity
@@ -346,8 +379,12 @@ public class GameMap extends Observable {
      * @return the tile at the CoordinatePair
      */
     public Tile getTileAtCoordinate(CoordinatePair location) {
-        return tiles[location.getX()][location.getY()];
+        if(CoordPairIsValid(location))
+            return tiles[location.getX()][location.getY()];
+        else
+            return null;
     }
+    
     /**
      * Returns the Item at the CoordinatePair
      *
@@ -408,9 +445,20 @@ public class GameMap extends Observable {
      * the map (in this case the MapViewPort). For the sake of encapsulation it
      * only passes the objects needed for drawing the view.
      */
+    
     private void updateView() {
+        
+        System.out.println("Map calls update");
         setChanged();
-        Object[] objects = {tiles, entities, items, traps};
+        Object[] objects = new Object[5];
+        Entity avatar = AvatarInteractionManager.getInstance().getAvatar();
+        
+        objects[0] = tiles;
+        objects[1] = avatar;
+        objects[2] = entities;
+        objects[3] = items;
+        objects[4] = traps;
+        //objects = {tiles, avatar,entities, items, traps};
         notifyObservers(objects);
     }
 
@@ -432,13 +480,14 @@ public class GameMap extends Observable {
             MC.moveEntity(e, desiredLocation, getAreaEffectAtCoordinate(desiredLocation), getItemAtCoordinate(desiredLocation),
                     getSwitcherAtCoordinate(desiredLocation), getTrapAtCoordinate(desiredLocation));
             e.setDirection(dir);
+            return true;
         }
         else{
             return false;
         }
     }
     
-    public boolean useAbility(Entity e, int abilityToUse){
+    public void useAbility(Entity e, int abilityToUse){
         e.useAbility(abilityToUse);
     }
     
@@ -480,7 +529,7 @@ public class GameMap extends Observable {
                 returnThis.addX(-1); 
                 break;    
             case East:
-                returnThis.addX(-1); 
+                returnThis.addX(1); 
                 break;  
           
         }

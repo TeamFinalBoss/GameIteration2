@@ -1,4 +1,4 @@
-package model.map.tile;
+package model.map.tile.trap;
 
 import model.entity.Entity;
 import model.gameObject.MapObject;
@@ -76,7 +76,7 @@ public abstract class Trap extends MapObject{
 	 */
 	abstract void Activate(Entity caller);
 
-    void activate(Entity caller) {
+    public void activate(Entity caller) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

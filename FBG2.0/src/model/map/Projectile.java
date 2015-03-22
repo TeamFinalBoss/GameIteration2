@@ -12,7 +12,7 @@ import model.util.GameTimer;
  * (location) are used by Combat Coordinator. run() is used by GameTimer.
  * @author Jason Owens
  */
-public class Projectile extends TimerTask{
+public abstract class Projectile extends TimerTask{
     private PreciseCoordinatePair location; // should a projectile know it's own location?
     
     private long lifetime; //this may change based on how we implement time

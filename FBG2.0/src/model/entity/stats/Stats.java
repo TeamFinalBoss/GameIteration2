@@ -207,6 +207,9 @@ public abstract class Stats {
 	}
 	
 	/* -------------------- MODIFY MUTATORS -------------------- */
+	public void levelUp(){
+		experience += 10000 - (experience % 10000);
+	}
 	public void dealDamage(int amount){
 		if(!checkHitSuccess(amount)) return;
 		amount = mitigateDamage(amount);

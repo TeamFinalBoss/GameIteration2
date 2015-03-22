@@ -11,7 +11,6 @@ import org.w3c.dom.NodeList;
 
 import model.director.ActiveMapManager;
 import model.effect.Dispellable;
-import model.effect.Effect;
 import model.entity.Entity;
 import model.entity.MotionType;
 import model.entity.SmasherAvatar;
@@ -20,13 +19,9 @@ import model.entity.SneakAvatar;
 import model.entity.SneakEntity;
 import model.entity.SummonerAvatar;
 import model.entity.SummonerEntity;
-import model.entity.inventory.Armory;
-import model.entity.inventory.Inventory;
-import model.entity.inventory.Sack;
 import model.item.Equipable;
 import model.item.Takeable;
 import model.map.Direction;
-import model.map.GameMap;
 import model.map.pair.CoordinatePair;
 
 /**
@@ -40,7 +35,7 @@ public class EntityFactory implements PlaceableObjectFactory{
 	TakeableFactory inventoryFactory;
 	EffectReader effectReader;
 
-	EntityFactory()
+	public EntityFactory()
 	{
 		inventoryFactory = new TakeableFactory();
 		effectReader = new EffectReader();
@@ -173,7 +168,6 @@ public class EntityFactory implements PlaceableObjectFactory{
 			}
 			
 			en.setLocation(new CoordinatePair(Integer.parseInt(e.getAttribute("x")), Integer.parseInt(e.getAttribute("y"))));
-			ActiveMapManager.getInstance().addEntityToActiveMap(en, new CoordinatePair(Integer.parseInt(e.getAttribute("x")), Integer.parseInt(e.getAttribute("y"))));
 			
 			entities.add(en);
 		}
@@ -202,7 +196,7 @@ public class EntityFactory implements PlaceableObjectFactory{
 		Entity en = null;
 		
 		switch(e.getAttribute("type")) {
-		case "avatar":
+		case "blah":
 			en = new SmasherAvatar();
 			//en.setLink(Integer.parseInt(e.getAttribute("link")));
 			
@@ -215,7 +209,7 @@ public class EntityFactory implements PlaceableObjectFactory{
 		Entity en = null;
 		
 		switch(e.getAttribute("type")) {
-		case "avatar":
+		case "blah":
 			en = new SneakAvatar();
 			//en.setLink(Integer.parseInt(e.getAttribute("link")));
 		}
@@ -227,7 +221,7 @@ public class EntityFactory implements PlaceableObjectFactory{
 		Entity en = null;
 		
 		switch(e.getAttribute("type")) {
-		case "avatar":
+		case "blah":
 			en = new SummonerAvatar();
 			//en.setLink(Integer.parseInt(e.getAttribute("link")));
 		}
