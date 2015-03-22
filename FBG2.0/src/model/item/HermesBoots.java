@@ -47,7 +47,7 @@ public class HermesBoots extends Equipable{
         
        
         // for Armours 
-        @Override
+       
         public boolean meetsRequirements(){
             return false;
         }
@@ -60,8 +60,8 @@ public class HermesBoots extends Equipable{
     }
     
     
-   public void HermesBoots(int durability){
-            HermesBoots("HermesBoots", "Generic description", new CoordinatePair(), 
+   public HermesBoots(int durability){
+            super("HermesBoots", "Generic description", new CoordinatePair(), 
                         0, 1, EquipSlot.FEET);
 }
     

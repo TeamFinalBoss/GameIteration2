@@ -59,7 +59,8 @@ public class JesusBoots extends Equipable{
     }
     
     
-    public void JesusBoots(int durability){
-            JesusBoots("HermesBoots", "Generic description", new CoordinatePair(), 
+    public JesusBoots(int durability){
+            super("HermesBoots", "Generic description", new CoordinatePair(), 
                         0, 1, EquipSlot.FEET);
+    }
 }

@@ -5,9 +5,10 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.util.Observable;
 
+import view.MousePoint;
 import controller.util.Describeable;
 
-public class KeyBindingsMenuViewPort extends MainMenuViewPort {
+public class KeyBindingsMenuViewPort extends MainMenuViewPort implements MousePoint {
 
 	private final int logoY = 100;
 	private final int maximumOptionsDisplayed = 9;

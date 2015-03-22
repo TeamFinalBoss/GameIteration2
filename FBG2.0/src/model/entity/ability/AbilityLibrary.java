@@ -26,17 +26,26 @@ public abstract class AbilityLibrary {
     }
     
     /*-----------Mutators-----------*/
-    public void addAbility(Ability ability){
+    protected void addAbility(Ability ability){
         learnedAbilities.add(ability); 
         unlearnedAbilities.remove(ability);
     }
-    public boolean forgetAbility(String abilityName){
+    protected boolean forgetAbility(String abilityName){
          for(Ability s : learnedAbilities) {
             if (s.getName().equals(abilityName)) {
+            	unlearnedAbilities.add(s);
                 return learnedAbilities.remove(s); 
             }
         }
         return false; //ability isn't known
+    }
+    
+    protected void addToLibrary(Ability ability){
+    	unlearnedAbilities.add(ability);
+    }
+    
+    protected boolean removeFromLibrary(Ability ability){
+    	return (learnedAbilities.remove(ability) || unlearnedAbilities.remove(ability));
     }
     
      /*-----------Accessors-----------*/
@@ -55,6 +64,8 @@ public abstract class AbilityLibrary {
         }
         return false;
     }
+    
+    /*-----------Accessors-----------*/
     
     
     /**
@@ -83,7 +94,13 @@ public abstract class AbilityLibrary {
      * @author Jason Owens
      * 
      */
-    public abstract void update();
+    public void update(){
+    	for (Ability ability : unlearnedAbilities){
+    		if (ability.meetsStatRequirements(entityToLearn)(owner)){
+    			addAbility(ability);
+    		}
+    	}
+    }
     
     
     public boolean performActiveAbility(int position, Entity callingEntity){

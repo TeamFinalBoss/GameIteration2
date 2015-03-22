@@ -41,6 +41,7 @@ import controller.menu.Menuable;
 import controller.menu.keyBindings.KeyBindingsMenu;
 import controller.menu.save.SaveLoadMenu;
 import controller.menu.save.SaveOption;
+import controller.mouse.MouseDispatcher;
 import controller.mouse.MouseParser;
 import controller.sceneControllers.SceneController;
 import controller.sceneControllers.SceneType;
@@ -206,7 +207,8 @@ public class ControllerBuilder {
 		KeyDispatcher keyDispatcher = new KeyDispatcher(controllers, mainMenuController);
 		cont.setDispatcher(keyDispatcher);
 		
-		MouseParser parser = new MouseParser(map, keyDispatcher);
+		MouseDispatcher mouseDispatcher = new MouseDispatcher(map,keyDispatcher);
+		MouseParser parser = new MouseParser(mouseDispatcher);
 		cont.setMouseAdapter(parser);
 		
 		return new InputParser(keyDispatcher);

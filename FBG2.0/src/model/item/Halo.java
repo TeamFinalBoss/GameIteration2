@@ -39,7 +39,7 @@ public class Halo extends Equipable {
 		//Other properties set here
 	} 
         
-         @Override
+      
          public boolean meetsRequirements(){
             return true;
          }
@@ -56,8 +56,8 @@ public class Halo extends Equipable {
                         this.getLocation(), this.getValue(), this.getSlot());
     	}
         
-        public void Halo(int durability){
-            Halo("Generic Halo", "Generic_description", 
+        public Halo(int durability){
+            super("Generic Halo", "Generic_description", 
                         new CoordinatePair(), 0, 1,EquipSlot.HEAD );
                         
 }
