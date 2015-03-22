@@ -92,7 +92,12 @@ public class GameDirector implements SceneObserver{
         
         ((Observable)pauseVP).addObserver((Observer) pauseMenuObservables.get(0));
         
+        
+        List<Observable> keyMenuObservables = controller.getObservables(SceneType.KEY_BINDINGS);
         MainMenuViewPort keyBindingsVP = new KeyBindingsMenuViewPort();
+        ((Observable)pauseVP).addObserver((Observer) keyMenuObservables.get(0));
+        
+        
         
         keyBindingsScene.addViewport(keyBindingsVP);
         KeyBindingsErrorViewPort errorViewPort = new KeyBindingsErrorViewPort();
@@ -105,6 +110,7 @@ public class GameDirector implements SceneObserver{
         
         controller.getMouseParser().setMousePoint(SceneType.MAIN_MENU,(MousePoint)menuVP);
         controller.getMouseParser().setMousePoint(SceneType.PAUSE_MENU,(MousePoint)pauseVP);
+        controller.getMouseParser().setMousePoint(SceneType.KEY_BINDINGS, (MousePoint)keyBindingsVP);
         
         controller.addObserver(menuVP, SceneType.MAIN_MENU);
         controller.addObserver(pauseVP, SceneType.PAUSE_MENU);

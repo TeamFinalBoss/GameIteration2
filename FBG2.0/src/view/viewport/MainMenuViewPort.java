@@ -122,8 +122,6 @@ public class MainMenuViewPort extends Observable implements ViewPort, Observer, 
 	@Override
 	public void getActiveLocation(Point point) {
 		if (options != null) {
-			int checkWidth;
-			int checkHeight;
 			for (int i = 0; i < options.length; i++) {
 				if(withinYBounds(stringHeight, i, (int)point.getY()) && withinXBounds(stringWidth[i],i,(int)point.getX())) {
 					activeOptionIndex = i;
@@ -138,8 +136,6 @@ public class MainMenuViewPort extends Observable implements ViewPort, Observer, 
 		int heightUpperBounds = (i * (checkHeight + padding) + logoY + logoHeight + checkHeight + padding);
 		int heightLowerBounds = heightUpperBounds + checkHeight;
 		
-		//System.out.println("Lower" + heightLowerBounds + " Higher" + heightUpperBounds);
-
 		return ((y <= heightLowerBounds) && (y >= heightUpperBounds));
 	}
 
@@ -147,8 +143,6 @@ public class MainMenuViewPort extends Observable implements ViewPort, Observer, 
 		int widthLeftBounds = width/2 - checkWidth/2;
 		int widthRightBounds = width/2 + checkWidth/2;
 		
-		//System.out.println("Left" + widthLeftBounds + " Right" + widthRightBounds);
-	
 		return ((x >= widthLeftBounds) && (x <= widthRightBounds));
 	}
 
