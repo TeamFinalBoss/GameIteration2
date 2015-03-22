@@ -63,24 +63,24 @@ public abstract class LinearAbility extends Ability
 
 	public boolean inRange(Entity caster, Entity entity)
 	{
-		boolean inRange;
-		int x1, y1, x2, y2;
+            boolean inRange;
+            int x1, y1, x2, y2;
 
-		CoordinatePair casterCoordinatePair = caster.getLocation();
-		CoordinatePair entityCoordinatePair = entity.getLocation();
+            CoordinatePair casterCoordinatePair = caster.getLocation();
+            CoordinatePair entityCoordinatePair = entity.getLocation();
 
-		x1 = casterCoordinatePair.getX();
-        y1 = casterCoordinatePair.getY();
+            x1 = casterCoordinatePair.getX();
+            y1 = casterCoordinatePair.getY();
 
-        x2 = entityCoordinatePair.getX();
-        y2 = entityCoordinatePair.getY();
+            x2 = entityCoordinatePair.getX();
+            y2 = entityCoordinatePair.getY();
 
-        inRange = Math.sqrt(Math.pow(x1 - x2,2) + Math.pow(y1 - y2, 2)) <= range;
+            inRange = Math.sqrt(Math.pow(x1 - x2,2) + Math.pow(y1 - y2, 2)) <= range;
 
-        if(inRange)
-        	return true;
-        else
-        	return false;
+            if(inRange)
+                    return true;
+            else
+                    return false;
 	}
         
         public abstract boolean meetsStatRequirements(Entity entityToLearn);

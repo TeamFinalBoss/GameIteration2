@@ -37,7 +37,6 @@ public class GameTimer{
      */
     public void update(){
         
-        
     }
     
     public void addEvent(TimerTask event, int timeInMil){        

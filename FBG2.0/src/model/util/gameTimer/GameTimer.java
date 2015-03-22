@@ -122,8 +122,7 @@ public class GameTimer implements Observer{
     public void update(Observable o, Object arg) {
         if(ticks <= delay){
             this.tick();
-        }
-        
+        }        
     }
 
 }
