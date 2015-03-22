@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="3" height="3" tilewidth="32" tileheight="32" nextobjectid="1">
+ <tileset firstgid="1" name="spritesheetv2" tilewidth="32" tileheight="32">
+  <image source="../../../../../../../MapEditor/latest_pull/Iteration2MapEditor/FinalBossMapEditor/src/spritesheetv2.png" width="352" height="288"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="3" height="3" id="3">
+  <data>
+   <tile gid="12"/>
+   <tile gid="12"/>
+   <tile gid="12"/>
+   <tile gid="12"/>
+   <tile gid="12"/>
+   <tile gid="12"/>
+   <tile gid="12"/>
+   <tile gid="12"/>
+   <tile gid="12"/>
+  </data>
+ </layer>
+</map>
