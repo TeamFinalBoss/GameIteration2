@@ -322,6 +322,10 @@ public abstract class Entity extends MapObject{
 		myStats.dealDamage(amount);
 		myAbilities.update();
 	}
+	public void levelUp(){
+		myStats.levelUp();
+		myAbilities.update();
+	}
 	public void modifyLivesLeft(int next){
 		myStats.modifyLivesLeft(next);
 		myAbilities.update();
