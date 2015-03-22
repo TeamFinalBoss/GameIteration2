@@ -12,6 +12,7 @@ import javax.imageio.ImageIO;
 
 import model.director.ActiveMapManager;
 import model.director.AvatarInteractionManager;
+import model.director.GameDirector;
 import model.entity.Entity;
 import model.map.Locations;
 import model.map.pair.CoordinatePair;
@@ -28,6 +29,8 @@ public class MapViewPort implements ViewPort, Observer {
 
     int widthInTiles = 0, heightInTiles = 0;
     BufferedImage grass;
+	private int tileWidth = 64;
+	private int tileHeight = 64;
 
     public MapViewPort() {
         try {
@@ -39,21 +42,45 @@ public class MapViewPort implements ViewPort, Observer {
 
     @Override
     public void draw(Graphics g) {
-        for (int i = 0; i < widthInTiles; i++) {
-            for (int j = 0; j < heightInTiles; j++) {
-                //Draw tile
-                //TODO: Make it so it doesnt just draw grass       
-                g.drawImage(grass, i * 64, j * 64, 64, 64, null);
+    	int windowWidthInTiles = GameDirector.getSize().width/ tileWidth;
+    	int windowHeightInTiles = GameDirector.getSize().height/ tileHeight;
+    	Entity avatar = AvatarInteractionManager.getInstance().getAvatar();
+    	int startX = avatar.getLocation().getX() - windowWidthInTiles / 2;
+    	int startY = avatar.getLocation().getY() - windowHeightInTiles / 2;
+    	
+    	if( startX < 0) {
+    		startX = 0;
+    	} else if (startX > widthInTiles - windowWidthInTiles) {
+    		startX = widthInTiles- windowWidthInTiles;
+    	}
+    	if( startY < 0) {
+    		startY = 0;
+    	} else if (startY > heightInTiles - windowHeightInTiles) {
+    		startY = heightInTiles- windowHeightInTiles;
+    	}
+    	
+        for (int i = startX; i < Math.min(startX+windowWidthInTiles,widthInTiles); i++) {
+            for (int j = startY; j < Math.min(startY+windowHeightInTiles,heightInTiles); j++) {
+                //draw coordinates
+            	g.setColor(Color.BLUE);
+            	String coordinate = "(" + i + "," + j + ")";
+            	int strX = (i - startX) * tileWidth + tileWidth / 2 - g.getFontMetrics().stringWidth(coordinate) / 2;
+            	int strY = (j - startY) * tileHeight + tileHeight / 2;
+            	System.out.println("strx: " + strX + " stry: " + strY);
+            	g.drawString(coordinate, strX, strY);
 
+            	//Draw tile
+                //TODO: Make it so it doesnt just draw grass       
+              //  g.drawImage(grass, i * 64, j * 64, 64, 64, null);
+            	
                 //Draw enitty
                 if (entities.getObjectAt(new CoordinatePair(i, j)) != null  ){
-                	Entity avatar = AvatarInteractionManager.getInstance().getAvatar();
                 	if(entities.getObjectAt(new CoordinatePair(i, j)).equals(avatar)) {
                 		 g.setColor(Color.blue);
                 	} else {
                 		g.setColor(Color.red);
                 	}
-                    g.drawRect(i*64, j*64, 63, 63);
+                    g.drawRect((i-startX)*64, (j-startY)*64, 63, 63);
                 }
                 
                 
