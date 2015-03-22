@@ -50,6 +50,7 @@ public class GameWindow {
      */
     public GameWindow(int width, int height) {
         frame = new JFrame();
+        
         frame.setSize(new Dimension(width, height));
         frame.setTitle("FINAL BOSS 2.0");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

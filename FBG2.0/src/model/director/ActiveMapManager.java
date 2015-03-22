@@ -363,4 +363,8 @@ public class ActiveMapManager {
     Entity getEntityAtCoordinate(CoordinatePair CP) {
         return activeMap.getEntityAtCoordinate(CP);
     }
+
+    public void addProjectileToMap(Projectile proj) {
+        activeMap.addProjectile(proj);
+    }
 }

@@ -207,12 +207,12 @@ public abstract class Entity extends MapObject{
 	}
 	public int getMaxHP(){
 		myAbilities.update();
-		return myStats.maxHP();
+		return myStats.maxHealth();
 
 	}
 	public int getMaxMP(){
 		myAbilities.update();
-		return myStats.maxMP();
+		return myStats.maxMana();
 
 	}
 	public int getOffense(){
@@ -247,12 +247,12 @@ public abstract class Entity extends MapObject{
 	}
 	public int getCurrentHP(){
 		myAbilities.update();
-		return myStats.currentHP();
+		return myStats.currentHealth();
 
 	}
 	public int getCurrentMP(){
 		myAbilities.update();
-		return myStats.currentMP();
+		return myStats.currentMana();
 
 	}
 	public int getWeaponOffense(){
@@ -313,11 +313,11 @@ public abstract class Entity extends MapObject{
 		myAbilities.update();
 	}
 	public void setCurrentHP(int next){
-		myStats.setCurrentHP(next);
+		myStats.setCurrentHealth(next);
 		myAbilities.update();
 	}
 	public void setCurrentMP(int next){
-		myStats.setCurrentMP(next);
+		myStats.setCurrentMana(next);
 		myAbilities.update();
 	}
 	public void setWeaponOffense(int next){
@@ -387,11 +387,11 @@ public abstract class Entity extends MapObject{
 		myAbilities.update();
 	}
 	public void modifyCurrentHP(int next){
-		myStats.setCurrentHP(next);
+		myStats.setCurrentHealth(next);
 		myAbilities.update();
 	}
 	public void modifyCurrentMP(int next){
-		myStats.setCurrentMP(next);
+		myStats.setCurrentMana(next);
 		myAbilities.update();
 	}
 	public void modifyWeaponOffense(int next){
