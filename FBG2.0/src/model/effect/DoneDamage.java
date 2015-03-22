@@ -17,18 +17,21 @@ import model.entity.stats.SummonerStats;
 public class DoneDamage extends DealDamageEffect {
     
  
-    public DoneDamage(int damageToDeal) {
+    public DoneDamage(int damageToDeal) 
+    {
         super();
         this.damageToDeal = damageToDeal;
     }
     
    
     
-    public void dealDamage(int damageToDeal){
+    public void dealDamage(int damageToDeal)
+    {
         e.dealDamage(damageToDeal);
     }
     
-    public void modifyBane(int damageToDeal){
+    public void modifyBane(int damageToDeal)
+    {
        bane = max(bane+ dealToDamage,0);        
     }
 }
