@@ -43,6 +43,7 @@ public class GameMap extends Observable {
     
     private MotionValidator MV;
     private MotionCoordinator MC;
+    private int mapID;
     
     public GameMap() {
         Tile[][] t = new Tile[50][50];
@@ -52,6 +53,7 @@ public class GameMap extends Observable {
             }
         }
 
+        this.mapID = 1;
         this.tiles = t;
         this.items = new Locations<>();
         this.entities = new Locations<>();
@@ -60,13 +62,33 @@ public class GameMap extends Observable {
         this.traps = new Locations<>();
         this.MC = MotionCoordinator.getInstance();
         this.MV = MotionValidator.getInstance();
-        this.addEntity(AvatarInteractionManager.getInstance().getAvatar(), new CoordinatePair(1, 1)); //TODO change to avatar
+        //this.addEntity(AvatarInteractionManager.getInstance().getAvatar(), new CoordinatePair(1, 1)); //TODO change to avatar
         
+    }
+
+    public GameMap(int mapID) {
+    	Tile[][] t = new Tile[50][50];
+        for (int i = 0; i < 50; i++) {
+            for (int j = 0; j < 50; j++) {
+                t[i][j] = new Tile();
+            }
+        }
+
+        this.mapID = mapID;
+        this.tiles = t;
+        this.items = new Locations<>();
+        this.entities = new Locations<>();
+        this.effects = new Locations<>();
+        this.switchers = new Locations<>();
+        this.traps = new Locations<>();
+        this.MC = MotionCoordinator.getInstance();
+        this.MV = MotionValidator.getInstance();
     }
 
     public GameMap(Tile[][] tiles) {
         this.tiles = tiles;
         
+        this.mapID = 1;
         this.items = new Locations<>();
         this.entities = new Locations<>();
         this.effects = new Locations<>();
@@ -75,7 +97,7 @@ public class GameMap extends Observable {
         this.MC = MotionCoordinator.getInstance();
         this.MV = MotionValidator.getInstance();
         
-        this.addEntity(AvatarInteractionManager.getInstance().getAvatar(), new CoordinatePair(1, 1)); //TODO change to avatar
+        //this.addEntity(AvatarInteractionManager.getInstance().getAvatar(), new CoordinatePair(1, 1)); //TODO change to avatar
         
     }
 
@@ -99,6 +121,13 @@ public class GameMap extends Observable {
         }
     }
     
+    public void setID(int mapID) {
+    	this.mapID = mapID;
+    }
+    
+    public int getID() {
+    	return mapID;
+    }
     
     /**
      * This method attempts to remove the provided entity
