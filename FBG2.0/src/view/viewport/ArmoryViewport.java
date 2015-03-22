@@ -5,26 +5,20 @@ import java.awt.Graphics;
 import java.util.Observable;
 import java.util.Observer;
 
-import controller.sceneControllers.SceneType;
-import controller.util.SceneObserver;
+import controller.commands.sceneChangers.ArmorySackMaintainer;
 import controller.util.Selectable;
 
-public class ArmoryViewport implements ViewPort, Observer, SceneObserver {
+public class ArmoryViewport implements ViewPort, Observer {
 	
 	private int currentSelection;
-	private boolean canDraw;
-	private SceneType lastType;
-	private SceneType currentType;
-	private boolean inArmory;
 
 	public ArmoryViewport() {
-		canDraw = false;
 		currentSelection = 0;
 	}
 	
 	@Override
 	public void draw(Graphics g) {
-		if(canDraw) {
+		if(canDraw()) {
 			setColor(g);
 			//HEAD
 			if(currentSelection == 0) {
@@ -66,6 +60,10 @@ public class ArmoryViewport implements ViewPort, Observer, SceneObserver {
 
 	}
 
+	private boolean canDraw() {
+		return ArmorySackMaintainer.isPressedArmory();
+	}
+
 	private void setActiveColor(Graphics g) {
 		g.setColor(Color.BLUE);
 		
@@ -82,20 +80,6 @@ public class ArmoryViewport implements ViewPort, Observer, SceneObserver {
 		this.currentSelection = select.getCurrentIndex();
 	}
 
-	@Override
-	public void update(SceneType type) { 
-		if(!canDraw) {
-			if(type.equals(SceneType.ARMORY)) {
-				canDraw = true;
-			}
-		} else {
-			if(type.equals(SceneType.GAME) || (currentType.equals(SceneType.ARMORY) && type.equals(SceneType.SACK))) {
-				canDraw = false;
-			}
-		}
-		
-		currentType = type;
-	}
 
 
 }

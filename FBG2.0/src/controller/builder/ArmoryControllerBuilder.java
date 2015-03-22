@@ -10,6 +10,7 @@ import controller.commands.armory.ArmoryDown;
 import controller.commands.armory.ArmoryNext;
 import controller.commands.armory.ArmoryPrevious;
 import controller.commands.armory.ArmoryUp;
+import controller.commands.sceneChangers.ArmorySackSwitcher;
 import controller.commands.sceneChangers.ResumeGame;
 import controller.commands.sceneChangers.SackSwitch;
 import controller.keyBindings.KeyBindingsOption;
@@ -28,7 +29,7 @@ public class ArmoryControllerBuilder {
 		commands.put(map.get(KeyBindingsOption.RIGHT), new ArmoryNext(details));
 		commands.put(map.get(KeyBindingsOption.LEFT), new ArmoryPrevious(details));
 		commands.put(map.get(KeyBindingsOption.CONFIRM), new ArmoryConfrim(details));
-		commands.put(map.get(KeyBindingsOption.ARMORY), new ResumeGame());
+		commands.put(map.get(KeyBindingsOption.ARMORY), new ArmorySackSwitcher());
 		commands.put(map.get(KeyBindingsOption.SACK), new SackSwitch());
 		commands.put(map.get(KeyBindingsOption.PAUSE), new ResumeGame());
 		

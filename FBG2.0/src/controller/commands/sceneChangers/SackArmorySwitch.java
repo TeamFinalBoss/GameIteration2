@@ -3,10 +3,19 @@ package controller.commands.sceneChangers;
 import controller.commands.Commandable;
 import controller.sceneControllers.SceneType;
 
-public class SackArmorySwitch extends SceneChangerCommands implements Commandable {
+public class SackArmorySwitch extends ArmorySackMaintainer implements Commandable {
 
 	@Override
 	public void execute() {
-		super.switchScene(SceneType.ARMORY);
+		if(super.isPressedSack()) {
+			super.setPressedSack(false);
+			if(super.isPressedArmory()){
+				super.switchScene(SceneType.ARMORY);
+			} else {
+				super.switchScene(SceneType.GAME);
+			}
+		} else {
+			super.switchScene(SceneType.GAME);
+		}
 	}
 }
