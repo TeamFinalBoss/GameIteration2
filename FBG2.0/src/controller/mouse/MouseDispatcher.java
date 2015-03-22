@@ -41,6 +41,7 @@ public class MouseDispatcher implements SceneObserver{
 		this.options = map;
 	}
 
+	//TODO fix issue with attempting to drop items
 	public void mouseClicked(MouseEvent e) {
 		if(observers.containsKey(currentType)) {
 			int value = observers.get(currentType).getActiveLocation(e.getPoint());
