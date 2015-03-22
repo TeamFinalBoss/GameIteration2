@@ -138,7 +138,7 @@ public class GameDirector extends Observable implements SceneObserver {
         activeScene = menuScene;
 
         try {
-            InputStream in = new FileInputStream("src/resources/sound/menu.wav");
+            InputStream in = new FileInputStream("src/resources/sound/menu_funny.wav");
             AudioStream as = new AudioStream(in);
 
             AudioPlayer.player.start(as);
