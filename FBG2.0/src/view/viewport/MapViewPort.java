@@ -94,12 +94,15 @@ public class MapViewPort implements ViewPort, Observer {
                     
                 	if(entities.getObjectAt(new CoordinatePair(i, j)).equals(avatar)) {
                             g.setColor(Color.blue);
+                            Image img = avatarIcon.getImage();
+                            g.drawImage(img, (i-startX)*64, (j-startY)*64, 64, 64, null);
                 	} else {
                             g.setColor(Color.red);
+                            g.fillRect((i-startX)*64, (j-startY)*64, 63, 63);
                 	}
-                    Image img = avatarIcon.getImage();
-                    g.drawImage(img, (i-startX)*64, (j-startY)*64, 64, 64, null);
-                    //g.fillRect((i-startX)*64, (j-startY)*64, 63, 63);
+                    
+                    
+                   
                 }
                 
                 if(projectiles == null){
