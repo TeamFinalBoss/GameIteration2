@@ -6,6 +6,7 @@ import java.awt.Point;
 import java.util.Observable;
 import java.util.Observer;
 
+import model.director.GameDirector;
 import view.MousePoint;
 import controller.commands.sceneChangers.ArmorySackMaintainer;
 import controller.util.Selectable;
@@ -17,13 +18,21 @@ public class SackViewport extends Observable implements ViewPort, Observer, Mous
 	private static int currentMaxRow = 4;
 	private static int currentMinRow = 0;
 	private static int maximumNumberOfRows = 5;
-	private static final int sizeOfBox = 63;
-	private static final int startX = 0;
-	private static final int startY = 0;
+	private static final int sizeOfBox = 64;
+	private static int startX;
+	private static int startY = 0;
+	private static final int offset = 31;
+	private static final int Ypadding = 10;
+	private static final int Xpadding = 17;
+	private static int height;
+	private static int width;
 	private Graphics graph;
 
 	public SackViewport() {
-
+		width = GameDirector.getSize().width;
+		height = GameDirector.getSize().height;
+		startX = width - (itemsPerRow * sizeOfBox) - Xpadding;
+		startY = height - (maximumNumberOfRows * sizeOfBox) - offset - Ypadding;
 	}
 
 	
@@ -50,7 +59,7 @@ public class SackViewport extends Observable implements ViewPort, Observer, Mous
 
 	private void drawItem(Graphics g, int i, int j) {
 		if((i * itemsPerRow + j) + (maximumNumberOfRows * currentMinRow) == currentSelection) {
-			g.setColor(Color.blue);
+			g.setColor(Color.GREEN);
 		} else {
 			g.setColor(Color.ORANGE);
 		}
@@ -81,9 +90,8 @@ public class SackViewport extends Observable implements ViewPort, Observer, Mous
 	}
 	
 	protected boolean withinYBounds(int i, int y) {
-		int heightUpperBounds = (i*sizeOfBox) + i + startY;
+		int heightUpperBounds = (i*sizeOfBox) + i + startY + offset;
 		int heightLowerBounds = heightUpperBounds + sizeOfBox;
-		System.out.println(heightUpperBounds + " " + heightLowerBounds + " " + y);
 		return ((y <= heightLowerBounds) && (y >= heightUpperBounds));
 	}
 
@@ -100,10 +108,7 @@ public class SackViewport extends Observable implements ViewPort, Observer, Mous
 	public void getActiveLocation(Point point) {
 		for(int i = 0; i < maximumNumberOfRows; ++i) {
 			for(int j = 0; j < itemsPerRow; ++j) {
-				graph.setColor(Color.BLACK);
-				graph.drawRect((j * sizeOfBox) + startX,(i*sizeOfBox)  + startY, sizeOfBox - 1, sizeOfBox - 1);
 				if(withinXBounds(j,(int)point.getX()) && withinYBounds(i,(int)point.getY())) {	
-					
 					currentSelection = ((i * itemsPerRow) + j) + (maximumNumberOfRows * currentMinRow);
 					setChanged();
 					notifyObservers();

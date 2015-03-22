@@ -1,13 +1,14 @@
 package controller.commands.armory;
 
 import java.util.Observable;
+import java.util.Observer;
 
 import controller.commands.util.Inventoryable;
 import controller.util.Selectable;
 import model.director.AvatarInteractionManager;
 import model.item.EquipSlot;
 
-public class ArmoryDetails extends Observable implements Selectable, Inventoryable {
+public class ArmoryDetails extends Observable implements Selectable, Inventoryable, Observer {
 
 	private Node currentTree;
 	private AvatarInteractionManager manager = AvatarInteractionManager.getInstance();
@@ -133,6 +134,33 @@ public class ArmoryDetails extends Observable implements Selectable, Inventoryab
 		public void setPrevious(Node previous) {
 			this.previous = previous;
 		}
+
+		public Node changeToIndex(int currentIndex) {
+			if(this.currentSelection == currentIndex) {
+				return this;
+			} else if(hasNoChildren()) {
+				return null;
+			} else {
+				Node value = next.changeToIndex(currentIndex);
+				if(value != null) {
+					return value;
+				}
+				value = previous.changeToIndex(currentIndex);
+				if(value != null) {
+					return value;
+				}
+				value = right.changeToIndex(currentIndex);
+				if(value != null) {
+					return value;
+				}
+				value = left.changeToIndex(currentIndex);
+				return value;
+			}
+		}
+
+		private boolean hasNoChildren() {
+			return next == null && previous == null && right == null && left == null;
+		}
 		
 	}
 
@@ -141,6 +169,14 @@ public class ArmoryDetails extends Observable implements Selectable, Inventoryab
 	@Override
 	public int getCurrentIndex() {
 		return this.currentTree.getCurrentSelection();
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		Selectable select = (Selectable)o;
+		int currentIndex = select.getCurrentIndex();
+		currentTree = currentTree.changeToIndex(currentIndex);
+		
 	}
 
 	
