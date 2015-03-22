@@ -8,12 +8,12 @@ import model.stats.PlayerStats;
  * Is an example OneTimeEffect class. Will probably be used by basic attacks.
  * @author Jason Owens
  */
-public class DealDamageEffect implements Effect {
+public abstract class DealDamageEffect implements Effect {
     int damageToDeal;
 
-    public DealDamageEffect() {
+    public DealDamageEffect(int damageToDeal) {
         super();
-        this.damageToDeal = 10;
+        this.damageToDeal = damageToDeal;
     }
     
     public void setDamageToDeal(int damage){

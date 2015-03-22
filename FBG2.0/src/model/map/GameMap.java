@@ -350,8 +350,12 @@ public class GameMap extends Observable {
      * @return the tile at the CoordinatePair
      */
     public Tile getTileAtCoordinate(CoordinatePair location) {
-        return tiles[location.getX()][location.getY()];
+        if(CoordPairIsValid(location))
+            return tiles[location.getX()][location.getY()];
+        else
+            return null;
     }
+    
     /**
      * Returns the Item at the CoordinatePair
      *
