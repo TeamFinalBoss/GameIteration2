@@ -45,6 +45,7 @@ public class AvatarInteractionManager {
        skillPoints = 10;
        currentSlotInSack = 0;
        currentSlotInArmory = 0;
+       me = this;
     }
     public AvatarInteractionManager(Entity avatar){
         this.avatar = avatar;
@@ -53,6 +54,7 @@ public class AvatarInteractionManager {
         skillPoints = 10;
         currentSlotInSack = 0;
         currentSlotInArmory = 0;
+        me = this;
     }
     
     public static AvatarInteractionManager getInstance(){

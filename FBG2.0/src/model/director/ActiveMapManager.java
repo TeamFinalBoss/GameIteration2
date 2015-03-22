@@ -94,6 +94,9 @@ public class ActiveMapManager {
      */
     public void addMap(GameMap map){
     	maps.add(map);
+        if(activeMap == null){
+            activeMap = map;
+        }
     }   
     /**
      * Removes a map from the list of possible maps.
