@@ -2,7 +2,6 @@ package model.director;
 
 import java.awt.Dimension;
 import java.awt.event.KeyListener;
-import java.awt.event.MouseAdapter;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.List;

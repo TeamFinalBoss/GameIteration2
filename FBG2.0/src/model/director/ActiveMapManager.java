@@ -152,7 +152,7 @@ public class ActiveMapManager {
      */
     public boolean setActiveMap(int mapID) {
     	for(GameMap m : this.maps) {
-    		if(m.getID == mapID) {
+    		if(m.getID() == mapID) {
     			this.activeMap = m;
     			return true;
     		}

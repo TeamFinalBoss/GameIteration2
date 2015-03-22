@@ -64,7 +64,7 @@ public class AvatarReader {
 			
 			Entity en = null;
 			
-			switch(e.getAttribute("class")) {
+			switch(e.getAttribute("occupation")) {
 			case "smasher":
 				en = new SmasherAvatar();
 				

@@ -486,8 +486,11 @@ public class GameMap extends Observable {
         }
     }
     
-    public void useAbility(Entity e, int abilityToUse){
+    public boolean useAbility(Entity e, int abilityToUse){
         e.useAbility(abilityToUse);
+        
+        //I don't want to mess with entity
+        return true;
     }
     
     
