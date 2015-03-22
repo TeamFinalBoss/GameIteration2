@@ -79,8 +79,30 @@ public class StatsMenu extends Observable implements Describeable,Menuable, Obse
 
 	@Override
 	public String[] getDescription() {
-		// TODO Auto-generated method stub
-		return null;
+		String array[] = new String[options.size()];
+		for(int i = 0; i < options.size(); i++) {
+			array[i] = options.get(i).toString();
+			switch(options.get(i)) {
+				case STRENGTH :
+					array[i] += manager.getStrength();
+					break;
+				case INTELLECT :
+					array[i] += manager.getIntellect();
+					break;
+				case AGILITY :
+					array[i] += manager.getAgility();
+					break;
+				case HARDINESS :
+					array[i] += manager.getHardiness();
+					break;
+				case MOVEMENT :
+					array[i] += manager.getMovement();
+					break;
+				default :
+					break;
+			}
+		}
+		return array;
 	}
 
 }
