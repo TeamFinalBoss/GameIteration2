@@ -18,7 +18,7 @@ import model.map.pair.PreciseCoordinatePair;
 public class Bullet extends Projectile {
     
     public Bullet(Entity e1){
-         super(5, new Vector(e1.getDirection()),new PreciseCoordinatePair((double)e1.getLocation().getX(), (double)e1.getLocation().getY()), new GoDownEffect());
+         super(5, new Vector(e1.getDirection()),new PreciseCoordinatePair((double)e1.getLocation().getX(), (double)e1.getLocation().getY()), new GoDownEffect(10));
          //projectiles refresh every 10 milliseconds (20 times a second)
     }
     @Override
