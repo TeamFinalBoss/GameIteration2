@@ -24,6 +24,7 @@ import model.map.tile.Tile;
  */
 public class MapViewPort implements ViewPort, Observer {
 
+    private int windowWidth, windowHeight;
     private final int tileWidth = 64, tileHeight = 64;
 
     Tile[][] tiles;
@@ -45,8 +46,13 @@ public class MapViewPort implements ViewPort, Observer {
     @Override
     public void draw(Graphics g) {
         //Calculate which portion of the map to draw based on avatar position.
-        int windowWidthInTiles = (GameDirector.getSize().width / tileWidth);
-        int windowHeightInTiles = (GameDirector.getSize().height / tileHeight);
+        int windowWidth = (int) (GameDirector.getSize().width * 0.8);
+        int windowHeight = (int) (GameDirector.getSize().height * 0.8);
+        //g.drawRect(0, 0, windowWidth, windowHeight);
+        
+        
+        int windowWidthInTiles = ( windowWidth / tileWidth);
+        int windowHeightInTiles = ( windowHeight / tileHeight);
 
         int startX = entityList.get(0).getLocation().x - windowWidthInTiles / 2;
         int startY = entityList.get(0).getLocation().y - windowHeightInTiles / 2;
@@ -64,7 +70,7 @@ public class MapViewPort implements ViewPort, Observer {
 
         //Start drawing
         for (int i = startX; i < Math.min(startX + windowWidthInTiles, widthInTiles); i++) {
-            for (int j = startY; j < startY + windowHeightInTiles; j++) {
+            for (int j = startY; j < Math.min(startY + windowHeightInTiles, heightInTiles); j++) {
 
                 //Draw Coordinates
                 g.setColor(Color.blue);

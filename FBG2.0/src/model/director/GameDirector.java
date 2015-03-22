@@ -16,6 +16,7 @@ import view.scene.Scene;
 import view.viewport.ArmoryViewPort;
 import view.viewport.MainMenuViewPort;
 import view.viewport.MapViewPort;
+import view.viewport.MiniMapViewPort;
 import view.viewport.PauseMenuViewPort;
 import view.viewport.SackViewPort;
 import view.viewport.StatusViewPort;
@@ -97,6 +98,7 @@ public class GameDirector extends Observable {
 
         //Create Viewports
         MapViewPort mapVP = new MapViewPort();
+        MiniMapViewPort miniMapVP = new MiniMapViewPort();
         PauseMenuViewPort pauseVP = new PauseMenuViewPort();
         StatusViewPort statusVP = new StatusViewPort();
         SackViewPort sackVP = new SackViewPort();
@@ -107,10 +109,12 @@ public class GameDirector extends Observable {
         gameScene.addViewPort(pauseVP);
         gameScene.addViewPort(statusVP);
         gameScene.addViewPort(sackVP);
+        gameScene.addViewPort(miniMapVP);
         //gameScene.addViewPort(armoryVP);
 
         //Add viewports as observers to model objects.
         map1.addObserver(mapVP);
+        map1.addObserver(miniMapVP);
         pauseMenu.addObserver(pauseVP);
         a.addObserverOfStats(statusVP);
         a.addObserverOfArmory(armoryVP);

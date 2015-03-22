@@ -1,4 +1,4 @@
-package model.item;
+package model.gameObject.item;
 
 public class Equipable extends Takeable {
 	public EquipSlot slot() {

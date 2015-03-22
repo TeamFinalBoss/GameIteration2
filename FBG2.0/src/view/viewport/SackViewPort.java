@@ -10,7 +10,7 @@ import java.util.Observer;
 import model.director.GameDirector;
 import model.factory.SpriteFactory;
 import model.gameObject.entity.inventory.Sack;
-import model.item.Takeable;
+import model.gameObject.item.Takeable;
 import utility.Bounds;
 
 /**

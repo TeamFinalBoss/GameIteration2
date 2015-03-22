@@ -210,6 +210,9 @@ public class Entity extends GameObject implements Observer {
         }
     }
 
+    /**
+     * 
+     */
     private void regenerateMana() {
         if (canRegenMana) {
 

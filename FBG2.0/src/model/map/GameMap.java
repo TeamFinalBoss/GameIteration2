@@ -1,6 +1,7 @@
 package model.map;
 
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.Observable;
 import java.util.Observer;
@@ -103,13 +104,21 @@ public class GameMap extends Observable {
             e.regenerate();
         }
     }
-    
-    
+
     /**
-     * 
+     *
+     * @param e the entity to remove from the map
      */
-    public void removeEntity(Entity e){
+    public void removeEntity(Entity e) {
         entityList.remove(e);
+    }
+
+    /**
+     *
+     * @param p the projectile to remove from the map
+     */
+    public void removeProjectile(Projectile p) {
+        projectileList.remove(p);
     }
 
     /**
@@ -118,70 +127,73 @@ public class GameMap extends Observable {
     public void moveGameObjects() {
         for (Entity e : entityList) {
             e.move();
-            //boundEntity(e);//use this to bound entity at edge
-            warpEntity(e);// use this to warp the entity across edges
+            //boundGameObject(e);//use this to bound entity at edge
+            warpGameObject(e);// use this to warp the entity across edges
         }
 
-        for (Iterator<Projectile> iterator = projectileList.iterator(); iterator.hasNext();) {
-            Projectile p = iterator.next();
-            p.move();
-            if (isOutsideMap(p)) {
-                iterator.remove();
+        try {
+            for (Projectile p : projectileList) {
+                p.move();
+                boundGameObject(p);
             }
+        } catch (ConcurrentModificationException e) {
         }
+
     }
 
     /**
-     * Removes the projectile from the map when it reaches the edge of the map.
+     * Checks if the object is outside of the map.
      *
-     * @param p the projectile to check
+     * @param o the game object to check
      * @return
      */
-    public boolean isOutsideMap(Projectile p) {
-        return p.getLocation().x < 0
-                || p.getLocation().x > this.getWidth() - 1
-                || p.getLocation().y > this.getHeight() - 1
-                || p.getLocation().y < 0;
+    public boolean isOutsideMap(GameObject o) {
+        return o.getLocation().x < 0
+                || o.getLocation().x > this.getWidth() - 1
+                || o.getLocation().y > this.getHeight() - 1
+                || o.getLocation().y < 0;
     }
 
     /**
      * Does not let the entity pass the edge of the map.
      *
-     * @param e the entity to bound
+     * @param o the game object to bound
      */
-    public void boundEntity(Entity e) {
-        if (e.getLocation().x > this.getWidth() - 1) {
-            e.getLocation().x = this.getWidth() - 1;
-        } else if (e.getLocation().x < 0) {
-            e.getLocation().x = 0;
+    public void boundGameObject(GameObject o) {
+        if (o.getLocation().x > this.getWidth() - 1) {
+            o.getLocation().x = this.getWidth() - 1;
+        } else if (o.getLocation().x < 0) {
+            o.getLocation().x = 0;
         }
-        if (e.getLocation().y > this.getHeight() - 1) {
-            e.getLocation().y = this.getHeight() - 1;
-        } else if (e.getLocation().y < 0) {
-            e.getLocation().y = 0;
+        if (o.getLocation().y > this.getHeight() - 1) {
+            o.getLocation().y = this.getHeight() - 1;
+        } else if (o.getLocation().y < 0) {
+            o.getLocation().y = 0;
         }
     }
 
     /**
      * If the entity passes the edge of the map warp him to the opposite edge.
      *
-     * @param e the entity to warp
+     * @param o the entity to warp
      */
-    public void warpEntity(Entity e) {
-        if (e.getLocation().x > this.getWidth() - 1) {
-            e.getLocation().x = 0;
-        } else if (e.getLocation().x < 0) {
-            e.getLocation().x = this.getWidth() - 1;
+    public void warpGameObject(GameObject o) {
+        if (o.getLocation().x > this.getWidth() - 1) {
+            o.getLocation().x = 0;
+        } else if (o.getLocation().x < 0) {
+            o.getLocation().x = this.getWidth() - 1;
         }
-        if (e.getLocation().y > this.getHeight() - 1) {
-            e.getLocation().y = 0;
-        } else if (e.getLocation().y < 0) {
-            e.getLocation().y = this.getHeight() - 1;
+        if (o.getLocation().y > this.getHeight() - 1) {
+            o.getLocation().y = 0;
+        } else if (o.getLocation().y < 0) {
+            o.getLocation().y = this.getHeight() - 1;
         }
     }
 
     public void checkProjectiles() {
         CombatCoordinator.checkCollideProjectiles(projectileList, entityList);
     }
+
+    
 
 }

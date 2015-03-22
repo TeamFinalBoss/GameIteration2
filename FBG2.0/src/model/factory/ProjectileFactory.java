@@ -21,7 +21,7 @@ public class ProjectileFactory {
      * @return a new fireball projectile.
      */
     public static Projectile newFireBall(int x, int y, Direction direction, PlayerStats s) {
-        Projectile p = new Projectile(x, y, direction, s);
+        Projectile p = new Projectile(x, y, direction, 5, 1,  s);
         switch (p.getDirection()) {
             case North:
                 p.setSpritePath(SpriteFactory.FIREBALL_NORTH);

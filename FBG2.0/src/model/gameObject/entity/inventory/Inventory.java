@@ -1,10 +1,10 @@
 package model.gameObject.entity.inventory;
 
 import java.util.List;
-import model.item.Takeable;
-import model.item.Equipable;
+import model.gameObject.item.Takeable;
+import model.gameObject.item.Equipable;
 import java.util.Map;
-import model.item.EquipSlot;
+import model.gameObject.item.EquipSlot;
 
 /**
  * An Inventory object belongs to a singular Entity and holds the items of that

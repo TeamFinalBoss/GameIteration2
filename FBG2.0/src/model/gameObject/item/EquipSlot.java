@@ -1,4 +1,4 @@
-package model.item;
+package model.gameObject.item;
 
 public enum EquipSlot {
 	HEAD,

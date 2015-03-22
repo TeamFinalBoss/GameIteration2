@@ -1,6 +1,6 @@
 package model.gameObject.entity.inventory;
 
-import model.item.Takeable;
+import model.gameObject.item.Takeable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Collections;
@@ -21,10 +21,8 @@ public class Sack extends Observable {
     private ArrayList<Takeable> contents;
     private int capacity;
 
-    private void validatePosition(int position) {
-        if (position < 0 || position >= size()) {
-            throw new IllegalArgumentException("An item removal attempt in a sack occured with an invalid item position.");
-        }
+    private boolean validatePosition(int position) {
+        return position >= 0 && position < size();
     }
 
     /* -------------------- CONSTRUCTORS -------------------- */

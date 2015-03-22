@@ -1,7 +1,7 @@
 package model.gameObject.entity.inventory;
 
-import model.item.Equipable;
-import model.item.EquipSlot;
+import model.gameObject.item.Equipable;
+import model.gameObject.item.EquipSlot;
 
 import java.util.HashMap;
 import java.util.Collections;

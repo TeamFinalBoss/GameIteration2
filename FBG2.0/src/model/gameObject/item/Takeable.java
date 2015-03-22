@@ -1,4 +1,4 @@
-package model.item;
+package model.gameObject.item;
 
 import model.gameObject.GameObject;
 

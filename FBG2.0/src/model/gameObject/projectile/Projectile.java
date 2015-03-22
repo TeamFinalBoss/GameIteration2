@@ -2,6 +2,7 @@
 package model.gameObject.projectile;
 
 import java.awt.Point;
+import model.director.GameDirector;
 import model.gameObject.GameObject;
 import model.map.Direction;
 import model.stats.PlayerStats;
@@ -16,21 +17,25 @@ public class Projectile extends GameObject{
 
     private Point location;
     private Direction myDirection;
-    private int speed = 1; //Temporary. TODO: This should come from the projectile's stats object.
+    private int speed; 
+    private int range;
+    private int distanceTraveled = 0;
     private PlayerStats s;
-    private Boolean canMove = true;
+    private boolean canMove = true;
     
     /**
      * The default constructor should never really be called.
      */
     public Projectile(){
-        this(1,1, Direction.East, new PlayerStats());//default
+        this(1,1, Direction.East, 5, 1, new PlayerStats());//default
         
     }
     
-    public Projectile(int x, int y, Direction direction, PlayerStats s) {
+    public Projectile(int x, int y, Direction direction, int range, int speed,  PlayerStats s) {
         this.setLocation(x, y);
         myDirection = direction;
+        this.range = range;
+        this.speed = speed;
         this.s = s;
     }
 
@@ -42,8 +47,7 @@ public class Projectile extends GameObject{
         return s;
     }
 
-    
-    
+     
     /**
      * Get the location of the projectile.
      *
@@ -83,8 +87,21 @@ public class Projectile extends GameObject{
 
             });
             x.start();
+            distanceTraveled++;
+            if(endOfRangeReached()){
+                this.disintegrate();
+            }
         }
-        
     }
+    
+    public boolean endOfRangeReached(){
+        return distanceTraveled > range; 
+    }
+    
+    public void disintegrate(){
+        GameDirector.getActiveMap().removeProjectile(this);
+    }
+    
+    
     
 }
