@@ -3,6 +3,12 @@ package model.entity.stats;
 import java.util.Random;
 
 public abstract class Stats {
+	public int getCurrentHealth() {
+		return currentHealth;
+	}
+	public int getCurrentMana() {
+		return currentMana;
+	}
 	/* -------------------- PRIMARY ATTRIBUTES -------------------- */
 	private int livesLeft;
 	private int strength;

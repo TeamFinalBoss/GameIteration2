@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import view.MousePoint;
+import view.MousePointClick;
 import controller.KeyDispatcher;
 import controller.keyBindings.KeyBindingsOption;
 import controller.sceneControllers.SceneChanger;
@@ -18,11 +19,13 @@ public class MouseDispatcher implements SceneObserver{
 	private KeyDispatcher dispatcher;
 	private SceneType currentType;
 	private Map<SceneType, MousePoint> observers;
+	private Map<SceneType, MousePointClick> clickObservers;
 	
 	public MouseDispatcher() {
 		this.options = new HashMap<>();
 		this.dispatcher = new KeyDispatcher();
 		observers = new HashMap<>();
+		clickObservers = new HashMap<>();
 		SceneChanger.getInstance().registerObserver(this);
 	}
 	
@@ -30,6 +33,7 @@ public class MouseDispatcher implements SceneObserver{
 		this.options = map;
 		this.dispatcher = dispatcher;
 		observers = new HashMap<>();
+		clickObservers = new HashMap<>();
 		SceneChanger.getInstance().registerObserver(this);
 	}
 	
@@ -37,9 +41,18 @@ public class MouseDispatcher implements SceneObserver{
 		this.options = map;
 	}
 
+	//TODO fix issue with attempting to drop items
 	public void mouseClicked(MouseEvent e) {
-		Integer value = options.get(KeyBindingsOption.CONFIRM);
-		dispatcher.useKey(value);
+		if(observers.containsKey(currentType)) {
+			int value = observers.get(currentType).getActiveLocation(e.getPoint());
+			if(value >= 0) {
+				Integer key = options.get(KeyBindingsOption.CONFIRM);
+				dispatcher.useKey(key);
+			}
+		}
+		if(clickObservers.containsKey(currentType)) {
+			clickObservers.get(currentType).verifyChange(e.getPoint());
+		}
 	}
 
 	public void mouseMoved(Point point) {
@@ -72,6 +85,10 @@ public class MouseDispatcher implements SceneObserver{
 
 	public void addPoint(SceneType type, MousePoint point) {
 		observers.put(type,point);
+	}
+	
+	public void addClickPoint(SceneType type, MousePointClick point) {
+		clickObservers.put(type, point);
 	}
 	
 }
