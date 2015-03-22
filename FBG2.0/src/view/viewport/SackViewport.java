@@ -68,7 +68,6 @@ public class SackViewport extends Observable implements ViewPort, Observer, Mous
 
 	@Override
 	public void draw(Graphics g) {
-		graph = g;
 		if(canDraw()) {
 			//I is the row J is the column
 			for(int i = 0; i < maximumNumberOfRows; ++i) {

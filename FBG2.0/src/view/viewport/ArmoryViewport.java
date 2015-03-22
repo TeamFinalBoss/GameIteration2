@@ -23,14 +23,14 @@ public class ArmoryViewport extends Observable implements ViewPort, Observer, Mo
 	private static int startX;
 	private static int startY = 0;
 	private static final int offset = 0;
-	private static final int Ypadding = 10;
+	private static final int Ypadding = 0;
 	private static final int numberDown = 4;
 	private static final int numberAcross = 3;
 	
 	public ArmoryViewport() {
 		currentSelection = 0;
-		width = GameDirector.getSize().width;
-		height = GameDirector.getSize().height;
+		width = (int) (GameDirector.getSize().width * 0.8);
+		height = (int) (GameDirector.getSize().height * 0.8);
 		startX = sizeOfBox;
 		startY = height - (numberDown * sizeOfBox) - Ypadding - offset;
 	}
