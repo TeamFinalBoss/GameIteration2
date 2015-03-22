@@ -11,7 +11,7 @@ import java.util.Observer;
 import model.map.Direction;
 import model.map.GameMap;
 import model.map.MapSwitcher;
-import model.map.Projectile;
+import model.map.projectiles.Projectile;
 import model.map.pair.CoordinatePair;
 import model.map.areaEffect.AreaEffect;
 import model.map.tile.Tile;

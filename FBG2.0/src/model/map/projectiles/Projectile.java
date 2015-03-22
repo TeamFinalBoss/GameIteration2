@@ -1,10 +1,11 @@
-package model.map;
+package model.map.projectiles;
 
 import java.util.TimerTask;
 import model.director.ActiveMapManager;
 
 import model.effect.Effect;
 import model.entity.Entity;
+import model.map.Vector;
 import model.map.pair.PreciseCoordinatePair;
 import model.util.GameTimer;
 
@@ -69,6 +70,12 @@ public abstract class Projectile extends TimerTask{
         isActive = false; //change this if we ever implement piercing projectiles
         //affect Entity here, may move this to Combat Coordinator
     }
+    
+    public Effect getEffect(){
+     return effects;   
+    }
+    
+    public abstract void applyEffect(Entity entToEffect);
     
     public abstract boolean canSee(int observationLevel);
 

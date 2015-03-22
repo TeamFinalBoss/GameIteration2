@@ -5,6 +5,7 @@
  */
 package model.map;
 
+import model.map.projectiles.Projectile;
 import model.effect.DealDamageEffect;
 import model.effect.Effect;
 import model.effect.GoDownEffect;

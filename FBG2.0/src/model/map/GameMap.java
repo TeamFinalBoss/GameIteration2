@@ -1,5 +1,6 @@
 package model.map;
 
+import model.map.projectiles.Projectile;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
