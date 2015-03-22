@@ -3,16 +3,24 @@ package model.director;
 import java.util.List;
 import java.util.Map;
 
+import model.map.areaEffect.AreaEffect;
 import model.map.pair.PurePair;
+import model.effect.Dispellable;
 import model.entity.Entity;
+import model.entity.MotionType;
 import model.entity.SummonerAvatar;
 import model.entity.SmasherAvatar;
 import model.entity.SneakAvatar;
 import model.item.Equipable;
+import model.item.Item;
 import model.item.Takeable;
 import model.map.pair.CoordinatePair;
+import model.map.tile.Tile;
+import model.map.tile.trap.Trap;
 import model.map.Direction;
+import model.map.Projectile;
 import model.entity.SummonerAvatar;
+import model.entity.ability.Ability;
 import model.item.EquipSlot;
 
 /**
@@ -350,7 +358,40 @@ public class AvatarInteractionManager {
 		}
 		return new PurePair<String,Integer>();
 	}
-	
-	
-	
+	public List<Ability> getAllAbilities(){
+		return avatar.getAllAbilities();
+	}
+	public List<Tile> getVisibleTiles(){
+		return avatar.getVisibleTiles();
+	}
+	public List<Projectile> getVisibleProjectiles(){
+		return avatar.getVisibleProjectiles();
+	}
+	public List<Entity> getVisibleEntities(){
+		return avatar.getVisibleEntities();
+	}
+	public List<Trap> getVisibleTraps(){
+		return avatar.getVisibleTraps();
+	}
+	public List<Item> getVisibleItems(){
+		return avatar.getVisibleItems();
+	}
+	public List<AreaEffect> getVisibleAreaEffects(){
+		return avatar.getVisibleAreaEffects();
+	}
+	public List<Dispellable> getEffects(){
+		return avatar.getEffects();
+	}
+	public int getCurrency(){
+		return avatar.getCurrency();
+	}
+	public Direction getDirection(){
+		return avatar.getDirection();
+	}
+	public MotionType getMotionType(){
+		return avatar.getMotionType();
+	}
+	public String getOccupation(){
+		return avatar.getOccupation();
+	}
 }
