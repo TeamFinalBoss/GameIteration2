@@ -5,16 +5,17 @@
  */
 package model.item;
 
+import model.link.ObstacleLink;
 import model.map.pair.CoordinatePair;
 
 /**
  * ID=21;
  * @author ashishag
  */
-public class TreasureChest extends Equipable {
+public class TreasureChest extends Interactive {
     public TreasureChest(){
 		super("Generic Eqipable", "Generic description", 
-                        new CoordinatePair(), 0, 1, EquipSlot.HEAD);
+                        new CoordinatePair(), false);
 		
 		this.id = "21";
 		this.className = "TreasureChest";
@@ -24,19 +25,22 @@ public class TreasureChest extends Equipable {
 		//Other properties set here
 	}
 	
-	public TreasureChest(String objectName, String description, 
-                CoordinatePair location, int value, EquipSlot slot){
-		super(objectName, description, location, value, 1, EquipSlot.HEAD);
+	public TreasureChest(String objectName, String description, CoordinatePair location, 
+                boolean hasBeenUsed){
+		super(objectName, description, location, hasBeenUsed);
 		
-		this.id = "21";
-		this.className = "TreasureChest";
-                this.slot= slot; 
+		this.setID("4");
+		this.setClassName("Interactive");
+		this.link = new ObstacleLink(this, 0);
+
+               
+                
                
 		
 		//Other properties set here
 	} 
         
-         @Override
+     
          public boolean meetsRequirements(){
             return true;
          }
@@ -47,14 +51,12 @@ public class TreasureChest extends Equipable {
             
         }
         
-        public void TreasureChest(int durability){
-            TreasureChest("Generic Eqipable", "Generic_description", 
-                        new CoordinatePair(), 0, durability);
-        }
+        
 
-    @Override
-    public Takeable copy() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
+    public TreasureChest copy() {
+        return new TreasureChest (this.getName(), this.getDescription(), 
+                        this.getLocation(), false);
     }
     
     
