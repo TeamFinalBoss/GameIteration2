@@ -13,8 +13,13 @@ import model.entity.Entity;
  */
 public class FireBall extends Ability {
 
+    public FireBall(){
+        super();
+    }
+    
     @Override
     public boolean meetsStatRequirements(Entity entityToLearn) {
+        return true;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
