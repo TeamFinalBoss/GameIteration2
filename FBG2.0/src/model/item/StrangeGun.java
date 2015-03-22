@@ -5,8 +5,9 @@
  */
 package model.item;
 
+import model.effect.DealDamageEffect;
 import model.effect.Effect;
-import model.effect.GoDownEffect;
+
 import model.entity.Entity;
 import model.map.pair.CoordinatePair;
 
@@ -18,11 +19,11 @@ public class StrangeGun extends Weapon{
     
      public StrangeGun(){
 		super("Gun", "Generic description", new CoordinatePair(), 0, 1, 
-                        EquipSlot.HEAD, new GoDownEffect(80));
+                        EquipSlot.HEAD, new  DealDamageEffect(80));
 		
 		this.id = "29";
 		this.className = "StrangeGun";
-                this.E1= new GoDownEffect(80); 
+                this.E1= new  DealDamageEffect(80); 
              
                 
 		
@@ -72,7 +73,7 @@ public class StrangeGun extends Weapon{
         
         public StrangeGun(int durability){
             super("Gun", "Generic description", new CoordinatePair(), 0, durability , 
-                        EquipSlot.HEAD, new GoDownEffect(80));
+                        EquipSlot.HEAD, new  DealDamageEffect(80));
         }
         //TODO- Projectile motion has to be added
     
@@ -86,7 +87,7 @@ public class StrangeGun extends Weapon{
         
     /**
      *
-     * @param target
+     * @param e
      */
     @Override
     public void onEquip(Entity e){
@@ -111,7 +112,7 @@ public class StrangeGun extends Weapon{
         return e.getLevel() >= 2;
         }
         
-        public void attack(Entity e){
+        public void bullet(Entity e){
             
         }
     

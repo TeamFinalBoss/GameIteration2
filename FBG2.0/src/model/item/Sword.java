@@ -5,7 +5,7 @@
  */
 package model.item;
 
-import model.effect.GoDownEffect;
+import model.effect.DealDamageEffect;
 import model.entity.Entity;
 import model.map.pair.CoordinatePair;
 
@@ -18,7 +18,7 @@ public class Sword extends Weapon {
      //durability
      public Sword(){
 		super("Sword", "Generic_description", new CoordinatePair(),
-                0, 1, EquipSlot.HEAD, new GoDownEffect(50));
+                0, 1, EquipSlot.HEAD, new  DealDamageEffect(50));
                 this.id = "20";
 		this.className = "Sword";
                 
@@ -32,7 +32,7 @@ public class Sword extends Weapon {
 	public Sword(String objectName, String description, CoordinatePair 
                 location, int durability ){
 		super(objectName, description, location, 5, durability, 
-                EquipSlot.HEAD, new GoDownEffect(50) );
+                EquipSlot.HEAD, new  DealDamageEffect(50) );
                 
  
 		
@@ -49,7 +49,7 @@ public class Sword extends Weapon {
         
         public Sword(int durability){
             super("Sword", "Generic_description", new CoordinatePair(), 5, durability, 
-                EquipSlot.HEAD, new GoDownEffect(50));
+                EquipSlot.HEAD, new  DealDamageEffect(50));
         }
         
         @Override
