@@ -13,32 +13,29 @@ import model.entity.Entity;
  * @author ChrisMoscoso
  */
 public class CombatCoordinator {
-
-    public static Object getInstance() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    GameMap myMap;
+    ActiveMapManager AMM;
+    private static CombatCoordinator me;
     
     public CombatCoordinator(){
-        myMap = ActiveMapManager.getInstance().getActiveMap();
+        AMM = ActiveMapManager.getInstance();
     }
     
-    /**
-     * Changes which map the CC is using. Alternatively, could update using
-     * ActiveMapManager.getInstance()
-     * @author Jason Owens
-     * @param map 
-     */
-    public void setCurrentGameMap(GameMap map){
-        myMap = map;
+    public static CombatCoordinator getInstance(){
+        if(me == null){
+            me = new CombatCoordinator();
+        }
+        return me;
     }
     
+      
+      
     public void attemptAffectEntities(ArrayList<CoordinatePair> affectedTiles, Effect myEffect) {
         for(CoordinatePair CP: affectedTiles){
-            Entity ent = myMap.getEntityAtCoordinate(CP);
+            Entity ent = AMM.getEntityAtCoordinate(CP);
             if(ent!=null)
                 myEffect.applyEffect(ent);
         }
+        
     }
     
 }
