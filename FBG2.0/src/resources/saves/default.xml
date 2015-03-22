@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<avatar occupation="smasher" map="1" currency="0" motiontype="0" direction="0" x="5" y="5">
-   <stats livesLeft="3" strength="3" agility="3" intellect="3" hardiness="3" experience="3" movement="3" bindWounds="3" stat1="3" stat2="3" stat3="3" stat4="3" />
+<gamesave>
+<avatar occupation="smasher" map="3" currency="0" motiontype="0" direction="0" x="1" y="1">
+   <stats livesLeft="3" strength="3" agility="3" intellect="3" hardiness="3" experience="3" movement="3" bindWounds="3" stat1="3" stat2="3" stat3="3" stat4="3" currentHp="3" currentMp="3" offense="3" defense="3" bargain="3" observation="3" />
    	<sack>
    	    <item name="sword" durability="100" />
    	</sack>
    	<armory>
-   	    <item name="armor" durability="100" />
    	</armory>
    	<effects>
    	</effects>
@@ -19,3 +19,4 @@
 <map id="2">
     <obstacle name="door" link="4" x="1" y="1" />
 </map>
+</gamesave>

@@ -3,7 +3,7 @@
  <tileset firstgid="1" name="spritesheetv2" tilewidth="32" tileheight="32">
   <image source="../../../../../../../MapEditor/latest_pull/Iteration2MapEditor/FinalBossMapEditor/src/spritesheetv2.png" width="352" height="288"/>
  </tileset>
- <layer name="Tile Layer 1" width="5" height="5">
+ <layer name="Tile Layer 1" width="5" height="5" id="2">
   <data>
    <tile gid="34"/>
    <tile gid="35"/>

@@ -3,6 +3,7 @@ package model.director;
 import java.awt.Dimension;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -141,9 +142,13 @@ public class GameDirector extends Observable implements SceneObserver{
 
     public void startNewGame() {
         
-        GameMap map = new GameMap();
-        ActiveMapManager.getInstance().addMap(map);
-        ActiveMapManager.getInstance().setActiveMap(map);
+       // GameMap map = new GameMap();
+       // ActiveMapManager.getInstance().addMap(map);
+       // ActiveMapManager.getInstance().setActiveMap(map);
+    	
+    	File def = new File("./src/resources/saves/default.xml");
+    	MapInstantiator.getInstance().loadFullGame(def);
+    	AvatarInteractionManager.getInstance().setAvatar(MapInstantiator.getInstance().createAvatarFromFile(def));
        
         MapViewPort mapVP = new MapViewPort();
 
@@ -173,8 +178,8 @@ public class GameDirector extends Observable implements SceneObserver{
         controller.getMouseParser().setMousePointClick(SceneType.ARMORY, (MousePointClick)armory);
         controller.getMouseParser().setMousePointClick(SceneType.SACK, (MousePointClick)sack);
        
-        map.addObserver(mapVP);//Add mapVP as an Observer to map
-        
+        //map.addObserver(mapVP);//Add mapVP as an Observer to map
+        ActiveMapManager.getInstance().getActiveMap().addObserver(mapVP);
         sceneChanger.changeScene(SceneType.GAME);
         activeScene = gameScene;
     }
