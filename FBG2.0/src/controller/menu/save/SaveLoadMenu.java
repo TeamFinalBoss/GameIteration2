@@ -40,7 +40,7 @@ public class SaveLoadMenu extends Observable implements Describeable,Menuable, O
 	private void refresh() {
 		File[] list = new File("src/resources/saves/").listFiles();
 		for(File file : list) {
-			if(file.isFile()) {
+			if(file.isFile() && !file.getName().equals("default.xml")) {
 				files.add(file);
 			}
 		}

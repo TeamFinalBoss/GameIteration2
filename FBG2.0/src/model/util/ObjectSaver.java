@@ -48,9 +48,12 @@ public class ObjectSaver {
 	}
 	
 	public String getSaveFormat(Entity e) {
-		String save = "<entity ";
-		save += "class=\"" + e.getOccupation() + "\" ";
-		save += "type=\"" + e.getType() + "\" ";
+		String save = "<";
+		
+		if(e.getType().equals("avatar")) save += "avatar ";
+		else save += "entity ";
+		
+		save += "occupation=\"" + e.getOccupation() + "\" ";
 		save += "x=\"" + e.getLocation().getX() + "\" ";
 		save += "y=\"" + e.getLocation().getY() + "\" ";
 		save += "currency=\"" + e.getCurrency() + "\" ";
@@ -107,7 +110,7 @@ public class ObjectSaver {
 	}
 	
 	private String getTakeableFormat(Takeable t) {
-		String save = "<takeableItem ";
+		String save = "<item ";
 		save += "name=\"" + t.getName() + "\" ";
 		save += "durability=\"" + t.getDurability() + "\" />";
 		return save;
@@ -115,39 +118,39 @@ public class ObjectSaver {
 	
 	private String getStatsFormat(Entity e) {
 		String save = "<stats ";
-		save += "livesleft=\"" + e.getLivesLeft() + "\" ";
+		save += "livesLeft=\"" + e.getLivesLeft() + "\" ";
 		save += "strength=\"" + e.getStrength() + "\" ";
 		save += "agility=\"" + e.getAgility() + "\" ";
 		save += "intellect\"" + e.getIntellect() + "\" ";
 		save += "hardiness=\"" + e.getHardiness() + "\" ";
 		save += "experience=\"" + e.getExperience() + "\" ";
 		save += "movement=\"" + e.getMovement() + "\" ";
-		save += "bindwounds=\"" + e.getBindWounds() + "\" ";
+		save += "bindWounds=\"" + e.getBindWounds() + "\" ";
 		save += "bargain=\"" + e.getBargain() + "\" ";
 		save += "observation=\"" + e.getObservation() + "\" ";
-		save += "currenthp=\"" + e.getCurrentHP() + "\" ";
-		save += "currentmp=\"" + e.getCurrentMP() + "\" ";
+		save += "currentHp=\"" + e.getCurrentHP() + "\" ";
+		save += "currentMp=\"" + e.getCurrentMP() + "\" ";
 		save += "offense=\"" + e.getOffense() + "\" ";
 		save += "defense=\"" + e.getDefense() + "\" ";
 		
 		switch(e.getOccupation()) {
 		case "smasher":
-			save += "onehanded=\"" + ((SmasherEntity) e).getOneHanded() + "\" ";
-			save += "twohanded=\"" + ((SmasherEntity) e).getTwoHanded() + "\" ";
-			save += "brawling=\"" + ((SmasherEntity) e).getBrawling() + "\" ";
-			save += "chakra=\"" + ((SmasherEntity) e).getChakra() + "\" ";
+			save += "stat1=\"" + ((SmasherEntity) e).getOneHanded() + "\" ";
+			save += "stat2=\"" + ((SmasherEntity) e).getTwoHanded() + "\" ";
+			save += "stat3=\"" + ((SmasherEntity) e).getBrawling() + "\" ";
+			save += "stat4=\"" + ((SmasherEntity) e).getChakra() + "\" ";
 			
 		case "sneak":
-			save += "pickpocket=\"" + ((SneakEntity) e).getPickPocket() + "\" ";
-			save += "trap=\"" + ((SneakEntity) e).getTrapSkill() + "\" ";
-			save += "creep=\"" + ((SneakEntity) e).getCreep() + "\" ";
-			save += "ranged=\"" + ((SneakEntity) e).getRangedWeapon() + "\" ";
+			save += "stat1=\"" + ((SneakEntity) e).getPickPocket() + "\" ";
+			save += "stat2=\"" + ((SneakEntity) e).getTrapSkill() + "\" ";
+			save += "stat3=\"" + ((SneakEntity) e).getCreep() + "\" ";
+			save += "stat4=\"" + ((SneakEntity) e).getRangedWeapon() + "\" ";
 			
 		case "summoner":
-			save += "enchantment=\"" + ((SummonerEntity) e).getEnchantment() + "\" ";
-			save += "bane=\"" + ((SummonerEntity) e).getBane() + "\" ";
-			save += "boon=\"" + ((SummonerEntity) e).getBoon() + "\" ";
-			save += "staff=\"" + ((SummonerEntity) e).getStaff() + "\" ";
+			save += "stat1=\"" + ((SummonerEntity) e).getEnchantment() + "\" ";
+			save += "stat2=\"" + ((SummonerEntity) e).getBane() + "\" ";
+			save += "stat3=\"" + ((SummonerEntity) e).getBoon() + "\" ";
+			save += "stat4=\"" + ((SummonerEntity) e).getStaff() + "\" ";
 		}
 		
 		save += "/>";
