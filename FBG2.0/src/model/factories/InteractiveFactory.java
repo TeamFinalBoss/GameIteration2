@@ -43,7 +43,7 @@ public class InteractiveFactory implements PlaceableObjectFactory{
 			Item it = null;
 				
 			switch(item.getAttribute("name")){
-			case "dooropener":
+			case "doorOpener":
 				it = new DoorOpener();
 				((DoorOpener) it).setLink(Integer.parseInt(item.getAttribute("link")));
 				break;
