@@ -195,7 +195,7 @@ public class MapInstantiator {
 		
 		Element head = doc.getDocumentElement();
 		
-		Element maphead = (Element) head.getElementsByTagName("map").item(0);
+		Element maphead = (Element) head.getElementsByTagName("layer").item(0);
 		
 		GameMap m = new GameMap(new TileFactory().generate(maphead));
 		m.setID(Integer.parseInt(maphead.getAttribute("id")));

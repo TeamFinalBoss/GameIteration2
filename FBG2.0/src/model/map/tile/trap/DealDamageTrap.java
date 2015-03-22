@@ -6,7 +6,6 @@
 package model.map.tile.trap;
 
 import model.effect.DealDamageEffect;
-import model.effect.GoDownEffect;
 import model.entity.Entity;
 
 /**
@@ -17,7 +16,7 @@ public class DealDamageTrap extends Trap {
 
     @Override
     public void Activate(Entity caller) {
-        DealDamageEffect effect = new GoDownEffect(40);
+        DealDamageEffect effect = new DealDamageEffect(40);
         effect.applyEffect(caller);
     }
     

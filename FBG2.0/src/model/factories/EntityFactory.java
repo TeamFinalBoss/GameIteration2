@@ -183,11 +183,11 @@ public class EntityFactory implements PlaceableObjectFactory{
 		e.setHardiness(Integer.parseInt(s.getAttribute("hardiness")));
 		e.setExperience(Integer.parseInt(s.getAttribute("experience")));
 		e.setMovement(Integer.parseInt(s.getAttribute("movement")));
-		e.setBindWounds(Integer.parseInt(s.getAttribute("bindwounds")));
+		e.setBindWounds(Integer.parseInt(s.getAttribute("bindWounds")));
 		e.setBargain(Integer.parseInt(s.getAttribute("bargain")));
 		e.setObservation(Integer.parseInt(s.getAttribute("observation")));
-		e.setCurrentHP(Integer.parseInt(s.getAttribute("currenthp")));
-		e.setCurrentMP(Integer.parseInt(s.getAttribute("currentmp")));
+		e.setCurrentHP(Integer.parseInt(s.getAttribute("currentHp")));
+		e.setCurrentMP(Integer.parseInt(s.getAttribute("currentMp")));
 		e.setWeaponOffense(Integer.parseInt(s.getAttribute("offense")));
 		e.setEquipArmor(Integer.parseInt(s.getAttribute("defense")));
 	}
