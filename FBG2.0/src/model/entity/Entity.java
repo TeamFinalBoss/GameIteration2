@@ -114,6 +114,7 @@ public abstract class Entity extends MapObject{
     	motionType = MotionType.GROUND;
     	activeEffects = new ArrayList<Dispellable>();
     	visibleMap = new VisibleMap(this);
+    	canMove = true;
 		this.setID("1");
 		this.setClassName("Entity");
 		visibleMap.update();
@@ -478,7 +479,7 @@ public abstract class Entity extends MapObject{
     	super.modifyLocation(change);
     	setDirection(motionToDirection(change));
     	canMove = false;
-    	GameTimer.getInstance().addEvent(new AllowMovement(this), (int) 1000/getMovement());
+    	GameTimer.getInstance().addEvent(new AllowMovement(this), (int) 10000/getMovement());
     	return true;
     }
     public void setMovementPermission(boolean newest){
