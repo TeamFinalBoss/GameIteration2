@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
+import model.director.AvatarInteractionManager;
 import controller.commands.Commandable;
 import controller.commands.game.IncreaseAgility;
 import controller.commands.game.IncreaseHardiness;
@@ -18,6 +19,8 @@ import controller.util.Describeable;
 
 public class StatsMenu extends Observable implements Describeable,Menuable, Observer {
 
+	AvatarInteractionManager manager = AvatarInteractionManager.getInstance();
+	
 	private List<StatsOption> options;
 	private int currentIndex = 0;
 	private Map<StatsOption, Commandable> commands;

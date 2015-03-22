@@ -36,6 +36,7 @@ public class DefualtKeyBindingsBuilder {
 		bindings.addBinding(KeyEvent.VK_9, KeyBindingsOption.SKILL_9);
 		bindings.addBinding(KeyEvent.VK_0, KeyBindingsOption.SKILL_0);
 		bindings.addBinding(KeyEvent.VK_T, KeyBindingsOption.TILE_INFO);
+		bindings.addBinding(KeyEvent.VK_U, KeyBindingsOption.STATS_UPDATE);
 		
 		return bindings;
 	}
