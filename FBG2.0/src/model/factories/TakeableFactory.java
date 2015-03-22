@@ -84,7 +84,7 @@ public class TakeableFactory implements PlaceableObjectFactory{
 			it = new Gun();
 			break;
 			
-		case "healthpotion":
+		case "healthPotion":
 			it = new HealthPotion();
 			break;
 			
@@ -92,15 +92,15 @@ public class TakeableFactory implements PlaceableObjectFactory{
 			it = new Halo();
 			break;
 			
-		case "hermesboots":
+		case "hermesBoots":
 			it = new HermesBoots();
 			break;
 			
-		case "jesusboots":
+		case "jesusBoots":
 			it = new JesusBoots();
 			break;
 		
-		case "rustyknife":
+		case "rustyKnife":
 			it = new RustyKnife();
 			break;
 			
