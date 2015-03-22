@@ -18,26 +18,27 @@ import model.map.pair.PreciseCoordinatePair;
 * @author Aaron Iglesias
 */
 
-public class FireballAbility extends ProjectileAbility
+public class FlameStrikeAbility extends AngularAbility
 {
-	private String name;
+    private String name;
     private Effect effect;
     private CombatCoordinator myCC;
     private Effect cost;
-    private double ms;
-    private double rate;
+	private double degree;
+	private double radius;
 
-	public FireballAbility()
+	public FlameStrikeAbility()
 	{
-		this.name = "Fireball";
-		this.effect = FireballEffect;
+		this.name = "Flame Strike";
+		this.effect = FlameStrikeEffect;
 		this.myCC = CombatCoordinator.getInstance();
-		this.ms = 2000;
+		this.degree = 90;
+		this.radius = 4;
 	}
 
-	public FireballAbility(String name, Effect effect, Effect cost, double ms, double rate)
+	public FlameStrikeAbility(String name, Effect effect, Effect cost, int degree, double radius)
 	{
-		super(name, effect, cost, ms, rate);
+		super(name, effect, cost, degree, radius);
 		this.myCC = CombatCoordinator.getInstance();
 	}
 
@@ -53,22 +54,16 @@ public class FireballAbility extends ProjectileAbility
 	@Override
     public void performAbility(Entity caster) 
     {
-    	CoordinatePair coordinatePair = caster.getLocation();
-    	double x = coordinatePair.getX();
-    	double y = coordinatePair.getY();
-
-    	PreciseCoordinatePair PCP = new PreciseCoordinatePair();
-    	PCP.set(x,y);
-
-    	// this.cost = ManaEffect;
-
-    	Vector velocity = getVector(caster.getDirection());
     	int mana = caster.getCurrentMP();
 
     	if(mana >= 1)
     	{
     		caster.setCurrentMP(--mana);
-    		FireBall fb = new Fireball(ms, velocity, PCP, effect, caster);
+    		// for(iterate through entities)
+    		{
+    			if(inRange(caster, entity))
+    				// deal damage to entity
+    		}
     	}
     	else
     		return;
