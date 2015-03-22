@@ -26,11 +26,12 @@ public class CombatCoordinator {
             
         }
     }
+    /*
     public boolean AttemptAffectEntity(CoordinatePair CP){
-        Entity entityToAffect = entityInCoordinatePair(CP)
+        Entity entityToAffect = entityInCoordinatePair(CP);
         if(entityToAffect != null){
             
         }
-    }
+    }*/
     
 }
