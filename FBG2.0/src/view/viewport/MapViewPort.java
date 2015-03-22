@@ -129,7 +129,7 @@ public class MapViewPort implements ViewPort, Observer {
 
         items = (Locations) mapObjects[3];
         traps = (Locations) mapObjects[4];
-        projectiles = (ArrayList<Projectile>) mapObjects[5];
+        //projectiles = (ArrayList<Projectile>) mapObjects[5];
 
     }
 }
