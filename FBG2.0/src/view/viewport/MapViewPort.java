@@ -44,8 +44,12 @@ public class MapViewPort implements ViewPort, Observer {
 
     @Override
     public void draw(Graphics g) {
-    	int windowWidthInTiles = GameDirector.getSize().width/ tileWidth;
-    	int windowHeightInTiles = GameDirector.getSize().height/ tileHeight;
+        //Calculate which portion of the map to draw based on avatar position.
+        int windowWidth = (int) (GameDirector.getSize().width * 0.8);
+        int windowHeight = (int) (GameDirector.getSize().height * 0.8);
+        
+    	int windowWidthInTiles = windowWidth/ tileWidth;
+    	int windowHeightInTiles = windowHeight/ tileHeight;
     	int startX = avatar.getLocation().getX() - windowWidthInTiles / 2;
     	int startY = avatar.getLocation().getY() - windowHeightInTiles / 2;
     	
