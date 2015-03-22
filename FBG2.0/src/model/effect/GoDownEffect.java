@@ -13,8 +13,8 @@ import model.entity.Entity;
  */
 public class GoDownEffect extends DealDamageEffect{
     
-    public GoDownEffect(int damageToDeal){
-        super(damageToDeal);
+    public GoDownEffect(){
+        super(10);
     }
     
     
