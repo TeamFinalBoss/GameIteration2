@@ -5,8 +5,6 @@
  */
 package model.map;
 
-import model.effect.DealDamageEffect;
-import model.effect.Effect;
 import model.effect.GoDownEffect;
 import model.entity.Entity;
 import model.map.pair.PreciseCoordinatePair;
