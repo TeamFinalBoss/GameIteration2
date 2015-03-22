@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<avatar occupation="smasher" map="1" currency="0" motiontype="0" direction="0" x="5" y="5">
+    <stats livesleft ...
+   	<sack>
+   	    <item name="sword" durability="100" />
+   	    ...
+   	</sack>
+   	<armory>
+   	    <item name="armor" durability="100" />
+   	    ...
+   	</armory>
+   	<effects>
+   	    ...
+   	</effects>
+</avatar>
+<map id="1">
+    <entity occupation="smasher" type="whatever_light" currency="2" motiontype="0" direction="0" x="3" y="3" link="1">
+        <sack>
+            ...
+        </sack>
+        <armory>
+            ...
+        </armory>
+        <effects>
+            ...
+        </effects>
+    </entity>
+    <obstacle name="door" link="4" x="1" y="1" />
+    <interactive name="dooropener" link="4" x="2" y="2" />
+    <oneshot name="heart" x="1" y="2" />
+    <takeable name="sword" durability="20" x="2" y="1" />
+</map>
+<map id="2">
+    <entity occupation="smasher" type="whatever_dark" currency="10" motiontype="0" direction="2" x="3" y="3" link="1">
+        <sack>
+            ...
+        </sack>
+        <armory>
+            ...
+        </armory>
+        <effects>
+            ...
+        </effects>
+    </entity>
+</map>
