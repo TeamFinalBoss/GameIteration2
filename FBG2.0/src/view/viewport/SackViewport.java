@@ -8,19 +8,22 @@ import java.util.Observer;
 
 import model.director.GameDirector;
 import view.MousePoint;
+import view.MousePointClick;
 import controller.commands.sceneChangers.ArmorySackMaintainer;
+import controller.sceneControllers.SceneChanger;
+import controller.sceneControllers.SceneType;
 import controller.util.Selectable;
 
-public class SackViewport extends Observable implements ViewPort, Observer, MousePoint, Selectable {
+public class SackViewport extends Observable implements ViewPort, Observer, MousePointClick, Selectable {
 	
 	private int currentSelection;
-	private final int itemsPerRow = 5;
+	private static final int itemsPerRow = 5;
 	private static int currentMaxRow = 4;
 	private static int currentMinRow = 0;
 	private static int maximumNumberOfRows = 5;
 	private static final int sizeOfBox = 64;
 	private static int startX;
-	private static int startY = 0;
+	private static int startY;
 	private static final int offset = 31;
 	private static final int Ypadding = 10;
 	private static final int Xpadding = 17;
@@ -36,6 +39,33 @@ public class SackViewport extends Observable implements ViewPort, Observer, Mous
 	}
 
 	
+	public static int getMaximumNumberOfRows() {
+		return maximumNumberOfRows;
+	}
+	
+	public static int getItemsPerRow() {
+		return itemsPerRow;
+	}
+	
+	public static int getSizeOfBox() {
+		return sizeOfBox;
+	}
+	
+	public static int getStartX() {
+		return startX;
+	}
+	
+	public static int getStartY() {
+		return startY;
+	}
+	
+	public static int getYPadding() {
+		return Ypadding;
+	}
+	
+	public static int getXPadding() {
+		return Xpadding;
+	}
 
 	@Override
 	public void draw(Graphics g) {
@@ -105,16 +135,52 @@ public class SackViewport extends Observable implements ViewPort, Observer, Mous
 
 
 	@Override
-	public void getActiveLocation(Point point) {
+	public int getActiveLocation(Point point) {
 		for(int i = 0; i < maximumNumberOfRows; ++i) {
 			for(int j = 0; j < itemsPerRow; ++j) {
 				if(withinXBounds(j,(int)point.getX()) && withinYBounds(i,(int)point.getY())) {	
 					currentSelection = ((i * itemsPerRow) + j) + (maximumNumberOfRows * currentMinRow);
 					setChanged();
 					notifyObservers();
+					return currentSelection;
 				}
 			}
 		}
+		return -1;
+	}
+
+
+	@Override
+	public void verifyChange(Point point) {
+		if(ArmorySackMaintainer.isPressedArmory()) {
+			if(isInArmory(point)) {
+				SceneChanger.getInstance().changeScene(SceneType.ARMORY);
+			}
+		}
+		
+	}
+
+
+	private boolean isInArmory(Point point) {
+		return isInLine(point) || isInCross(point);
+	}
+
+
+	private boolean isInCross(Point point) {
+		int x = (int)point.getX();
+		int y = (int)point.getY();
+		int startingX = ArmoryViewport.getStartX() - ArmoryViewport.getSizeOfBox();
+		int startingY = ArmoryViewport.getStartY() + ArmoryViewport.getSizeOfBox();
+		return x >= startingX && x <= startingX + ArmoryViewport.getNumberacross() * ArmoryViewport.getSizeOfBox() &&
+				y>= startingY && y <= startingY + ArmoryViewport.getSizeOfBox();
+	}
+
+
+	private boolean isInLine(Point point) {
+		int x = (int)point.getX();
+		int y = (int)point.getY();
+		return x >= ArmoryViewport.getStartX() && x<=  ArmoryViewport.getStartX() + ArmoryViewport.getSizeOfBox() &&
+				y >= ArmoryViewport.getStartY() && y <= ArmoryViewport.getNumberdown() * ArmoryViewport.getSizeOfBox() + ArmoryViewport.getStartY();
 	}
 
 }

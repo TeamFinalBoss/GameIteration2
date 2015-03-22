@@ -53,7 +53,7 @@ public class KeyBindingsMenuViewPort extends MainMenuViewPort implements ViewPor
 		}
 	}
 	
-	public void getActiveLocation(Point point) {
+	public int getActiveLocation(Point point) {
 		if (super.getOptions() != null) {
 			int maxIterations = super.getOptions().length < maximumOptionsDisplayed ? super.getOptions().length : maximumOptionsDisplayed;
 			for (int i = minimumRow; i < minimumRow + maxIterations; i++) {
@@ -61,9 +61,11 @@ public class KeyBindingsMenuViewPort extends MainMenuViewPort implements ViewPor
 					super.setActiveIndex(i);
 					setChanged();
 					notifyObservers();
+					return i;
 				}
 			}
 		}
+		return -1;
 	}
 
 	@Override

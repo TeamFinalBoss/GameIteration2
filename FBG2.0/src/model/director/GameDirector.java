@@ -12,6 +12,7 @@ import java.util.Observer;
 
 import model.map.GameMap;
 import view.MousePoint;
+import view.MousePointClick;
 import view.scene.Scene;
 import view.viewport.ArmoryViewport;
 import view.viewport.KeyBindingsErrorViewPort;
@@ -159,6 +160,9 @@ public class GameDirector implements SceneObserver{
         List<Observable> armoryObservables = controller.getObservables(SceneType.ARMORY);
         ((Observable)armory).addObserver((Observer) armoryObservables.get(0));
         controller.getMouseParser().setMousePoint(SceneType.ARMORY, (MousePoint)armory);
+        
+        controller.getMouseParser().setMousePointClick(SceneType.ARMORY, (MousePointClick)armory);
+        controller.getMouseParser().setMousePointClick(SceneType.SACK, (MousePointClick)sack);
        
         map.addObserver(mapVP);//Add mapVP as an Observer to map
         
