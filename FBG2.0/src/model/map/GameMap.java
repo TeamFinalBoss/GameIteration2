@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-import model.map.tile.AreaEffect;
+import model.map.areaEffect.AreaEffect;
 import model.map.tile.Tile;
 import model.map.tile.trap.Trap;
 import model.map.pair.CoordinatePair;
@@ -350,8 +350,12 @@ public class GameMap extends Observable {
      * @return the tile at the CoordinatePair
      */
     public Tile getTileAtCoordinate(CoordinatePair location) {
-        return tiles[location.getX()][location.getY()];
+        if(CoordPairIsValid(location))
+            return tiles[location.getX()][location.getY()];
+        else
+            return null;
     }
+    
     /**
      * Returns the Item at the CoordinatePair
      *

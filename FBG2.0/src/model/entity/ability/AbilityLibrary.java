@@ -96,9 +96,9 @@ public abstract class AbilityLibrary {
      */
     public void update(){
     	for (Ability ability : unlearnedAbilities){
-    		if (ability.meetsStatRequirements(entityToLearn)(owner)){
-    			addAbility(ability);
-    		}
+            if (ability.meetsStatRequirements(owner)){
+                    addAbility(ability);
+            }
     	}
     }
     

@@ -29,12 +29,14 @@ public class MapViewPort implements ViewPort, Observer {
 
     int widthInTiles = 0, heightInTiles = 0;
     BufferedImage grass;
-	private int tileWidth = 64;
-	private int tileHeight = 64;
+    BufferedImage avatarImage;
+    private int tileWidth = 64;
+    private int tileHeight = 64;
 
     public MapViewPort() {
         try {
-            grass = ImageIO.read(new File("src/resources/img/grass.jpg"));
+            grass = ImageIO.read(new File("src/resources/img/grass.jpg"));            
+            avatarImage = ImageIO.read(new File("src/resources/img/summonerUp.gif"));
         } catch (IOException ex) {
 
         }
@@ -70,16 +72,17 @@ public class MapViewPort implements ViewPort, Observer {
 
             	//Draw tile
                 //TODO: Make it so it doesnt just draw grass       
-              //  g.drawImage(grass, i * 64, j * 64, 64, 64, null);
+                g.drawImage(grass, i * 64, j * 64, 64, 64, null);
             	
                 //Draw enitty
                 if (entities.getObjectAt(new CoordinatePair(i, j)) != null  ){
                 	if(entities.getObjectAt(new CoordinatePair(i, j)).equals(avatar)) {
-                		 g.setColor(Color.blue);
+                		g.setColor(Color.blue);
                 	} else {
                 		g.setColor(Color.red);
                 	}
-                    g.drawRect((i-startX)*64, (j-startY)*64, 63, 63);
+                    g.drawImage(avatarImage, (i-startX)*64, (j-startY)*64, 64, 64, null);
+                    //g.drawRect((i-startX)*64, (j-startY)*64, 63, 63);
                 }
                 
                 

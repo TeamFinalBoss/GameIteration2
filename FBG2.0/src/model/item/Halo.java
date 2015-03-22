@@ -5,6 +5,7 @@
  */
 package model.item;
 
+import model.entity.Entity;
 import model.map.pair.CoordinatePair;
 ;
 
@@ -61,6 +62,38 @@ public class Halo extends Equipable {
                         new CoordinatePair(), 0, 1,EquipSlot.HEAD );
                         
 }
+        
+   @Override
+        public void onUnequip(Entity target){
+            target.modifyAgility(-10);
+            target.modifyWeaponOffense(-5);
+        }
+        
+   @Override
+        public void onEquip(Entity target){
+            target.modifyAgility(10);
+            target.modifyWeaponOffense(5);
+        }
 
+        
+        
+        @Override 
+        public boolean useInSack(Entity e){
+            if (!meetsRequirements(e)){
+                return false;
+            }
+            else{
+           e.equip(this);
+           return true;
+            }
+            
+        }
+        
+    @Override
+        public boolean meetsRequirements(Entity e){
+        return e.getLevel() >= 1;
+        
+        }
+        
    
 }

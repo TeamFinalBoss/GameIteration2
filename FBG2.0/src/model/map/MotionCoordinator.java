@@ -3,7 +3,7 @@ package model.map;
 import model.entity.Entity;
 import model.item.Item;
 import model.map.pair.CoordinatePair;
-import model.map.tile.AreaEffect;
+import model.map.areaEffect.AreaEffect;
 import model.map.tile.trap.Trap;
 
 /**

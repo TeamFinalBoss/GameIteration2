@@ -34,7 +34,7 @@ import controller.util.SceneObserver;
  *
  * @author ChrisMoscoso
  */
-public class GameDirector implements SceneObserver{
+public class GameDirector extends Observable implements SceneObserver{
 
     private static Boolean paused = false;
     private static GameWindow window;
@@ -151,8 +151,14 @@ public class GameDirector implements SceneObserver{
         
         controller.addObserver(sack, SceneType.SACK);
         controller.addObserver(armory, SceneType.ARMORY);
-        sceneChanger.registerObserver(sack);
-        sceneChanger.registerObserver(armory);
+        
+        List<Observable> sackObservables = controller.getObservables(SceneType.SACK);
+        ((Observable)sack).addObserver((Observer) sackObservables.get(0));
+        controller.getMouseParser().setMousePoint(SceneType.SACK, (MousePoint)sack);
+        
+        List<Observable> armoryObservables = controller.getObservables(SceneType.ARMORY);
+        ((Observable)armory).addObserver((Observer) armoryObservables.get(0));
+        controller.getMouseParser().setMousePoint(SceneType.ARMORY, (MousePoint)armory);
        
         map.addObserver(mapVP);//Add mapVP as an Observer to map
         
@@ -160,6 +166,16 @@ public class GameDirector implements SceneObserver{
         activeScene = gameScene;
     }
 
+    
+    /**
+     * Checks if game is paused
+     *
+     * @return true if the game is paused
+     */
+    public static boolean gameIsPaused() {
+        return paused;
+    }
+    
     /**
      * This is where execution of the game logic and updating of the model takes
      * place

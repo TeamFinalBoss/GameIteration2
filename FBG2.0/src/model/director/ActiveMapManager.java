@@ -13,7 +13,7 @@ import model.map.GameMap;
 import model.map.MapSwitcher;
 import model.map.Projectile;
 import model.map.pair.CoordinatePair;
-import model.map.tile.AreaEffect;
+import model.map.areaEffect.AreaEffect;
 import model.map.tile.Tile;
 import model.map.tile.trap.Trap;
 
@@ -258,6 +258,7 @@ public class ActiveMapManager {
     	this.activeMap.removeMapSwitcher(switcher);
     }
     
+    
     /**
      * Attempts to remove a MapSwitcher from the active map at the
      * given CoordinatePair. Returns MapSwitcher if it was present at the
@@ -329,5 +330,9 @@ public class ActiveMapManager {
     }
     public boolean useAvatarAbility(int abilityToUse){
         return useAbility(avatar, abilityToUse);
+    }
+
+    Entity getEntityAtCoordinate(CoordinatePair CP) {
+        return activeMap.getEntityAtCoordinate(CP);
     }
 }

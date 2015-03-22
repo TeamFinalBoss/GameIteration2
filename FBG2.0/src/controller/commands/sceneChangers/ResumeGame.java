@@ -13,6 +13,8 @@ public class ResumeGame extends SceneChangerCommands implements Commandable {
 
 	@Override
 	public void execute() {
+		ArmorySackMaintainer.setPressedArmory(false);
+		ArmorySackMaintainer.setPressedSack(false);
 		super.switchScene(SceneType.GAME);
 	}
 
