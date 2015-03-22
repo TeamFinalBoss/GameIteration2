@@ -65,7 +65,8 @@ public class ObjectSaver {
 		save += getArmoryFormat(e) + "\n";
 		save += getEffectsFormat(e) + "\n";
 		
-		save += "</entity>";
+		if(e.getType().equals("avatar")) save += "</avatar>";
+		else save += "</entity>";
 		
 		return save;
 	}
