@@ -8,7 +8,7 @@ package model.item;
 import model.entity.Entity;
 import model.map.pair.CoordinatePair;
 import model.effect.Effect;
-import model.effect.DealDamageEffect;
+import model.effect.GoDownEffect;
 
 /**
  * ID=17
@@ -25,7 +25,7 @@ public abstract class Weapon extends Equipable{
 		
 		this.id = "17";
 		this.className = "Weapon";
-                this.E1= new DealDamageEffect(10); 
+                this.E1= new GoDownEffect(10); 
              
                 
 		

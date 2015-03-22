@@ -9,7 +9,7 @@ import model.stats.PlayerStats;
  * @author Jason Owens
  */
 public abstract class DealDamageEffect implements Effect {
-    private int damageToDeal;
+    int damageToDeal;
 
     public DealDamageEffect(int damageToDeal) {
         super();
