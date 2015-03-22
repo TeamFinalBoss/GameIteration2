@@ -28,6 +28,7 @@ import model.item.EquipSlot;
 import java.util.Map;
 
 import model.director.ActiveMapManager;
+import model.director.AvatarInteractionManager;
 
 /** 
  * The class Entity defines a common type for all entities (beings) in the game. 
@@ -286,7 +287,12 @@ public abstract class Entity extends MapObject{
 		myAbilities.update();
 	}
 	public void setExperience(int next){
+		int initial = getLevel();
 		myStats.setExperience(next);
+		if(initial > getLevel()){
+			AvatarInteractionManager.getInstance().modifySkillPoints(10);
+			AvatarInteractionManager.getInstance().modifyStatPoints(10);
+		}
 		myAbilities.update();
 	}
 	public void setMovement(int next){
@@ -330,6 +336,8 @@ public abstract class Entity extends MapObject{
 	}
 	public void levelUp(){
 		myStats.levelUp();
+		AvatarInteractionManager.getInstance().modifySkillPoints(10);
+		AvatarInteractionManager.getInstance().modifyStatPoints(10);
 		myAbilities.update();
 	}
 	public void modifyLivesLeft(int next){
@@ -353,7 +361,12 @@ public abstract class Entity extends MapObject{
 		myAbilities.update();
 	}
 	public void modifyExperience(int next){
+		int initial = getLevel();
 		myStats.modifyExperience(next);
+		if(initial > getLevel()){
+			AvatarInteractionManager.getInstance().modifySkillPoints(10);
+			AvatarInteractionManager.getInstance().modifyStatPoints(10);
+		}
 		myAbilities.update();
 	}
 	public void modifyMovement(int next){

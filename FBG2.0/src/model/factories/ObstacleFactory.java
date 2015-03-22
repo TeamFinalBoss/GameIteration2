@@ -20,7 +20,7 @@ import org.w3c.dom.NodeList;
  * @author Aidan Pace
  */
 public class ObstacleFactory implements PlaceableObjectFactory{
-	ObstacleFactory() {
+	public ObstacleFactory() {
 	}
 	
 	/**

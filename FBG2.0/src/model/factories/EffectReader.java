@@ -14,7 +14,7 @@ import org.w3c.dom.NodeList;
  * @author Aidan Pace
  */
 public class EffectReader {
-	EffectReader() {
+	public EffectReader() {
 	}
 	
 	/**
