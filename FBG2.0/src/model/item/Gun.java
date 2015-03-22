@@ -76,5 +76,40 @@ public class Gun extends Weapon{
         }
         //TODO- Projectile motion has to be added
     
-        public abstract void projectileEffect();
+      
+        
+    @Override
+        public void onUnequip(Entity target){
+            target.modifyAgility(-10);
+            target.modifyWeaponOffense(-10);
+        }
+        
+    /**
+     *
+     * @param target
+     */
+    @Override
+    public void onEquip(Entity target){
+            target.modifyAgility(10);
+            target.modifyWeaponOffense(10);
+        }
+    
+    @Override 
+        public boolean useInSack(Entity e){
+            if (!meetsRequirements(e)){
+                return false;
+            }
+            else{
+           e.equip(this);
+           return true;
+            }
+            
+        }
+        
+    @Override
+        public boolean meetsRequirements(Entity e){
+        return e.getLevel() >= 2;
+        }
+        
+        
 }

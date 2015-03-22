@@ -5,6 +5,7 @@
  */
 package model.item;
 
+import model.entity.Entity;
 import model.map.pair.CoordinatePair;
 
 /**
@@ -46,10 +47,7 @@ public class JesusBoots extends Equipable{
         }
         
        
-        // for Armours 
-        public boolean meetsRequirements(){
-            return false;
-        }
+        
         
         @Override
     public Takeable copy(){
@@ -63,4 +61,33 @@ public class JesusBoots extends Equipable{
             super("HermesBoots", "Generic description", new CoordinatePair(), 
                         0, 1, EquipSlot.FEET);
     }
+    
+    @Override
+        public void onUnequip(Entity target){
+            target.modifyAgility(-3);
+            target.modifyWeaponOffense(-3);
+        }
+        
+   @Override
+        public void onEquip(Entity target){
+            target.modifyAgility(3);
+            target.modifyWeaponOffense(3);
+        }
+        
+        @Override 
+        public boolean useInSack(Entity e){
+            if (!meetsRequirements(e)){
+                return false;
+            }
+            else{
+           e.equip(this);
+           return true;
+            }
+            
+        }
+        
+    @Override
+        public boolean meetsRequirements(Entity e){
+        return e.getLevel() >= 2;
+        }
 }

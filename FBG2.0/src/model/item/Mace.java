@@ -6,6 +6,7 @@
 package model.item;
 
 import model.effect.GoDownEffect;
+import model.entity.Entity;
 import model.map.pair.CoordinatePair;
 
 /**
@@ -50,5 +51,37 @@ public class Mace extends Weapon {
             super("Generic Mace", "Generic description", new CoordinatePair(), 
                         0, durability, EquipSlot.HEAD, new GoDownEffect(20));
         }
-    
+    @Override
+        public void onUnequip(Entity target){
+            target.modifyAgility(-5);
+            target.modifyWeaponOffense(-5);
+        }
+        
+   @Override
+        public void onEquip(Entity target){
+            target.modifyAgility(5);
+            target.modifyWeaponOffense(5);
+        }
+        
+        
+        @Override 
+        public boolean useInSack(Entity e){
+            if (!meetsRequirements(e)){
+                return false;
+            }
+            else{
+           e.equip(this);
+           return true;
+            }
+            
+        }
+        
+    @Override
+        public boolean meetsRequirements(Entity e){
+        return e.getLevel() >= 2 && e.getAgility()>=5;
+       
+        
+        }
 }
+
+

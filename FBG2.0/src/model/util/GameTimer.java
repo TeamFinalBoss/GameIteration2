@@ -40,8 +40,7 @@ public class GameTimer{
         
     }
     
-    public void addEvent(TimerTask event, int timeInMil){
-        
+    public void addEvent(TimerTask event, int timeInMil){        
         myTimer.schedule(event, timeInMil);
     }
 }

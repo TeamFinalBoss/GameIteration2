@@ -12,7 +12,7 @@ import model.entity.Entity;
  * 
  * @see MapObject
  * @see Item
- * @author Ashish Aggarwal, Michael Cohen
+ * @author Ashish Aggarwal
  *
  */
 public abstract class Takeable extends Item {

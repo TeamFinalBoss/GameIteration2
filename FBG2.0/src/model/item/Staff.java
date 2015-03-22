@@ -6,6 +6,7 @@
 package model.item;
 
 import model.effect.GoDownEffect;
+import model.entity.Entity;
 import model.map.pair.CoordinatePair;
 
 /**
@@ -57,6 +58,33 @@ public class Staff extends Weapon {
             super("Staff", "Generic_description", new CoordinatePair(),
                 0, durability, EquipSlot.HEAD, new GoDownEffect(10));
         }
-    
+         
+         @Override
+        public void onUnequip(Entity target){
+            target.modifyAgility(-10);
+            target.modifyWeaponOffense(-5);
+        }
+        
+   @Override
+        public void onEquip(Entity target){
+            target.modifyAgility(10);
+            target.modifyWeaponOffense(5);
+        }
+    @Override 
+        public boolean useInSack(Entity e){
+            if (!meetsRequirements(e)){
+                return false;
+            }
+            else{
+           e.equip(this);
+           return true;
+            }
+            
+        }
+        
+    @Override
+        public boolean meetsRequirements(Entity e){
+        return e.getLevel() >= 1 && e.getBargain()>=5 && e.getAgility()>=5;
+        }
     
 }
