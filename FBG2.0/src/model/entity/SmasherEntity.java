@@ -12,6 +12,9 @@ public abstract class SmasherEntity extends Entity{
 	protected SmasherStats createStats(){
 		return new SmasherStats();
 	}
+	protected String setOccupation(){
+		return "smasher";
+	}
 	
 	/* -------------------- PROTECTED UTILITY ------------------- */
 	protected SmasherLibrary getAbilities(){

@@ -11,7 +11,6 @@ import org.w3c.dom.NodeList;
 
 import model.director.ActiveMapManager;
 import model.effect.Dispellable;
-import model.effect.Effect;
 import model.entity.Entity;
 import model.entity.MotionType;
 import model.entity.SmasherAvatar;
@@ -20,13 +19,9 @@ import model.entity.SneakAvatar;
 import model.entity.SneakEntity;
 import model.entity.SummonerAvatar;
 import model.entity.SummonerEntity;
-import model.entity.inventory.Armory;
-import model.entity.inventory.Inventory;
-import model.entity.inventory.Sack;
 import model.item.Equipable;
 import model.item.Takeable;
 import model.map.Direction;
-import model.map.GameMap;
 import model.map.pair.CoordinatePair;
 
 /**
@@ -173,7 +168,6 @@ public class EntityFactory implements PlaceableObjectFactory{
 			}
 			
 			en.setLocation(new CoordinatePair(Integer.parseInt(e.getAttribute("x")), Integer.parseInt(e.getAttribute("y"))));
-			ActiveMapManager.getInstance().addEntityToActiveMap(en, new CoordinatePair(Integer.parseInt(e.getAttribute("x")), Integer.parseInt(e.getAttribute("y"))));
 			
 			entities.add(en);
 		}
