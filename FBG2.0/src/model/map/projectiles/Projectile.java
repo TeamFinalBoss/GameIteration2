@@ -79,7 +79,7 @@ public abstract class Projectile extends TimerTask{
     
     public abstract boolean canSee(int observationLevel);
 
-    public Object getLocation() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public PreciseCoordinatePair getLocation() {
+        return location;
     }
 }
