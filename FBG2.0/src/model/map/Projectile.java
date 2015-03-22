@@ -1,6 +1,7 @@
 package model.map;
 
 import java.util.TimerTask;
+import model.director.ActiveMapManager;
 
 import model.effect.Effect;
 import model.entity.Entity;
@@ -41,6 +42,7 @@ public abstract class Projectile extends TimerTask{
         myTimer = GameTimer.getInstance();
         myTimer.addEvent(this, 0); //immediately calls run
         refreshRate = 10; //projectiles refresh every 10 milliseconds (20 times a second)
+        ActiveMapManager.getInstance().addProjectileToMap(this);
     }
     
     /*
@@ -58,6 +60,7 @@ public abstract class Projectile extends TimerTask{
         if(isActive){ 
             myTimer.addEvent(this, refreshRate);
         }
+        
     }
     public void onHit(Entity e){
         isActive = false; //change this if we ever implement piercing projectiles

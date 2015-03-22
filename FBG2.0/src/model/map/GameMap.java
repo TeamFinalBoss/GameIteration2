@@ -564,6 +564,10 @@ public class GameMap extends Observable {
         items.getSesInRange(center, radius, containedItems);
         effects.getSesInRange(center, radius, containedAreaEffects);
     }
+
+    public void addProjectile(Projectile proj) {
+        projectiles.add(proj);
+    }
 }
     
     
