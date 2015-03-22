@@ -38,12 +38,12 @@ public class StatsMenu extends Observable implements Describeable,Menuable, Obse
 		commands.put(StatsOption.STRENGTH, new IncreaseStrength());
 		commands.put(StatsOption.INTELLECT, new IncreaseIntellect());
 		commands.put(StatsOption.HARDINESS, new IncreaseHardiness());
-		commands.put(StatsOption.MOVEMENT, new IncreaseMovement());
+		commands.put(StatsOption.MOVEMENT, new IncreaseMovement());	
 	}
 	
 	@Override
 	public void next() {
-		int index = options.indexOf(currentIndex);
+		int index = currentIndex;
 		index = index + 1 <= options.size() - 1 ? index + 1 : index; 
 		setActiveOption(index);
 		
@@ -51,12 +51,13 @@ public class StatsMenu extends Observable implements Describeable,Menuable, Obse
 
 	private void setActiveOption(int index) {
 		this.currentIndex = index;
-		
+		setChanged();
+		notifyObservers();
 	}
 
 	@Override
 	public void previous() {
-		int index = options.indexOf(currentIndex);
+		int index = currentIndex;
 		index = index - 1 < 0 ? 0 : index - 1;
 		setActiveOption(index);
 	}
@@ -64,6 +65,7 @@ public class StatsMenu extends Observable implements Describeable,Menuable, Obse
 	@Override
 	public void confirm() {
 		commands.get(options.get(currentIndex)).execute();
+		setActiveOption(currentIndex);
 	}
 
 	@Override
@@ -76,12 +78,18 @@ public class StatsMenu extends Observable implements Describeable,Menuable, Obse
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public void addObserver(Observer o) {
+		super.addObserver(o);
+		setChanged();
+		notifyObservers();
+	}
 
 	@Override
 	public String[] getDescription() {
 		String array[] = new String[options.size()];
 		for(int i = 0; i < options.size(); i++) {
-			array[i] = options.get(i).toString();
+			array[i] = options.get(i).toString() + " ";
 			switch(options.get(i)) {
 				case STRENGTH :
 					array[i] += manager.getStrength();

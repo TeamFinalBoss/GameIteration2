@@ -20,6 +20,7 @@ import view.viewport.KeyBindingsMenuViewPort;
 import view.viewport.MainMenuViewPort;
 import view.viewport.MapViewPort;
 import view.viewport.SackViewport;
+import view.viewport.StatsUpdateViewport;
 import view.window.GameWindow;
 import controller.Controller;
 import controller.sceneControllers.SceneChanger;
@@ -67,6 +68,7 @@ public class GameDirector extends Observable implements SceneObserver{
         scenes.put(SceneType.ARMORY, gameScene);
         scenes.put(SceneType.SAVE, saveScene);
         scenes.put(SceneType.LOAD, loadScene);
+        scenes.put(SceneType.STATS_UPDATING, gameScene);
         
         sceneChanger.registerObserver(this);
     }
@@ -150,8 +152,12 @@ public class GameDirector extends Observable implements SceneObserver{
         ArmoryViewport armory = new ArmoryViewport();
         gameScene.addViewport(armory);
         
+        StatsUpdateViewport statsPort = new StatsUpdateViewport();
+        gameScene.addViewport(statsPort);
+        
         controller.addObserver(sack, SceneType.SACK);
         controller.addObserver(armory, SceneType.ARMORY);
+        controller.addObserver(statsPort, SceneType.STATS_UPDATING);
         
         List<Observable> sackObservables = controller.getObservables(SceneType.SACK);
         ((Observable)sack).addObserver((Observer) sackObservables.get(0));

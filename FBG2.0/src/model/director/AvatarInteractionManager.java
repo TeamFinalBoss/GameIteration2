@@ -33,7 +33,7 @@ public class AvatarInteractionManager {
  
     public AvatarInteractionManager(){
        AMM = ActiveMapManager.getInstance();
-       statPoints = 0;
+       statPoints = 10;
        skillPoints = 0;
        currentSlotInSack = 0;
        currentSlotInArmory = 0;
@@ -41,7 +41,7 @@ public class AvatarInteractionManager {
     public AvatarInteractionManager(Entity avatar){
         this.avatar = avatar;
         AMM = ActiveMapManager.getInstance();
-        statPoints = 0;
+        statPoints = 10;
         skillPoints = 0;
         currentSlotInSack = 0;
         currentSlotInArmory = 0;
@@ -254,7 +254,7 @@ public class AvatarInteractionManager {
 	public int getIntellect(){
 		return avatar.getIntellect();
 	}
-	public int gethardiness(){
+	public int getHardiness(){
 		return avatar.getHardiness();
 	}
 	public int getExperience(){

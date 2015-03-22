@@ -151,6 +151,7 @@ public class ControllerBuilder {
 		StatsMenu statsMenu = new StatsMenu();
 		Map<Integer, Commandable> statsMenuMap = buildDefaultMenuBindings(statsMenu,map);
 		statsMenuMap.put(map.get(KeyBindingsOption.PAUSE), new ResumeGame());
+		statsMenuMap.put(map.get(KeyBindingsOption.STATS_UPDATE), new ResumeGame());
 		KeyOptions statsOptions = new KeyOptions(statsMenuMap);
 		SceneController statsController = buildController(statsOptions);
 		
