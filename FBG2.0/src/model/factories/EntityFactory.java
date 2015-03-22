@@ -12,7 +12,9 @@ import org.w3c.dom.NodeList;
 import model.director.ActiveMapManager;
 import model.effect.Dispellable;
 import model.entity.Entity;
+import model.entity.LightGuardian;
 import model.entity.MotionType;
+import model.entity.NPC;
 import model.entity.SmasherAvatar;
 import model.entity.SmasherEntity;
 import model.entity.SneakAvatar;
@@ -193,16 +195,16 @@ public class EntityFactory implements PlaceableObjectFactory{
 	}
 	
 	private Entity switchSmasherType(Element e) {
-		Entity en = null;
+		NPC en = null;
 		
 		switch(e.getAttribute("type")) {
-		case "blah":
-			en = new SmasherAvatar();
-			//en.setLink(Integer.parseInt(e.getAttribute("link")));
+		case "lightGuardian":
+			en = new LightGuardian();
+			en.setLink(Integer.parseInt(e.getAttribute("link")));
 			
 		}
 		
-		return en;
+		return (Entity) en;
 	}
 	
 	private Entity switchSneakType(Element e) {

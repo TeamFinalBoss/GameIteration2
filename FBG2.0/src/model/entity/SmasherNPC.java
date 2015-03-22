@@ -25,7 +25,7 @@ import model.map.pair.CoordinatePair;
  */
 
 
-public abstract class SmasherNPC extends SmasherEntity {
+public abstract class SmasherNPC extends SmasherEntity implements NPC {
 
 		private DialogueTree dt;
 		private boolean friendly;
