@@ -5,7 +5,7 @@ import model.director.ActiveMapManager;
 import java.util.ArrayList;
 import model.item.Item;
 import model.map.Projectile;
-import model.map.tile.AreaEffect;
+import model.map.areaEffect.AreaEffect;
 import model.map.tile.Tile;
 import model.map.tile.trap.Trap;
 import java.util.Collections;
