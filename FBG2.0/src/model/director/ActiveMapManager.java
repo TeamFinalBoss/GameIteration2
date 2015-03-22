@@ -80,6 +80,8 @@ public class ActiveMapManager {
 		List<Trap> containedTraps, List<Item> containedItems, List<AreaEffect> containedAreaEffects){
         
        /* activeMap.getEverythingInRange( center,  radius, 
+        
+        activeMap.getEverythingInRange( center,  radius, 
       containedTiles, containedProjectiles, containedEntities, 
 		 containedTraps,  containedItems, containedAreaEffects);*/
         

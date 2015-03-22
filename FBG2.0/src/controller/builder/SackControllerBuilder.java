@@ -12,7 +12,6 @@ import controller.commands.sack.SackNext;
 import controller.commands.sack.SackPrevious;
 import controller.commands.sack.SackUp;
 import controller.commands.sceneChangers.ArmorySwitch;
-import controller.commands.sceneChangers.ArmorySackSwitch;
 import controller.commands.sceneChangers.ResumeGame;
 import controller.keyBindings.KeyBindingsOption;
 import controller.keyBindings.KeyOptions;

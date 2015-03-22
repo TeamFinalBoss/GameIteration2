@@ -42,12 +42,6 @@ public class MotionValidator {
             return false;
         }
 
-        //now checking for obstacles
-        if(itemAtDesiredLocation.getClassName() == "Obstacle"){ //this is very wrong, but how to fix?
-            return false;
-        }
-
-
         return true;
     }
     /**

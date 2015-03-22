@@ -119,6 +119,7 @@ public class GameDirector implements SceneObserver{
     }
 
     public void startNewGame() {
+        
         GameMap map = new GameMap();
         ActiveMapManager.getInstance().addMap(map);
         ActiveMapManager.getInstance().setActiveMap(map);
