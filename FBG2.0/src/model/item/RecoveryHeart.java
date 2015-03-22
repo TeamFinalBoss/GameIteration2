@@ -5,7 +5,7 @@
  */
 package model.item;
 
-import model.effect.GoUpEffect;
+import model.effect.HealEffect;
 import model.effect.Effect;
 import model.entity.Entity;
 import model.map.pair.CoordinatePair;
@@ -38,7 +38,7 @@ public class RecoveryHeart extends OneShot {
         
         
         public void healHeart(Entity w){
-              Effect w1 = new GoUpEffect(10);
+              Effect w1 = new HealEffect(10);
                w1.applyEffect(w);
            
             
