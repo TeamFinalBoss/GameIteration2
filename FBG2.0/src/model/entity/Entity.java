@@ -247,12 +247,12 @@ public abstract class Entity extends MapObject{
 	}
 	public int getCurrentHP(){
 		myAbilities.update();
-		return myStats.currentHealth();
+		return myStats.getCurrentHealth();
 
 	}
 	public int getCurrentMP(){
 		myAbilities.update();
-		return myStats.currentMana();
+		return myStats.getCurrentMana();
 
 	}
 	public int getWeaponOffense(){
@@ -346,15 +346,15 @@ public abstract class Entity extends MapObject{
 		myAbilities.update();
 	}
 	public void modifyStrength(int next){
-		myStats.setStrength(next);
+		myStats.modifyStrength(next);
 		myAbilities.update();
 	}
 	public void modifyAgility(int next){
-		myStats.setAgility(next);
+		myStats.modifyAgility(next);
 		myAbilities.update();
 	}
 	public void modifyIntellect(int next){
-		myStats.setIntellect(next);
+		myStats.modifyIntellect(next);
 		myAbilities.update();
 	}
 	public void modifyHardiness(int next){
@@ -379,27 +379,28 @@ public abstract class Entity extends MapObject{
 		myAbilities.update();
 	}
 	public void modifyBargain(int next){
-		myStats.setBargain(next);
+		myStats.modifyBargain(next);
 		myAbilities.update();
 	}
 	public void modifyObservation(int next){
-		myStats.setObservation(next);
+		myStats.modifyObservation(next);
 		myAbilities.update();
 	}
 	public void modifyCurrentHP(int next){
-		myStats.setCurrentHealth(next);
+		myStats.modifyCurrentHP(next);
 		myAbilities.update();
 	}
 	public void modifyCurrentMP(int next){
-		myStats.setCurrentMana(next);
+		myStats.modifyCurrentMP(next);
 		myAbilities.update();
 	}
+
 	public void modifyWeaponOffense(int next){
-		myStats.setWeaponOffense(next);
+		myStats.modifyWeaponOffense(next);
 		myAbilities.update();
 	}
 	public void modifyEquipArmor(int next){
-		myStats.setEquipArmor(next);
+		myStats.modifyEquipArmor(next);
 		myAbilities.update();
 	}
         

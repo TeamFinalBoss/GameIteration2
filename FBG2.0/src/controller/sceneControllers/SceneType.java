@@ -15,5 +15,6 @@ public enum SceneType {
 	LOAD,
 	DIALOGUE,
 	UPDATING,
-	ARMORY
+	ARMORY,
+	STATS_UPDATING
 }

@@ -125,6 +125,10 @@ public class ActiveMapManager {
     	return;
     }
     
+    public List<GameMap> getMaps() {
+    	return maps;
+    }
+    
     /**
      * If map is in maps, set it as active map and return true. Else return false
      * 
@@ -152,7 +156,7 @@ public class ActiveMapManager {
      */
     public boolean setActiveMap(int mapID) {
     	for(GameMap m : this.maps) {
-    		if(m.getID == mapID) {
+    		if(m.getID() == mapID) {
     			this.activeMap = m;
     			return true;
     		}

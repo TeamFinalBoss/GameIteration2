@@ -46,7 +46,7 @@ public class TakeableFactory implements PlaceableObjectFactory{
 		ArrayList<MapObject> items = new ArrayList<MapObject>();
 		
 		if(head.getTagName().equals("sack") || head.getTagName().equals("armory")) {
-			NodeList nodes = head.getElementsByTagName("takeableItem");
+			NodeList nodes = head.getElementsByTagName("item");
 			
 			for(int i = 0; i < nodes.getLength(); i++)
 			{
