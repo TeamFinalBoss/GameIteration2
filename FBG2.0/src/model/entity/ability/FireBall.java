@@ -14,7 +14,7 @@ import model.entity.Entity;
 public class FireBall extends Ability {
 
     public FireBall(){
-        super();
+        super("FireBall", Effect effect, CombatCoordinator myCC, Effect cost);
     }
     
     @Override
