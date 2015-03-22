@@ -5,6 +5,7 @@
  */
 package model.item;
 
+import model.entity.Entity;
 import model.map.pair.CoordinatePair;
 
 /**
@@ -41,4 +42,14 @@ public class Stick extends Takeable {
          public Stick(int durability){
             super("Stick", "Generic description", new CoordinatePair(), 0, durability);
         }
-}
+         
+         @Override 
+        public boolean useInSack(Entity e){
+           return true;
+            }
+            
+        }
+        
+   
+       
+

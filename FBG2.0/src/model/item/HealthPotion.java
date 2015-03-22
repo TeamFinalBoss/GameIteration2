@@ -6,6 +6,7 @@
 package model.item;
 
 import model.entity.Entity;
+import model.effect.GoUpEffect; 
 import model.map.pair.CoordinatePair;
 import model.effect.Effect;
 
@@ -39,9 +40,11 @@ public class HealthPotion extends Usable {
         @Override 
         public boolean useInSack(Entity e){
             //e.heal(12);
-            Effect ee = new HealEffect(10);
+            Effect ee = new GoUpEffect(10);
             ee.applyEffect(e);
+            e.remove(this);
             return true;
+            
         }
         
     @Override
@@ -49,10 +52,12 @@ public class HealthPotion extends Usable {
     		return new HealthPotion(this.getName(), this.getDescription(), this.getLocation(), this.getValue());
     	}
         
-        public HealPotion(int durability){
+        public HealthPotion(int durability){
            super("Generic HealthPotion", "Generic description", 
              new CoordinatePair(), 5, durability);
         }
+        
+        
         
 }
 

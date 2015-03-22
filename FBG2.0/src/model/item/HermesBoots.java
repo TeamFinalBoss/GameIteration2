@@ -5,6 +5,7 @@
  */
 package model.item;
 
+import model.entity.Entity;
 import model.map.pair.CoordinatePair;
 
 /**
@@ -64,5 +65,18 @@ public class HermesBoots extends Equipable{
             super("HermesBoots", "Generic description", new CoordinatePair(), 
                         0, 1, EquipSlot.FEET);
 }
+   @Override
+        public void onUnequip(Entity target){
+            target.modifyAgility(-5);
+            target.modifyWeaponOffense(-5);
+        }
+        
+   @Override
+        public void onEquip(Entity target){
+            target.modifyAgility(5);
+            target.modifyWeaponOffense(5);
+        }
+        
+        
     
 }
