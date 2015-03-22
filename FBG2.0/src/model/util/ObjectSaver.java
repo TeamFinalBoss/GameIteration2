@@ -51,7 +51,7 @@ public class ObjectSaver {
 		String save = "<";
 		
 		if(e.getType().equals("avatar")) save += "avatar ";
-		else save += "entity ";
+		else save += "entity type=\"" + e.getType() + "\" ";
 		
 		save += "occupation=\"" + e.getOccupation() + "\" ";
 		save += "x=\"" + e.getLocation().getX() + "\" ";
