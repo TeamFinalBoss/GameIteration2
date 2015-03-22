@@ -5,6 +5,8 @@
  */
 package model.item;
 
+import java.util.ArrayList;
+import model.director.CombatCoordinator;
 import model.entity.Entity;
 import model.map.pair.CoordinatePair;
 import model.effect.Effect;
@@ -45,7 +47,34 @@ public abstract class Weapon extends Equipable{
         
         
         public void attack(Entity e){
-            E1.applyEffect(e);
+            CoordinatePair relative = new CoordinatePair(0,0);
+            switch(e.getDirection()){
+                case North: relative.setY(1);
+                            break;
+                case NorthEast: relative.setY(1);
+                                relative.setX(1);
+                                break;
+                case NorthWest: relative.setY(1);
+                                relative.setX(-1);
+                                break;
+                case South:     relative.setY(-1);
+                                break;
+                case West:      relative.setX(-1);
+                                break;
+                case East:      relative.setX(1);
+                                break;
+                case SouthEast: relative.setX(1);
+                                relative.setY(-1);
+                                   break;
+                case SouthWest: relative.setY(-1);
+                                relative.setX(-1);
+                                break;
+                
+            }
+            relative.add(e.getLocation());
+            ArrayList<CoordinatePair> finalloc = new ArrayList<CoordinatePair>();
+            finalloc.add(relative);
+            CombatCoordinator.getInstance().attemptAffectEntities(finalloc,E1);   
         }
         
         

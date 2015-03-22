@@ -13,6 +13,10 @@ import model.entity.Entity;
  * @author ChrisMoscoso
  */
 public class CombatCoordinator {
+
+    public static Object getInstance() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     GameMap myMap;
     
     public CombatCoordinator(){
