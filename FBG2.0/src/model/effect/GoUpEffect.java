@@ -9,12 +9,13 @@ import model.entity.Entity;
 
 /**
  *
- * @author ashish,  Owner
+ * @author ashishag
  */
-public abstract class HealEffect implements Effect{
-    private int amountToHeal;
-    public HealEffect(int amountToHeal){
-        this.amountToHeal =amountToHeal;
+public class GoUpEffect extends HealEffect {
+    
+    
+    public GoUpEffect(int amountToHeal){
+        super(amountToHeal);
     }
     
     /**
@@ -23,10 +24,6 @@ public abstract class HealEffect implements Effect{
      */
     @Override
     public void applyEffect(Entity entityToAffect){
-        entityToAffect.modifyCurrentHP(amountToHeal);
-    }
-    
-    public int getHealAmount (){
-        return amountToHeal;
+        entityToAffect.modifyCurrentHP(getHealAmount());
     }
 }

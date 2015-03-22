@@ -49,9 +49,11 @@ public class HealthPotion extends Usable {
     		return new HealthPotion(this.getName(), this.getDescription(), this.getLocation(), this.getValue());
     	}
         
-        public void HealPotion(int durability){
-            HealthPotion("Generic HealthPotion", "Generic description", 
-             new CoordinatePair(), 1, durability);
+        public HealPotion(int durability){
+           super("Generic HealthPotion", "Generic description", 
+             new CoordinatePair(), 5, durability);
         }
+        
 }
+
     

@@ -83,9 +83,21 @@ public class GameDirector implements SceneObserver{
         MainMenuViewPort menuVP = new MainMenuViewPort();
         ((Observable)menuVP).addObserver((Observer) mainMenuObservables.get(0));
         
+        menuScene.addViewport(menuVP);//Add menuVP to menuScene
+        
+        List<Observable> pauseMenuObservables = controller.getObservables(SceneType.PAUSE_MENU);
+        
         MainMenuViewPort pauseVP = new MainMenuViewPort();
         pauseScene.addViewport(pauseVP);
+        
+        ((Observable)pauseVP).addObserver((Observer) pauseMenuObservables.get(0));
+        
+        
+        List<Observable> keyMenuObservables = controller.getObservables(SceneType.KEY_BINDINGS);
         MainMenuViewPort keyBindingsVP = new KeyBindingsMenuViewPort();
+        ((Observable)pauseVP).addObserver((Observer) keyMenuObservables.get(0));
+        
+        
         
         keyBindingsScene.addViewport(keyBindingsVP);
         KeyBindingsErrorViewPort errorViewPort = new KeyBindingsErrorViewPort();
@@ -96,9 +108,9 @@ public class GameDirector implements SceneObserver{
         loadScene.addViewport(loadVP);
         saveScene.addViewport(saveVP);
         
-        menuScene.addViewport(menuVP);//Add menuVP to menuScene
-        
-        controller.getMouseParser().setMousePoint((MousePoint)menuVP);
+        controller.getMouseParser().setMousePoint(SceneType.MAIN_MENU,(MousePoint)menuVP);
+        controller.getMouseParser().setMousePoint(SceneType.PAUSE_MENU,(MousePoint)pauseVP);
+        controller.getMouseParser().setMousePoint(SceneType.KEY_BINDINGS, (MousePoint)keyBindingsVP);
         
         controller.addObserver(menuVP, SceneType.MAIN_MENU);
         controller.addObserver(pauseVP, SceneType.PAUSE_MENU);
