@@ -144,5 +144,5 @@ public abstract class SmasherNPC extends SmasherEntity {
 			partner = new EntityLink(this,newLink);
 		}
 }
-*/
+
 

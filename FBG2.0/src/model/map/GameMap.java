@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-import model.map.tile.AreaEffect;
+import model.map.areaEffect.AreaEffect;
 import model.map.tile.Tile;
 import model.map.tile.trap.Trap;
 import model.map.pair.CoordinatePair;

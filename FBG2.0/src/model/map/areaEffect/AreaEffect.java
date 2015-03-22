@@ -1,4 +1,4 @@
-package model.map.tile;
+package model.map.areaEffect;
 
 import model.effect.Effect;
 import model.entity.Entity;
