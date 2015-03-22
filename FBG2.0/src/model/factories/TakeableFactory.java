@@ -29,7 +29,7 @@ import org.w3c.dom.NodeList;
  * @author Aidan Pace
  */
 public class TakeableFactory implements PlaceableObjectFactory{
-	TakeableFactory() {
+	public TakeableFactory() {
 	}
 	
 	/**
