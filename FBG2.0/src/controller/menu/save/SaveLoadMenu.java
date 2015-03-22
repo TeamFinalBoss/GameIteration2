@@ -11,8 +11,9 @@ import java.util.Observer;
 import controller.commands.Commandable;
 import controller.menu.Menuable;
 import controller.util.Describeable;
+import controller.util.Selectable;
 
-public class SaveLoadMenu extends Observable implements Describeable,Menuable {
+public class SaveLoadMenu extends Observable implements Describeable,Menuable, Observer {
 
 	private List<SaveOption> saveOptions;
 	private SaveOption currentOption;
@@ -94,6 +95,13 @@ public class SaveLoadMenu extends Observable implements Describeable,Menuable {
 		super.addObserver(o);
         setChanged();
         notifyObservers();
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		Selectable selectable = (Selectable) o;
+		this.currentOption = this.saveOptions.get(selectable.getCurrentIndex());
+		
 	}
 
 }

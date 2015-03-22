@@ -44,6 +44,10 @@ public class Obstacle extends Item {
 	public void setLink(int newLink) {
 		this.link = new ObstacleLink(this, newLink);
 	}
+	
+	public int getLink() {
+    	return link.getLink();
+    }
         
         
         // This is called when the entity activates the item

@@ -33,14 +33,16 @@ public class MainMenuViewPort extends Observable implements ViewPort, Observer, 
     private final int padding = 25;
     private Graphics graphics;
     private final int logoY = 100;
-    private int[] stringWidth;
+    protected int[] stringWidth;
     private int stringHeight = 39;
 
     
     public MainMenuViewPort(){
         
     }
-
+    
+    
+    
     @Override
     public void draw(Graphics g) {
 
@@ -132,14 +134,14 @@ public class MainMenuViewPort extends Observable implements ViewPort, Observer, 
 		}
 	}
 
-	private boolean withinYBounds(int checkHeight, int i, int y) {
+	protected boolean withinYBounds(int checkHeight, int i, int y) {
 		int heightUpperBounds = (i * (checkHeight + padding) + logoY + logoHeight + checkHeight + padding);
 		int heightLowerBounds = heightUpperBounds + checkHeight;
 		
 		return ((y <= heightLowerBounds) && (y >= heightUpperBounds));
 	}
 
-	private boolean withinXBounds(int checkWidth, int i, int x) {
+	protected boolean withinXBounds(int checkWidth, int i, int x) {
 		int widthLeftBounds = width/2 - checkWidth/2;
 		int widthRightBounds = width/2 + checkWidth/2;
 		
@@ -149,6 +151,12 @@ public class MainMenuViewPort extends Observable implements ViewPort, Observer, 
 	@Override
 	public int getCurrentIndex() {
 		return this.activeOptionIndex;
+	}
+
+
+
+	protected void setActiveIndex(int i) {
+		this.activeOptionIndex = i;
 	}
     
 }
