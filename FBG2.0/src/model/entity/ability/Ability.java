@@ -76,7 +76,6 @@ public abstract class Ability {
         return cost;
     }
     
-
     /**
     * @author Aaron Iglesias, Jason Owens
     * sets cost of Ability

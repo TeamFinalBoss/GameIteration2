@@ -14,10 +14,10 @@ import java.lang.Math.*;
 *
 * @author Aaron Iglesias, Jason Owens
 */
-public class RadialAbility extends Ability
+public abstract class RadialAbility extends Ability
 {
 	private double degree;
-	private double radius;
+	public double radius;
 
 	/**
 	* @author Aaron Iglesias, Jason Owens
@@ -104,4 +104,6 @@ public class RadialAbility extends Ability
 	xRot = xCenter + cos(Angle) * (x - xCenter) - sin(Angle) * (y - yCenter)
 	yRot = yCenter + sin(Angle) * (x - xCenter) + cos(Angle) * (y - yCenter)
 	*/
+
+	public abstract boolean meetsStatRequirements(Entity entityToLearn);
 }

@@ -14,7 +14,7 @@ import java.lang.Math.*;
 *
 * @author Aaron Iglesias
 */
-public class LinearAbility extends Ability
+public abstract class LinearAbility extends Ability
 {
 	private double range;
 
@@ -82,4 +82,6 @@ public class LinearAbility extends Ability
         else
         	return false;
 	}
+        
+        public abstract boolean meetsStatRequirements(Entity entityToLearn);
 }

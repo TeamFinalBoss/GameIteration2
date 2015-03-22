@@ -78,9 +78,13 @@ public class AngularAbilityTest
     }
 
     @Test
-    public void inRangeTestReturnsTrue();
+    public void inRangeTestReturnsTrue90();
     {
-        testClass.setRadius(5);
+        /*
+        caster facing North
+        */
+        // degree == 90
+        testClass.setDegree(90);
     }
 
     @Test
@@ -90,12 +94,129 @@ public class AngularAbilityTest
         testClass.setRadius(0);
         assertFalse(testClass.inRange());
 
+        // degree == 90
         testClass.testClass();
         testClass.setDegree(0);
         assertFalse(testClass.inRange());
 
-        testClass.testClass();
+        /*
+        caster facing North
+        */
+        // degree == 90
+        testClass.setDegree(90);
 
-        testClass.setRadius(5);
+        // degree == 180
+        testClass.setDegree(180);
+
+        // degree == 270
+        testClass.setDegree(270);
+
+        // degree == 360
+        testClass.setDegree(360);
+
+        /*
+        caster facing NorthWest
+        */
+        // degree == 90
+        testClass.setDegree(90);
+
+        // degree == 180
+        testClass.setDegree(180);
+
+        // degree == 270
+        testClass.setDegree(270);
+
+        // degree == 360
+        testClass.setDegree(360);
+
+        /*
+        caster facing West
+        */
+        // degree == 90
+        testClass.setDegree(90);
+
+        // degree == 180
+        testClass.setDegree(180);
+
+        // degree == 270
+        testClass.setDegree(270);
+
+        // degree == 360
+        testClass.setDegree(360);
+
+        /*
+        caster facing SouthWest
+        */
+        // degree == 90
+        testClass.setDegree(90);
+
+        // degree == 180
+        testClass.setDegree(180);
+
+        // degree == 270
+        testClass.setDegree(270);
+
+        // degree == 360
+        testClass.setDegree(360);
+
+        /*
+        caster facing South
+        */
+        // degree == 90
+        testClass.setDegree(90);
+
+        // degree == 180
+        testClass.setDegree(180);
+
+        // degree == 270
+        testClass.setDegree(270);
+
+        // degree == 360
+        testClass.setDegree(360);
+
+        /*
+        caster facing SouthEast
+        */
+        // degree == 90
+        testClass.setDegree(90);
+
+        // degree == 180
+        testClass.setDegree(180);
+
+        // degree == 270
+        testClass.setDegree(270);
+
+        // degree == 360
+        testClass.setDegree(360);
+
+        /*
+        caster facing East
+        */
+        // degree == 90
+        testClass.setDegree(90);
+
+        // degree == 180
+        testClass.setDegree(180);
+
+        // degree == 270
+        testClass.setDegree(270);
+
+        // degree == 360
+        testClass.setDegree(360);
+
+        /*
+        caster facing NorthEast
+        */
+        // degree == 90
+        testClass.setDegree(90);
+
+        // degree == 180
+        testClass.setDegree(180);
+
+        // degree == 270
+        testClass.setDegree(270);
+
+        // degree == 360
+        testClass.setDegree(360);
     }
 }
