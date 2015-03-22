@@ -18,6 +18,42 @@ public class Vector {
         this.x = 0;
         this.y = 0;
     }
+    public Vector(Direction d){
+        switch(d){
+            case North: this.x = 0;
+                        this.y =1;
+                            break;
+                case NorthEast: 
+                    this.x = 1;
+                    this.y= 1;
+                                break;
+                case NorthWest: 
+                    this.x = 1;
+                    this.y= -1;
+                                break;
+                case South:     
+                    this.x = 0;
+                    this.y= -1;
+                                break;
+                case West:      
+                    this.x = -1;
+                    this.y= 0;
+                                break;
+                case East:      
+                    this.x = 1;
+                    this.y= 0;
+                                break;
+                case SouthEast: 
+                    this.x = 1;
+                    this.y= -1;
+                                   break;
+                case SouthWest: 
+                    this.x = -1;
+                    this.y= -1;
+                                break;
+                
+        }
+    }
     
     
     /*----------Accessors-----------*/
