@@ -125,6 +125,10 @@ public class ActiveMapManager {
     	return;
     }
     
+    public List<GameMap> getMaps() {
+    	return maps;
+    }
+    
     /**
      * If map is in maps, set it as active map and return true. Else return false
      * 
