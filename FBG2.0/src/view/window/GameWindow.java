@@ -40,6 +40,10 @@ public class GameWindow {
     public GameWindow() {
         this(1, 1);
         frame.setExtendedState(frame.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+        
+        frame.dispose();
+        frame.setUndecorated(true);
+        frame.setVisible(true);
     }
 
     /**

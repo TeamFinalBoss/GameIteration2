@@ -62,10 +62,7 @@ public abstract class Ability {
     * passes affectedTiles and effect to CombatCoordinator to deal damage
     * @param callingEntity
     */
-    public void performAbility(Entity callingEntity) {
-        ArrayList<CoordinatePair> affectedTiles = getAffectedTiles(callingEntity);
-        myCC.attemptAffectEntities(affectedTiles, effect);
-    }
+    public void abstract performAbility(Entity callingEntity);
 
     /**
     * @author Aaron Iglesias, Jason Owens
