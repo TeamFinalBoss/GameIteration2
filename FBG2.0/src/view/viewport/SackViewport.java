@@ -25,15 +25,14 @@ public class SackViewport extends Observable implements ViewPort, Observer, Mous
 	private static int startX;
 	private static int startY = 0;
 	private static final int offset = 0;
-	private static final int Ypadding = 10;
-	private static final int Xpadding = 17;
+	private static final int Ypadding = 0;//10;
+	private static final int Xpadding = 0;//17;
 	private static int height;
 	private static int width;
-	private Graphics graph;
 
 	public SackViewport() {
-		width = GameDirector.getSize().width;
-		height = GameDirector.getSize().height;
+		width = (int) (GameDirector.getSize().width * 0.8);
+		height = (int) (GameDirector.getSize().height * 0.8);
 		startX = width - (itemsPerRow * sizeOfBox) - Xpadding;
 		startY = height - (maximumNumberOfRows * sizeOfBox) - offset - Ypadding;
 	}
