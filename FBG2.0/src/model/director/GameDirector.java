@@ -231,7 +231,7 @@ public class GameDirector extends Observable implements SceneObserver{
      */
     public static void setSize(int width, int height) {
         //Set default sizes for all scenes
-        Scene.setSceneSize(window.getSize());
+        Scene.setSceneSize(new Dimension(width, height));
     }
 
     /**
