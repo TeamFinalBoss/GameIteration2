@@ -34,7 +34,7 @@ import controller.util.SceneObserver;
  *
  * @author ChrisMoscoso
  */
-public class GameDirector implements SceneObserver{
+public class GameDirector extends Observable implements SceneObserver{
 
     private static Boolean paused = false;
     private static GameWindow window;
@@ -166,6 +166,16 @@ public class GameDirector implements SceneObserver{
         activeScene = gameScene;
     }
 
+    
+    /**
+     * Checks if game is paused
+     *
+     * @return true if the game is paused
+     */
+    public static boolean gameIsPaused() {
+        return paused;
+    }
+    
     /**
      * This is where execution of the game logic and updating of the model takes
      * place
