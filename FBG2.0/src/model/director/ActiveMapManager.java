@@ -116,6 +116,16 @@ public class ActiveMapManager {
     }
     
     /**
+     * Clears all maps.
+     * 
+     * @author Aidan Pace
+     */
+    public void clearMaps() {
+    	this.maps.clear();
+    	return;
+    }
+    
+    /**
      * If map is in maps, set it as active map and return true. Else return false
      * 
      * TODO: Determine if method signature is needed
@@ -129,6 +139,23 @@ public class ActiveMapManager {
     		this.activeMap = map;
     		
     		return true;
+    	}
+    	return false;
+    }
+    
+    /**\
+     * Set the active map to the map with the given mapID int
+     * 
+     * @author Aidan Pace
+     * @param mapID the requested mapID
+     * @return true if map was in maps, else false
+     */
+    public boolean setActiveMap(int mapID) {
+    	for(GameMap m : this.maps) {
+    		if(m.getID == mapID) {
+    			this.activeMap = m;
+    			return true;
+    		}
     	}
     	return false;
     }
