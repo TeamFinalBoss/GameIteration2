@@ -188,6 +188,8 @@ public class ControllerBuilder {
 		cancelUpdate.register();
 		saveUpdate.register();
 		bindingsUpdate.addObserver(bindingsMenu);
+		cancelUpdate.addObserver(bindingsMenu);
+		saveUpdate.addObserver(bindingsMenu);
 		/******************************
 		 * Controllers
 		 *******************************/

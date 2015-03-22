@@ -71,6 +71,7 @@ public class KeyBindingsUpdate {
 	
 	public void clear() {
 		updateOptions.clear();
+		newBindings.clear();
 		newBindings = currentBindings.clone();
 	}
 	
