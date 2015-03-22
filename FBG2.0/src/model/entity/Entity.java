@@ -10,7 +10,7 @@ import model.map.Projectile;
 import model.map.pair.CoordinatePair;
 import model.map.tile.AreaEffect;
 import model.map.tile.Tile;
-import model.map.tile.Trap;
+import model.map.tile.trap.Trap;
 import model.util.GameTimer;
 import model.effect.AllowMovement;
 import model.effect.Dispellable;
