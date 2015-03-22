@@ -38,7 +38,7 @@ public class Stick extends Takeable {
 		return new Stick(this.getName(), this.getDescription(), this.getLocation(), this.getValue(), this.getDurability());
 	}
         
-         public void Stick(int durability){
-            Stick("Stick", "Generic description", new CoordinatePair(), 0, durability);
+         public Stick(int durability){
+            super("Stick", "Generic description", new CoordinatePair(), 0, durability);
         }
 }
