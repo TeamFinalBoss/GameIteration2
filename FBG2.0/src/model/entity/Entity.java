@@ -114,6 +114,7 @@ public abstract class Entity extends MapObject{
     	motionType = MotionType.GROUND;
     	activeEffects = new ArrayList<Dispellable>();
     	visibleMap = new VisibleMap(this);
+    	canMove = true;
 		this.setID("1");
 		this.setClassName("Entity");
 		visibleMap.update();
@@ -206,12 +207,12 @@ public abstract class Entity extends MapObject{
 	}
 	public int getMaxHP(){
 		myAbilities.update();
-		return myStats.maxHP();
+		return myStats.maxHealth();
 
 	}
 	public int getMaxMP(){
 		myAbilities.update();
-		return myStats.maxMP();
+		return myStats.maxMana();
 
 	}
 	public int getOffense(){
@@ -246,12 +247,12 @@ public abstract class Entity extends MapObject{
 	}
 	public int getCurrentHP(){
 		myAbilities.update();
-		return myStats.currentHP();
+		return myStats.currentHealth();
 
 	}
 	public int getCurrentMP(){
 		myAbilities.update();
-		return myStats.currentMP();
+		return myStats.currentMana();
 
 	}
 	public int getWeaponOffense(){
@@ -312,11 +313,11 @@ public abstract class Entity extends MapObject{
 		myAbilities.update();
 	}
 	public void setCurrentHP(int next){
-		myStats.setCurrentHP(next);
+		myStats.setCurrentHealth(next);
 		myAbilities.update();
 	}
 	public void setCurrentMP(int next){
-		myStats.setCurrentMP(next);
+		myStats.setCurrentMana(next);
 		myAbilities.update();
 	}
 	public void setWeaponOffense(int next){
@@ -386,11 +387,11 @@ public abstract class Entity extends MapObject{
 		myAbilities.update();
 	}
 	public void modifyCurrentHP(int next){
-		myStats.setCurrentHP(next);
+		myStats.setCurrentHealth(next);
 		myAbilities.update();
 	}
 	public void modifyCurrentMP(int next){
-		myStats.setCurrentMP(next);
+		myStats.setCurrentMana(next);
 		myAbilities.update();
 	}
 	public void modifyWeaponOffense(int next){
@@ -478,7 +479,7 @@ public abstract class Entity extends MapObject{
     	super.modifyLocation(change);
     	setDirection(motionToDirection(change));
     	canMove = false;
-    	GameTimer.getInstance().addEvent(new AllowMovement(this), (int) 1000/getMovement());
+    	GameTimer.getInstance().addEvent(new AllowMovement(this), (int) 10000/getMovement());
     	return true;
     }
     public void setMovementPermission(boolean newest){

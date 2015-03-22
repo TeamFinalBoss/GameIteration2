@@ -38,6 +38,10 @@ public class GameDirector extends Observable implements SceneObserver{
 
     private static Boolean paused = false;
     private static GameWindow window;
+
+    static Object getActiveMap() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     private Scene menuScene, gameScene, pauseScene, keyBindingsScene, saveScene, loadScene, activeScene;
     private static Controller controller = Controller.getInstance();
     private SceneChanger sceneChanger = SceneChanger.getInstance();
