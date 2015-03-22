@@ -2,7 +2,6 @@ package model.director;
 
 import java.awt.Dimension;
 import java.awt.event.KeyListener;
-import java.awt.event.MouseAdapter;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.List;
@@ -12,6 +11,7 @@ import java.util.Observer;
 
 import model.map.GameMap;
 import view.MousePoint;
+import view.MousePointClick;
 import view.scene.Scene;
 import view.viewport.ArmoryViewport;
 import view.viewport.KeyBindingsErrorViewPort;
@@ -19,6 +19,7 @@ import view.viewport.KeyBindingsMenuViewPort;
 import view.viewport.MainMenuViewPort;
 import view.viewport.MapViewPort;
 import view.viewport.SackViewport;
+import view.viewport.StatsUpdateViewport;
 import view.window.GameWindow;
 import controller.Controller;
 import controller.sceneControllers.SceneChanger;
@@ -38,6 +39,10 @@ public class GameDirector extends Observable implements SceneObserver{
 
     private static Boolean paused = false;
     private static GameWindow window;
+
+    static Object getActiveMap() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     private Scene menuScene, gameScene, pauseScene, keyBindingsScene, saveScene, loadScene, activeScene;
     private static Controller controller = Controller.getInstance();
     private SceneChanger sceneChanger = SceneChanger.getInstance();
@@ -66,6 +71,7 @@ public class GameDirector extends Observable implements SceneObserver{
         scenes.put(SceneType.ARMORY, gameScene);
         scenes.put(SceneType.SAVE, saveScene);
         scenes.put(SceneType.LOAD, loadScene);
+        scenes.put(SceneType.STATS_UPDATING, gameScene);
         
         sceneChanger.registerObserver(this);
     }
@@ -149,8 +155,12 @@ public class GameDirector extends Observable implements SceneObserver{
         ArmoryViewport armory = new ArmoryViewport();
         gameScene.addViewport(armory);
         
+        StatsUpdateViewport statsPort = new StatsUpdateViewport();
+        gameScene.addViewport(statsPort);
+        
         controller.addObserver(sack, SceneType.SACK);
         controller.addObserver(armory, SceneType.ARMORY);
+        controller.addObserver(statsPort, SceneType.STATS_UPDATING);
         
         List<Observable> sackObservables = controller.getObservables(SceneType.SACK);
         ((Observable)sack).addObserver((Observer) sackObservables.get(0));
@@ -159,6 +169,9 @@ public class GameDirector extends Observable implements SceneObserver{
         List<Observable> armoryObservables = controller.getObservables(SceneType.ARMORY);
         ((Observable)armory).addObserver((Observer) armoryObservables.get(0));
         controller.getMouseParser().setMousePoint(SceneType.ARMORY, (MousePoint)armory);
+        
+        controller.getMouseParser().setMousePointClick(SceneType.ARMORY, (MousePointClick)armory);
+        controller.getMouseParser().setMousePointClick(SceneType.SACK, (MousePointClick)sack);
        
         map.addObserver(mapVP);//Add mapVP as an Observer to map
         

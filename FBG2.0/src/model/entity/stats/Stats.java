@@ -3,6 +3,12 @@ package model.entity.stats;
 import java.util.Random;
 
 public abstract class Stats {
+	public int getCurrentHealth() {
+		return currentHealth;
+	}
+	public int getCurrentMana() {
+		return currentMana;
+	}
 	/* -------------------- PRIMARY ATTRIBUTES -------------------- */
 	private int livesLeft;
 	private int strength;
@@ -13,8 +19,8 @@ public abstract class Stats {
 	private int movement;
 	/* -------------------- DERIVED ATTRIBUTES -------------------- */
 	private int level;
-	private int maxHP;
-	private int maxMP;
+	private int maxHealth;
+	private int maxMana;
 	private int offense;
 	private int defense;
 	private int armor;
@@ -23,16 +29,16 @@ public abstract class Stats {
 	private int bargain;
 	private int observation;
 	/* -------------------- OTHER STATS -------------------- */
-	private int currentHP;
-	private int currentMP;
+	private int currentHealth;
+	private int currentMana;
 	private int weaponOffense; //stores the contribution of the currently equipped weapon towards offense
 	private int equipArmor; //stores the contribution of the current equipment towards armor
 	
 	/* -------------------- PRIVATE UTILITY -------------------- */
 	private void updateDerived(){
 		level = experience / 10000;
-		maxHP = (hardiness*10) + (level*20);
-		maxMP = (intellect*10) + (level*20);
+		maxHealth = (hardiness*10) + (level*20);
+		maxMana = (intellect*10) + (level*20);
 		offense = weaponOffense + (strength*10) + (level*20);
 		defense = (agility*10) + (level*20);
 		armor = equipArmor + (hardiness*30);
@@ -68,8 +74,8 @@ public abstract class Stats {
 		bargain = 0;
 		observation = 0;
 		updateDerived();
-		currentHP = maxHP;
-		currentMP = maxMP;
+		currentHealth = maxHealth;
+		currentMana = maxMana;
 		weaponOffense = 0;
 		equipArmor = 0;
 	}
@@ -99,11 +105,11 @@ public abstract class Stats {
 	public int level(){
 		return level;
 	}
-	public int maxHP(){
-		return maxHP;
+	public int maxHealth(){
+		return maxHealth;
 	}
-	public int maxMP(){
-		return maxMP;
+	public int maxMana(){
+		return maxMana;
 	}
 	public int offense(){
 		return offense;
@@ -123,11 +129,11 @@ public abstract class Stats {
 	public int observation(){
 		return observation;
 	}
-	public int currentHP(){
-		return currentHP;
+	public int currentHealth(){
+		return currentHealth;
 	}
-	public int currentMP(){
-		return currentMP;
+	public int currentMana(){
+		return currentMana;
 	}
 	public int weaponOffense(){
 		return weaponOffense;
@@ -187,14 +193,14 @@ public abstract class Stats {
 		observation = next;
 		updateDerived();
 	}
-	public void setCurrentHP(int next){
+	public void setCurrentHealth(int next){
 		if(!validate(next)) throw new IllegalArgumentException("CurrentHP not set: illegal value of " + next + " attempted.");
-		currentHP = next;
+		currentHealth = next;
 		updateDerived();
 	}
-	public void setCurrentMP(int next){
+	public void setCurrentMana(int next){
 		if(!validate(next)) throw new IllegalArgumentException("CurrentMP not set: illegal value of " + next + " attempted.");
-		currentMP = next;
+		currentMana = next;
 		updateDerived();
 	}
 	public void setWeaponOffense(int next){
@@ -256,11 +262,11 @@ public abstract class Stats {
 		updateDerived();
 	}
 	public void modifyCurrentHP(int modifier){
-		currentHP = max(currentHP+modifier,0);
+		currentHealth = max(currentHealth+modifier,0);
 		updateDerived();
 	}
 	public void modifyCurrentMP(int modifier){
-		currentMP = max(currentMP+modifier,0);
+		currentMana = max(currentMana+modifier,0);
 		updateDerived();
 	}
 	public void modifyWeaponOffense(int modifier){

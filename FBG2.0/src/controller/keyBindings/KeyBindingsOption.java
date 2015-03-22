@@ -26,9 +26,11 @@ public enum KeyBindingsOption {
 	PAUSE("Toggle Pause"),
 	CONFIRM("Confirm"),
 	DROP("Drop"),
+	STATS_UPDATE("Stats Updates"),
 	TILE_INFO("Tile Information"),
 	SAVE("Save Updates"),
 	CANCEL("Cancel");
+	
 	
 	
 	private KeyBindingsOption(String str) {

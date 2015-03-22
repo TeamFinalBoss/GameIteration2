@@ -9,6 +9,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import view.MousePoint;
+import view.MousePointClick;
 import controller.KeyDispatcher;
 import controller.keyBindings.KeyBindingsOption;
 import controller.sceneControllers.SceneChanger;
@@ -36,6 +37,10 @@ public class MouseParser extends MouseAdapter {
 
 	public void setMousePoint(SceneType type, MousePoint point) {
 		mouseDispatcher.addPoint(type,point);
+	}
+	
+	public void setMousePointClick(SceneType type, MousePointClick point) {
+		mouseDispatcher.addClickPoint(type, point);
 	}
 	
 	public void setOptions(Map<KeyBindingsOption, Integer> bindingsReverse) {

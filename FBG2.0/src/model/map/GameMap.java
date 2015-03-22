@@ -486,8 +486,11 @@ public class GameMap extends Observable {
         }
     }
     
-    public void useAbility(Entity e, int abilityToUse){
+    public boolean useAbility(Entity e, int abilityToUse){
         e.useAbility(abilityToUse);
+        
+        //I don't want to mess with entity
+        return true;
     }
     
     
@@ -563,6 +566,10 @@ public class GameMap extends Observable {
         entities.getSesInRange(center, radius, containedEntities);
         items.getSesInRange(center, radius, containedItems);
         effects.getSesInRange(center, radius, containedAreaEffects);
+    }
+
+    public void addProjectile(Projectile proj) {
+        projectiles.add(proj);
     }
 }
     

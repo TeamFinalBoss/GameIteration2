@@ -69,7 +69,7 @@ public class EntityFactory implements PlaceableObjectFactory{
 			
 			Entity en = null;
 			
-			switch(e.getAttribute("class")) {
+			switch(e.getAttribute("occupation")) {
 			case "smasher":
 				en = switchSmasherType(e);
 				if(en == null) break;
