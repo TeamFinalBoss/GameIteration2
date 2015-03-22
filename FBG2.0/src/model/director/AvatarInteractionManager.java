@@ -18,6 +18,8 @@ public class AvatarInteractionManager {
     private static AvatarInteractionManager me = null;
     private int currentSlotInSack;
     private int currentSlotInArmory;
+    private int statPoints;
+    private int skillPoints;
     
  
     public AvatarInteractionManager(){
