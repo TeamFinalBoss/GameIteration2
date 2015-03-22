@@ -9,13 +9,18 @@ import model.map.pair.CoordinatePair;
 import java.util.ArrayList;
 import model.entity.Entity;
 import java.lang.Math.*;
+import model.entity.ability.Ability;
 
 /**
 *
 * @author Aaron Iglesias, Jason Owens
 */
-public class AngularAbility extends Ability
+public abstract class AngularAbility extends Ability
 {
+	private String name;
+    private Effect effect;
+    private CombatCoordinator myCC;
+    private Effect cost;
 	private double degree;
 	private double radius;
 
@@ -38,7 +43,8 @@ public class AngularAbility extends Ability
 	*/
 	public AngularAbility(String name, Effect effect, CombatCoordinator myCC, Effect cost, int degree, double radius)
 	{
-		super(name, effect, myCC, cost);
+		super(name, effect, cost);
+                this.myCC = CombatCoordinator.getInstance();
 		this.degree = degree;
 		this.radius = radius;
 	}
@@ -95,7 +101,7 @@ public class AngularAbility extends Ability
 	*/
 	public boolean inRange(Entity caster, Entity entity)
 	{
-		if(degree == 0)
+		if(degree == 0 || radius == 0)
 			return false;
 
 		CoordinatePair casterCoordinatePair = caster.getLocation();
@@ -169,11 +175,13 @@ public class AngularAbility extends Ability
 				return false;
 		}
 
-		// point on left line
+		// first point on left line
+		// the second point on left line is (0,0)
 		Lx = 1;
 		Ly = - Math.tan(Math.PI / 2 - radian / 2) * Lx;
 
 		// point on right line
+		// the second point on right line is (0,0)
 		Rx = 1;
 		Ry = Math.tan(Math.PI / 2 - radian / 2) * Rx;
 
@@ -204,4 +212,6 @@ public class AngularAbility extends Ability
 	xRot = xCenter + cos(Angle) * (x - xCenter) - sin(Angle) * (y - yCenter)
 	yRot = yCenter + sin(Angle) * (x - xCenter) + cos(Angle) * (y - yCenter)
 	*/
+
+	public abstract boolean meetsStatRequirements(Entity entityToLearn);
 }

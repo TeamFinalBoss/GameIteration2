@@ -18,7 +18,7 @@ import model.map.pair.CoordinatePair;
 import model.map.tile.Tile;
 import model.map.tile.trap.Trap;
 import model.map.Direction;
-import model.map.Projectile;
+import model.map.projectiles.Projectile;
 import model.entity.SummonerAvatar;
 import model.entity.ability.Ability;
 import model.item.EquipSlot;

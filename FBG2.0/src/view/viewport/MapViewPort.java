@@ -18,7 +18,7 @@ import model.director.AvatarInteractionManager;
 import model.director.GameDirector;
 import model.entity.Entity;
 import model.map.Locations;
-import model.map.Projectile;
+import model.map.projectiles.Projectile;
 import model.map.pair.CoordinatePair;
 import model.map.tile.Tile;
 

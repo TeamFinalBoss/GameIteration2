@@ -14,10 +14,14 @@ import java.lang.Math.*;
 *
 * @author Aaron Iglesias, Jason Owens
 */
-public class RadialAbility extends Ability
+public abstract class RadialAbility extends Ability
 {
-	private double degree;
-	private double radius;
+    private String name;
+    private Effect effect;
+    private CombatCoordinator myCC;
+    private Effect cost;
+    private double degree;
+    private double radius;
 
 	/**
 	* @author Aaron Iglesias, Jason Owens
@@ -38,7 +42,8 @@ public class RadialAbility extends Ability
 	*/
 	public RadialAbility(String name, Effect effect, CombatCoordinator myCC, Effect cost, int degree, double radius)
 	{
-		super(name, effect, myCC, cost);
+		super(name, effect, cost);
+		this.myCC = CombatCoordinator.getInstance();
 		this.degree = degree;
 		this.radius = radius;
 	}
@@ -82,6 +87,9 @@ public class RadialAbility extends Ability
 	*/
 	public boolean inRange(Entity caster, Entity entity)
 	{
+		if(radius == 0)
+			return false;
+		
 		CoordinatePair casterCoordinatePair = caster.getLocation();
 		CoordinatePair entityCoordinatePair = entity.getLocation();
 
@@ -101,4 +109,6 @@ public class RadialAbility extends Ability
 	xRot = xCenter + cos(Angle) * (x - xCenter) - sin(Angle) * (y - yCenter)
 	yRot = yCenter + sin(Angle) * (x - xCenter) + cos(Angle) * (y - yCenter)
 	*/
+
+	public abstract boolean meetsStatRequirements(Entity entityToLearn);
 }

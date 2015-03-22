@@ -9,7 +9,7 @@ import model.map.pair.CoordinatePair;
 import model.effect.Effect;
 import model.entity.Entity;
 import model.entity.stats.Stats;
-import model.map.Projectile;
+import model.map.projectiles.Projectile;
 
 /**
  *

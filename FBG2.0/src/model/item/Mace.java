@@ -5,7 +5,7 @@
  */
 package model.item;
 
-import model.effect.GoDownEffect;
+import model.effect.DealDamageEffect;
 import model.entity.Entity;
 import model.map.pair.CoordinatePair;
 
@@ -17,7 +17,7 @@ public class Mace extends Weapon {
     
     public Mace(){
 		super("Generic Mace", "Generic description", new CoordinatePair(), 
-                        0, 1, EquipSlot.HEAD, new GoDownEffect(20));
+                        0, 1, EquipSlot.HEAD, new  DealDamageEffect(20));
 		
 		this.id = "26";
 		this.className = "Mace";
@@ -31,7 +31,7 @@ public class Mace extends Weapon {
 	public Mace(String objectName, String description, CoordinatePair location, int value, 
                 int durability){
 		super(objectName, description, location, value, durability, 
-                        EquipSlot.HEAD, new GoDownEffect(20) );
+                        EquipSlot.HEAD, new  DealDamageEffect(20) );
 		
 		this.id = "26";
 		this.className = "Mace";
@@ -49,7 +49,7 @@ public class Mace extends Weapon {
         
         public Mace(int durability){
             super("Generic Mace", "Generic description", new CoordinatePair(), 
-                        0, durability, EquipSlot.HEAD, new GoDownEffect(20));
+                        0, durability, EquipSlot.HEAD, new  DealDamageEffect(20));
         }
     @Override
         public void onUnequip(Entity target){
