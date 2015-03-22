@@ -5,7 +5,7 @@
  */
 package model.item;
 
-import model.effect.GoDownEffect;
+import model.effect.DealDamageEffect;
 import model.effect.Effect;
 import model.entity.Entity;
 import model.map.pair.CoordinatePair;
@@ -18,11 +18,11 @@ public class Gun extends Weapon{
     
     public Gun(){
 		super("Gun", "Generic description", new CoordinatePair(), 0, 1, 
-                        EquipSlot.HEAD, new GoDownEffect(80));
+                        EquipSlot.HEAD, new  DealDamageEffect(80));
 		
 		this.id = "25";
 		this.className = "Gun";
-                this.E1= new GoDownEffect(80); 
+                this.E1= new DealDamageEffect(80); 
              
                 
 		
@@ -72,7 +72,7 @@ public class Gun extends Weapon{
         
         public Gun(int durability){
             super("Gun", "Generic description", new CoordinatePair(), 0, durability , 
-                        EquipSlot.HEAD, new GoDownEffect(80));
+                        EquipSlot.HEAD, new  DealDamageEffect(80));
         }
         //TODO- Projectile motion has to be added
     
@@ -109,7 +109,7 @@ public class Gun extends Weapon{
     @Override
         public boolean meetsRequirements(Entity e){
         return e.getLevel() >= 2;
+      }
+        
+        
         }
-        
-        
-}

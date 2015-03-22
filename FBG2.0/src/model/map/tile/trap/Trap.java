@@ -74,7 +74,7 @@ public abstract class Trap extends MapObject{
 	 * @param caller The entity that activated the trap
 	 * @see Entity
 	 */
-	abstract void Activate(Entity caller);
+	public abstract void Activate(Entity caller);
 
     public void activate(Entity caller) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

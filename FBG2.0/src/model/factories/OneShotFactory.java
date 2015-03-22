@@ -43,7 +43,7 @@ public class OneShotFactory implements PlaceableObjectFactory{
 			Item it = null;
 				
 			switch(item.getAttribute("name")){
-			case "recoveryheart":
+			case "recoveryHeart":
 				it = new RecoveryHeart();
 				break;
 			}

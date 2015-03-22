@@ -41,6 +41,7 @@ import controller.menu.Menuable;
 import controller.menu.keyBindings.KeyBindingsMenu;
 import controller.menu.save.SaveLoadMenu;
 import controller.menu.save.SaveOption;
+import controller.menu.stats.StatsMenu;
 import controller.mouse.MouseDispatcher;
 import controller.mouse.MouseParser;
 import controller.sceneControllers.SceneController;
@@ -142,6 +143,19 @@ public class ControllerBuilder {
 		ArmoryDetails armoryDetails = new ArmoryDetails();
 		SceneController armoryController = ArmoryControllerBuilder.buildArmoryController(map, armoryDetails);
 		
+		
+		/******************************
+		 * Stats Upgrading Controller
+		 *******************************/
+		
+		StatsMenu statsMenu = new StatsMenu();
+		Map<Integer, Commandable> statsMenuMap = buildDefaultMenuBindings(statsMenu,map);
+		statsMenuMap.put(map.get(KeyBindingsOption.PAUSE), new ResumeGame());
+		statsMenuMap.put(map.get(KeyBindingsOption.STATS_UPDATE), new ResumeGame());
+		KeyOptions statsOptions = new KeyOptions(statsMenuMap);
+		SceneController statsController = buildController(statsOptions);
+		
+		
 		/******************************
 		 * Observers
 		 *******************************/
@@ -173,6 +187,9 @@ public class ControllerBuilder {
 		List<Observable> armoryObservables = new ArrayList<>();
 		armoryObservables.add(armoryDetails);
 		
+		List<Observable> statsObservables = new ArrayList<>();
+		statsObservables.add(statsMenu);
+		
 		observerMap.put(SceneType.MAIN_MENU, mainMenuObervables);
 		observerMap.put(SceneType.PAUSE_MENU, pauseMenuObservables);
 		observerMap.put(SceneType.SAVE, saveMenuObservables);
@@ -181,6 +198,7 @@ public class ControllerBuilder {
 		observerMap.put(SceneType.UPDATING, updateObservables);
 		observerMap.put(SceneType.SACK,sackObservables);
 		observerMap.put(SceneType.ARMORY, armoryObservables);
+		observerMap.put(SceneType.STATS_UPDATING, statsObservables);
 		
 		cont.addMap(observerMap);
 		
@@ -190,6 +208,7 @@ public class ControllerBuilder {
 		bindingsUpdate.addObserver(bindingsMenu);
 		cancelUpdate.addObserver(bindingsMenu);
 		saveUpdate.addObserver(bindingsMenu);
+		
 		/******************************
 		 * Controllers
 		 *******************************/
@@ -204,6 +223,7 @@ public class ControllerBuilder {
 		controllers.put(SceneType.UPDATING, updateController);
 		controllers.put(SceneType.SACK, sackController);
 		controllers.put(SceneType.ARMORY, armoryController);
+		controllers.put(SceneType.STATS_UPDATING, statsController);
 		
 		
 		KeyDispatcher keyDispatcher = new KeyDispatcher(controllers, mainMenuController);

@@ -6,7 +6,7 @@ import model.entity.inventory.Inventory;
 import model.entity.stats.Stats;
 import model.gameObject.MapObject;
 import model.map.Direction;
-import model.map.Projectile;
+import model.map.projectiles.Projectile;
 import model.map.pair.CoordinatePair;
 import model.map.areaEffect.AreaEffect;
 import model.map.tile.Tile;
@@ -114,6 +114,7 @@ public abstract class Entity extends MapObject{
     	motionType = MotionType.GROUND;
     	activeEffects = new ArrayList<Dispellable>();
     	visibleMap = new VisibleMap(this);
+    	canMove = true;
 		this.setID("1");
 		this.setClassName("Entity");
 		visibleMap.update();
@@ -206,12 +207,12 @@ public abstract class Entity extends MapObject{
 	}
 	public int getMaxHP(){
 		myAbilities.update();
-		return myStats.maxHP();
+		return myStats.maxHealth();
 
 	}
 	public int getMaxMP(){
 		myAbilities.update();
-		return myStats.maxMP();
+		return myStats.maxMana();
 
 	}
 	public int getOffense(){
@@ -246,12 +247,12 @@ public abstract class Entity extends MapObject{
 	}
 	public int getCurrentHP(){
 		myAbilities.update();
-		return myStats.currentHP();
+		return myStats.getCurrentHealth();
 
 	}
 	public int getCurrentMP(){
 		myAbilities.update();
-		return myStats.currentMP();
+		return myStats.getCurrentMana();
 
 	}
 	public int getWeaponOffense(){
@@ -312,11 +313,12 @@ public abstract class Entity extends MapObject{
 		myAbilities.update();
 	}
 	public void setCurrentHP(int next){
-		myStats.setCurrentHP(next);
+		myStats.setCurrentHealth(next);
+		if(getCurrentHP() <= 0) die();
 		myAbilities.update();
 	}
 	public void setCurrentMP(int next){
-		myStats.setCurrentMP(next);
+		myStats.setCurrentMana(next);
 		myAbilities.update();
 	}
 	public void setWeaponOffense(int next){
@@ -345,15 +347,15 @@ public abstract class Entity extends MapObject{
 		myAbilities.update();
 	}
 	public void modifyStrength(int next){
-		myStats.setStrength(next);
+		myStats.modifyStrength(next);
 		myAbilities.update();
 	}
 	public void modifyAgility(int next){
-		myStats.setAgility(next);
+		myStats.modifyAgility(next);
 		myAbilities.update();
 	}
 	public void modifyIntellect(int next){
-		myStats.setIntellect(next);
+		myStats.modifyIntellect(next);
 		myAbilities.update();
 	}
 	public void modifyHardiness(int next){
@@ -378,27 +380,29 @@ public abstract class Entity extends MapObject{
 		myAbilities.update();
 	}
 	public void modifyBargain(int next){
-		myStats.setBargain(next);
+		myStats.modifyBargain(next);
 		myAbilities.update();
 	}
 	public void modifyObservation(int next){
-		myStats.setObservation(next);
+		myStats.modifyObservation(next);
 		myAbilities.update();
 	}
 	public void modifyCurrentHP(int next){
-		myStats.setCurrentHP(next);
+		myStats.modifyCurrentHP(next);
+		if(getCurrentHP() <= 0) die();
 		myAbilities.update();
 	}
 	public void modifyCurrentMP(int next){
-		myStats.setCurrentMP(next);
+		myStats.modifyCurrentMP(next);
 		myAbilities.update();
 	}
+
 	public void modifyWeaponOffense(int next){
-		myStats.setWeaponOffense(next);
+		myStats.modifyWeaponOffense(next);
 		myAbilities.update();
 	}
 	public void modifyEquipArmor(int next){
-		myStats.setEquipArmor(next);
+		myStats.modifyEquipArmor(next);
 		myAbilities.update();
 	}
         
@@ -464,6 +468,9 @@ public abstract class Entity extends MapObject{
     }
 
     /* -------------------- MISC. MUTATORS -------------------- */
+    public void die(){
+    	ActiveMapManager.getInstance().removeEntityFromActiveMap(this);
+    }
     public void setCurrency(int newest){
     	currency = max(newest, 0);
     }
@@ -478,7 +485,7 @@ public abstract class Entity extends MapObject{
     	super.modifyLocation(change);
     	setDirection(motionToDirection(change));
     	canMove = false;
-    	GameTimer.getInstance().addEvent(new AllowMovement(this), (int) 1000/getMovement());
+    	GameTimer.getInstance().addEvent(new AllowMovement(this), (int) 10000/getMovement());
     	return true;
     }
     public void setMovementPermission(boolean newest){

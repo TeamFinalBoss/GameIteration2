@@ -32,7 +32,8 @@ public class MotionCoordinator {
 	
 	
 	public void moveEntity(Entity e, CoordinatePair desiredLocation, AreaEffect effect, Item i, MapSwitcher switcher, Trap t){
-		e.setLocation(desiredLocation);
+		CoordinatePair change = new CoordinatePair(desiredLocation.getX()-e.getLocation().getX(), desiredLocation.getY()-e.getLocation().getY());
+		if(!e.modifyLocation(change)) return;
 		
 		if (effect != null){
 			effect.activate(e);
@@ -43,7 +44,7 @@ public class MotionCoordinator {
 		}
 		
 		if(t != null){
-                    t.activate(e); //TODO: Create this method for every item type
+                    t.Activate(e); //TODO: Create this method for every item type
 		}
 		
 		if(switcher != null){

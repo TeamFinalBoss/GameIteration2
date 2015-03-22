@@ -5,9 +5,9 @@
  */
 package model.map;
 
-import model.effect.Effect;
+import model.effect.GoDownEffect;
+import model.entity.Entity;
 import model.map.pair.PreciseCoordinatePair;
-import model.util.GameTimer;
 
 /**
  *
@@ -15,16 +15,15 @@ import model.util.GameTimer;
  */
 public class Bullet extends Projectile {
     
-    public void Bullet(){
-         super(long initialLifetime, Vector velocity, PreciseCoordinatePair initialLocation, Effect effects){
-        lifetime = initialLifetime;
-        this.velocity = velocity;
-        location = initialLocation;
-        this.effects = effects;
-        myTimer = GameTimer.getInstance();
-        myTimer.addEvent(this, 0); //immediately calls run
-        refreshRate = 10; //projectiles refresh every 10 milliseconds (20 times a second)
+    public Bullet(Entity e1){
+         super(5, new Vector(e1.getDirection()),new PreciseCoordinatePair((double)e1.getLocation().getX(), (double)e1.getLocation().getY()), new GoDownEffect(10));
+         //projectiles refresh every 10 milliseconds (20 times a second)
     }
-    }
+    @Override
+           public boolean canSee(int observationLevel){
+             return true;
+         }
+    
+
     
 }

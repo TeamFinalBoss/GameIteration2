@@ -40,6 +40,10 @@ public class GameWindow {
     public GameWindow() {
         this(1, 1);
         frame.setExtendedState(frame.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+        
+        frame.dispose();
+        frame.setUndecorated(true);
+        frame.setVisible(true);
     }
 
     /**
@@ -50,6 +54,7 @@ public class GameWindow {
      */
     public GameWindow(int width, int height) {
         frame = new JFrame();
+        
         frame.setSize(new Dimension(width, height));
         frame.setTitle("FINAL BOSS 2.0");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

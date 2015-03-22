@@ -1,12 +1,26 @@
 package model.director;
 
+import java.util.List;
+import java.util.Map;
+
+import model.map.areaEffect.AreaEffect;
+import model.map.pair.PurePair;
+import model.effect.Dispellable;
 import model.entity.Entity;
+import model.entity.MotionType;
 import model.entity.SummonerAvatar;
 import model.entity.SmasherAvatar;
 import model.entity.SneakAvatar;
+import model.item.Equipable;
+import model.item.Item;
+import model.item.Takeable;
 import model.map.pair.CoordinatePair;
+import model.map.tile.Tile;
+import model.map.tile.trap.Trap;
 import model.map.Direction;
+import model.map.projectiles.Projectile;
 import model.entity.SummonerAvatar;
+import model.entity.ability.Ability;
 import model.item.EquipSlot;
 
 /**
@@ -27,7 +41,7 @@ public class AvatarInteractionManager {
  
     public AvatarInteractionManager(){
        AMM = ActiveMapManager.getInstance();
-       statPoints = 0;
+       statPoints = 10;
        skillPoints = 0;
        currentSlotInSack = 0;
        currentSlotInArmory = 0;
@@ -35,7 +49,7 @@ public class AvatarInteractionManager {
     public AvatarInteractionManager(Entity avatar){
         this.avatar = avatar;
         AMM = ActiveMapManager.getInstance();
-        statPoints = 0;
+        statPoints = 10;
         skillPoints = 0;
         currentSlotInSack = 0;
         currentSlotInArmory = 0;
@@ -106,9 +120,6 @@ public class AvatarInteractionManager {
     * @return sack size
     * @author Jason Owens
     */
-    public int getSackSize(){
-        return avatar.getSackSize();
-    }
     
     public Entity getAvatar(){
     	return avatar;
@@ -120,6 +131,8 @@ public class AvatarInteractionManager {
     public void setAvatar(Entity next){
     	avatar = next;
     }
+    
+    /* --------------------  SKILL ASSIGNMENT SYSTEM -------------------- */
     public int getSkillPoints(){
     	return skillPoints;
     }
@@ -222,5 +235,163 @@ public class AvatarInteractionManager {
 			((SneakAvatar) avatar).modifyRangedWeapon(1);
 		}
 		--skillPoints;
+	}
+	
+	/* -------------------- AVATAR ACCESSORS -------------------- */
+	public List<Takeable> getSack(){
+		return avatar.getSackContents();
+	}
+	public int getSackSize(){
+		return avatar.getSackSize();
+	}
+	public int getSackCapacity(){
+		return avatar.getSackCapacity();
+	}
+	public Map<EquipSlot,Equipable> getArmoryContents(){
+		return avatar.getArmoryContents();
+	}
+	public int getLivesLeft(){
+		return avatar.getLivesLeft();
+	}
+	public int getStrength(){
+		return avatar.getStrength();
+	}
+	public int getAgility(){
+		return avatar.getAgility();
+	}
+	public int getIntellect(){
+		return avatar.getIntellect();
+	}
+	public int getHardiness(){
+		return avatar.getHardiness();
+	}
+	public int getExperience(){
+		return avatar.getExperience();
+	}
+	public int getMovement(){
+		return avatar.getMovement();
+	}
+	public int getLevel(){
+		return avatar.getLevel();
+	}
+	public int getMaxHP(){
+		return avatar.getMaxHP();
+	}
+	public int getMaxMP(){
+		return avatar.getMaxMP();
+	}
+	public int getOffense(){
+		return avatar.getOffense();
+	}
+	public int getDefense(){
+		return avatar.getDefense();
+	}
+	public int getArmor(){
+		return avatar.getArmor();
+	}
+	public int getBindWounds(){
+		return avatar.getBindWounds();
+	}
+	public int getBargain(){
+		return avatar.getBargain();
+	}
+	public int getObservation(){
+		return avatar.getObservation();
+	}
+	public int getCurrentHP(){
+		return avatar.getCurrentHP();
+	}
+	public int getCurrentMP(){
+		return avatar.getCurrentMP();
+	}
+	public int getWeaponOffense(){
+		return avatar.getWeaponOffense();
+	}
+	public int getEquipArmor(){
+		return avatar.getEquipArmor();
+	}
+	public PurePair<String,Integer> getClassSkill1(){
+		if(avatar.getOccupation().equals("summoner")){
+			return new PurePair<String,Integer>("Enchantment", new Integer(((SummonerAvatar) avatar).getEnchantment()));
+		}
+		if(avatar.getOccupation().equals("smasher")){
+			return new PurePair<String,Integer>("One-Handed", new Integer(((SmasherAvatar) avatar).getOneHanded()));
+		}
+		if(avatar.getOccupation().equals("sneak")){
+			return new PurePair<String,Integer>("Pickpocket", new Integer(((SneakAvatar) avatar).getPickPocket()));
+		}
+		return new PurePair<String,Integer>();
+	}
+	public PurePair<String,Integer> getClassSkill2(){
+		if(avatar.getOccupation().equals("summoner")){
+			return new PurePair<String,Integer>("Bane", new Integer(((SummonerAvatar) avatar).getBane()));
+		}
+		if(avatar.getOccupation().equals("smasher")){
+			return new PurePair<String,Integer>("Two-Handed", new Integer(((SmasherAvatar) avatar).getTwoHanded()));
+		}
+		if(avatar.getOccupation().equals("sneak")){
+			return new PurePair<String,Integer>("Trap", new Integer(((SneakAvatar) avatar).getTrapSkill()));
+		}
+		return new PurePair<String,Integer>();
+	}
+	public PurePair<String,Integer> getClassSkill3(){
+		if(avatar.getOccupation().equals("summoner")){
+			return new PurePair<String,Integer>("Boon", new Integer(((SummonerAvatar) avatar).getBoon()));
+		}
+		if(avatar.getOccupation().equals("smasher")){
+			return new PurePair<String,Integer>("Brawling", new Integer(((SmasherAvatar) avatar).getBrawling()));
+		}
+		if(avatar.getOccupation().equals("sneak")){
+			return new PurePair<String,Integer>("Creep", new Integer(((SneakAvatar) avatar).getCreep()));
+		}
+		return new PurePair<String,Integer>();
+	}
+	public PurePair<String,Integer> getClassSkill4(){
+		if(avatar.getOccupation().equals("summoner")){
+			return new PurePair<String,Integer>("Staff", new Integer(((SummonerAvatar) avatar).getStaff()));
+		}
+		if(avatar.getOccupation().equals("smasher")){
+			return new PurePair<String,Integer>("Chakra", new Integer(((SmasherAvatar) avatar).getChakra()));
+		}
+		if(avatar.getOccupation().equals("sneak")){
+			return new PurePair<String,Integer>("Ranged Weapon", new Integer(((SneakAvatar) avatar).getRangedWeapon()));
+		}
+		return new PurePair<String,Integer>();
+	}
+	public List<Ability> getAllAbilities(){
+		return avatar.getAllAbilities();
+	}
+	public List<Tile> getVisibleTiles(){
+		return avatar.getVisibleTiles();
+	}
+	public List<Projectile> getVisibleProjectiles(){
+		return avatar.getVisibleProjectiles();
+	}
+	public List<Entity> getVisibleEntities(){
+		return avatar.getVisibleEntities();
+	}
+	public List<Trap> getVisibleTraps(){
+		return avatar.getVisibleTraps();
+	}
+	public List<Item> getVisibleItems(){
+		return avatar.getVisibleItems();
+	}
+	public List<AreaEffect> getVisibleAreaEffects(){
+		return avatar.getVisibleAreaEffects();
+	}
+	public List<Dispellable> getEffects(){
+		return avatar.getEffects();
+	}
+	public int getCurrency(){
+		return avatar.getCurrency();
+	}
+	public Direction getDirection(){
+		return avatar.getDirection();
+	}
+	public MotionType getMotionType(){
+		return avatar.getMotionType();
+	}
+	public String getOccupation(){
+		return avatar.getOccupation();
 	}
 }

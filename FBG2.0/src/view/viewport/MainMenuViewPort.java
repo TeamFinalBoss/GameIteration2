@@ -122,16 +122,18 @@ public class MainMenuViewPort extends Observable implements ViewPort, Observer, 
     }
 
 	@Override
-	public void getActiveLocation(Point point) {
+	public int getActiveLocation(Point point) {
 		if (options != null) {
 			for (int i = 0; i < options.length; i++) {
 				if(withinYBounds(stringHeight, i, (int)point.getY()) && withinXBounds(stringWidth[i],i,(int)point.getX())) {
 					activeOptionIndex = i;
 					setChanged();
 					notifyObservers();
+					return i;
 				}
 			}
 		}
+		return -1;
 	}
 
 	protected boolean withinYBounds(int checkHeight, int i, int y) {

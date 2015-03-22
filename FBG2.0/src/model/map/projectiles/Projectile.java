@@ -1,9 +1,11 @@
-package model.map;
+package model.map.projectiles;
 
 import java.util.TimerTask;
+import model.director.ActiveMapManager;
 
 import model.effect.Effect;
 import model.entity.Entity;
+import model.map.Vector;
 import model.map.pair.PreciseCoordinatePair;
 import model.util.GameTimer;
 
@@ -17,6 +19,8 @@ public abstract class Projectile extends TimerTask{
     
     private long lifetime; //this may change based on how we implement time
     private int refreshRate;
+    
+    private Entity castingEntity;
     
     private GameTimer myTimer;
     
@@ -33,14 +37,16 @@ public abstract class Projectile extends TimerTask{
     Projectile(){
         throw new UnsupportedOperationException("Do not use default Projectile constructor.");
     }
-    Projectile(long initialLifetime, Vector velocity, PreciseCoordinatePair initialLocation, Effect effects){
+    Projectile(long initialLifetime, Vector velocity, PreciseCoordinatePair initialLocation, Effect effects, Entity castingEntity){
         lifetime = initialLifetime;
         this.velocity = velocity;
         location = initialLocation;
         this.effects = effects;
         myTimer = GameTimer.getInstance();
-        myTimer.addEvent(this, 0); //immediately calls run
+//        myTimer.addEvent(this, 0); //immediately calls run
         refreshRate = 10; //projectiles refresh every 10 milliseconds (20 times a second)
+        this.castingEntity = castingEntity;
+        ActiveMapManager.getInstance().addProjectileToMap(this);
     }
     
     /*
@@ -58,11 +64,22 @@ public abstract class Projectile extends TimerTask{
         if(isActive){ 
             myTimer.addEvent(this, refreshRate);
         }
+        
     }
     public void onHit(Entity e){
         isActive = false; //change this if we ever implement piercing projectiles
         //affect Entity here, may move this to Combat Coordinator
     }
     
+    public Effect getEffect(){
+     return effects;   
+    }
+    
+    public abstract void applyEffect(Entity entToEffect);
+    
     public abstract boolean canSee(int observationLevel);
+
+    public Object getLocation() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
