@@ -14,9 +14,13 @@ public class SackViewport extends Observable implements ViewPort, Observer, Mous
 	
 	private int currentSelection;
 	private final int itemsPerRow = 5;
-	private int currentMaxRow = 4;
-	private int currentMinRow = 0;
-	private int maximumNumberOfRows = 5;
+	private static int currentMaxRow = 4;
+	private static int currentMinRow = 0;
+	private static int maximumNumberOfRows = 5;
+	private static final int sizeOfBox = 63;
+	private static final int startX = 0;
+	private static final int startY = 0;
+	private Graphics graph;
 
 	public SackViewport() {
 
@@ -26,6 +30,7 @@ public class SackViewport extends Observable implements ViewPort, Observer, Mous
 
 	@Override
 	public void draw(Graphics g) {
+		graph = g;
 		if(canDraw()) {
 			//I is the row J is the column
 			for(int i = 0; i < maximumNumberOfRows; ++i) {
@@ -49,7 +54,7 @@ public class SackViewport extends Observable implements ViewPort, Observer, Mous
 		} else {
 			g.setColor(Color.ORANGE);
 		}
-		g.drawRect(j * 31, i * 31, 31, 31);
+		g.drawRect((j * sizeOfBox) + startX, (i * sizeOfBox)+ startY, sizeOfBox - 1, sizeOfBox - 1);
 	}
 
 	@Override
@@ -76,16 +81,16 @@ public class SackViewport extends Observable implements ViewPort, Observer, Mous
 	}
 	
 	protected boolean withinYBounds(int i, int y) {
-		int heightUpperBounds = i*31;
-		int heightLowerBounds = heightUpperBounds + 31;
-		System.out.println("Height: " + heightUpperBounds + " " + heightLowerBounds + " " + y);
+		int heightUpperBounds = (i*sizeOfBox) + i + startY;
+		int heightLowerBounds = heightUpperBounds + sizeOfBox;
+		System.out.println(heightUpperBounds + " " + heightLowerBounds + " " + y);
 		return ((y <= heightLowerBounds) && (y >= heightUpperBounds));
 	}
 
 	protected boolean withinXBounds(int j, int x) {
-		int widthLeftBounds = j * 31;
-		int widthRightBounds = widthLeftBounds + 31;
-		System.out.println("Width: " + widthLeftBounds + " " + widthRightBounds + " " + x);
+		int widthLeftBounds = (j * sizeOfBox) + j + startX;
+		int widthRightBounds = widthLeftBounds + sizeOfBox;
+
 		return ((x >= widthLeftBounds) && (x <= widthRightBounds));
 	}
 
@@ -95,8 +100,11 @@ public class SackViewport extends Observable implements ViewPort, Observer, Mous
 	public void getActiveLocation(Point point) {
 		for(int i = 0; i < maximumNumberOfRows; ++i) {
 			for(int j = 0; j < itemsPerRow; ++j) {
-				if(withinXBounds(j,(int)point.getX()) && withinYBounds(i,(int)point.getX())) {		
-					currentSelection = (i * itemsPerRow + j) + (maximumNumberOfRows * currentMinRow);
+				graph.setColor(Color.BLACK);
+				graph.drawRect((j * sizeOfBox) + startX,(i*sizeOfBox)  + startY, sizeOfBox - 1, sizeOfBox - 1);
+				if(withinXBounds(j,(int)point.getX()) && withinYBounds(i,(int)point.getY())) {	
+					
+					currentSelection = ((i * itemsPerRow) + j) + (maximumNumberOfRows * currentMinRow);
 					setChanged();
 					notifyObservers();
 				}
