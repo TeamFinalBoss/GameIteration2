@@ -479,7 +479,6 @@ public class GameMap extends Observable {
         if(MV.canTraverse(e.getMotionType(), getItemAtCoordinate(desiredLocation), getTileAtCoordinate(desiredLocation).getMotionType())){ 
             MC.moveEntity(e, desiredLocation, getAreaEffectAtCoordinate(desiredLocation), getItemAtCoordinate(desiredLocation),
                     getSwitcherAtCoordinate(desiredLocation), getTrapAtCoordinate(desiredLocation));
-            e.setDirection(dir);
             return true;
         }
         else{
