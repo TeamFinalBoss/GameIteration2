@@ -31,7 +31,6 @@ public class MainMenuViewPort extends Observable implements ViewPort, Observer, 
     private int width, height;
     private int logoHeight = 174;
     private final int padding = 25;
-    private Graphics graphics;
     private final int logoY = 100;
     protected int[] stringWidth;
     private int stringHeight = 39;
@@ -77,7 +76,6 @@ public class MainMenuViewPort extends Observable implements ViewPort, Observer, 
     }
     
     protected void drawMenu(Graphics g) {
-    	 graphics = g;
     	 g.setFont(new Font(g.getFont().getFamily(), Font.PLAIN, 30));
     	 
          if (options != null) {

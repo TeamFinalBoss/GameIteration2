@@ -7,58 +7,60 @@ import java.util.Observable;
 import java.util.Observer;
 
 import model.director.GameDirector;
-import controller.sceneControllers.SceneChanger;
-import controller.sceneControllers.SceneType;
 import controller.util.Describeable;
-import controller.util.SceneObserver;
 
-public class StatsUpdateViewport implements ViewPort, Observer, SceneObserver {
+public class StatsUpdateViewport implements ViewPort, Observer{
 	
 	private static int currentValue;
 	private static String[] options;
 	private static int xStart;
-	private static int yStart = 31;
-	private static int padding = 25;
-	private SceneType type;
-	private static Graphics graphics;
+	private static int screenWidth;
+	private static int yStart;
+	private static int height = 18;
+	private static int padding = 1;
 	
 	public StatsUpdateViewport() {
-		int width = GameDirector.getSize().width;
-		xStart = width - (int)(GameDirector.getSize().getWidth() * 0.2);
-		SceneChanger.getInstance().registerObserver(this);
+		screenWidth = GameDirector.getSize().width;
+		xStart = screenWidth - (int)(GameDirector.getSize().getWidth() * 0.2);
+		yStart = 0;
 	}
 
 	@Override
 	public void draw(Graphics g) {
-		graphics = g;
-		if(type.equals(SceneType.STATS_UPDATING)) {
-			if(options != null) {
-				g.setFont(new Font(g.getFont().getFamily(), Font.PLAIN, 30));
-				int height = g.getFontMetrics().getHeight();
-				g.setColor(Color.yellow);
-				g.fillRect(xStart, yStart - 31, (int)(GameDirector.getSize().getWidth() * 0.2), options.length * (padding + height));
-				for(int i = 0; i < options.length; i++) {
-					 if (i == currentValue) {
-	                     g.setColor(Color.red);
-	                 } else {
-	                     g.setColor(Color.black);
-	                 }
-					g.drawString(options[i], xStart, yStart + i* (padding + height));
+		if(options != null) {
+			
+			int height = g.getFontMetrics().getHeight();
+			g.setColor(Color.LIGHT_GRAY);
+			g.fillRect(xStart, yStart-height - padding, (int)(GameDirector.getSize().getWidth() * 0.2), (options.length ) * (padding + height));
+			for(int i = 0; i < options.length; i++) {
+				g.setFont(new Font(g.getFont().getFamily(), Font.PLAIN, 15));
+				 if (i== currentValue) {
+					 g.setColor(Color.red);
+	             } else {
+	                 g.setColor(Color.black);
+	             }
+				 if(i == 0 || i == 13) {
+					 g.setFont(new Font(g.getFont().getFamily(), Font.BOLD, 15));
+				 }
+				 String[] strings =options[i].split("\t");
+				 if(strings.length == 2) {
+					 g.drawString(strings[0], xStart, yStart + i* (padding+height));
+					 int width = g.getFontMetrics().stringWidth(strings[1]);
+					 g.drawString(strings[1], screenWidth-width - 20, yStart + i * (padding+height));
+				 } else {
+					 g.drawString(options[i], xStart, yStart + i* (padding + height));
+				 }
+				 
 				}
 			}
-		}
+	
 	}
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
 		Describeable desc = (Describeable) arg0;
 		options = desc.getDescription();
-		currentValue = desc.getCurrentIndex();
+		yStart = GameDirector.getSize().height - (options.length * height);
+		currentValue = desc.getCurrentIndex() + 1;
 	}
-
-	@Override
-	public void update(SceneType type) {
-		this.type = type;
-	}
-
 }

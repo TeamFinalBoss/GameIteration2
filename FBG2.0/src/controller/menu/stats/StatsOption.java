@@ -5,7 +5,14 @@ public enum StatsOption {
 	AGILITY("Agility"),
 	INTELLECT("Intellect"),
 	HARDINESS("Hardiness"),
-	MOVEMENT("Movement");
+	MOVEMENT("Movement"),
+	BIND_WOUND("Bind Wound"),
+	BARGAIN("Bargain"),
+	OBSERVATION("Observation"),
+	SKILL_1("Skill 1"),
+	SKILL_2("Skill 2"),
+	SKILL_3("Skill 3"),
+	SKILL_4("Skill 4");
 	
 	private String value;
 	

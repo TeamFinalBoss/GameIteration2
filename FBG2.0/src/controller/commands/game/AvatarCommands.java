@@ -40,5 +40,34 @@ public abstract class AvatarCommands implements Commandable {
 	protected void increaseMovement() {
 		manager.increaseMovement();
 	}
+	
+	protected void increaseBoundWound() {
+		manager.increaseBindWounds();
+	}
+	
+	protected void increaseBargain() {
+		manager.increaseBargain();
+	}
+	
+	protected void increaseObservation() {
+		manager.increaseObservation();
+	}
+	
+	protected void increaseSkill1() {
+		manager.increaseClassSkill1();
+	}
+	
+	protected void increaseSkill2() {
+		manager.increaseClassSkill2();
+	}
+	
+	protected void increaseSkill3() {
+		manager.increaseClassSkill3();
+	}
+	
+	protected void increaseSkill4() {
+		manager.increaseClassSkill4();
+	}
+	
 	public abstract void execute();
 }
