@@ -11,7 +11,7 @@ import model.entity.Entity;
  *
  * @author ashish,  Owner
  */
-public abstract class HealEffect implements Effect{
+public class HealEffect implements Effect{
     private int amountToHeal;
     public HealEffect(int amountToHeal){
         this.amountToHeal =amountToHeal;

@@ -1,5 +1,6 @@
 package model.map;
 
+import model.map.projectiles.Projectile;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -60,6 +61,7 @@ public class GameMap extends Observable {
         this.effects = new Locations<>();
         this.switchers = new Locations<>();
         this.traps = new Locations<>();
+        this.projectiles = new ArrayList<>();
         this.MC = MotionCoordinator.getInstance();
         this.MV = MotionValidator.getInstance();
         //this.addEntity(AvatarInteractionManager.getInstance().getAvatar(), new CoordinatePair(1, 1)); //TODO change to avatar
@@ -81,6 +83,7 @@ public class GameMap extends Observable {
         this.effects = new Locations<>();
         this.switchers = new Locations<>();
         this.traps = new Locations<>();
+        this.projectiles = new ArrayList<>();
         this.MC = MotionCoordinator.getInstance();
         this.MV = MotionValidator.getInstance();
     }
@@ -94,6 +97,7 @@ public class GameMap extends Observable {
         this.effects = new Locations<>();
         this.switchers = new Locations<>();
         this.traps = new Locations<>();
+        this.projectiles = new ArrayList<>();
         this.MC = MotionCoordinator.getInstance();
         this.MV = MotionValidator.getInstance();
         
@@ -566,6 +570,9 @@ public class GameMap extends Observable {
         entities.getSesInRange(center, radius, containedEntities);
         items.getSesInRange(center, radius, containedItems);
         effects.getSesInRange(center, radius, containedAreaEffects);
+        traps.getSesInRange(center, radius, containedTraps);
+        //TODO: add to projectiles list and this method should be done
+        
     }
 
     public void addProjectile(Projectile proj) {

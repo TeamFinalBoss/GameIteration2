@@ -44,7 +44,7 @@ public class MotionCoordinator {
 		}
 		
 		if(t != null){
-                    t.activate(e); //TODO: Create this method for every item type
+                    t.Activate(e); //TODO: Create this method for every item type
 		}
 		
 		if(switcher != null){

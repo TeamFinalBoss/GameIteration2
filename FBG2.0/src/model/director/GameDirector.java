@@ -26,6 +26,10 @@ import controller.Controller;
 import controller.sceneControllers.SceneChanger;
 import controller.sceneControllers.SceneType;
 import controller.util.SceneObserver;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
 
 /**
  * This class is the director of our game, integrating the various subsystems.
@@ -36,7 +40,7 @@ import controller.util.SceneObserver;
  *
  * @author ChrisMoscoso
  */
-public class GameDirector extends Observable implements SceneObserver{
+public class GameDirector extends Observable implements SceneObserver {
 
     private static Boolean paused = false;
     private static GameWindow window;
@@ -47,22 +51,22 @@ public class GameDirector extends Observable implements SceneObserver{
     private Scene menuScene, gameScene, pauseScene, keyBindingsScene, saveScene, loadScene, activeScene;
     private static Controller controller = Controller.getInstance();
     private SceneChanger sceneChanger = SceneChanger.getInstance();
-    
-    private Map<SceneType,Scene> scenes;
+
+    private Map<SceneType, Scene> scenes;
 
     private static GameDirector gameDirector = null;//It's a singleton object.
 
     private GameDirector() {
         window = new GameWindow();
         scenes = new HashMap<>();
-        
+
         menuScene = new Scene();
         pauseScene = new Scene();
         keyBindingsScene = new Scene();
         gameScene = new Scene();
         saveScene = new Scene();
         loadScene = new Scene();
-        
+
         scenes.put(SceneType.MAIN_MENU, menuScene);
         scenes.put(SceneType.PAUSE_MENU, pauseScene);
         scenes.put(SceneType.KEY_BINDINGS, keyBindingsScene);
@@ -73,74 +77,79 @@ public class GameDirector extends Observable implements SceneObserver{
         scenes.put(SceneType.SAVE, saveScene);
         scenes.put(SceneType.LOAD, loadScene);
         scenes.put(SceneType.STATS_UPDATING, gameScene);
-        
+
         sceneChanger.registerObserver(this);
     }
 
     /**
-     * 
+     *
      */
     public void startMainMenuScene() {
-    	KeyListener listener = controller.buildController();
+        KeyListener listener = controller.buildController();
         window.addKeyController(listener);//Add controller to menu
         window.addMouseController(controller.getMouseParser());
 
         List<Observable> mainMenuObservables = controller.getObservables(SceneType.MAIN_MENU);
-        
+
         MainMenuViewPort menuVP = new MainMenuViewPort();
-        ((Observable)menuVP).addObserver((Observer) mainMenuObservables.get(0));
-        
+        ((Observable) menuVP).addObserver((Observer) mainMenuObservables.get(0));
+
         menuScene.addViewport(menuVP);//Add menuVP to menuScene
-        
+
         List<Observable> pauseMenuObservables = controller.getObservables(SceneType.PAUSE_MENU);
-        
+
         MainMenuViewPort pauseVP = new MainMenuViewPort();
         pauseScene.addViewport(pauseVP);
-        
-        ((Observable)pauseVP).addObserver((Observer) pauseMenuObservables.get(0));
-        
-        
+
+        ((Observable) pauseVP).addObserver((Observer) pauseMenuObservables.get(0));
+
         List<Observable> keyMenuObservables = controller.getObservables(SceneType.KEY_BINDINGS);
         MainMenuViewPort keyBindingsVP = new KeyBindingsMenuViewPort();
-        
-        
+
         keyBindingsScene.addViewport(keyBindingsVP);
-        ((Observable)keyBindingsVP).addObserver((Observer) keyMenuObservables.get(0));
+        ((Observable) keyBindingsVP).addObserver((Observer) keyMenuObservables.get(0));
         KeyBindingsErrorViewPort errorViewPort = new KeyBindingsErrorViewPort();
         keyBindingsScene.addViewport(errorViewPort);
-        
+
         MainMenuViewPort saveVP = new MainMenuViewPort();
         saveScene.addViewport(saveVP);
         List<Observable> saveMenuObservables = controller.getObservables(SceneType.SAVE);
-        ((Observable)saveVP).addObserver((Observer) saveMenuObservables.get(0));
-        
-        
+        ((Observable) saveVP).addObserver((Observer) saveMenuObservables.get(0));
+
         MainMenuViewPort loadVP = new MainMenuViewPort();
         loadScene.addViewport(loadVP);
         List<Observable> loadMenuObservables = controller.getObservables(SceneType.LOAD);
-        ((Observable)loadVP).addObserver((Observer) loadMenuObservables.get(0));
-        
-        
-        controller.getMouseParser().setMousePoint(SceneType.MAIN_MENU,(MousePoint)menuVP);
-        controller.getMouseParser().setMousePoint(SceneType.PAUSE_MENU,(MousePoint)pauseVP);
-        controller.getMouseParser().setMousePoint(SceneType.KEY_BINDINGS, (MousePoint)keyBindingsVP);
-        controller.getMouseParser().setMousePoint(SceneType.LOAD, (MousePoint)loadVP);
-        controller.getMouseParser().setMousePoint(SceneType.SAVE, (MousePoint)saveVP);
-        
-        
+        ((Observable) loadVP).addObserver((Observer) loadMenuObservables.get(0));
+
+        controller.getMouseParser().setMousePoint(SceneType.MAIN_MENU, (MousePoint) menuVP);
+        controller.getMouseParser().setMousePoint(SceneType.PAUSE_MENU, (MousePoint) pauseVP);
+        controller.getMouseParser().setMousePoint(SceneType.KEY_BINDINGS, (MousePoint) keyBindingsVP);
+        controller.getMouseParser().setMousePoint(SceneType.LOAD, (MousePoint) loadVP);
+        controller.getMouseParser().setMousePoint(SceneType.SAVE, (MousePoint) saveVP);
+
         controller.addObserver(menuVP, SceneType.MAIN_MENU);
         controller.addObserver(pauseVP, SceneType.PAUSE_MENU);
         controller.addObserver(keyBindingsVP, SceneType.KEY_BINDINGS);
         controller.addObserver(saveVP, SceneType.SAVE);
         controller.addObserver(loadVP, SceneType.LOAD);
-        controller.addObserver(errorViewPort,SceneType.UPDATING);
-        
-        
+        controller.addObserver(errorViewPort, SceneType.UPDATING);
+
         sceneChanger.changeScene(SceneType.MAIN_MENU);
         activeScene = menuScene;
+
+        try {
+            InputStream in = new FileInputStream("src/resources/sound/menu.wav");
+            AudioStream as = new AudioStream(in);
+
+            AudioPlayer.player.start(as);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
     }
 
     public void startNewGame() {
+
         
        // GameMap map = new GameMap();
        // ActiveMapManager.getInstance().addMap(map);
@@ -150,28 +159,30 @@ public class GameDirector extends Observable implements SceneObserver{
     	MapInstantiator.getInstance().loadFullGame(def);
     	AvatarInteractionManager.getInstance().setAvatar(MapInstantiator.getInstance().createAvatarFromFile(def));
        
+
         MapViewPort mapVP = new MapViewPort();
 
         gameScene.addViewport(mapVP);//Add mapVP to gameScene
-        
+
         SackViewport sack = new SackViewport();
         gameScene.addViewport(sack);
-        
+
         ArmoryViewport armory = new ArmoryViewport();
         gameScene.addViewport(armory);
-        
+
         StatsUpdateViewport statsPort = new StatsUpdateViewport();
         gameScene.addViewport(statsPort);
-        
+
         controller.addObserver(sack, SceneType.SACK);
         controller.addObserver(armory, SceneType.ARMORY);
         controller.addObserver(statsPort, SceneType.STATS_UPDATING);
-        
+
         List<Observable> sackObservables = controller.getObservables(SceneType.SACK);
-        ((Observable)sack).addObserver((Observer) sackObservables.get(0));
-        controller.getMouseParser().setMousePoint(SceneType.SACK, (MousePoint)sack);
-        
+        ((Observable) sack).addObserver((Observer) sackObservables.get(0));
+        controller.getMouseParser().setMousePoint(SceneType.SACK, (MousePoint) sack);
+
         List<Observable> armoryObservables = controller.getObservables(SceneType.ARMORY);
+
         ((Observable)armory).addObserver((Observer) armoryObservables.get(0));
         controller.getMouseParser().setMousePoint(SceneType.ARMORY, (MousePoint)armory);
         
@@ -180,11 +191,11 @@ public class GameDirector extends Observable implements SceneObserver{
        
         //map.addObserver(mapVP);//Add mapVP as an Observer to map
         ActiveMapManager.getInstance().getActiveMap().addObserver(mapVP);
+
         sceneChanger.changeScene(SceneType.GAME);
         activeScene = gameScene;
     }
 
-    
     /**
      * Checks if game is paused
      *
@@ -193,7 +204,7 @@ public class GameDirector extends Observable implements SceneObserver{
     public static boolean gameIsPaused() {
         return paused;
     }
-    
+
     /**
      * This is where execution of the game logic and updating of the model takes
      * place
@@ -212,8 +223,8 @@ public class GameDirector extends Observable implements SceneObserver{
      * and paints it to the screen.
      */
     public void drawGame() {
-        if(activeScene != null){
-        BufferedImage gameImage = activeScene.getImage();//render the game to buffer
+        if (activeScene != null) {
+            BufferedImage gameImage = activeScene.getImage();//render the game to buffer
             window.paintImageToScreen(gameImage); //paint the buffer to screen
         }
     }
@@ -265,21 +276,21 @@ public class GameDirector extends Observable implements SceneObserver{
     public static void resumeGame() {
         paused = false;
     }
-    
+
     public GameWindow getWindow() {
-    	return window;
+        return window;
     }
 
-	@Override
-	public void update(SceneType type) {
-		activeScene = scenes.get(type);
-	}
-	
-	public void addKeyListener(KeyListener listener) {
-		window.addKeyController(listener);
-	}
-	
-	public void removeKeyListener(KeyListener listener) {
-		window.removeKeyController(listener);
-	}
+    @Override
+    public void update(SceneType type) {
+        activeScene = scenes.get(type);
+    }
+
+    public void addKeyListener(KeyListener listener) {
+        window.addKeyController(listener);
+    }
+
+    public void removeKeyListener(KeyListener listener) {
+        window.removeKeyController(listener);
+    }
 }

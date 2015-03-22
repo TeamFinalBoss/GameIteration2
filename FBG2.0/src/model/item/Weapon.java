@@ -10,7 +10,8 @@ import model.director.CombatCoordinator;
 import model.entity.Entity;
 import model.map.pair.CoordinatePair;
 import model.effect.Effect;
-import model.effect.GoDownEffect;
+import model.effect.DealDamageEffect;
+
 
 /**
  * ID=17
@@ -27,7 +28,7 @@ public abstract class Weapon extends Equipable{
 		
 		this.id = "17";
 		this.className = "Weapon";
-                this.E1= new GoDownEffect(10); 
+                this.E1= new DealDamageEffect(10); 
              
                 
 		
@@ -40,7 +41,7 @@ public abstract class Weapon extends Equipable{
 		
 		this.id = "17";
 		this.className = "Weapon";	
-                this.E1= E1;
+                this.E1= DealDamageEffect(10);
                 this.durability=durability;
 		//Other properties set here
 	} 
