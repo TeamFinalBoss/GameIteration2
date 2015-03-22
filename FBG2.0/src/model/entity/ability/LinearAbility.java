@@ -16,7 +16,13 @@ import java.lang.Math.*;
 */
 public abstract class LinearAbility extends Ability
 {
-	private double range;
+    private String name;
+    private Effect effect;
+    private CombatCoordinator myCC;
+    private Effect cost;
+    private double degree;
+    private double radius;
+    private double range;
 
 	/**
 	* @author Aaron Iglesias
@@ -33,9 +39,10 @@ public abstract class LinearAbility extends Ability
 	* constructor for LinearAbility
 	* @param range
 	*/
-	public LinearAbility(String name, Effect effect, CombatCoordinator myCC, Effect cost, double range)
+	public LinearAbility(String name, Effect effect, Effect cost, double range)
 	{
-		super(name, effect, myCC, cost);
+		super(name, effect, cost);
+		this.myCC = CombatCoordinator.getInstance();
 		this.range = range;
 	}
 
@@ -78,9 +85,9 @@ public abstract class LinearAbility extends Ability
             inRange = Math.sqrt(Math.pow(x1 - x2,2) + Math.pow(y1 - y2, 2)) <= range;
 
             if(inRange)
-                    return true;
+                return true;
             else
-                    return false;
+                return false;
 	}
         
         public abstract boolean meetsStatRequirements(Entity entityToLearn);

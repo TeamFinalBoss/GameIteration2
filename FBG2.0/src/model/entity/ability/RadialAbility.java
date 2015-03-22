@@ -16,8 +16,12 @@ import java.lang.Math.*;
 */
 public abstract class RadialAbility extends Ability
 {
-	private double degree;
-	public double radius;
+    private String name;
+    private Effect effect;
+    private CombatCoordinator myCC;
+    private Effect cost;
+    private double degree;
+    private double radius;
 
 	/**
 	* @author Aaron Iglesias, Jason Owens
@@ -38,7 +42,8 @@ public abstract class RadialAbility extends Ability
 	*/
 	public RadialAbility(String name, Effect effect, CombatCoordinator myCC, Effect cost, int degree, double radius)
 	{
-		super(name, effect, myCC, cost);
+		super(name, effect, cost);
+		this.myCC = CombatCoordinator.getInstance();
 		this.degree = degree;
 		this.radius = radius;
 	}

@@ -39,10 +39,10 @@ public abstract class Ability {
     * constructor for Ability
     * @param name, effect, myCC, cost
     */
-    public Ability(String name, Effect effect, CombatCoordinator myCC, Effect cost){
+    public Ability(String name, Effect effect, Effect cost){
         this.name = name;
         this.effect = effect;
-        this.myCC = myCC;
+        this.myCC = CombatCoordinator.getInstance();
         this.cost = cost;
     }
     
@@ -58,14 +58,14 @@ public abstract class Ability {
     }
 
     /**
-    * @author Jason Owens
+    * @author Aaron Iglesias, Jason Owens
     * passes affectedTiles and effect to CombatCoordinator to deal damage
     * @param callingEntity
     */
-    public void performAbility(Entity callingEntity) {
-        ArrayList<CoordinatePair> affectedTiles = getAffectedTiles(callingEntity);
-        myCC.attemptAffectEntities(affectedTiles, effect);
-    }
+
+    public abstract void performAbility(Entity entity);
+    public abstract void applyEffect(Effect effect);
+    public abstract boolean meetsStatRequirements(Entity caster);
 
     /**
     * @author Aaron Iglesias, Jason Owens
@@ -114,12 +114,5 @@ public abstract class Ability {
         
         return distance;
     }
-    
-    /**
-     * @author Jason Owens
-     * @param entityToLearn
-     * @return whether or not the entity given meets the stats requirements for this ability
-     */
-    public abstract boolean meetsStatRequirements(Entity entityToLearn);
     
 }

@@ -1,3 +1,5 @@
+package model.entity.ability;
+
 import model.effect.Effect;
 import model.entity.Entity;
 
@@ -7,7 +9,7 @@ import model.map.pair.CoordinatePair;
 import java.util.ArrayList;
 import model.entity.Entity;
 import java.lang.Math.*;
-import model.entity.Ability;
+import model.entity.ability.Ability;
 
 /**
 *
@@ -15,6 +17,10 @@ import model.entity.Ability;
 */
 public abstract class AngularAbility extends Ability
 {
+	private String name;
+    private Effect effect;
+    private CombatCoordinator myCC;
+    private Effect cost;
 	private double degree;
 	private double radius;
 
@@ -37,7 +43,8 @@ public abstract class AngularAbility extends Ability
 	*/
 	public AngularAbility(String name, Effect effect, CombatCoordinator myCC, Effect cost, int degree, double radius)
 	{
-		super(name, effect, myCC, cost);
+		super(name, effect, cost);
+                this.myCC = CombatCoordinator.getInstance();
 		this.degree = degree;
 		this.radius = radius;
 	}
