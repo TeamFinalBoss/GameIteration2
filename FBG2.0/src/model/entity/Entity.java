@@ -10,7 +10,7 @@ import model.map.Projectile;
 import model.map.pair.CoordinatePair;
 import model.map.tile.AreaEffect;
 import model.map.tile.Tile;
-import model.map.tile.Trap;
+import model.map.tile.trap.Trap;
 import model.util.GameTimer;
 import model.effect.AllowMovement;
 import model.effect.Dispellable;
@@ -49,6 +49,8 @@ public abstract class Entity extends MapObject{
     private int currency;
     private MotionType motionType;
     private boolean canMove;
+    private String occupation;
+    private String type;
 
     /* -------------------- PROTECTED COMPONENT CREATION -------------------- */
     protected Inventory createInventory(){
@@ -56,6 +58,8 @@ public abstract class Entity extends MapObject{
     }
     protected abstract AbilityLibrary createAbilities();
     protected abstract Stats createStats();
+    protected abstract String setOccupation();
+    protected abstract String setType();
     
     /* -------------------- PROTECTED UTILITY -------------------- */
     protected Stats getStats(){
@@ -112,6 +116,8 @@ public abstract class Entity extends MapObject{
 		this.setID("1");
 		this.setClassName("Entity");
 		visibleMap.update();
+		occupation = setOccupation();
+		type = setType();
     }
     
     /* -------------------- PRIVATE UTILITY -------------------- */
@@ -322,6 +328,10 @@ public abstract class Entity extends MapObject{
 		myStats.dealDamage(amount);
 		myAbilities.update();
 	}
+	public void levelUp(){
+		myStats.levelUp();
+		myAbilities.update();
+	}
 	public void modifyLivesLeft(int next){
 		myStats.modifyLivesLeft(next);
 		myAbilities.update();
@@ -416,7 +426,9 @@ public abstract class Entity extends MapObject{
 	public void removeEffect(Dispellable effect){
 		activeEffects.remove(effect);
 	}
-	
+	public List<Dispellable> getEffects(){
+		return activeEffects;
+	}
 	
     /* -------------------- MISC. ACCESSORS -------------------- */
     public int getCurrency(){
@@ -431,7 +443,12 @@ public abstract class Entity extends MapObject{
     public boolean canSee(int observation){
     	return true;
     }
-    
+    public String getOccupation(){
+    	return occupation;
+    }
+    public String getType(){
+    	return type;
+    }
 
     /* -------------------- MISC. MUTATORS -------------------- */
     public void setCurrency(int newest){

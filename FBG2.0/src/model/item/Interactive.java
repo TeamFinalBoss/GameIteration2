@@ -62,6 +62,10 @@ public class Interactive extends Item {
         	this.link = new ObstacleLink(this, newLink);
         }
         
+        public int getLink() {
+        	return link.getLink();
+        }
+        
         //Try to use item and returns if it ables to use items successfully 
         
         public boolean use(){

@@ -7,7 +7,7 @@ import java.util.Observer;
 
 import model.map.tile.AreaEffect;
 import model.map.tile.Tile;
-import model.map.tile.Trap;
+import model.map.tile.trap.Trap;
 import model.map.pair.CoordinatePair;
 import model.entity.Entity;
 import model.item.Interactive;
@@ -17,6 +17,7 @@ import model.item.OneShot;
 import model.item.Takeable;
 import model.director.ActiveMapManager;
 import model.director.AvatarInteractionManager;
+
 /**
  * This is a container of all the entities, items, tiles, and traps. Currently,
  * of the four types of objects on the map only one object per type can occupy a
@@ -411,9 +412,20 @@ public class GameMap extends Observable {
      * the map (in this case the MapViewPort). For the sake of encapsulation it
      * only passes the objects needed for drawing the view.
      */
+    
     private void updateView() {
+        
+        System.out.println("Map calls update");
         setChanged();
-        Object[] objects = {tiles, entities, items, traps};
+        Object[] objects = new Object[5];
+        Entity avatar = AvatarInteractionManager.getInstance().getAvatar();
+        
+        objects[0] = tiles;
+        objects[1] = avatar;
+        objects[2] = entities;
+        objects[3] = items;
+        objects[4] = traps;
+        //objects = {tiles, avatar,entities, items, traps};
         notifyObservers(objects);
     }
 

@@ -67,9 +67,7 @@ public class TakeableFactory implements PlaceableObjectFactory{
 				Item it = switchName(item);
 				
 				if(it == null) continue;
-				
 				it.setLocation(new CoordinatePair(Integer.parseInt(item.getAttribute("x")), Integer.parseInt(item.getAttribute("y"))));
-				ActiveMapManager.getInstance().addItemToActiveMap(it, new CoordinatePair(Integer.parseInt(item.getAttribute("x")), Integer.parseInt(item.getAttribute("y"))));
 				
 				items.add(it);
 			}

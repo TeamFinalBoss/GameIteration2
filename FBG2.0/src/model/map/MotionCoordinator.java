@@ -4,7 +4,7 @@ import model.entity.Entity;
 import model.item.Item;
 import model.map.pair.CoordinatePair;
 import model.map.tile.AreaEffect;
-import model.map.tile.Trap;
+import model.map.tile.trap.Trap;
 
 /**
  * This singleton class executes movement commands for entities and activates any 

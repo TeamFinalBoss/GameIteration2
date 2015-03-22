@@ -12,6 +12,9 @@ public abstract class SummonerEntity extends Entity {
 	protected SummonerStats createStats(){
 		return new SummonerStats();
 	}
+	protected String setOccupation(){
+		return "summoner";
+	}
 	
 	/* -------------------- PROTECTED UTILITY ------------------- */
 	protected SummonerLibrary getAbilities(){

@@ -1,4 +1,4 @@
-package model.map.tile;
+package model.map.tile.trap;
 
 import model.entity.Entity;
 import model.gameObject.MapObject;

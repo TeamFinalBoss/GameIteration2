@@ -15,7 +15,7 @@ import model.map.Projectile;
 import model.map.pair.CoordinatePair;
 import model.map.tile.AreaEffect;
 import model.map.tile.Tile;
-import model.map.tile.Trap;
+import model.map.tile.trap.Trap;
 
 //TODO: add following function: public void getEverythingInRange(CoordinatePair center, int radius, 
 //      List<Tile> containedTiles, List<Projectile> containedProjectiles, List<Entity> containedEntities, 

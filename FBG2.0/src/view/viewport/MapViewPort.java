@@ -23,7 +23,7 @@ import model.map.tile.Tile;
  * @author ChrisMoscoso
  */
 public class MapViewPort implements ViewPort, Observer {
-
+    Entity avatar;
     Tile[][] tiles;
     Locations entities, items, traps;
 
@@ -44,7 +44,6 @@ public class MapViewPort implements ViewPort, Observer {
     public void draw(Graphics g) {
     	int windowWidthInTiles = GameDirector.getSize().width/ tileWidth;
     	int windowHeightInTiles = GameDirector.getSize().height/ tileHeight;
-    	Entity avatar = AvatarInteractionManager.getInstance().getAvatar();
     	int startX = avatar.getLocation().getX() - windowWidthInTiles / 2;
     	int startY = avatar.getLocation().getY() - windowHeightInTiles / 2;
     	
@@ -66,7 +65,7 @@ public class MapViewPort implements ViewPort, Observer {
             	String coordinate = "(" + i + "," + j + ")";
             	int strX = (i - startX) * tileWidth + tileWidth / 2 - g.getFontMetrics().stringWidth(coordinate) / 2;
             	int strY = (j - startY) * tileHeight + tileHeight / 2;
-            	System.out.println("strx: " + strX + " stry: " + strY);
+            	//System.out.println("strx: " + strX + " stry: " + strY);
             	g.drawString(coordinate, strX, strY);
 
             	//Draw tile
@@ -92,15 +91,20 @@ public class MapViewPort implements ViewPort, Observer {
 
     @Override
     public void update(Observable o, Object arg) {
+        System.out.println("update is called");
+        
         Object[] mapObjects = (Object[]) arg;
         tiles = (Tile[][]) mapObjects[0];
         widthInTiles = tiles.length;
         heightInTiles = tiles[0].length;
+        
+        avatar =(Entity) mapObjects[1];
+        
 
-        entities = (Locations) mapObjects[1];
+        entities = (Locations) mapObjects[2];
 
-        items = (Locations) mapObjects[2];
-        traps = (Locations) mapObjects[3];
+        items = (Locations) mapObjects[3];
+        traps = (Locations) mapObjects[4];
 
     }
 }

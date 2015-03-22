@@ -20,6 +20,9 @@ public abstract class SneakEntity extends Entity {
 	protected SneakStats getStats(){
 		return (SneakStats) super.getStats();
 	}
+	protected String setOccupation(){
+		return "sneak";
+	}
 	
 	/* -------------------- CONSTRUCTORS -------------------- */
 	public SneakEntity(String objectName,
