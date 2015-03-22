@@ -110,7 +110,7 @@ public class StatsMenu extends Observable implements Describeable,Menuable, Obse
 	@Override
 	public String[] getDescription() {
 		List<String> strings = new ArrayList<>();
-		strings.add("Modifiable Stats");
+		strings.add("Modifiable Stats\tSkill Points " + manager.getSkillPoints() + " Stat Points " + manager.getStatPoints());
 
 		for(int i = 0; i < 5; i++) {
 			String str = options.get(i).toString() + "\t";
