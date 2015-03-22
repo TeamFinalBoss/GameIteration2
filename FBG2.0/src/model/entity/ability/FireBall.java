@@ -5,6 +5,10 @@
  */
 package model.entity.ability;
 
+import model.director.CombatCoordinator;
+import model.effect.DealDamageEffect;
+import model.effect.Effect;
+import model.effect.GoDownEffect;
 import model.entity.Entity;
 
 /**
@@ -14,7 +18,7 @@ import model.entity.Entity;
 public class FireBall extends Ability {
 
     public FireBall(){
-        super("FireBall", Effect effect, CombatCoordinator myCC, Effect cost);
+        super("FireBall", new GoDownEffect(), CombatCoordinator.getInstance(), new GoDownEffect());
     }
     
     @Override
