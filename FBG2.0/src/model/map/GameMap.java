@@ -479,7 +479,6 @@ public class GameMap extends Observable {
         if(MV.canTraverse(e.getMotionType(), getItemAtCoordinate(desiredLocation), getTileAtCoordinate(desiredLocation).getMotionType())){ 
             MC.moveEntity(e, desiredLocation, getAreaEffectAtCoordinate(desiredLocation), getItemAtCoordinate(desiredLocation),
                     getSwitcherAtCoordinate(desiredLocation), getTrapAtCoordinate(desiredLocation));
-            e.setDirection(dir);
             return true;
         }
         else{
@@ -564,6 +563,10 @@ public class GameMap extends Observable {
         entities.getSesInRange(center, radius, containedEntities);
         items.getSesInRange(center, radius, containedItems);
         effects.getSesInRange(center, radius, containedAreaEffects);
+    }
+
+    public void addProjectile(Projectile proj) {
+        projectiles.add(proj);
     }
 }
     
