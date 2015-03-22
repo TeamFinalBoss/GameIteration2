@@ -151,8 +151,11 @@ public class GameDirector implements SceneObserver{
         
         controller.addObserver(sack, SceneType.SACK);
         controller.addObserver(armory, SceneType.ARMORY);
-        sceneChanger.registerObserver(sack);
-        sceneChanger.registerObserver(armory);
+        
+        List<Observable> sackObservables = controller.getObservables(SceneType.SACK);
+        ((Observable)sack).addObserver((Observer) sackObservables.get(0));
+        controller.getMouseParser().setMousePoint(SceneType.SACK, (MousePoint)sack);
+        
        
         map.addObserver(mapVP);//Add mapVP as an Observer to map
         

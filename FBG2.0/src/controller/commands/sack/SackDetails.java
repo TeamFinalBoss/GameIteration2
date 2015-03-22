@@ -1,12 +1,13 @@
 package controller.commands.sack;
 
 import java.util.Observable;
+import java.util.Observer;
 
 import controller.commands.util.Inventoryable;
 import controller.util.IntegerObserver;
 import controller.util.Selectable;
 
-public class SackDetails extends Observable implements IntegerObserver, Selectable, Inventoryable {
+public class SackDetails extends Observable implements IntegerObserver, Selectable, Inventoryable, Observer {
 	private int currentSelection;
 	private final int itemsPerRow = 5;
 	private int displaySize;
@@ -56,5 +57,11 @@ public class SackDetails extends Observable implements IntegerObserver, Selectab
 	@Override
 	public int getCurrentIndex() {
 		return this.currentSelection;
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		Selectable select = (Selectable) o;
+		this.currentSelection = select.getCurrentIndex();
 	}
 }
