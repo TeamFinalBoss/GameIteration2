@@ -19,7 +19,7 @@ import org.w3c.dom.NodeList;
  * @author Aidan Pace
  */
 public class OneShotFactory implements PlaceableObjectFactory{
-	OneShotFactory() {
+	public OneShotFactory() {
 	}
 	
 	/**

@@ -32,7 +32,7 @@ public class AvatarReader {
 	TakeableFactory inventoryFactory;
 	EffectReader effectReader;
 
-	AvatarReader()
+	public AvatarReader()
 	{
 		inventoryFactory = new TakeableFactory();
 		effectReader = new EffectReader();
