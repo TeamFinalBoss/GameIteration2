@@ -16,6 +16,10 @@ public class DealDamageEffect implements Effect {
         this.damageToDeal = 10;
     }
     
+    public void setDamageToDeal(int damage){
+    	this.damageToDeal = damage;
+    }
+    
     /**
      *
      * @param entityToAffect

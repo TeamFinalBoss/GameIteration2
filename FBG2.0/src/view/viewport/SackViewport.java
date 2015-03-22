@@ -13,8 +13,6 @@ public class SackViewport implements ViewPort, Observer, SceneObserver {
 	
 	private int currentSelection;
 	private final int itemsPerRow = 5;
-	private int numberOfItems = 50;
-	private final int maxNumberOfItemsDrawn = 50;
 	private int currentMaxRow = 4;
 	private int currentMinRow = 0;
 	private boolean canDraw = false;
@@ -33,8 +31,8 @@ public class SackViewport implements ViewPort, Observer, SceneObserver {
 	public void draw(Graphics g) {
 		if(canDraw) {
 			//I is the row J is the column
-			for(int i = 0; i < itemsPerRow; ++i) {
-				for(int j = 0; j < maximumNumberOfRows; ++j) {
+			for(int i = 0; i < maximumNumberOfRows; ++i) {
+				for(int j = 0; j < itemsPerRow; ++j) {
 					//actually draw item using i, j, items per row and other shit.
 					drawItem(g,i,j);				
 				}
