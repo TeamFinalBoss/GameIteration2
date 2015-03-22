@@ -1,13 +1,7 @@
 package model.factories;
 
-
 import java.util.ArrayList;
 import java.util.List;
-
-import model.gameObject.MapObject;
-
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
 
 import model.director.ActiveMapManager;
 import model.effect.Dispellable;
@@ -19,23 +13,26 @@ import model.entity.SneakAvatar;
 import model.entity.SneakEntity;
 import model.entity.SummonerAvatar;
 import model.entity.SummonerEntity;
+import model.gameObject.MapObject;
 import model.item.Equipable;
 import model.item.Takeable;
 import model.map.Direction;
 import model.map.pair.CoordinatePair;
 
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+
 /**
- * This class examines a parsed XML file for all entity entries,
+ * This class examines a parsed XML file forthe avatar,
  * then uses their attributes to instantiate them.
  * 
  * @author Aidan Pace
  */
-public class EntityFactory implements PlaceableObjectFactory{
-	
+public class AvatarReader {
 	TakeableFactory inventoryFactory;
 	EffectReader effectReader;
 
-	EntityFactory()
+	AvatarReader()
 	{
 		inventoryFactory = new TakeableFactory();
 		effectReader = new EffectReader();
@@ -43,21 +40,19 @@ public class EntityFactory implements PlaceableObjectFactory{
 	
 	/**
 	 * Examine all nodes that are children of the input node,
-	 * filter out Entity elements, then use their attributes to instantiate them,
-	 * along with relevant items and stats.
+	 * filter out effect elements, then use their attributes to instantiate them
 	 * 
 	 * @author Aidan Pace
 	 * @param head the node to begin search at
-	 * @return the list of Entities created by this method
-	 * @see Entity
+	 * @return the list of effects created by this method
+	 * @see Dispellable
 	 */
-	public List<MapObject> generate(Element head)
+	public Entity generateAndAddToMap(Element head)
 	{
-		List<MapObject> entities = new ArrayList<MapObject>();
-		NodeList nodes = head.getElementsByTagName("entity");
-		
+		NodeList nodes = head.getElementsByTagName("avatar");
+			
 		for(int i = 0; i < nodes.getLength(); i++)
-		{
+		{				
 			Element e = (Element) nodes.item(i);
 			
 			Element sackHead = (Element) e.getElementsByTagName("sack").item(0);
@@ -71,8 +66,7 @@ public class EntityFactory implements PlaceableObjectFactory{
 			
 			switch(e.getAttribute("class")) {
 			case "smasher":
-				en = switchSmasherType(e);
-				if(en == null) break;
+				en = new SmasherAvatar();
 				
 				CommonStats(s, en);
 				((SmasherEntity) en).setOneHanded(Integer.parseInt(s.getAttribute("onehanded")));
@@ -83,8 +77,7 @@ public class EntityFactory implements PlaceableObjectFactory{
 				break;
 				
 			case "sneak":
-				en = switchSneakType(e);
-				if(en == null) break;
+				en = new SneakAvatar();
 				
 				CommonStats(s, en);
 				((SneakEntity) en).setPickPokcet(Integer.parseInt(s.getAttribute("pickpocket")));
@@ -95,8 +88,7 @@ public class EntityFactory implements PlaceableObjectFactory{
 				break;
 				
 			case "summoner":
-				en = switchSummonerType(e);
-				if(en == null) break;
+				en = new SummonerAvatar();
 				
 				CommonStats(s, en);
 				((SummonerEntity) en).setEnchantment(Integer.parseInt(s.getAttribute("enchantment")));
@@ -169,10 +161,14 @@ public class EntityFactory implements PlaceableObjectFactory{
 			
 			en.setLocation(new CoordinatePair(Integer.parseInt(e.getAttribute("x")), Integer.parseInt(e.getAttribute("y"))));
 			
-			entities.add(en);
+			int mapID = Integer.parseInt(e.getAttribute("map"));
+			ActiveMapManager.getInstance().setActiveMap(mapID);
+			ActiveMapManager.getInstance().addEntityToActiveMap(en, en.getLocation());
+			
+			return en;
 		}
 		
-		return entities;
+		return null;
 	}
 	
 	private void CommonStats(Element s, Entity e) {
@@ -190,42 +186,5 @@ public class EntityFactory implements PlaceableObjectFactory{
 		e.setCurrentMP(Integer.parseInt(s.getAttribute("currentmp")));
 		e.setWeaponOffense(Integer.parseInt(s.getAttribute("offense")));
 		e.setEquipArmor(Integer.parseInt(s.getAttribute("defense")));
-	}
-	
-	private Entity switchSmasherType(Element e) {
-		Entity en = null;
-		
-		switch(e.getAttribute("type")) {
-		case "blah":
-			en = new SmasherAvatar();
-			//en.setLink(Integer.parseInt(e.getAttribute("link")));
-			
-		}
-		
-		return en;
-	}
-	
-	private Entity switchSneakType(Element e) {
-		Entity en = null;
-		
-		switch(e.getAttribute("type")) {
-		case "blah":
-			en = new SneakAvatar();
-			//en.setLink(Integer.parseInt(e.getAttribute("link")));
-		}
-		
-		return en;
-	}
-	
-	private Entity switchSummonerType(Element e) {
-		Entity en = null;
-		
-		switch(e.getAttribute("type")) {
-		case "blah":
-			en = new SummonerAvatar();
-			//en.setLink(Integer.parseInt(e.getAttribute("link")));
-		}
-		
-		return en;
 	}
 }
