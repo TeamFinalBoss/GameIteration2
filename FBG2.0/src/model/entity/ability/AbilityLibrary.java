@@ -12,7 +12,7 @@ import model.entity.Entity;
  * The purpose of this class is to serve as a container for Spells, passing commands downward from [TBD, Entity?]
  * @author Jason Owens, Matthew Kroeze
  */
-public class AbilityLibrary {
+public abstract class AbilityLibrary {
     private ArrayList<Ability> learnedAbilities;
     private ArrayList<Ability> unlearnedAbilities;
     
@@ -83,9 +83,7 @@ public class AbilityLibrary {
      * @author Jason Owens
      * 
      */
-    public void update(){
-        
-    }
+    public abstract void update();
     
     
     public boolean performActiveAbility(int position, Entity callingEntity){
@@ -94,7 +92,7 @@ public class AbilityLibrary {
     	return true;
     }
     
-    public List<Ability >getAbilities() {
+    public List<Ability> getAbilities() {
     	return this.learnedAbilities;
     }
 }
