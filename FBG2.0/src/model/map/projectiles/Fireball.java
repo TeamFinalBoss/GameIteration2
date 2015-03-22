@@ -12,13 +12,14 @@ import model.map.pair.PreciseCoordinatePair;
 
 /**
  *
- * @author Owner
+ * @author Jason Owens
  */
 public class Fireball extends Projectile {
 
     public Fireball(long initialLifetime, Vector velocity, PreciseCoordinatePair initialLocation, Effect effects, Entity castingEntity){
         super(initialLifetime,  velocity,  initialLocation,  effects,  castingEntity);
     }
+    
     @Override
     public boolean canSee(int observationLevel) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

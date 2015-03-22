@@ -52,6 +52,7 @@ public abstract class Entity extends MapObject{
     private boolean canMove;
     private String occupation;
     private String type;
+    private NPC conversationPartner;
 
     /* -------------------- PROTECTED COMPONENT CREATION -------------------- */
     protected Inventory createInventory(){

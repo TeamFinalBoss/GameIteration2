@@ -130,7 +130,7 @@ public class AvatarReader {
 				break;
 			}
 			
-			switch(Integer.parseInt(e.getAttribute("motiontype"))) {
+			switch(Integer.parseInt(e.getAttribute("motionType"))) {
 			case 0:
 				en.setMotionType(MotionType.GROUND);
 				break;
@@ -172,18 +172,18 @@ public class AvatarReader {
 	}
 	
 	private void CommonStats(Element s, Entity e) {
-		e.setLivesLeft(Integer.parseInt(s.getAttribute("livesleft")));
+		e.setLivesLeft(Integer.parseInt(s.getAttribute("livesLeft")));
 		e.setStrength(Integer.parseInt(s.getAttribute("strength")));
 		e.setAgility(Integer.parseInt(s.getAttribute("agility")));
 		e.setIntellect(Integer.parseInt(s.getAttribute("intellect")));
 		e.setHardiness(Integer.parseInt(s.getAttribute("hardiness")));
 		e.setExperience(Integer.parseInt(s.getAttribute("experience")));
 		e.setMovement(Integer.parseInt(s.getAttribute("movement")));
-		e.setBindWounds(Integer.parseInt(s.getAttribute("bindwounds")));
+		e.setBindWounds(Integer.parseInt(s.getAttribute("bindWounds")));
 		e.setBargain(Integer.parseInt(s.getAttribute("bargain")));
 		e.setObservation(Integer.parseInt(s.getAttribute("observation")));
-		e.setCurrentHP(Integer.parseInt(s.getAttribute("currenthp")));
-		e.setCurrentMP(Integer.parseInt(s.getAttribute("currentmp")));
+		e.setCurrentHP(Integer.parseInt(s.getAttribute("currentHp")));
+		e.setCurrentMP(Integer.parseInt(s.getAttribute("currentMp")));
 		e.setWeaponOffense(Integer.parseInt(s.getAttribute("offense")));
 		e.setEquipArmor(Integer.parseInt(s.getAttribute("defense")));
 	}

@@ -94,16 +94,26 @@ public class MapViewPort implements ViewPort, Observer {
                     
                 	if(entities.getObjectAt(new CoordinatePair(i, j)).equals(avatar)) {
                             g.setColor(Color.blue);
+                            Image img = avatarIcon.getImage();
+                            g.drawImage(img, (i-startX)*64, (j-startY)*64, 64, 64, null);
                 	} else {
                             g.setColor(Color.red);
+                            g.fillRect((i-startX)*64, (j-startY)*64, 63, 63);
                 	}
-                    Image img = avatarIcon.getImage();
-                    g.drawImage(img, (i-startX)*64, (j-startY)*64, 64, 64, null);
-                    //g.fillRect((i-startX)*64, (j-startY)*64, 63, 63);
+                    
+                    
+                   
                 }
                 
-                //if(projectiles.get(i).getLocation())
-                
+                if(projectiles == null){
+                for(Projectile p : projectiles){
+                    int tileX = (int) p.getLocation().getX();
+                    int tileY = (int) p.getLocation().getY();
+                    
+                    g.fillOval(tileX - startX, tileY-startY, 64, 64);
+                    }
+                    
+                }
                 
         
             }
@@ -129,7 +139,7 @@ public class MapViewPort implements ViewPort, Observer {
 
         items = (Locations) mapObjects[3];
         traps = (Locations) mapObjects[4];
-        //projectiles = (ArrayList<Projectile>) mapObjects[5];
+        projectiles = (ArrayList<Projectile>) mapObjects[5];
 
     }
 }

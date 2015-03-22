@@ -28,7 +28,7 @@ public abstract class SaveFiles implements Commandable {
 	private void refresh() {
 		File[] list = new File("./src/resources/saves/").listFiles();
 		for(File file : list) {
-			if(file.isFile()) {
+			if(file.isFile() && !file.getName().equals("default.xml")) {
 				files.add(file);
 			}
 		}

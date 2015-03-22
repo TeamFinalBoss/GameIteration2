@@ -35,10 +35,15 @@ public class MotionValidator {
      * @param entityToMove 
      * @return boolean whether or not the Entity can move in the direction it's facing (change Entity Direction before calling)
      */
-    public boolean canTraverse(MotionType entityMotion, Item itemAtDesiredLocation, MotionType tileMotion) {
-               
-           
-        if(!correctMotionType(entityMotion,tileMotion)){ //checking terrain
+    public boolean canTraverse(MotionType entityMotion, Item itemAtDesiredLocation, Tile t) {
+        if(t == null){
+            return false;
+        }
+        
+        MotionType mt = t.getMotionType();
+        
+        
+        if(!correctMotionType(entityMotion,mt)){ //checking terrain
             return false;
         }
 

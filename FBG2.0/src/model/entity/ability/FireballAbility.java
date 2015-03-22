@@ -9,9 +9,11 @@ import model.map.pair.CoordinatePair;
 import java.util.ArrayList;
 import model.entity.Entity;
 import java.lang.Math.*;
+import model.effect.DealDamageEffect;
 import model.entity.ability.ProjectileAbility;
 import model.map.Vector;
 import model.map.pair.PreciseCoordinatePair;
+import model.map.projectiles.Fireball;
 
 /**
 *
@@ -30,7 +32,7 @@ public class FireballAbility extends ProjectileAbility
 	public FireballAbility()
 	{
 		this.name = "Fireball";
-		this.effect = FireballEffect;
+		this.effect = new DealDamageEffect(10);
 		this.myCC = CombatCoordinator.getInstance();
 		this.ms = 2000;
 	}
@@ -68,19 +70,10 @@ public class FireballAbility extends ProjectileAbility
     	if(mana >= 1)
     	{
     		caster.setCurrentMP(--mana);
-    		FireBall fb = new Fireball(ms, velocity, PCP, effect, caster);
+    		Fireball fb = new Fireball((long) ms, velocity, PCP, effect, caster);
     	}
     	else
     		return;
     }
-
-	@Override
-	public void applyEffect(Effect effect)
-	{
-		if(inRange)
-			// initial lifetime
-			// initial coordinate
-			// intial vector
-	}
 
 }

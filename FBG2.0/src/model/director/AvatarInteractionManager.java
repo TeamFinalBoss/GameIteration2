@@ -42,17 +42,19 @@ public class AvatarInteractionManager {
     public AvatarInteractionManager(){
        AMM = ActiveMapManager.getInstance();
        statPoints = 10;
-       skillPoints = 0;
+       skillPoints = 10;
        currentSlotInSack = 0;
        currentSlotInArmory = 0;
+       me = this;
     }
     public AvatarInteractionManager(Entity avatar){
         this.avatar = avatar;
         AMM = ActiveMapManager.getInstance();
         statPoints = 10;
-        skillPoints = 0;
+        skillPoints = 10;
         currentSlotInSack = 0;
         currentSlotInArmory = 0;
+        me = this;
     }
     
     public static AvatarInteractionManager getInstance(){

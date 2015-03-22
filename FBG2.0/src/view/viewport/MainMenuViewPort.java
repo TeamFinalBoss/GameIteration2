@@ -31,10 +31,10 @@ public class MainMenuViewPort extends Observable implements ViewPort, Observer, 
     private int width, height;
     private int logoHeight = 174;
     private final int padding = 25;
-    private Graphics graphics;
     private final int logoY = 100;
     protected int[] stringWidth;
     private int stringHeight = 39;
+	private Graphics graphics;
 
     
     public MainMenuViewPort(){
@@ -77,9 +77,8 @@ public class MainMenuViewPort extends Observable implements ViewPort, Observer, 
     }
     
     protected void drawMenu(Graphics g) {
-    	 graphics = g;
     	 g.setFont(new Font(g.getFont().getFamily(), Font.PLAIN, 30));
-    	 
+    	 graphics = g;
          if (options != null) {
         	 stringWidth = new int[options.length];
              for (int i = 0; i < options.length; i++) {
@@ -137,8 +136,8 @@ public class MainMenuViewPort extends Observable implements ViewPort, Observer, 
 	}
 
 	protected boolean withinYBounds(int checkHeight, int i, int y) {
-		int heightUpperBounds = (i * (checkHeight + padding) + logoY + logoHeight + checkHeight + padding);
-		int heightLowerBounds = heightUpperBounds + checkHeight;
+		int heightLowerBounds = (i * (checkHeight + padding) + logoY + logoHeight + checkHeight + padding);
+		int heightUpperBounds = heightLowerBounds - checkHeight;
 		
 		return ((y <= heightLowerBounds) && (y >= heightUpperBounds));
 	}
