@@ -67,6 +67,7 @@ public class ActiveMapManager {
         return me;
     }
     
+    
     /**
      * 
      * @author Jason Owens
@@ -148,6 +149,18 @@ public class ActiveMapManager {
     	}
     	return false;
     }
+    
+    /**
+     * 
+     * @param avatar
+     */
+    public void setAvatar(Entity avatar){ this.avatar = avatar;}
+    
+    /**
+     * 
+     * @return avatar 
+     */
+    public Entity getAvatar(){ return this.avatar; }
     
     /**\
      * Set the active map to the map with the given mapID int
