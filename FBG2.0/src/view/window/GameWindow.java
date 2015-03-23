@@ -17,6 +17,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import controller.mouse.MouseParser;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import model.director.GameDirector;
 
 /**
@@ -32,18 +34,16 @@ public class GameWindow {
     private ImagePanel panel;
 
     //private final int OFFSET = 10; //The offset created by the window/menu bar
-
     /**
      * Initializes the window with default size of 832 by 640 and adds a
      * {@link GamePanel}
      */
     public GameWindow() {
         this(1, 1);
-        frame.setExtendedState(frame.getExtendedState() | JFrame.MAXIMIZED_BOTH);
-        
-        frame.dispose();
-        frame.setUndecorated(true);
-        frame.setVisible(true);
+
+        //frame.dispose();
+        //frame.
+        //frame.setUndecorated(true);
     }
 
     /**
@@ -54,21 +54,26 @@ public class GameWindow {
      */
     public GameWindow(int width, int height) {
         frame = new JFrame();
-        
+
         frame.setSize(new Dimension(width, height));
         frame.setTitle("FINAL BOSS 2.0");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //frame.setResizable(false);
+        frame.setExtendedState(frame.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+
+        /*GraphicsEnvironment ge = GraphicsEnvironment.
+                getLocalGraphicsEnvironment();
+        GraphicsDevice[] gs = ge.getScreenDevices();
+        
+        gs[0].getFullScreenWindow();*/
         frame.setVisible(true);
         frame.addComponentListener(new GameWindowComponentListener());
-
 
         //Set up the panel for drawing
         panel = new ImagePanel();
         frame.setContentPane(panel);
         frame.validate();
     }
-    
+
     /**
      * Returns the size of the window.
      *
@@ -116,10 +121,10 @@ public class GameWindow {
     public void addMouseMotionController(MouseMotionListener m) {
         frame.addMouseMotionListener(m);
     }
-    
+
     public void close() {
-    	frame.setVisible(false);
-    	frame.dispose();
+        frame.setVisible(false);
+        frame.dispose();
     }
 
     /**
@@ -131,10 +136,10 @@ public class GameWindow {
 
         private BufferedImage image;
 
-        public ImagePanel(){
+        public ImagePanel() {
             this.setBackground(Color.WHITE);
         }
-        
+
         /**
          * Set the image for the ImagePanel
          *
@@ -151,8 +156,7 @@ public class GameWindow {
         }
     }
 
-    
-    private class GameWindowListener implements WindowListener{
+    private class GameWindowListener implements WindowListener {
 
         @Override
         public void windowOpened(WindowEvent e) {
@@ -162,26 +166,32 @@ public class GameWindow {
         }
 
         @Override
-        public void windowClosing(WindowEvent e) {}
+        public void windowClosing(WindowEvent e) {
+        }
 
         @Override
-        public void windowClosed(WindowEvent e) {}
+        public void windowClosed(WindowEvent e) {
+        }
 
         @Override
-        public void windowIconified(WindowEvent e) {}
+        public void windowIconified(WindowEvent e) {
+        }
 
         @Override
-        public void windowDeiconified(WindowEvent e) {}
+        public void windowDeiconified(WindowEvent e) {
+        }
 
         @Override
-        public void windowActivated(WindowEvent e) {}
+        public void windowActivated(WindowEvent e) {
+        }
 
         @Override
-        public void windowDeactivated(WindowEvent e) {}
-        
+        public void windowDeactivated(WindowEvent e) {
+        }
+
     }
-    
-    private class GameWindowComponentListener implements ComponentListener{
+
+    private class GameWindowComponentListener implements ComponentListener {
 
         @Override
         public void componentResized(ComponentEvent e) {
@@ -189,24 +199,27 @@ public class GameWindow {
         }
 
         @Override
-        public void componentMoved(ComponentEvent e) {}
+        public void componentMoved(ComponentEvent e) {
+        }
 
         @Override
-        public void componentShown(ComponentEvent e) {}
+        public void componentShown(ComponentEvent e) {
+        }
 
         @Override
-        public void componentHidden(ComponentEvent e) {}
-       
+        public void componentHidden(ComponentEvent e) {
+        }
+
     }
 
-	public void removeKeyController(KeyListener listener) {
-		frame.removeKeyListener(listener);
-	}
+    public void removeKeyController(KeyListener listener) {
+        frame.removeKeyListener(listener);
+    }
 
-	public void removeMouseController(MouseParser mouse) {
-		frame.removeMouseListener(mouse);
-		frame.removeMouseMotionListener(mouse);
-		frame.removeMouseWheelListener(mouse);
-	}
-    
+    public void removeMouseController(MouseParser mouse) {
+        frame.removeMouseListener(mouse);
+        frame.removeMouseMotionListener(mouse);
+        frame.removeMouseWheelListener(mouse);
+    }
+
 }
