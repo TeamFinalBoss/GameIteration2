@@ -65,7 +65,7 @@ public class Storefront {
 	 */
 	public int payForItem(int position) {
 		validatePosition(position);
-		return (contents.get(position).getItem().getValue() * -1);
+		return (contents.get(position).getItem().getValue());
 	}
 	
 	/**
@@ -93,12 +93,14 @@ public class Storefront {
 	 */
 	public int sellItem(Takeable item) {
 		
+		/*
 		for(StoreEntry e : contents) {
 			if(e.getItem().getName().equals(item.getName())) {
 				e.addItem(item);
 				return item.getValue();
 			}
 		}
+		*/
 		
 		StoreEntry n = new StoreEntry(item, 1);
 		contents.add(n);
@@ -126,7 +128,8 @@ public class Storefront {
 		public Takeable vendItem() {
 			if(amt >= 0) {
 				amt -= 1;
-				return item.copy();
+				//return item.copy();
+				return item;
 			}
 			
 			if(amt == -1) {

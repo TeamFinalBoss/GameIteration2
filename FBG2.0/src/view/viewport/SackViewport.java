@@ -38,7 +38,7 @@ public class SackViewport extends Observable implements ViewPort, Observer, Mous
 
 	public SackViewport() {
 		width = (int) (GameDirector.getSize().width * 0.8);
-		height = (int) (GameDirector.getSize().height * 0.8);
+		height = (int) (GameDirector.getSize().height * 0.8) - 	16;
 		startX = width - (itemsPerRow * sizeOfBox) - Xpadding;
 		startY = height - (maximumNumberOfRows * sizeOfBox) - offset - Ypadding;
 	}
@@ -95,9 +95,9 @@ public class SackViewport extends Observable implements ViewPort, Observer, Mous
 		if((i * itemsPerRow + j) + (maximumNumberOfRows * currentMinRow) == currentSelection) {
 			g.setColor(Color.GREEN);
 		} else {
-			g.setColor(Color.ORANGE);
+			g.setColor(Color.white);
 		}
-		g.drawRect((j * sizeOfBox) + startX, (i * sizeOfBox)+ startY, sizeOfBox - 1, sizeOfBox - 1);
+		g.fillRect((j * sizeOfBox) + startX, (i * sizeOfBox)+ startY, sizeOfBox - 1, sizeOfBox - 1);
 		
 		if(items.size()  > (i * itemsPerRow + j) + (maximumNumberOfRows * currentMinRow)) {
 			int value = (i * itemsPerRow + j) + (maximumNumberOfRows * currentMinRow);

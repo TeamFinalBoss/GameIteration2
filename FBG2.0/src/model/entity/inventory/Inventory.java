@@ -119,5 +119,9 @@ public class Inventory {
       return  myArmory.useWeapon(this1);
         
     }
+
+	public Sack getSack() {
+		return this.mySack;
+	}
     
 }
