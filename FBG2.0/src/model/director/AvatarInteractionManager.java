@@ -420,4 +420,12 @@ public class AvatarInteractionManager {
 	public NPC getConversationPartner(){
 		return conversationPartner;
 	}
+	
+	/* ------------------- STORE INTERACTION -------------------- */
+	public void buyItem(int position){
+		avatar.insert(conversationPartner.sellItem(position, avatar));
+	}
+	public void sellItem(int position){
+		conversationPartner.buyItem(avatar.remove(position),avatar);
+	}
 }
