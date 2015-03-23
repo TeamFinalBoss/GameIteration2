@@ -18,6 +18,10 @@ public class NPCInventory extends Inventory {
 		return myStore.contents();
 	}
 	
+	public List<Takeable> fullShopContents() {
+		return myStore.fullContents();
+	}
+	
 	/* -------------------- MUTATORS -------------------- */
 	public int payForItem(int position){
 		return myStore.payForItem(position);

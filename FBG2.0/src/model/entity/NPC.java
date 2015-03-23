@@ -14,4 +14,6 @@ public interface NPC {
 	public List<String> getDialogueOptions();
 	public void setLink(int linkNum);
 	public int getLink();
+	public List<Takeable> getStoreContents();
+	public List<Takeable> getFullStoreContents();
 }

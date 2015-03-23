@@ -86,10 +86,10 @@ public abstract class Entity extends MapObject{
     	if(change.getX() < 0 && change.getY() < 0){
     		return Direction.SouthWest;
     	}
-    	if(change.getX() > 0){
+    	if(change.getX() < 0){
     		return Direction.West;
     	}
-    	if(change.getX() < 0){
+    	if(change.getX() > 0){
     		return Direction.East;
     	}
     	if(change.getY() > 0){
