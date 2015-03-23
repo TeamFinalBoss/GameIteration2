@@ -6,6 +6,7 @@ import java.util.List;
 import model.dialogue.DialogueActions;
 import model.dialogue.DialogueTree;
 import model.dialogue.unique.DT_Default;
+import model.director.AvatarInteractionManager;
 import model.entity.inventory.Inventory;
 import model.entity.inventory.NPCInventory;
 import model.entity.inventory.Storefront;
@@ -135,9 +136,11 @@ public abstract class SmasherNPC extends SmasherEntity implements NPC {
 			
 			switch(action) {
 			case NOTHING:
+				AvatarInteractionManager.getInstance().setConversationPartner(null);
 				return true;
 				
 			case EXIT:
+				AvatarInteractionManager.getInstance().setConversationPartner(null);
 				return false;
 				
 			case STOREFRONT:
