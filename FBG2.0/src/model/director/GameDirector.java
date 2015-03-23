@@ -175,7 +175,7 @@ public class GameDirector extends Observable implements SceneObserver {
         MainMenuViewPort selectorBp = new MainMenuViewPort();
         selectorScene.addViewport(selectorBp);
         
-        ObservationViewPort obsVp = ObservationViewPort.getInstance();
+        ObservationViewPort obsVp = new ObservationViewPort();
         gameScene.addViewport(obsVp);
 
         controller.getMouseParser().setMousePoint(SceneType.MAIN_MENU, (MousePoint) menuVP);
@@ -185,6 +185,7 @@ public class GameDirector extends Observable implements SceneObserver {
         controller.getMouseParser().setMousePoint(SceneType.SAVE, (MousePoint) saveVP);
 
         controller.addObserver(menuVP, SceneType.MAIN_MENU);
+        controller.addObserver(obsVp, SceneType.GAME);
         controller.addObserver(pauseVP, SceneType.PAUSE_MENU);
         controller.addObserver(keyBindingsVP, SceneType.KEY_BINDINGS);
         controller.addObserver(saveVP, SceneType.SAVE);
