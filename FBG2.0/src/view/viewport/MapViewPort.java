@@ -81,7 +81,7 @@ public class MapViewPort implements ViewPort, Observer {
                 } catch (ConcurrentModificationException e) {
                 } catch (NoSuchElementException e) {
                     System.out.println(e);
-                }
+                } catch(NullPointerException e){}
 
                 //draw coordinates
                 g.setColor(Color.BLUE);
