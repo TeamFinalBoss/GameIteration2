@@ -1,5 +1,7 @@
 package model.item;
 
+import model.director.ActiveMapManager;
+import model.entity.Entity;
 import model.gameObject.MapObject;
 import model.map.pair.CoordinatePair;
 
@@ -35,6 +37,11 @@ public class OneShot extends Item {
          @Override
         public String getType(){
             return "One Shot";
+        }
+        public boolean activate(Entity e){
+        	e.modifyCurrentHP(10);
+        	ActiveMapManager.getInstance().removeItemFromActiveMap(this);
+        	return true;
         }
 	
 }
