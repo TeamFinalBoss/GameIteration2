@@ -26,28 +26,31 @@ import model.map.pair.PreciseCoordinatePair;
 public class CleaveAbility extends RadialAbility
 {
     private String name;
-    private Effect effect;
+    private DealDamageEffect effect;
     private CombatCoordinator myCC;
     private ActiveMapManager myMM;
     private Effect cost;
 	private double degree;
 	private double radius;
+        private int distance;
 
 	public CleaveAbility()
 	{
 		this.name = "Cleave";
-		this.effect = new DealDamageEffect(20);
+                this.distance = 1;
+		this.effect = new DealDamageEffect(50, this.distance);
 		this.degree = 90;
 		this.radius = 2;
 		this.myCC = CombatCoordinator.getInstance();
 		this.myMM = ActiveMapManager.getInstance();
 	}
 
-	public CleaveAbility(String name, Effect effect, Effect cost, int degree, double radius)
+	public CleaveAbility(String name, Effect effect, Effect cost, int degree, double radius, int distance)
 	{
 		super(name, effect, cost, degree, radius);
 		this.myCC = CombatCoordinator.getInstance();
 		this.myMM = ActiveMapManager.getInstance();
+                this.distance = distance;
 	}
 
 	@Override
@@ -60,19 +63,26 @@ public class CleaveAbility extends RadialAbility
 	}
 
 	@Override
-    public boolean performAbility(Entity caster) 
+    public boolean performAbility(Entity smasher) 
     {
     	GameMap map = myMM.getActiveMap();
-    	int mana = caster.getCurrentMP();
+    	int mana = smasher.getCurrentMP();
     	List<Entity> entities = map.getEntities();
+        CoordinatePair c1 = smasher.getLocation();
+        CoordinatePair c2;
 
     	if(mana >= 1)
     	{
-    		caster.setCurrentMP(--mana);
+    		smasher.setCurrentMP(--mana);
     		for(int i = 0; i < entities.size(); ++i)
     		{
-    			if(inRange(caster, entities.get(i)))
-    				this.effect.applyEffect(entities.get(i));
+    			if(inRange(smasher, entities.get(i)))
+                        {
+                            c2 = entities.get(i).getLocation();
+                            this.distance = (int) c1.getDistance(c1,c2);
+                            this.effect.setDistance(this.distance);
+                            this.effect.applyEffect(entities.get(i));
+                        }
     		}
     		return true;
     	}

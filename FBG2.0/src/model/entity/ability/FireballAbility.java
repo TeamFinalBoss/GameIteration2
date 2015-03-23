@@ -32,7 +32,7 @@ public class FireballAbility extends ProjectileAbility
 	public FireballAbility()
 	{
 		this.name = "Fireball";
-		this.effect = new DealDamageEffect(10);
+		this.effect = new DealDamageEffect(50,1);
 		this.myCC = CombatCoordinator.getInstance();
 		this.ms = 2000;
 	}
