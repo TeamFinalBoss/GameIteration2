@@ -25,8 +25,11 @@ public abstract class SaveFiles implements Commandable {
 	@Override
 	public abstract void execute();
 
-
+        
 	protected void refresh() {
+                try{
+                    
+                
 		File[] list = new File("./src/resources/saves/").listFiles();
 		files.clear();
 		for(File file : list) {
@@ -41,7 +44,7 @@ public abstract class SaveFiles implements Commandable {
 				return Long.valueOf(arg1.lastModified()).compareTo(arg0.lastModified());
 			}  
 		});
-		
+                }catch(NullPointerException e){}
 	
 	}
 	
