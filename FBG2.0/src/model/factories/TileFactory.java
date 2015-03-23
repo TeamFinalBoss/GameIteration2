@@ -1,13 +1,11 @@
 
 package model.factories;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-import model.gameObject.MapObject;
+import model.map.pair.CoordinatePair;
 import model.map.tile.*;
 
 /**
@@ -46,6 +44,7 @@ public class TileFactory {
     			else
     			{
     				tiles[i][j] = new Tile(new Terrain());
+                                tiles[i][j].setLocation(new CoordinatePair(i,j));
     			}
     		}
     	}
