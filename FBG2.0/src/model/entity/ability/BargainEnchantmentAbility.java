@@ -1,11 +1,13 @@
 package model.entity.ability;
 
 import java.util.List;
+import java.util.Random;
 
 import model.director.ActiveMapManager;
 import model.effect.BargainEffect;
 import model.effect.Effect;
 import model.entity.Entity;
+import model.entity.NPC;
 
 public class BargainEnchantmentAbility extends LinearAbility {
 	
@@ -33,8 +35,16 @@ public class BargainEnchantmentAbility extends LinearAbility {
 			List<Entity> entities = ActiveMapManager.getInstance().getActiveMap().getEntities();
 			for (Entity e : entities){
 				if (inRange(caster, e)){
-					new BargainEffect(e);
-					return true;
+					//Allow enchantment to randomly fail
+					Random rand = new Random();
+					if (rand.nextInt(100) <= caster.getLevel() + caster.getIntellect()){
+						new BargainEffect(e);
+						return true;
+					}
+					else {
+						(NPC)caster.setFriendly(false);
+						return false;
+					}
 				}
 			}
 		}
