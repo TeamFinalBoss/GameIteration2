@@ -61,6 +61,7 @@ public class Sword extends Weapon {
             target.modifyAgility(20);
             target.modifyWeaponOffense(10);
         }
+        /*
       @Override 
         public boolean useInSack(Entity e){
             if (!meetsRequirements(e)){
@@ -72,7 +73,7 @@ public class Sword extends Weapon {
             }
             
         }
-        
+        */
     @Override
         public boolean meetsRequirements(Entity e){
         return e.getLevel() >= 1 && e.getBargain()>=5 && e.getAgility()>=5;

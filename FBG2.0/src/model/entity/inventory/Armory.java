@@ -74,10 +74,11 @@ public class Armory {
 	public Equipable unequip(EquipSlot slot){
 		//verify that the slot is occupied
 		if(!contents.containsKey(slot)){
-			throw new IllegalArgumentException("There is no item to be unequipped in the " + slot + " slot");
+			//throw new IllegalArgumentException("There is no item to be unequipped in the " + slot + " slot");
 		}
 		//inform the equipment that it is being unequipped and return it
 		Equipable old = contents.remove(slot);
+                if(old!=null)
 		old.onUnequip(owner);
 		return old;
 	}

@@ -95,7 +95,7 @@ public class Gun extends Weapon{
             target.modifyAgility(10);
             target.modifyWeaponOffense(10);
         }
-    
+    /*
     @Override 
         public boolean useInSack(Entity e){
             if (!meetsRequirements(e)){
@@ -106,7 +106,7 @@ public class Gun extends Weapon{
            return true;
             }
             
-        }
+        }*/
         
     @Override
         public boolean meetsRequirements(Entity e){

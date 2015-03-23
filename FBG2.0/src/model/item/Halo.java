@@ -76,7 +76,7 @@ public class Halo extends Equipable {
         }
 
         
-        
+        /*
         @Override 
         public boolean useInSack(Entity e){
             if (!meetsRequirements(e)){
@@ -87,7 +87,7 @@ public class Halo extends Equipable {
            return true;
             }
             
-        }
+        }*/
         
     @Override
         public boolean meetsRequirements(Entity e){

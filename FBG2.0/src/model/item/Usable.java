@@ -36,8 +36,8 @@ public abstract class Usable extends Takeable{
 		//Other properties set here
 	}
         
-      
-         public boolean useInSack(Entity target){
+       @Override
+        public boolean useInSack(Entity target){
                 target.unequip(this.slot);
         	target.equip((Equipable)this);
         	return true;
