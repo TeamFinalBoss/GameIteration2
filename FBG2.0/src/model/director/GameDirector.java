@@ -215,7 +215,9 @@ public class GameDirector extends Observable implements SceneObserver {
     }
     
     public void startNewGame(File def) {
-        doTheThing();
+        if(!MapInstantiator.getInstance().checkValidity(def)) return;
+    	
+    	doTheThing();
         doTheOtherThing();
  
     	MapInstantiator.getInstance().loadFullGame(def);
