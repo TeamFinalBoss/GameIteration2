@@ -60,6 +60,6 @@ public class Obstacle extends Item {
         
          @Override
         public String getType(){
-            return "Takeable";
+            return "Obstacle";
         }
 }

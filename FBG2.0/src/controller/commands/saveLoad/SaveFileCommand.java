@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import model.director.ActiveMapManager;
+import model.map.GameMap;
 import model.util.GameSaver;
 import model.util.ObjectSaver;
 import controller.commands.Commandable;

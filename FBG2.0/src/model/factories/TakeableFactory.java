@@ -117,7 +117,7 @@ public class TakeableFactory implements PlaceableObjectFactory{
 			break;
 		}
 		
-		((Takeable) it).setDurability(Integer.parseInt(item.getAttribute("durability")));
+		if(it != null) ((Takeable) it).setDurability(Integer.parseInt(item.getAttribute("durability")));
 		
 		return it;
 	}
