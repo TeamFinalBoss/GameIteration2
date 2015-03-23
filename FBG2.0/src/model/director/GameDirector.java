@@ -15,6 +15,7 @@ import view.MousePoint;
 import view.MousePointClick;
 import view.scene.Scene;
 import view.viewport.ArmoryViewport;
+import view.viewport.DialogueViewport;
 import view.viewport.KeyBindingsErrorViewPort;
 import view.viewport.KeyBindingsMenuViewPort;
 import view.viewport.MainMenuViewPort;
@@ -26,8 +27,10 @@ import controller.Controller;
 import controller.sceneControllers.SceneChanger;
 import controller.sceneControllers.SceneType;
 import controller.util.SceneObserver;
+
 import java.io.FileInputStream;
 import java.io.InputStream;
+
 import sun.audio.AudioPlayer;
 import sun.audio.AudioStream;
 
@@ -77,6 +80,7 @@ public class GameDirector extends Observable implements SceneObserver {
         scenes.put(SceneType.SAVE, saveScene);
         scenes.put(SceneType.LOAD, loadScene);
         scenes.put(SceneType.STATS_UPDATING, gameScene);
+        scenes.put(SceneType.DIALOGUE, gameScene);
 
         sceneChanger.registerObserver(this);
     }
@@ -173,9 +177,13 @@ public void startNewGame(File def) {
         StatsUpdateViewport statsPort = new StatsUpdateViewport();
         gameScene.addViewport(statsPort);
         
+        DialogueViewport dailoguePort = new DialogueViewport();
+        gameScene.addViewport(dailoguePort);
+        
         controller.addObserver(sack, SceneType.SACK);
         controller.addObserver(armory, SceneType.ARMORY);
         controller.addObserver(statsPort, SceneType.STATS_UPDATING);
+        controller.addObserver(dailoguePort, SceneType.DIALOGUE);
         
         List<Observable> sackObservables = controller.getObservables(SceneType.SACK);
         ((Observable)sack).addObserver((Observer) sackObservables.get(0));
@@ -217,10 +225,14 @@ public void startNewGame(File def) {
 
         StatsUpdateViewport statsPort = new StatsUpdateViewport();
         gameScene.addViewport(statsPort);
+        
+        DialogueViewport dailoguePort = new DialogueViewport();
+        gameScene.addViewport(dailoguePort);
 
         controller.addObserver(sack, SceneType.SACK);
         controller.addObserver(armory, SceneType.ARMORY);
         controller.addObserver(statsPort, SceneType.STATS_UPDATING);
+        controller.addObserver(dailoguePort, SceneType.DIALOGUE);
 
         List<Observable> sackObservables = controller.getObservables(SceneType.SACK);
         ((Observable) sack).addObserver((Observer) sackObservables.get(0));
