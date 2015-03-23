@@ -8,6 +8,7 @@ package model.map;
 import model.effect.GoDownEffect;
 import model.entity.Entity;
 import model.map.pair.PreciseCoordinatePair;
+import model.map.projectiles.Projectile;
 
 /**
  *
@@ -23,6 +24,11 @@ public class Bullet extends Projectile {
            public boolean canSee(int observationLevel){
              return true;
          }
+
+    @Override
+    public void applyEffect(Entity entToEffect) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 
     
