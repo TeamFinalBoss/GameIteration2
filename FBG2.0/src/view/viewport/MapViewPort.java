@@ -79,8 +79,7 @@ public class MapViewPort implements ViewPort, Observer {
                 try {
                     for (Tile t : tilesAvatarCanSee) {
                         if (tiles[i][j].equals(t)) {
-                            //System.out.println("We should see ")
-                            currentTileImg = SpriteFactory.getGrass();
+                            currentTileImg = SpriteFactory.hashIDtoImage(t.getID());
                         }
                     }
                     g.drawImage(currentTileImg, (i - startX) * tileWidth, (j - startY) * tileHeight, tileWidth, tileHeight, null);
