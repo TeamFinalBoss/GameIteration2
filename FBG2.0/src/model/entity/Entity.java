@@ -606,6 +606,8 @@ public abstract class Entity extends MapObject {
         canMove = false;
         GameTimer.getInstance().addEvent(new AllowMovement(this), (int) 10000 / getMovement());
         this.visibleMap.update();
+        
+        this.modifyCurrentMP(10);
         return true;
     }
 
