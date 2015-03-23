@@ -29,7 +29,7 @@ import model.map.tile.trap.Trap;
  *
  * @author ChrisMoscoso
  */
-public class MapViewPort implements ViewPort, Observer, DirectionChanger {
+public class MapViewPort implements ViewPort, Observer {
 
     Tile[][] tiles;
     List<Tile> tilesAvatarCanSee;
@@ -132,6 +132,21 @@ public class MapViewPort implements ViewPort, Observer, DirectionChanger {
             System.out.println(e);
 
         }
+        
+        try {
+            for (Item item : itemsAvatarCanSee) {
+                double px = (item.getLocation().getX());
+                double py = (item.getLocation().getY());
+                
+                g.drawImage(SpriteFactory.getGenericObject(),(int) ((px - startX) * tileWidth), (int) ((py - startY) * tileHeight), tileWidth, tileHeight, null);
+            }
+
+        }catch(NullPointerException e) {}
+        catch (ConcurrentModificationException e) {
+        } catch (NoSuchElementException e) {
+            System.out.println(e);
+
+        }
 
     }
 
@@ -151,70 +166,4 @@ public class MapViewPort implements ViewPort, Observer, DirectionChanger {
         projectilesAvatarCanSee = (List<Projectile>) mapObjects[6];
 
     }
-    
-    public Direction changeDirection(Point p) {
-    	/*
-    	int windowWidth = (int) (GameDirector.getSize().width * 0.8);
-        int windowHeight = (int) (GameDirector.getSize().height * 0.8);
-        int windowWidthInTiles = windowWidth / tileWidth;
-        int windowHeightInTiles = windowHeight / tileHeight;
-        int startX = avatarLocation.getX() - windowWidthInTiles / 2;
-        int startY = avatarLocation.getY() - windowHeightInTiles / 2;
-
-        if (startX < 0) {
-            startX = 0;
-        } else if (startX > widthInTiles - windowWidthInTiles) {
-            startX = widthInTiles - windowWidthInTiles;
-        }
-        if (startY < 0) {
-            startY = 0;
-        } else if (startY > heightInTiles - windowHeightInTiles) {
-            startY = heightInTiles - windowHeightInTiles;
-        }
-        
-        
-        int xLocation = avatarLocation.getX() - startX + tileWidth / 2;
-        int yLocation = (avatarLocation.getY() - startY) * tileHeight + tileWidth / 2;
-        
-        Vector vector1 = new Vector();
-        
-        double value = p.getX() - xLocation;
-        double value2 = p.getY() - yLocation;
-        
-        System.out.println(value);
-        System.out.println(value2);
-        
-        
-        vector1.set(value, value2);
-        
-        double angle = Math.atan2( vector1.getY(), vector1.getX() );
-        int octant = (int) (Math.round( 8 * angle / (2*Math.PI) + 8 ) % 8);
-        
-        switch(octant) {
-        	case 0 :
-        		return Direction.East;
-        	case 1 :
-        		return Direction.NorthEast;	
-        	case 2: 
-        		return Direction.North;
-        	case 3: 
-        		return Direction.NorthWest;
-        	case 4:
-        		return Direction.West;
-        	case 5 :
-        		return Direction.SouthWest;
-        	case 6 :
-        		return Direction.South;
-        	case 7 :
-        		return Direction.SouthEast;
-        	default :
-        		return null;
-        }
-        */
-    	return null;
-       
-        
-        
-    }
-
 }

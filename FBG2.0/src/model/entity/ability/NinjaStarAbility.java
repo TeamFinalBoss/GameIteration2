@@ -14,6 +14,7 @@ import model.entity.ability.ProjectileAbility;
 import model.map.Vector;
 import model.map.pair.PreciseCoordinatePair;
 import model.map.projectiles.Fireball;
+import model.map.projectiles.NinjaStar;
 
 /**
 *
@@ -32,7 +33,7 @@ public class NinjaStarAbility extends ProjectileAbility
 
 	public NinjaStarAbility()
 	{
-		this.name = "Ninja Star";
+		this.name = "NinjaStar";
         this.damage = 10;
 		this.effect = new DealDamageEffect(this.damage);
 		this.myCC = CombatCoordinator.getInstance();
@@ -43,6 +44,7 @@ public class NinjaStarAbility extends ProjectileAbility
 	{
 		super(name, effect, cost, ms, rate);
 		this.myCC = CombatCoordinator.getInstance();
+		this.name = "NinjaStar";
 	}
 
 	@Override
