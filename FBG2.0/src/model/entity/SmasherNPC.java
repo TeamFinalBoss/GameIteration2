@@ -71,26 +71,32 @@ public abstract class SmasherNPC extends SmasherEntity implements NPC {
 		}
 		
 		/**
-		 * Removes an item from this NPC's storefront, modifies this NPC's currency,
+		 * Removes an item from this NPC's storefront, modifies this NPC's currency and the purchaser's currency
 		 * then returns the removed item.
 		 * 
 		 * @param position the position of the desired item in the storefront
 		 * @return the removed item
 		 */
-		public Takeable sellItem(int position) {
+		public Takeable sellItem(int position, Entity purchaser) {
 			Takeable t = getInventory().buyItem(position);
-			modifyCurrency(t.getValue());
+			int price = t.getValue()-purchaser.getBargain()+this.getBargain();
+			this.modifyCurrency(price);
+			purchaser.modifyCurrency(price * -1);
+			
 			return t;
 		}
 		
 		/**
-		 * Adds an item to this NPC's storefront
+		 * Adds an item to this NPC's storefront, modifies this NPC's currency and the purchaser's currency
 		 * 
 		 * @param item the item that is being added
 		 * @return the value of the item
 		 */
-		public int buyItem(Takeable item) {
-			return getInventory().sellItem(item);
+		public void buyItem(Takeable item, Entity purchaser) {
+			int price = getInventory().sellItem(item)+purchaser.getBargain()-this.getBargain();
+			this.modifyCurrency(price*-1);
+			purchaser.modifyCurrency(price);
+			purchaser.remove(item);
 		}
 		
 		/**

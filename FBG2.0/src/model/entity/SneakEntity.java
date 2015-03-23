@@ -5,6 +5,7 @@ import model.entity.stats.SneakStats;
 import model.map.pair.CoordinatePair;
 
 public abstract class SneakEntity extends Entity {
+	private boolean isCreeping;
 	/* -------------------- PROTECTED CREATION ------------------- */
 	protected SneakLibrary createAbilities(){
 		return new SneakLibrary(this);
@@ -60,7 +61,7 @@ public abstract class SneakEntity extends Entity {
 	}
 	
 	/* -------------------- STATS SETTER MUTATORS -------------------- */
-	public void setPickPokcet(int modifier){
+	public void setPickPocket(int modifier){
 		getStats().setPickPocket(modifier);
 	}
 	public void setTrap(int modifier){
@@ -71,5 +72,10 @@ public abstract class SneakEntity extends Entity {
 	}
 	public void setRangedWeapon(int modifier){
 		getStats().setRangedWeapon(modifier);
+	}
+	
+	/* - OTHER - */
+	public void toggleCreep(){
+		isCreeping = !isCreeping;
 	}
 }
