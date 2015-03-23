@@ -9,6 +9,8 @@ import java.util.Random;
 
 import controller.menu.stats.StatsMenu;
 import controller.sceneControllers.SceneType;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import model.map.areaEffect.AreaEffect;
 import model.map.pair.PurePair;
 import model.effect.Dispellable;
@@ -29,6 +31,8 @@ import model.map.projectiles.Projectile;
 import model.entity.SummonerAvatar;
 import model.entity.ability.Ability;
 import model.item.EquipSlot;
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
 
 /**
  * The purpose of this class is to handle commands, events, or general information
@@ -87,6 +91,14 @@ public class AvatarInteractionManager {
      * @param abilityTouse 
      */
     public void useAbility(int abilityTouse){
+        try {
+            InputStream in = new FileInputStream("src/resources/sound/pewpew.wav");
+            AudioStream as = new AudioStream(in);
+
+            AudioPlayer.player.start(as);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
         avatar.useAbility(abilityTouse);
         observers.get(SceneType.STATS_UPDATING).update(null, null);
     }

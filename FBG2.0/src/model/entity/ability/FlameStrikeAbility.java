@@ -1,5 +1,7 @@
 package model.entity.ability;
 
+import java.io.FileInputStream;
+import java.io.InputStream;
 import model.effect.Effect;
 import model.entity.Entity;
 
@@ -19,6 +21,8 @@ import model.map.Vector;
 import model.map.pair.PreciseCoordinatePair;
 import model.map.projectiles.Fireball;
 import model.map.projectiles.NinjaStar;
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
 
 /**
 *
@@ -28,9 +32,12 @@ import model.map.projectiles.NinjaStar;
 public class FlameStrikeAbility extends AngularAbility
 {
    
+    
+    
     private ActiveMapManager myMM;
     private int damage;
 
+    
 	public FlameStrikeAbility()
 	{
 		super();
@@ -40,6 +47,7 @@ public class FlameStrikeAbility extends AngularAbility
 		this.setRadius(3);
 		this.myMM = ActiveMapManager.getInstance();
         this.setDegree(360);
+        
 	}
 
 	public FlameStrikeAbility(String name, Effect effect, Effect cost, int degree, double radius, int distance)
@@ -63,6 +71,17 @@ public class FlameStrikeAbility extends AngularAbility
 	@Override
     public boolean performAbility(Entity caster) 
     {
+         try {
+            InputStream in = new FileInputStream("src/resources/sound/pewpew.wav");
+            AudioStream as = new AudioStream(in);
+
+            AudioPlayer.player.start(as);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        
+        
+        
     	GameMap map = myMM.getActiveMap();
     	int mana = caster.getCurrentMP();
     	List<Entity> entities = map.getEntities();

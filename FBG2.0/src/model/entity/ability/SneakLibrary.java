@@ -9,10 +9,13 @@ public class SneakLibrary extends AbilityLibrary{
 		SetTrapAbility setTrap = new SetTrapAbility();
 		DisableTrapAbility myDisable = new DisableTrapAbility();
         PickPocketAbility pickpocket = new PickPocketAbility();
+        FlameStrikeAbility fsa = new FlameStrikeAbility();
 		
         this.addToLibrary(pickpocket);
 		this.addToLibrary(setTrap);
 		this.addToLibrary(myDisable);
+                
+                this.addToLibrary(fsa);
 	}
 
     
