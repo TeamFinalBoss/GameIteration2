@@ -33,16 +33,13 @@ public class MotionCoordinator {
 	
 	public void moveEntity(Entity e, CoordinatePair desiredLocation, AreaEffect effect, Item i, MapSwitcher switcher, Trap t){
 		CoordinatePair change = new CoordinatePair(desiredLocation.getX()-e.getLocation().getX(), desiredLocation.getY()-e.getLocation().getY());
-		if(!e.modifyLocation(change)) return;
-		
+		if(!e.getMovementPermission()) return;
+		if (i != null){
+            i.activate(e); //TODO: Create this method for every item type
+        }
 		if (effect != null){
                     effect.activate(e);
 		}
-		
-		if (i != null){
-                    i.activate(e); //TODO: Create this method for every item type
-		}
-		
 		if(t != null){
                     t.Activate(e); //TODO: Create this method for every item type
 		}
@@ -50,5 +47,6 @@ public class MotionCoordinator {
 		if(switcher != null){
                     switcher.activate(e);
 		}
+		e.modifyLocation(change);
 	}
 }

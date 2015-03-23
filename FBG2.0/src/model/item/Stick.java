@@ -5,6 +5,7 @@
  */
 package model.item;
 
+import model.director.ActiveMapManager;
 import model.entity.Entity;
 import model.map.pair.CoordinatePair;
 
@@ -47,7 +48,7 @@ public class Stick extends Takeable {
         public boolean useInSack(Entity e){
            return true;
             }
-            
+           
         }
         
    
