@@ -3,8 +3,7 @@ package model.factories;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import javax.imageio.ImageIO;
 import model.map.Direction;
 
@@ -129,6 +128,8 @@ public class SpriteFactory {
         FOG = getImage(resourcePath + "tile/fog.png");
         FIREBALL = getImage(resourcePath + "projectile/fireball.png");
         GENERIC = getImage(resourcePath + "generic.png");
+        NINJA_STAR = getImage(NINJA_STAR_PATH);
+        BULLET = getImage(BULLET_PATH);
 
     }
 

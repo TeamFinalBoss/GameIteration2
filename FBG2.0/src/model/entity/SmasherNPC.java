@@ -81,6 +81,7 @@ public abstract class SmasherNPC extends SmasherEntity implements NPC {
 		public Takeable sellItem(int position, Entity purchaser) {
 			Takeable t = getInventory().buyItem(position);
 			int price = t.getValue()-purchaser.getBargain()+this.getBargain();
+			if(price < 0) price = 0;
 			this.modifyCurrency(price);
 			purchaser.modifyCurrency(price * -1);
 			

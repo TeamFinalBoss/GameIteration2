@@ -29,7 +29,7 @@
 <binding key="57" value="Skill 9"  />
 <binding key="56" value="Skill 8"  />
 </keyBindings>
-<avatar occupation="sneak" map="4" currency="0" motionType="GROUND" direction="North" x="1" y="1">
+<avatar occupation="sneak" map="4" currency="60" motionType="GROUND" direction="North" x="1" y="1">
    <stats livesLeft="3" strength="3" agility="3" intellect="8" hardiness="8" experience="20000" movement="50" bindWounds="3" stat1="3" stat2="3" stat3="3" stat4="3" currentHp="100" currentMp="100" offense="3" defense="3" bargain="3" observation="3" />
    	<sack>
    		<item name="gun" durability="100" />
@@ -48,15 +48,42 @@
    		<armory>
    		</armory>
    		<store>
+   			<item name="gun" durability="100" />
+   			<item name="gun" durability="100" />
+   			<item name="jesusBoots" durability="100" />
    		</store>
    		<effects>
    		</effects>
 	</entity>
-    <obstacle name="door" link="4" x="1" y="1" />
+	<entity occupation="smasher" map="1" currency="0" type="evilMuscleSlime" direction="North" x="11" y="10" link="20" motionType="GROUND">
+   		<sack>
+   		</sack>
+   		<armory>
+   		</armory>
+   		<store>
+   		</store>
+   		<effects>
+   		</effects>
+	</entity>
+	<entity occupation="smasher" map="1" currency="0" type="friendlyOldBrawler" direction="North" x="11" y="14" link="20" motionType="GROUND">
+   		<sack>
+   		</sack>
+   		<armory>
+   		</armory>
+   		<store>
+   		</store>
+   		<effects>
+   		</effects>
+	</entity>
+    <obstacle name="door" link="4" x="5" y="4" />
     <interactive name="doorOpener" link="4" x="2" y="2" />
     <oneshot name="recoveryHeart" x="1" y="2" />
-</map>
-<map id="2">
-    <obstacle name="door" link="4" x="1" y="1" />
+    <trap name="dealDamageTrap" x="6" y="3" />
+    <takeable name="healthPotion" durability="34" x="6" y="0" />
+ 	<takeable name="halo" durability="34" x="7" y="0" />
+ 	<takeable name="mace" durability="34" x="8" y="0" />
+ 	<takeable name="stick" durability="34" x="9" y="0" />
+ 	<takeable name="hornes" durability="34" x="10" y="0" />
+ 	<takeable name="sword" durability="34" x="11" y="0" />
 </map>
 </gamesave>

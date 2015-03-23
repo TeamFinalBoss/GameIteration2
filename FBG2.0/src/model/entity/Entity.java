@@ -5,6 +5,7 @@ package model.entity;
 import model.entity.ability.AbilityLibrary;
 import model.entity.ability.Ability;
 import model.entity.inventory.Inventory;
+import model.entity.inventory.Sack;
 import model.entity.stats.Stats;
 import model.gameObject.MapObject;
 import model.map.Direction;
@@ -634,4 +635,8 @@ public abstract class Entity extends MapObject {
     public void useWeapon() {
         this.myInventory.useWeapon(this);
     }
+
+	public Sack getSack() {
+		return myInventory.getSack();
+	}
 }
