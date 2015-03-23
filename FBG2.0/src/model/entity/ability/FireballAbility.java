@@ -42,6 +42,7 @@ public class FireballAbility extends ProjectileAbility
 	public FireballAbility(String name, Effect effect, Effect cost, double ms, double rate)
 	{
 		super(name, effect, cost, ms, rate);
+		this.name = "Fireball";
 		this.myCC = CombatCoordinator.getInstance();
 	}
 

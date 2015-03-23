@@ -37,7 +37,7 @@ public class FlameStrikeAbility extends RadialAbility
 
 	public FlameStrikeAbility()
 	{
-		this.name = "Flame Strike";
+		this.name = "FlameStrike";
                 this.distance = 1;
                 this.damage = 10;
 		this.effect = new DealDamageEffect(this.damage);
@@ -52,7 +52,8 @@ public class FlameStrikeAbility extends RadialAbility
 		super(name, effect, cost, degree, radius);
 		this.myCC = CombatCoordinator.getInstance();
 		this.myMM = ActiveMapManager.getInstance();
-                this.distance = distance;
+        this.distance = distance;
+        this.name = "FlameStrike";        
 	}
 
 	@Override

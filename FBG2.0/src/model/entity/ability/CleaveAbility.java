@@ -50,6 +50,7 @@ public class CleaveAbility extends RadialAbility
 		super(name, effect, cost, degree, radius);
 		this.myCC = CombatCoordinator.getInstance();
 		this.myMM = ActiveMapManager.getInstance();
+		this.name = "Cleave";
 	}
 
 	@Override
