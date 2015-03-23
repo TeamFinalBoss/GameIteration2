@@ -47,19 +47,19 @@ public class AreaEffectFactory implements PlaceableObjectFactory {
             switch (item.getAttribute("name")) {
                 case "instantDeath":
                     it = new InstantDeathAreaEffect();
-                    it.setName(item.getAttribute("name"));
+                    it.setID(item.getAttribute("name"));
                     break;
                 case "levelUp":
                     it = new LevelUpAreaEffect();
-                    it.setName(item.getAttribute("name"));
+                    it.setID(item.getAttribute("name"));
                     break;
                 case "takeDamage":
                     it = new TakeDamageAreaEffect();
-                    it.setName(item.getAttribute("name"));
+                    it.setID(item.getAttribute("name"));
                     break;
                 case "teleport":
                     it = new TeleportAreaEffect();
-                    it.setName(item.getAttribute("name"));
+                    it.setID(item.getAttribute("name"));
 
                     ((TeleportAreaEffect) it).setLink(Integer.parseInt(item.getAttribute("link")));
                     break;

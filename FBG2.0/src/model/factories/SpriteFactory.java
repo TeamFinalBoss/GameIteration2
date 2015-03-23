@@ -36,6 +36,19 @@ public class SpriteFactory {
     private static final String DOOR_OPENER_PATH = resourcePath + "item/DoorOpener.png";
     private static final String DOOR_PATH = resourcePath + "item/Door.png";
 
+    /*ENTITY*/
+    private static final String SLIME_PATH = resourcePath + "entity/slime.png";
+    private final BufferedImage SLIME;
+    private static final String POP_EYE_PATH = resourcePath + "entity/popeye.gif";
+    private BufferedImage POP_EYE;
+    
+    private static final String ANGEL_PATH = resourcePath + "entity/angel.gif";
+    private BufferedImage ANGEL;
+
+    /*TRAP*/
+    private static final String BEAR_TRAP_PATH = resourcePath + "trap/BearTrap.png";
+    private final BufferedImage BEAR_TRAP;
+
     /*AREA EFFECT*/
     private final String HEAL_PATH = resourcePath + "area_effect/heal.jpg";
     private final String INSTANT_DEATH_PATH = resourcePath + "area_effect/instant_death.png";
@@ -91,12 +104,17 @@ public class SpriteFactory {
         RECOVERY_HEART = getImage(RECOVERY_HEART_PATH);
         DOOR_OPENER = getImage(DOOR_OPENER_PATH);
         DOOR = getImage(DOOR_PATH);
+        /*AREA EFFECT*/
         HEAL = getImage(HEAL_PATH);
         INSTANT_DEATH = getImage(INSTANT_DEATH_PATH);
         INSTANT_DEATH2 = getImage(INSTANT_DEATH2_PATH);
         LEVEL_UP = getImage(LEVEL_UP_PATH);
         TAKE_DAMAGE = getImage(TAKE_DAMAGE_PATH);
         TELEPORT = getImage(TELEPORT_PATH);
+        /*TRAP*/
+        BEAR_TRAP = getImage(BEAR_TRAP_PATH);
+        /*ENTITY*/
+        SLIME = getImage(SLIME_PATH);
 
         FOG = getImage(resourcePath + "tile/fog.png");
         FIREBALL = getImage(resourcePath + "projectile/fireball.png");
@@ -249,6 +267,14 @@ public class SpriteFactory {
                 return LEVEL_UP;
             case "teleport":
                 return TELEPORT;
+            case "dealDamageTrap":
+                return BEAR_TRAP;
+            case "evilMuscleSlime":
+                return SLIME;
+            case "friendlyOldBrawler":
+                return POP_EYE;
+            case "lightGuardian":
+                return ANGEL;
 
             default:
                 //System.out.println(id + " wheres the pic file?");

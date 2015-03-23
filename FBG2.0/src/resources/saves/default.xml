@@ -62,7 +62,16 @@
    		<effects>
    		</effects>
 	</entity>
-	
+	<entity occupation="smasher" map="1" currency="0" type="friendlyOldBrawler" direction="North" x="11" y="14" link="20" motionType="GROUND">
+   		<sack>
+   		</sack>
+   		<armory>
+   		</armory>
+   		<store>
+   		</store>
+   		<effects>
+   		</effects>
+	</entity>
     <obstacle name="door" link="4" x="5" y="4" />
     <interactive name="doorOpener" link="4" x="2" y="2" />
     <oneshot name="recoveryHeart" x="1" y="2" />
