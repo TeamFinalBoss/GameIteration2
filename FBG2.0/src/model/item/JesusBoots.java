@@ -88,6 +88,6 @@ public class JesusBoots extends Equipable{
         
     @Override
         public boolean meetsRequirements(Entity e){
-        return e.getLevel() >= 2;
+        return true;
         }
 }

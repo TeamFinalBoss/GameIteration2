@@ -76,6 +76,7 @@ public class HermesBoots extends Equipable{
             target.modifyAgility(5);
             target.modifyWeaponOffense(5);
         }
+
    
    @Override 
    public boolean useInSack(Entity e){

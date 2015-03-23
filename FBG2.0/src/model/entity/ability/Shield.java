@@ -29,7 +29,7 @@ public class Shield extends Ability{
        ShieldEffect se = new ShieldEffect(caster);
        se.applyEffect(caster);
        
-       
+       System.out.println("shield");
        return true;
     }
 
