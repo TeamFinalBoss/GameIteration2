@@ -17,6 +17,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import controller.mouse.MouseParser;
+import java.awt.DisplayMode;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import model.director.GameDirector;
@@ -41,9 +42,6 @@ public class GameWindow {
     public GameWindow() {
         this(1, 1);
 
-        //frame.dispose();
-        //frame.
-        //frame.setUndecorated(true);
     }
 
     /**
@@ -59,19 +57,25 @@ public class GameWindow {
         frame.setTitle("FINAL BOSS 2.0");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setExtendedState(frame.getExtendedState() | JFrame.MAXIMIZED_BOTH);
-
+        frame.setUndecorated(true);
+        frame.setVisible(true);
+        //ACCESS TO THE GPU
         /*GraphicsEnvironment ge = GraphicsEnvironment.
                 getLocalGraphicsEnvironment();
-        GraphicsDevice[] gs = ge.getScreenDevices();
+        GraphicsDevice gs = ge.getDefaultScreenDevice();
+        gs.setFullScreenWindow(frame);*/
+        //NEEDS KEY BINDINGS TO WORK 
         
-        gs[0].getFullScreenWindow();*/
-        frame.setVisible(true);
+        
         frame.addComponentListener(new GameWindowComponentListener());
 
         //Set up the panel for drawing
         panel = new ImagePanel();
         frame.setContentPane(panel);
         frame.validate();
+        frame.setFocusable(true);
+        frame.setFocusableWindowState(true);
+        frame.requestFocus();
     }
 
     /**
@@ -100,6 +104,7 @@ public class GameWindow {
      */
     public void addKeyController(KeyListener k) {
         frame.addKeyListener(k);
+        
     }
 
     /**
@@ -111,6 +116,7 @@ public class GameWindow {
         frame.addMouseListener(mouseParser);
         frame.addMouseMotionListener(mouseParser);
         frame.addMouseWheelListener(mouseParser);
+        
     }
 
     /**

@@ -200,7 +200,9 @@ public abstract class Entity extends MapObject {
     }
 
     public Equipable unequip(EquipSlot slot) {
-        return myInventory.unequip(slot);
+    	Equipable value = myInventory.unequip(slot);
+    	insert(value);
+        return value;
     }
 
     public Takeable remove(Takeable item) {

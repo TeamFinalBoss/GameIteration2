@@ -42,7 +42,7 @@ public class MapViewPort implements ViewPort, Observer {
     BufferedImage fireballIcon;
 
     public MapViewPort() {
-        
+
     }
 
     @Override
@@ -65,23 +65,25 @@ public class MapViewPort implements ViewPort, Observer {
         } else if (startY > heightInTiles - windowHeightInTiles) {
             startY = heightInTiles - windowHeightInTiles;
         }
-
+        String currentTileID;
         for (int i = startX; i < Math.min(startX + windowWidthInTiles, widthInTiles); i++) {
             for (int j = startY; j < Math.min(startY + windowHeightInTiles, heightInTiles); j++) {
                 //Draw tiles
                 currentTileImg = SpriteFactory.getFog();
                 try {
                     for (Tile t : tilesAvatarCanSee) {
-                        
-                        if (t.getLocation().equals(new CoordinatePair(i,j))) {
+
+                        if (t.getLocation().equals(new CoordinatePair(i, j))) {
                             currentTileImg = SpriteFactory.hashIDtoImage(t.getID());
+                            break;
                         }
                     }
                     g.drawImage(currentTileImg, (i - startX) * tileWidth, (j - startY) * tileHeight, tileWidth, tileHeight, null);
                 } catch (ConcurrentModificationException e) {
                 } catch (NoSuchElementException e) {
                     System.out.println(e);
-                } catch(NullPointerException e){}
+                } catch (NullPointerException e) {
+                }
 
                 //draw coordinates
                 g.setColor(Color.BLUE);
@@ -99,14 +101,13 @@ public class MapViewPort implements ViewPort, Observer {
                 Entity avatar = AvatarInteractionManager.getInstance().getAvatar();
                 if (e.equals(avatar)) {
                     currentEntityImg = SpriteFactory.getAvatar(avatar.getDirection());
-                    
+
                 } else {
                     currentEntityImg = SpriteFactory.getGenericEntity(e.getDirection());
                 }
                 g.drawImage(currentEntityImg, (e.getLocation().getX() - startX) * tileWidth, (e.getLocation().getY() - startY) * tileHeight, tileWidth, tileHeight, null);
             }
-        } 
-        catch (ConcurrentModificationException e) {
+        } catch (ConcurrentModificationException e) {
         } catch (NoSuchElementException e) {
             System.out.println(e);
 
@@ -116,32 +117,35 @@ public class MapViewPort implements ViewPort, Observer {
             for (Projectile p : projectilesAvatarCanSee) {
                 double px = (p.getLocation().getX());
                 double py = (p.getLocation().getY());
-                
-                g.drawImage(SpriteFactory.getFireball(),(int) ((px - startX) * tileWidth), (int) ((py - startY) * tileHeight), tileWidth, tileHeight, null);
+
+                g.drawImage(SpriteFactory.getFireball(), (int) ((px - startX) * tileWidth), (int) ((py - startY) * tileHeight), tileWidth, tileHeight, null);
             }
 
-        }catch(NullPointerException e) {}
-        catch (ConcurrentModificationException e) {
+        } catch (NullPointerException e) {
+        } catch (ConcurrentModificationException e) {
         } catch (NoSuchElementException e) {
             System.out.println(e);
 
         }
-        
+
         try {
             for (Item item : itemsAvatarCanSee) {
                 double px = (item.getLocation().getX());
                 double py = (item.getLocation().getY());
-                
-                g.drawImage(SpriteFactory.hashIDtoImage(item.getID()),(int) ((px - startX) * tileWidth), (int) ((py - startY) * tileHeight), tileWidth, tileHeight, null);
+
+                g.drawImage(SpriteFactory.hashIDtoImage(item.getID()), (int) ((px - startX) * tileWidth), (int) ((py - startY) * tileHeight), tileWidth, tileHeight, null);
             }
 
-        }catch(NullPointerException e) {}
-        catch (ConcurrentModificationException e) {
+        } catch (NullPointerException e) {
+        } catch (ConcurrentModificationException e) {
         } catch (NoSuchElementException e) {
             System.out.println(e);
 
         }
 
+        
+        
+        
     }
 
     @Override
