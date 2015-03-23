@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gamesave>
 <avatar occupation="summoner" map="1" currency="0" motionType="0" direction="0" x="1" y="1">
-   <stats livesLeft="3" strength="3" agility="3" intellect="3" hardiness="3" experience="3" movement="3000" bindWounds="3" stat1="3" stat2="3" stat3="3" stat4="3" currentHp="30" currentMp="3000" offense="3" defense="3" bargain="3" observation="3" />
+   <stats livesLeft="3" strength="3" agility="3" intellect="8" hardiness="8" experience="10000" movement="3000" bindWounds="3" stat1="3" stat2="3" stat3="3" stat4="3" currentHp="100" currentMp="100" offense="3" defense="3" bargain="3" observation="3" />
    	<sack>
    	    <item name="sword" durability="100" />
    	</sack>
