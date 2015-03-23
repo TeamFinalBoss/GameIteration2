@@ -32,7 +32,7 @@ public class StatsUpdateViewport implements ViewPort, Observer {
         if (options != null) {
 
             int healthBarXMargin = (int) (screenWidth * 0.20);
-            int healthBarYMargin = height - 135;
+            int healthBarYMargin = screenHeight - 135;
             int healthBarWidth = screenWidth - (healthBarXMargin * 2);
             int healthBarHeight = 25;
 
