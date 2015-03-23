@@ -17,4 +17,6 @@ public interface NPC {
 	public List<Takeable> getStoreContents();
 	public List<Takeable> getFullStoreContents();
 	public void buyItem(Takeable item);
+	public boolean getFriendly();
+	public void setFriendly(boolean next);
 }

@@ -12,6 +12,7 @@ import model.map.pair.PurePair;
 import model.effect.Dispellable;
 import model.entity.Entity;
 import model.entity.MotionType;
+import model.entity.NPC;
 import model.entity.SummonerAvatar;
 import model.entity.SmasherAvatar;
 import model.entity.SneakAvatar;
@@ -41,6 +42,9 @@ public class AvatarInteractionManager {
     private int currentSlotInArmory;
     private int statPoints;
     private int skillPoints;
+    private NPC conversationPartner;
+    
+    //Vector avatarDirection;
     
     private Map<SceneType, Observer> observers;
  
@@ -407,5 +411,21 @@ public class AvatarInteractionManager {
 	}
 	public String getOccupation(){
 		return avatar.getOccupation();
+	}
+	
+	/* -------------------- DIALOGUE INTERACTION -------------------- */
+	public void useDialogueOption(int selection){
+		conversationPartner.traverseDialogue(selection);
+	}
+	public NPC getConversationPartner(){
+		return conversationPartner;
+	}
+	
+	/* ------------------- STORE INTERACTION -------------------- */
+	public void buyItem(int position){
+		avatar.insert(conversationPartner.sellItem(position, avatar));
+	}
+	public void sellItem(int position){
+		conversationPartner.buyItem(avatar.remove(position),avatar);
 	}
 }

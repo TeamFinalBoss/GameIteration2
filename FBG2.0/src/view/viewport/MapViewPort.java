@@ -17,7 +17,9 @@ import javax.swing.ImageIcon;
 import model.director.AvatarInteractionManager;
 import model.director.GameDirector;
 import model.entity.Entity;
+import model.factories.SpriteFactory;
 import model.item.Item;
+import model.map.Direction;
 import model.map.projectiles.Projectile;
 import model.map.pair.CoordinatePair;
 import model.map.tile.Tile;
@@ -38,7 +40,7 @@ public class MapViewPort implements ViewPort, Observer {
     List<Projectile> projectilesAvatarCanSee;
 
     int widthInTiles = 0, heightInTiles = 0;
-    BufferedImage grass;
+    BufferedImage currentTileImg, currentEntityImg;
     private int tileWidth = 64;
     private int tileHeight = 64;
 
@@ -46,16 +48,7 @@ public class MapViewPort implements ViewPort, Observer {
     BufferedImage fireballIcon;
 
     public MapViewPort() {
-        try {
-            grass = ImageIO.read(new File("src/resources/sprites/LightGrass.png"));
-            //avatarImage = ImageIO.read(new File("src/resources/img/summonerUp.gif"));
-            avatarIcon = new ImageIcon("src/resources/img/summonerUp.gif");
-            File file = new File("src/resources/sprites/fireball.png");
-            fireballIcon = ImageIO.read(file);
-
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
-        }
+        
     }
 
     @Override
@@ -81,58 +74,21 @@ public class MapViewPort implements ViewPort, Observer {
 
         for (int i = startX; i < Math.min(startX + windowWidthInTiles, widthInTiles); i++) {
             for (int j = startY; j < Math.min(startY + windowHeightInTiles, heightInTiles); j++) {
-                //Draw tile
-                //TODO: Make it so it doesnt just draw grass       
-                
-
                 //Draw tiles
-                g.setColor(Color.black);
+                currentTileImg = SpriteFactory.getFog();
                 try {
                     for (Tile t : tilesAvatarCanSee) {
-                        if (tiles[i][j].equals(t)) {
-                            //System.out.println("We should see ")
-                            g.setColor(Color.green);
-                           // g.drawImage(grass, (i - startX) * tileWidth, (j - startY) * tileHeight, tileWidth, tileHeight, null);
-                        }else{
-                            
+                        
+                        if (t.getLocation().equals(new CoordinatePair(i,j))) {
+                            currentTileImg = SpriteFactory.hashIDtoImage(t.getID());
                         }
                     }
-                    g.fillRect((i - startX) * tileWidth, (j - startY) * tileHeight, tileWidth, tileHeight);
+                    g.drawImage(currentTileImg, (i - startX) * tileWidth, (j - startY) * tileHeight, tileWidth, tileHeight, null);
                 } catch (ConcurrentModificationException e) {
                 } catch (NoSuchElementException e) {
                     System.out.println(e);
                 }
 
-                /*
-                 //Draw enitty
-                 if (entities.getObjectAt(new CoordinatePair(i, j)) != null) {
-
-                 if (entities.getObjectAt(new CoordinatePair(i, j)).equals(avatar)) {
-                 g.setColor(Color.blue);
-                 Image img = avatarIcon.getImage();
-                 g.drawImage(img, (i - startX) * 64, (j - startY) * 64, 64, 64, null);
-                 } else {
-                 g.setColor(Color.red);
-                 g.fillRect((i - startX) * 64, (j - startY) * 64, 63, 63);
-                 }
-
-                 }
-
-                 if (projectiles != null) {
-                 try {
-
-                 for (Projectile p : projectiles) {
-                 double tileX = p.getLocation().getX();
-                 double tileY = p.getLocation().getY();
-
-                 g.fillOval((int) ((tileX - startX) * tileWidth), (int) ((tileY - startY) * tileWidth), tileWidth, tileWidth);
-                 }
-
-                 } catch (ConcurrentModificationException e) {
-
-                 }
-
-                 }*/
                 //draw coordinates
                 g.setColor(Color.BLUE);
                 String coordinate = "(" + i + "," + j + ")";
@@ -146,12 +102,14 @@ public class MapViewPort implements ViewPort, Observer {
 
         try {
             for (Entity e : entitiesAvatarCanSee) {
-                if (e.equals(AvatarInteractionManager.getInstance().getAvatar())) {
-                    g.setColor(Color.red);
+                Entity avatar = AvatarInteractionManager.getInstance().getAvatar();
+                if (e.equals(avatar)) {
+                    currentEntityImg = SpriteFactory.getAvatar(avatar.getDirection());
+                    
                 } else {
-                    g.setColor(Color.blue);
+                    currentEntityImg = SpriteFactory.getGenericEntity(e.getDirection());
                 }
-                g.fillRect((e.getLocation().getX() - startX) * tileWidth, (e.getLocation().getY() - startY) * tileHeight, tileWidth, tileHeight);
+                g.drawImage(currentEntityImg, (e.getLocation().getX() - startX) * tileWidth, (e.getLocation().getY() - startY) * tileHeight, tileWidth, tileHeight, null);
             }
         } catch (ConcurrentModificationException e) {
         } catch (NoSuchElementException e) {
@@ -163,8 +121,8 @@ public class MapViewPort implements ViewPort, Observer {
             for (Projectile p : projectilesAvatarCanSee) {
                 double px = (p.getLocation().getX());
                 double py = (p.getLocation().getY());
-
-                g.drawOval((int) ((px - startX) * tileWidth), (int) ((py - startY) * tileHeight), tileWidth, tileHeight);
+                
+                g.drawImage(SpriteFactory.getFireball(),(int) ((px - startX) * tileWidth), (int) ((py - startY) * tileHeight), tileWidth, tileHeight, null);
             }
 
         } catch (ConcurrentModificationException e) {
