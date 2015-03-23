@@ -16,7 +16,7 @@ import model.map.pair.CoordinatePair;
         
         public Hornes(){
 		super("hornes", "Generic description", 
-                        new CoordinatePair(), 0, 1, EquipSlot.MAIN_HAND);
+                        new CoordinatePair(), 0, 1, EquipSlot.HEAD);
 		
 		this.id = "28";
 		this.className = "Hornes";
@@ -28,7 +28,7 @@ import model.map.pair.CoordinatePair;
 	
 	public Hornes(String objectName, String description, 
                 CoordinatePair location, int value,  EquipSlot slot){
-		super(objectName, description, location, value, 1, EquipSlot.MAIN_HAND);
+		super(objectName, description, location, value, 1, EquipSlot.HEAD);
 		
 		this.id = "28";
 		this.className = "Hornes";
