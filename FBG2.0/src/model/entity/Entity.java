@@ -178,7 +178,7 @@ public abstract class Entity extends MapObject {
     }
 
     public void drop(int position) {
-        activeMap.addItemToActiveMap(remove(position), getLocation());
+        activeMap.addItemToActiveMap(remove(position), new CoordinatePair(getLocation().getX(),getLocation().getY()));
     }
 
     /* -------------------- STATS ACCESSORS -------------------- */
