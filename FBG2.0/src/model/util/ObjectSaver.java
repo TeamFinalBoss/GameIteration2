@@ -12,6 +12,7 @@ import model.item.OneShot;
 import model.item.Takeable;
 import model.map.MapSwitcher;
 import model.map.areaEffect.AreaEffect;
+import model.map.areaEffect.TeleportAreaEffect;
 import model.map.tile.trap.Trap;
 import model.entity.NPC;
 
@@ -64,6 +65,7 @@ public class ObjectSaver {
 	public String getSaveFormat(AreaEffect e){
 		String save = "<areaeffect ";
 		save += "name=\"" + e.getName() + "\" ";
+		if(e.getName().equals("teleport")) save += "link=\"" + ((TeleportAreaEffect) e).getLink() + "\" ";
 		save += "x=\"" + e.getLocation().getX() + "\" ";
 		save += "y=\"" + e.getLocation().getY() + "\" />";
 		
