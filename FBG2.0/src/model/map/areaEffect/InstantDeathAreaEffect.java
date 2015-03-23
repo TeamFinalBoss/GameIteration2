@@ -7,6 +7,7 @@ public class InstantDeathAreaEffect extends AreaEffect {
 	public InstantDeathAreaEffect() {
 		super();
 		this.setName("instantDeath");
+                this.setID("instantDeath");
 	}
 
 	@Override

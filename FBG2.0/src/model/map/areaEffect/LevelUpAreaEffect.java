@@ -15,6 +15,7 @@ public class LevelUpAreaEffect extends AreaEffect{
 	
 	public LevelUpAreaEffect() {
 		this.setName("levelUp");
+                this.setID("levelUP");
 	}
 	
     @Override
