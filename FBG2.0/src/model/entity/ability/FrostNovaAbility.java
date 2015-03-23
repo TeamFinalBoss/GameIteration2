@@ -7,7 +7,6 @@ import model.map.Direction;
 import model.director.CombatCoordinator;
 import model.map.pair.CoordinatePair;
 import java.util.ArrayList;
-import model.entity.Entity;
 import java.lang.Math.*;
 import java.util.List;
 import model.director.ActiveMapManager;
@@ -26,37 +25,31 @@ import model.map.pair.PreciseCoordinatePair;
 
 public class FrostNovaAbility extends RadialAbility
 {
-    private String name;
-    private Effect effect;
-    private CombatCoordinator myCC;
     private ActiveMapManager myMM;
-    private Effect cost;
-	private double degree;
-	private double radius;
 
 	public FrostNovaAbility()
 	{
-		this.name = "FrostNova";
-		this.degree = 360;
-		this.radius = 3;
+		super();
+		this.setName("FrostNova");
+		this.setRadius(3);
 		this.myMM = ActiveMapManager.getInstance();
 	}
 
 	public FrostNovaAbility(String name, Effect effect, Effect cost, int degree, double radius)
 	{
 		super(name, effect, cost, degree, radius);
-		this.myCC = CombatCoordinator.getInstance();
 		this.myMM = ActiveMapManager.getInstance();
-		this.name = "FrostNova";
+		this.setName("FrostNova");
 	}
 
 	@Override
 	public boolean meetsStatRequirements(Entity summoner)
 	{
-		if(summoner.getIntellect() >= 20)
+		/*if(summoner.getIntellect() >= 20)
             return true;
         else
-            return false;
+            return false;*/
+		return true;
 	}
 
 	@Override
@@ -68,12 +61,11 @@ public class FrostNovaAbility extends RadialAbility
 
     	if(mana >= 1)
     	{
-                SnareEffect snare;
     		summoner.setCurrentMP(--mana);
     		for(int i = 0; i < entities.size(); ++i)
-    		{
+    		{    			
     			if(inRange(summoner, entities.get(i)))
-                            snare = new SnareEffect(entities.get(i), 4000);
+    				new SnareEffect(entities.get(i), 4000);
     		}
     		return true;
     	}

@@ -22,7 +22,8 @@ public class BlinkAbility extends LinearAbility {
 
 	@Override
 	public boolean meetsStatRequirements(Entity entityToLearn) {
-		return entityToLearn.getLevel() >= 2;
+		//return entityToLearn.getLevel() >= 2;
+		return true;
 	}
 
 	@Override
