@@ -41,11 +41,13 @@ public class SaveLoadMenu extends Observable implements Describeable,Menuable, O
 	private void refresh() {
 		File[] list = new File("./src/resources/saves/").listFiles();
 		files.clear();
+                try{
 		for(File file : list) {
 			if(file.isFile() && !file.getName().equals("default.xml") && !file.getName().equals("defaultSmasher.xml") && !file.getName().equals("defaultSneak.xml")) {
 				files.add(file);
 			}
 		}
+                }catch(NullPointerException e){}
 		files.sort(new Comparator<File>() {
 			@Override
 			public int compare(File arg0, File arg1) {
