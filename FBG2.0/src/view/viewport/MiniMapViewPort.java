@@ -50,8 +50,11 @@ public class MiniMapViewPort implements ViewPort, Observer {
         int windowWidthInTiles = windowWidth / tileWidth;
         int windowHeightInTiles = windowHeight / tileHeight;
 
-        int startX = avatarLocation.getX() - windowWidthInTiles / 2;
-        int startY = avatarLocation.getY() - windowHeightInTiles / 2;
+        int startX = AvatarInteractionManager.getInstance().getAvatar().getLocation().getX() - windowWidthInTiles /2 ;
+        int startY = AvatarInteractionManager.getInstance().getAvatar().getLocation().getY() - windowHeightInTiles /2;
+                /*TO DO : SWITCH TO PUSH MODEL, SOMEWHERE YOU NEED AVATAR TO CALL UPDATE VIEW()*/
+        //int startX = avatarLocation.getX() - windowWidthInTiles / 2;
+        //int startY = avatarLocation.getY() - windowHeightInTiles / 2;
 
         if (startX < 0) {
             startX = 0;
