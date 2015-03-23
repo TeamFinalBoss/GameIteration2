@@ -24,6 +24,7 @@ import view.viewport.KeyBindingsErrorViewPort;
 import view.viewport.KeyBindingsMenuViewPort;
 import view.viewport.MainMenuViewPort;
 import view.viewport.MapViewPort;
+import view.viewport.ObservationViewPort;
 import view.viewport.SackViewport;
 import view.viewport.StatsUpdateViewport;
 import view.viewport.StoreFrontViewPort;
@@ -173,6 +174,9 @@ public class GameDirector extends Observable implements SceneObserver {
         
         MainMenuViewPort selectorBp = new MainMenuViewPort();
         selectorScene.addViewport(selectorBp);
+        
+        ObservationViewPort obsVp = ObservationViewPort.getInstance();
+        gameScene.addViewport(obsVp);
 
         controller.getMouseParser().setMousePoint(SceneType.MAIN_MENU, (MousePoint) menuVP);
         controller.getMouseParser().setMousePoint(SceneType.PAUSE_MENU, (MousePoint) pauseVP);
