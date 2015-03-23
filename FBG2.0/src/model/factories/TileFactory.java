@@ -5,10 +5,9 @@ package model.factories;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-<<<<<<< HEAD
+
 import model.gameObject.MapObject;
-=======
->>>>>>> 1ff9025d004a351167759e364b2743b5128e3993
+
 import model.map.pair.CoordinatePair;
 import model.map.tile.*;
 
