@@ -10,6 +10,9 @@ import model.item.Interactive;
 import model.item.Obstacle;
 import model.item.OneShot;
 import model.item.Takeable;
+import model.map.MapSwitcher;
+import model.map.areaEffect.AreaEffect;
+import model.map.tile.trap.Trap;
 import model.entity.NPC;
 
 public class ObjectSaver {
@@ -19,7 +22,7 @@ public class ObjectSaver {
 		save += "name=\"" + i.getName() + "\" ";
 		save += "x=\"" + i.getLocation().getX() + "\" ";
 		save += "y=\"" + i.getLocation().getY() + "\" ";
-		save += "durabiity=\"" + i.getDurability() + "\" />";
+		save += "durability=\"" + i.getDurability() + "\" />";
 		return save;
 	}
 	
@@ -46,6 +49,35 @@ public class ObjectSaver {
 		save += "x=\"" + i.getLocation().getX() + "\" ";
 		save += "y=\"" + i.getLocation().getY() + "\" ";
 		save += "link=\"" + i.getLink() + "\" />";
+		return save;
+	}
+	
+	public String getSaveFormat(Trap t){
+		String save = "<trap ";
+		save += "name=\"" + t.getName() + "\" ";
+		save += "x=\"" + t.getLocation().getX() + "\" ";
+		save += "y=\"" + t.getLocation().getY() + "\" />";
+		
+		return save;
+	}
+	
+	public String getSaveFormat(AreaEffect e){
+		String save = "<areaeffect ";
+		save += "name=\"" + e.getName() + "\" ";
+		save += "x=\"" + e.getLocation().getX() + "\" ";
+		save += "y=\"" + e.getLocation().getY() + "\" />";
+		
+		return save;
+	}
+	
+	public String getSaveFormat(MapSwitcher m){
+		String save = "<mapswitcher ";
+		save += "name=\"" + m.getName() + "\" ";
+		save += "x=\"" + m.getLocation().getX() + "\" ";
+		save += "y=\"" + m.getLocation().getY() + "\" ";
+		save += "map1=\"" + m.getMap1ID() + "\" ";
+		save += "map2=\"" + m.getMap2ID() + "\" />";
+		
 		return save;
 	}
 	

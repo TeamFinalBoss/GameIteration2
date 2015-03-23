@@ -19,7 +19,10 @@ public class Scene {
     public Scene(){
         this.viewports = new ArrayList<>();
     }
-
+    
+    public void clearScene() {
+    	viewports = new ArrayList<>();
+    }
     
      /**
      * Adds a view port to the scene.

@@ -144,10 +144,10 @@ public class MapInstantiator {
 				
 				addItem(maps, mapid, n, n.getLocation());
 			}
+		}
 			
-			for(GameMap m : maps) {
-				ActiveMapManager.getInstance().addMap(m);
-			}
+		for(GameMap m : maps) {
+			ActiveMapManager.getInstance().addMap(m);
 		}
 	}
 	

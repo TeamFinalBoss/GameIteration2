@@ -15,7 +15,7 @@ import model.map.pair.CoordinatePair;
     public class Hornes extends Equipable{
         
         public Hornes(){
-		super("Generic Hornes", "Generic description", 
+		super("hornes", "Generic description", 
                         new CoordinatePair(), 0, 1, EquipSlot.HEAD);
 		
 		this.id = "28";
@@ -56,7 +56,7 @@ import model.map.pair.CoordinatePair;
     	}
         
         public Hornes(int durability){
-            super("Generic Halo", "Generic_description", 
+            super("hornes", "Generic_description", 
                         new CoordinatePair(), 0, 1,EquipSlot.HEAD );
                         
 }

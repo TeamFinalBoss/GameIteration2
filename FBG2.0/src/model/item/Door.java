@@ -17,7 +17,7 @@ public class Door extends Obstacle {
     protected boolean doorOpen;
     
     public Door(){
-        super("Generic Door", "This is a door, bang on!", new CoordinatePair());
+        super("door", "This is a door, bang on!", new CoordinatePair());
         
         this.id = "12";
         this.className = "Door";

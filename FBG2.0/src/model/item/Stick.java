@@ -16,7 +16,7 @@ public class Stick extends Takeable {
     
 	
 	public Stick(){
-		super("Stick", "Generic description", new CoordinatePair(), 0, 1);
+		super("stick", "Generic description", new CoordinatePair(), 0, 1);
 		
 		this.id = "14";
 		this.className = "Stick";
@@ -40,7 +40,7 @@ public class Stick extends Takeable {
 	}
         
          public Stick(int durability){
-            super("Stick", "Generic description", new CoordinatePair(), 0, durability);
+            super("stick", "Generic description", new CoordinatePair(), 0, durability);
         }
          
          @Override 

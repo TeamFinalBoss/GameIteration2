@@ -17,7 +17,7 @@ public class Sword extends Weapon {
     
      //durability
      public Sword(){
-		super("Sword", "Generic_description", new CoordinatePair(),
+		super("sword", "Generic_description", new CoordinatePair(),
                 0, 1, EquipSlot.HEAD, new  DealDamageEffect(50));
                 this.id = "20";
 		this.className = "Sword";
@@ -48,7 +48,7 @@ public class Sword extends Weapon {
 	}
         
         public Sword(int durability){
-            super("Sword", "Generic_description", new CoordinatePair(), 5, durability, 
+            super("sword", "Generic_description", new CoordinatePair(), 5, durability, 
                 EquipSlot.HEAD, new  DealDamageEffect(50));
         }
         

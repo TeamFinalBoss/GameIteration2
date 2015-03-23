@@ -125,7 +125,9 @@ public class ActiveMapManager {
      * @author Aidan Pace
      */
     public void clearMaps() {
+    	if(activeMap != null) activeMap.clearObservers();
     	this.maps.clear();
+    	this.activeMap = null;
     	return;
     }
     
@@ -144,6 +146,7 @@ public class ActiveMapManager {
      */
     public boolean setActiveMap(GameMap map){
     	if (this.maps.contains(map)){
+    		if(activeMap != null) activeMap.clearObservers();
     		this.activeMap = map;
     		
     		return true;

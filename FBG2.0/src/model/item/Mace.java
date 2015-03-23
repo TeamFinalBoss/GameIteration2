@@ -16,7 +16,7 @@ import model.map.pair.CoordinatePair;
 public class Mace extends Weapon {
     
     public Mace(){
-		super("Generic Mace", "Generic description", new CoordinatePair(), 
+		super("mace", "Generic description", new CoordinatePair(), 
                         0, 1, EquipSlot.HEAD, new  DealDamageEffect(20));
 		
 		this.id = "26";
@@ -48,7 +48,7 @@ public class Mace extends Weapon {
     	}
         
         public Mace(int durability){
-            super("Generic Mace", "Generic description", new CoordinatePair(), 
+            super("mace", "Generic description", new CoordinatePair(), 
                         0, durability, EquipSlot.HEAD, new  DealDamageEffect(20));
         }
     @Override

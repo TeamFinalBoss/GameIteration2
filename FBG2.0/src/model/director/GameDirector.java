@@ -60,7 +60,31 @@ public class GameDirector extends Observable implements SceneObserver {
     private static GameDirector gameDirector = null;//It's a singleton object.
 
     private GameDirector() {
-        window = new GameWindow();
+    	doTheThing();
+    }
+
+    /**
+     *
+     */
+    public void startMainMenuScene() {
+        doTheOtherThing();
+        
+        try {
+            InputStream in = new FileInputStream("src/resources/sound/menu_funny.wav");
+            AudioStream as = new AudioStream(in);
+
+            AudioPlayer.player.start(as);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        sceneChanger.changeScene(SceneType.MAIN_MENU);
+        activeScene = menuScene;
+
+    }
+    
+    private void doTheThing() {
+    	window = new GameWindow();
         scenes = new HashMap<>();
 
         menuScene = new Scene();
@@ -84,12 +108,9 @@ public class GameDirector extends Observable implements SceneObserver {
 
         sceneChanger.registerObserver(this);
     }
-
-    /**
-     *
-     */
-    public void startMainMenuScene() {
-        KeyListener listener = controller.buildController();
+    
+    public void doTheOtherThing() {
+    	KeyListener listener = controller.buildController();
         window.addKeyController(listener);//Add controller to menu
         window.addMouseController(controller.getMouseParser());
 
@@ -137,31 +158,20 @@ public class GameDirector extends Observable implements SceneObserver {
         controller.addObserver(saveVP, SceneType.SAVE);
         controller.addObserver(loadVP, SceneType.LOAD);
         controller.addObserver(errorViewPort, SceneType.UPDATING);
-
-        sceneChanger.changeScene(SceneType.MAIN_MENU);
-        activeScene = menuScene;
-
-        try {
-            InputStream in = new FileInputStream("src/resources/sound/menu_funny.wav");
-            AudioStream as = new AudioStream(in);
-
-            AudioPlayer.player.start(as);
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-
+        
+        
     }
     
-public void startNewGame(File def) {
+    public void startNewGame(File def) {
+    	window.close();
+        doTheThing();
+        doTheOtherThing();
         
-        /*
-        GameMap map = new GameMap();
-        ActiveMapManager.getInstance().addMap(map);
-        ActiveMapManager.getInstance().setActiveMap(map);
-        */
-    	
     	MapInstantiator.getInstance().loadFullGame(def);
     	AvatarInteractionManager.getInstance().setAvatar(MapInstantiator.getInstance().createAvatarFromFile(def));
+    	
+    	
+    	gameScene.clearScene();
     	
        
         MapViewPort mapVP = new MapViewPort();
@@ -203,55 +213,9 @@ public void startNewGame(File def) {
     }
 
     public void startNewGame() {
-
-       // GameMap map = new GameMap();
-       // ActiveMapManager.getInstance().addMap(map);
-       // ActiveMapManager.getInstance().setActiveMap(map);
-    	
     	File def = new File("./src/resources/saves/default.xml");
-    	MapInstantiator.getInstance().loadFullGame(def);
-    	AvatarInteractionManager.getInstance().setAvatar(MapInstantiator.getInstance().createAvatarFromFile(def));
-       
-
-        MapViewPort mapVP = new MapViewPort();
-
-        gameScene.addViewport(mapVP);//Add mapVP to gameScene
-
-        SackViewport sack = new SackViewport();
-        gameScene.addViewport(sack);
-
-        ArmoryViewport armory = new ArmoryViewport();
-        gameScene.addViewport(armory);
-
-        StatsUpdateViewport statsPort = new StatsUpdateViewport();
-        gameScene.addViewport(statsPort);
-        
-        DialogueViewport dailoguePort = new DialogueViewport();
-        gameScene.addViewport(dailoguePort);
-
-        controller.addObserver(sack, SceneType.SACK);
-        controller.addObserver(armory, SceneType.ARMORY);
-        controller.addObserver(statsPort, SceneType.STATS_UPDATING);
-        controller.addObserver(dailoguePort, SceneType.DIALOGUE);
-
-        List<Observable> sackObservables = controller.getObservables(SceneType.SACK);
-        ((Observable) sack).addObserver((Observer) sackObservables.get(0));
-        controller.getMouseParser().setMousePoint(SceneType.SACK, (MousePoint) sack);
-
-        List<Observable> armoryObservables = controller.getObservables(SceneType.ARMORY);
-
-        ((Observable)armory).addObserver((Observer) armoryObservables.get(0));
-        controller.getMouseParser().setMousePoint(SceneType.ARMORY, (MousePoint)armory);
-        
-        controller.getMouseParser().setMousePointClick(SceneType.ARMORY, (MousePointClick)armory);
-        controller.getMouseParser().setMousePointClick(SceneType.SACK, (MousePointClick)sack);
-       
-
-        //map.addObserver(mapVP);//Add mapVP as an Observer to map
-        ActiveMapManager.getInstance().getActiveMap().addObserver(mapVP);
-
-        sceneChanger.changeScene(SceneType.GAME);
-        activeScene = gameScene;
+    	
+    	startNewGame(def);
     }
 
     /**

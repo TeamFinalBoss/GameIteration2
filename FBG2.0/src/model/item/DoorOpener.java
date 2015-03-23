@@ -16,7 +16,7 @@ import model.map.pair.CoordinatePair;
 public class DoorOpener extends Interactive {
     
     public DoorOpener(){
-        super("Door Opener","You can open the door", new CoordinatePair(), false);
+        super("doorOpener","You can open the door", new CoordinatePair(), false);
         this.id = "11";
         this.className = "DoorOpener";
     }
