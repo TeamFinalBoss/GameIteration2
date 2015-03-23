@@ -2,20 +2,20 @@ package view.viewport;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Point;
 import java.util.Observable;
 import java.util.Observer;
 
 import model.director.GameDirector;
-import view.MousePointClick;
-import controller.commands.sceneChangers.ArmorySackMaintainer;
+
 import controller.sceneControllers.SceneChanger;
 import controller.sceneControllers.SceneType;
+import controller.util.SceneObserver;
 import controller.util.Selectable;
 
-public class SackViewport extends Observable implements ViewPort, Observer, MousePointClick, Selectable {
-	
+public class StoreFrontViewPort implements ViewPort, Observer, SceneObserver {
+
 	private int currentSelection;
+	private SceneType type;
 	private static final int itemsPerRow = 5;
 	private static int currentMaxRow = 4;
 	private static int currentMinRow = 0;
@@ -29,11 +29,12 @@ public class SackViewport extends Observable implements ViewPort, Observer, Mous
 	private static int height;
 	private static int width;
 
-	public SackViewport() {
-		width = (int) (GameDirector.getSize().width * 0.8);
-		height = (int) (GameDirector.getSize().height * 0.8);
+	public StoreFrontViewPort() {
+		width = (int) (GameDirector.getSize().width * 0.4);
+		height = (int) (GameDirector.getSize().height * 0.4);
 		startX = width - (itemsPerRow * sizeOfBox) - Xpadding;
 		startY = height - (maximumNumberOfRows * sizeOfBox) - offset - Ypadding;
+		SceneChanger.getInstance().registerObserver(this);
 	}
 
 	
@@ -79,7 +80,7 @@ public class SackViewport extends Observable implements ViewPort, Observer, Mous
 	}
 	
 	private boolean canDraw() {
-		return ArmorySackMaintainer.isPressedSack();
+		return type.equals(SceneType.STORE);
 	}
 
 
@@ -106,15 +107,6 @@ public class SackViewport extends Observable implements ViewPort, Observer, Mous
 			--currentMaxRow;
 		}
 	}
-
-
-
-
-
-	@Override
-	public int getCurrentIndex() {
-		return this.currentSelection;
-	}
 	
 	protected boolean withinYBounds(int i, int y) {
 		int heightUpperBounds = (i*sizeOfBox) + i + startY + offset;
@@ -130,54 +122,10 @@ public class SackViewport extends Observable implements ViewPort, Observer, Mous
 	}
 
 
-
 	@Override
-	public int getActiveLocation(Point point) {
-		for(int i = 0; i < maximumNumberOfRows; ++i) {
-			for(int j = 0; j < itemsPerRow; ++j) {
-				if(withinXBounds(j,(int)point.getX()) && withinYBounds(i,(int)point.getY())) {	
-					currentSelection = ((i * itemsPerRow) + j) + (maximumNumberOfRows * currentMinRow);
-					setChanged();
-					notifyObservers();
-					return currentSelection;
-				}
-			}
-		}
-		return -1;
+	public void update(SceneType type) {
+		this.type = type;
 	}
 
-
-	@Override
-	public void verifyChange(Point point) {
-		if(ArmorySackMaintainer.isPressedArmory()) {
-			if(isInArmory(point)) {
-				SceneChanger.getInstance().changeScene(SceneType.ARMORY);
-			}
-		}
-		
-	}
-
-
-	private boolean isInArmory(Point point) {
-		return isInLine(point) || isInCross(point);
-	}
-
-
-	private boolean isInCross(Point point) {
-		int x = (int)point.getX();
-		int y = (int)point.getY();
-		int startingX = ArmoryViewport.getStartX() - ArmoryViewport.getSizeOfBox();
-		int startingY = ArmoryViewport.getStartY() + ArmoryViewport.getSizeOfBox();
-		return x >= startingX && x <= startingX + ArmoryViewport.getNumberacross() * ArmoryViewport.getSizeOfBox() &&
-				y>= startingY && y <= startingY + ArmoryViewport.getSizeOfBox();
-	}
-
-
-	private boolean isInLine(Point point) {
-		int x = (int)point.getX();
-		int y = (int)point.getY();
-		return x >= ArmoryViewport.getStartX() && x<=  ArmoryViewport.getStartX() + ArmoryViewport.getSizeOfBox() &&
-				y >= ArmoryViewport.getStartY() && y <= ArmoryViewport.getNumberdown() * ArmoryViewport.getSizeOfBox() + ArmoryViewport.getStartY();
-	}
 
 }

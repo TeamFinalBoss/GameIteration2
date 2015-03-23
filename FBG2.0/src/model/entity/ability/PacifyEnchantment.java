@@ -6,15 +6,18 @@ import java.util.Random;
 import model.director.ActiveMapManager;
 import model.effect.Effect;
 import model.entity.Entity;
+import model.entity.NPC;
 
 public class PacifyEnchantment extends LinearAbility {
 
 	public PacifyEnchantment(){
 		super();
+		this.setName("PacifyEnchantment");
 	}
 	
 	public PacifyEnchantment(String name, Effect effect, Effect cost, double range){
 		super(name, effect, cost, range);
+		this.setName("PacifyEnchantment");
 	}
 	
 	@Override
@@ -23,22 +26,22 @@ public class PacifyEnchantment extends LinearAbility {
 	}
 
 	@Override
-	public boolean performAbility(Entity summoner) {
-		int mana = summoner.getCurrentMP();
+	public boolean performAbility(Entity caster) {
+		int mana = caster.getCurrentMP();
 		if (mana >= 30){
-			summoner.modifyCurrentMP(-30);
+			caster.modifyCurrentMP(-30);
 			
 			List<Entity> entities = ActiveMapManager.getInstance().getActiveMap().getEntities();
 			for (Entity e : entities){
-				if (inRange(summoner, e)){
+				if (caster != e && inRange(caster, e)){
 					//Allow enchantment to randomly fail
 					Random rand = new Random();
-					if (rand.nextInt(100) <= summoner.getLevel() + summoner.getIntellect()){
-						(NPC)summoner.setFriendly(true);
+					if (rand.nextInt(100) <= caster.getLevel() + caster.getIntellect()){
+						((NPC)e).setFriendly(false);
 						return true;
 					}
 					else{
-						(NPC)summoner.setFriendly(false);
+						((NPC)e).setFriendly(false);
 						return false;
 					}
 				}
@@ -47,5 +50,3 @@ public class PacifyEnchantment extends LinearAbility {
 		
 		return false;
 	}
-
-}

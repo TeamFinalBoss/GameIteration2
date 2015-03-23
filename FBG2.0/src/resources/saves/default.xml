@@ -38,7 +38,7 @@
    	<effects>
    	</effects>
 </avatar>
-<map id="1">
+<map id="4">
 	<entity occupation="smasher" map="1" currency="0" type="lightGuardian" direction="North" x="0" y="0" link="20" motionType="GROUND">
    		<sack>
    		</sack>

@@ -164,6 +164,12 @@ public class ControllerBuilder {
 		SceneController dialogueController = DialogueControllerBuilder.buildDialogueController(map, dialogueMenu);
 		
 		/******************************
+		 * StoreFront Controller
+		 *******************************/
+		SackDetails storeDetails = new SackDetails();
+		SceneController storeFrontController = StorefrontControllerBuilder.buildStoreFrontController(map, storeDetails);
+		
+		/******************************
 		 * Observers
 		 *******************************/
 		
@@ -200,6 +206,9 @@ public class ControllerBuilder {
 		List<Observable> dialogueObservables = new ArrayList<>();
 		dialogueObservables.add(dialogueMenu);
 		
+		List<Observable> storeObservables = new ArrayList<>();
+		storeObservables.add(storeDetails);
+		
 		observerMap.put(SceneType.MAIN_MENU, mainMenuObervables);
 		observerMap.put(SceneType.PAUSE_MENU, pauseMenuObservables);
 		observerMap.put(SceneType.SAVE, saveMenuObservables);
@@ -210,6 +219,7 @@ public class ControllerBuilder {
 		observerMap.put(SceneType.ARMORY, armoryObservables);
 		observerMap.put(SceneType.STATS_UPDATING, statsObservables);
 		observerMap.put(SceneType.DIALOGUE, dialogueObservables);
+		observerMap.put(SceneType.STORE, storeObservables);
 		
 		cont.addMap(observerMap);
 		
@@ -236,6 +246,7 @@ public class ControllerBuilder {
 		controllers.put(SceneType.ARMORY, armoryController);
 		controllers.put(SceneType.STATS_UPDATING, statsController);
 		controllers.put(SceneType.DIALOGUE, dialogueController);
+		controllers.put(SceneType.STORE, storeFrontController);
 		
 		
 		KeyDispatcher keyDispatcher = new KeyDispatcher(controllers, mainMenuController);
