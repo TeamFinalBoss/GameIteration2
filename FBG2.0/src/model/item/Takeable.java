@@ -1,5 +1,6 @@
 package model.item;
 
+import model.director.ActiveMapManager;
 import model.gameObject.MapObject;
 import model.map.pair.CoordinatePair;
 import model.entity.Entity;
@@ -72,4 +73,13 @@ public abstract class Takeable extends Item {
     
     public abstract Takeable copy();
         public abstract boolean useInSack(Entity target); //return true iff use is successful
+
+        
+    @Override
+        public boolean activate(Entity e){
+            e.insert(this);
+            ActiveMapManager.getInstance().removeItemFromActiveMap(this);
+            return true;
+        }
 }
+
