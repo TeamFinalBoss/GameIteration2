@@ -75,7 +75,7 @@ public class MapInstantiator {
 		NodeList nodes = head.getElementsByTagName("gamesave");
 		Element wanted = (Element) nodes.item(0);
 		
-		if(wanted.hasAttribute("dontloadme")) return false;
+		//if(wanted.hasAttribute("dontloadme")) return false;
 		return true;
 	}
 	
