@@ -33,12 +33,14 @@ public class CleaveAbility extends RadialAbility
 	private double degree;
 	private double radius;
         private int distance;
+        private int damage;
 
 	public CleaveAbility()
 	{
 		this.name = "Cleave";
+                this.damage = 10;
                 this.distance = 1;
-		this.effect = new DealDamageEffect(50, this.distance);
+		this.effect = new DealDamageEffect(this.damage, this.distance);
 		this.degree = 90;
 		this.radius = 2;
 		this.myCC = CombatCoordinator.getInstance();
@@ -70,10 +72,11 @@ public class CleaveAbility extends RadialAbility
     	List<Entity> entities = map.getEntities();
         CoordinatePair c1 = smasher.getLocation();
         CoordinatePair c2;
+        int manaCost = this.damage;
 
-    	if(mana >= 1)
+    	if(mana >= manaCost)
     	{
-    		smasher.setCurrentMP(--mana);
+    		smasher.setCurrentMP(--manaCost);
     		for(int i = 0; i < entities.size(); ++i)
     		{
     			if(inRange(smasher, entities.get(i)))

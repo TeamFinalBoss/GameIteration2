@@ -587,4 +587,8 @@ public abstract class Entity extends MapObject {
         this.visibleMap.update();
     }
     
+
+    public void useWeapon() {
+        this.myInventory.useWeapon(this);
+    }
 }

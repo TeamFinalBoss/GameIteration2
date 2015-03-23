@@ -73,7 +73,7 @@ public abstract class Weapon extends Equipable{
                 
             }
             relative.add(e.getLocation());
-            ArrayList<CoordinatePair> finalloc = new ArrayList<CoordinatePair>();
+            ArrayList<CoordinatePair> finalloc = new ArrayList<>();
             finalloc.add(relative);
             CombatCoordinator.getInstance().attemptAffectEntities(finalloc,E1);   
         }

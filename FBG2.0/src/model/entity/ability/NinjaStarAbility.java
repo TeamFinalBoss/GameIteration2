@@ -28,11 +28,13 @@ public class NinjaStarAbility extends ProjectileAbility
     private Effect cost;
     private double ms;
     private double rate;
+    private int damage;
 
 	public NinjaStarAbility()
 	{
 		this.name = "Ninja Star";
-		this.effect = new DealDamageEffect(10,1);
+        this.damage = 10;
+		this.effect = new DealDamageEffect(this.damage,1);
 		this.myCC = CombatCoordinator.getInstance();
 		this.ms = 2000;
 	}
@@ -58,6 +60,7 @@ public class NinjaStarAbility extends ProjectileAbility
     	CoordinatePair coordinatePair = sneak.getLocation();
     	double x = coordinatePair.getX();
     	double y = coordinatePair.getY();
+        int manaCost = this.damage;
 
     	PreciseCoordinatePair PCP = new PreciseCoordinatePair();
     	PCP.set(x,y);
@@ -67,9 +70,9 @@ public class NinjaStarAbility extends ProjectileAbility
     	Vector velocity = getVector(sneak.getDirection());
     	int mana = sneak.getCurrentMP();
 
-    	if(mana >= 1)
+    	if(mana >= manaCost)
     	{
-    		sneak.setCurrentMP(--mana);
+    		sneak.setCurrentMP(--manaCost);
     		NinjaStar ns = new NinjaStar((long) ms, velocity, PCP, effect, sneak);
                 return true;
     	}
