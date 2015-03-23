@@ -125,7 +125,8 @@ public class MapViewPort implements ViewPort, Observer {
                 g.drawImage(SpriteFactory.getFireball(),(int) ((px - startX) * tileWidth), (int) ((py - startY) * tileHeight), tileWidth, tileHeight, null);
             }
 
-        } catch (ConcurrentModificationException e) {
+        }catch(NullPointerException e) {}
+        catch (ConcurrentModificationException e) {
         } catch (NoSuchElementException e) {
             System.out.println(e);
 
