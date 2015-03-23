@@ -422,6 +422,9 @@ public class AvatarInteractionManager {
 	public NPC getConversationPartner(){
 		return conversationPartner;
 	}
+	public void setConversationPartner(Entity e){
+		conversationPartner = (NPC) e;
+	}
 	
 	/* ------------------- STORE INTERACTION -------------------- */
 	public void buyItem(int position){
