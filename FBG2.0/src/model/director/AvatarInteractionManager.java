@@ -1,9 +1,11 @@
 package model.director;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Observer;
+import java.util.Random;
 
 import controller.menu.stats.StatsMenu;
 import controller.sceneControllers.SceneType;
@@ -428,4 +430,26 @@ public class AvatarInteractionManager {
 	public void sellItem(int position){
 		conversationPartner.buyItem(avatar.remove(position),avatar);
 	}
+	public List<String> getObservationInformation(){
+    	List<String> returnValue = new ArrayList<String>();
+    	List<Entity> potentialEntities = avatar.getVisibleEntities();
+    	Entity observing = null;
+    	for(Entity potential : potentialEntities){
+    		if(potential.getLocation() == avatar.tileInFront()){
+    			observing = potential;
+    			break;
+    		}
+    }
+    	if(observing == null) returnValue.add("You see nothing.");
+    	else{
+    		returnValue.add("Name: " + observing.getName());
+    		returnValue.add("Strength: " + observing.getStrength() * avatar.getConfoundingFactor());
+    		returnValue.add("Agility: " + observing.getAgility() * avatar.getConfoundingFactor());
+    		returnValue.add("Intellect: " + observing.getIntellect() * avatar.getConfoundingFactor());
+    		returnValue.add("Hardiness: " + observing.getHardiness() * avatar.getConfoundingFactor());
+    		returnValue.add("Movement: " + observing.getMovement() * avatar.getConfoundingFactor());
+    	}
+    	return returnValue;
+    	
+    }
 }

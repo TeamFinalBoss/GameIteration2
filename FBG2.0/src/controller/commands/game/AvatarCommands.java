@@ -1,5 +1,7 @@
 package controller.commands.game;
 
+import java.util.List;
+
 import model.director.AvatarInteractionManager;
 import model.map.Direction;
 import controller.commands.Commandable;
@@ -71,6 +73,10 @@ public abstract class AvatarCommands implements Commandable {
 	
 	protected void dialogueOption(int value) {
 		manager.useDialogueOption(value);
+	}
+	
+	protected void getObservationInformation() {
+		List<String> strings = manager.getObservationInformation();
 	}
 	
 	public abstract void execute();

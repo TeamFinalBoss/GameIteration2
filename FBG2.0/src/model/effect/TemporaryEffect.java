@@ -12,8 +12,9 @@ public abstract class TemporaryEffect extends TimerEffect {
     int lifetime; //how long from now to revert, in milliseconds
     public TemporaryEffect(Entity entityToAffect){
         super(entityToAffect);
-        applyEffect();
-        myTimer.addEvent(this, lifetime);
+        //applyEffect();
+        lifetime = 2000;
+        //myTimer.addEvent(this, lifetime);
     }
     
     @Override

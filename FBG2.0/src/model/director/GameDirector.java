@@ -52,7 +52,7 @@ public class GameDirector extends Observable implements SceneObserver {
     private static GameWindow window;
 
     
-    private Scene menuScene, gameScene, pauseScene, keyBindingsScene, saveScene, loadScene, loadingScene;
+    private Scene menuScene, gameScene, pauseScene, keyBindingsScene, saveScene, loadScene, loadingScene, selectorScene;
     private volatile Scene activeScene;
     private static Controller controller = Controller.getInstance();
     private SceneChanger sceneChanger = SceneChanger.getInstance();
@@ -107,6 +107,8 @@ public class GameDirector extends Observable implements SceneObserver {
         gameScene = new Scene();
         saveScene = new Scene();
         loadScene = new Scene();
+        selectorScene = new Scene();
+        
 
         scenes.put(SceneType.MAIN_MENU, menuScene);
         scenes.put(SceneType.PAUSE_MENU, pauseScene);
@@ -120,6 +122,7 @@ public class GameDirector extends Observable implements SceneObserver {
         scenes.put(SceneType.STATS_UPDATING, gameScene);
         scenes.put(SceneType.DIALOGUE, gameScene);
         scenes.put(SceneType.STORE, gameScene);
+        scenes.put(SceneType.SELECTOR, selectorScene);
         
         sceneChanger.registerObserver(this);
     }
@@ -167,6 +170,9 @@ public class GameDirector extends Observable implements SceneObserver {
         loadScene.addViewport(loadVP);
         List<Observable> loadMenuObservables = controller.getObservables(SceneType.LOAD);
         ((Observable) loadVP).addObserver((Observer) loadMenuObservables.get(0));
+        
+        MainMenuViewPort selectorBp = new MainMenuViewPort();
+        selectorScene.addViewport(selectorBp);
 
         controller.getMouseParser().setMousePoint(SceneType.MAIN_MENU, (MousePoint) menuVP);
         controller.getMouseParser().setMousePoint(SceneType.PAUSE_MENU, (MousePoint) pauseVP);
@@ -180,6 +186,7 @@ public class GameDirector extends Observable implements SceneObserver {
         controller.addObserver(saveVP, SceneType.SAVE);
         controller.addObserver(loadVP, SceneType.LOAD);
         controller.addObserver(errorViewPort, SceneType.UPDATING);
+        controller.addObserver(selectorBp, SceneType.SELECTOR);
     }
     
 

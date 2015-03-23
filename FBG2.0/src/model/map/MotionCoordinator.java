@@ -38,7 +38,7 @@ public class MotionCoordinator {
             i.activate(e); //TODO: Create this method for every item type
         }
 		if (effect != null){
-			effect.activate(e);
+                    effect.activate(e);
 		}
 		if(t != null){
                     t.Activate(e); //TODO: Create this method for every item type

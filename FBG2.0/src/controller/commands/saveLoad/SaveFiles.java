@@ -30,7 +30,7 @@ public abstract class SaveFiles implements Commandable {
 		File[] list = new File("./src/resources/saves/").listFiles();
 		files.clear();
 		for(File file : list) {
-			if(file.isFile() && !file.getName().equals("default.xml")) {
+			if(file.isFile() && !file.getName().equals("default.xml") && !file.getName().equals("defaultSmasher.xml") && !file.getName().equals("defaultSneak.xml")) {
 				files.add(file);
 			}
 		}

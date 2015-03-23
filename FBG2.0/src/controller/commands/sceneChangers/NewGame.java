@@ -16,8 +16,7 @@ public class NewGame extends SceneChangerCommands implements Commandable {
 	
 	@Override
 	public void execute() {
-		gameDirector.startNewGame();
-		super.switchScene(SceneType.GAME);
+		super.switchScene(SceneType.SELECTOR);
 	}
 
 }

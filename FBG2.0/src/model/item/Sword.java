@@ -17,10 +17,9 @@ public class Sword extends Weapon {
     
      //durability
      public Sword(){
-		super("sword", "Generic_description", new CoordinatePair(),
-                0, 1, EquipSlot.HEAD, new  DealDamageEffect(50));
+		super("Sword", "Generic_description", new CoordinatePair(),
+                0, 1, EquipSlot.MAIN_HAND, new  DealDamageEffect(50));
                 this.id = "20";
-		this.className = "Sword";
                 
                 
              
@@ -32,12 +31,11 @@ public class Sword extends Weapon {
 	public Sword(String objectName, String description, CoordinatePair 
                 location, int durability ){
 		super(objectName, description, location, 5, durability, 
-                EquipSlot.HEAD, new  DealDamageEffect(50) );
+                EquipSlot.TWO_HAND, new  DealDamageEffect(50) );
                 
  
 		
-		this.id = "20";
-		this.className = "Sword";	
+		this.id = "20";	
                 
 		//Other properties set here
 	} 
@@ -80,5 +78,3 @@ public class Sword extends Weapon {
         return e.getLevel() >= 1 && e.getBargain()>=5 && e.getAgility()>=5;
         }
 }
-
-
