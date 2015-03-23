@@ -19,6 +19,7 @@ import view.MousePointClick;
 import view.scene.Scene;
 import view.viewport.ArmoryViewport;
 import view.viewport.DialogueViewport;
+import view.viewport.DirectionChanger;
 import view.viewport.KeyBindingsErrorViewPort;
 import view.viewport.KeyBindingsMenuViewPort;
 import view.viewport.MainMenuViewPort;
@@ -211,8 +212,12 @@ public class GameDirector extends Observable implements SceneObserver {
         ((Observable)armory).addObserver((Observer) armoryObservables.get(0));
         controller.getMouseParser().setMousePoint(SceneType.ARMORY, (MousePoint)armory);
         
+       // List<Observable> mapObserables = controller.getObservables(SceneType.GAME);
+       // ((Observable)mapVP).addObserver((Observer) mapObserables.get(0));
+        
         controller.getMouseParser().setMousePointClick(SceneType.ARMORY, (MousePointClick)armory);
         controller.getMouseParser().setMousePointClick(SceneType.SACK, (MousePointClick)sack);
+        controller.getMouseParser().setDirectionChanger(SceneType.GAME, (DirectionChanger)mapVP);
        
         ActiveMapManager.getInstance().getActiveMap().addObserver(mapVP);//Add mapVP as an Observer to map
         
