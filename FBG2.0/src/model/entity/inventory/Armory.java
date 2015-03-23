@@ -76,7 +76,7 @@ public class Armory {
 		return old;
 	}
 
-    void boolean useWeapon(Entity caster) {
+    public boolean useWeapon(Entity caster) {
         Weapon a=(Weapon) contents.get(EquipSlot.MAIN_HAND);
         a=(Weapon) contents.get(EquipSlot.TWO_HAND);        
         
@@ -84,7 +84,8 @@ public class Armory {
             return false;
         }
         else {
-            
+            a.attack(castor);
+            return true;
         }
     }
 
