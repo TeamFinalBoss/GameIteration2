@@ -112,6 +112,10 @@ public class TakeableFactory implements PlaceableObjectFactory{
 			it = new Stick();
 			break;
 			
+		case "hornes":
+			it = new Hornes();
+			break;
+			
 		case "sword":
 			it = new Sword();
 			break;
