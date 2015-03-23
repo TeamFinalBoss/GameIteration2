@@ -44,6 +44,14 @@ public abstract class SmasherNPC extends SmasherEntity implements NPC {
 		protected NPCInventory getInventory(){
 			return (NPCInventory) super.getInventory();
 		}
+		
+		public List<Takeable> getStoreContents() {
+			return getInventory().shopContents();
+		}
+		
+		public List<Takeable> getFullStoreContents() {
+			return getInventory().fullShopContents();
+		}
 
 		public SmasherNPC(String objectName, String description, CoordinatePair location) {
 			super(objectName, description, location);

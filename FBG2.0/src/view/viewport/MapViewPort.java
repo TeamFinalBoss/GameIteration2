@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -105,15 +106,24 @@ public class MapViewPort implements ViewPort, Observer {
                    
                 }
                 
-                if(projectiles == null){
-                for(Projectile p : projectiles){
-                    int tileX = (int) p.getLocation().getX();
-                    int tileY = (int) p.getLocation().getY();
-                    
-                    g.fillOval(tileX - startX, tileY-startY, 64, 64);
+                if(projectiles != null){
+                    try{
+                        
+                        for(Projectile p : projectiles){
+                            double tileX =  p.getLocation().getX();
+                            double tileY =  p.getLocation().getY();
+                            
+                            
+                            g.fillOval((int) ((tileX - startX)*tileWidth), (int) ((tileY-startY)*tileWidth), tileWidth, tileWidth);
+                        }
+
+                        
+                    }catch(ConcurrentModificationException e){
+                        
+                    }
+                        
                     }
                     
-                }
                 
         
             }

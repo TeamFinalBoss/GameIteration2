@@ -64,10 +64,12 @@ public class EntityFactory implements PlaceableObjectFactory{
 			
 			Element sackHead = (Element) e.getElementsByTagName("sack").item(0);
 			Element armoryHead = (Element) e.getElementsByTagName("armory").item(0);
+			Element storeHead = (Element) e.getElementsByTagName("store").item(0);
 			Element s = (Element) e.getElementsByTagName("stats").item(0);
 			
 			List<MapObject> sackContents = inventoryFactory.generate(sackHead);
 			List<MapObject> armoryContents = inventoryFactory.generate(armoryHead);
+			List<MapObject> storeContents = inventoryFactory.generate(storeHead);
 			
 			Entity en = null;
 			
@@ -76,11 +78,13 @@ public class EntityFactory implements PlaceableObjectFactory{
 				en = switchSmasherType(e);
 				if(en == null) break;
 				
+				/*
 				CommonStats(s, en);
 				((SmasherEntity) en).setOneHanded(Integer.parseInt(s.getAttribute("stat1")));
 				((SmasherEntity) en).setTwoHanded(Integer.parseInt(s.getAttribute("stat2")));
 				((SmasherEntity) en).setBrawling(Integer.parseInt(s.getAttribute("stat3")));
 				((SmasherEntity) en).setChakra(Integer.parseInt(s.getAttribute("stat4")));
+				*/
 				
 				break;
 				
@@ -88,23 +92,26 @@ public class EntityFactory implements PlaceableObjectFactory{
 				en = switchSneakType(e);
 				if(en == null) break;
 				
+				/*
 				CommonStats(s, en);
 				((SneakEntity) en).setPickPokcet(Integer.parseInt(s.getAttribute("stat1")));
 				((SneakEntity) en).setTrap(Integer.parseInt(s.getAttribute("stat2")));
 				((SneakEntity) en).setCreep(Integer.parseInt(s.getAttribute("stat3")));
 				((SneakEntity) en).setRangedWeapon(Integer.parseInt(s.getAttribute("stat4")));
+				*/
 				
 				break;
 				
 			case "summoner":
 				en = switchSummonerType(e);
 				if(en == null) break;
-				
+				/*
 				CommonStats(s, en);
 				((SummonerEntity) en).setEnchantment(Integer.parseInt(s.getAttribute("stat1")));
 				((SummonerEntity) en).setBane(Integer.parseInt(s.getAttribute("stat2")));
 				((SummonerEntity) en).setBoon(Integer.parseInt(s.getAttribute("stat3")));
 				((SummonerEntity) en).setStaff(Integer.parseInt(s.getAttribute("stat4")));
+				*/
 				
 				break;
 			}
@@ -163,6 +170,10 @@ public class EntityFactory implements PlaceableObjectFactory{
 			for(MapObject item : armoryContents) {
 				en.insert((Takeable) item);
 				en.equip((Equipable) item);
+			}
+			
+			for(MapObject item : storeContents) {
+				((NPC) en).buyItem((Takeable) item);
 			}
 			
 			for(Dispellable ef : activeFX) {
