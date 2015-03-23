@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.util.Observable;
 import java.util.Observer;
 
+import controller.sceneControllers.SceneChanger;
 import controller.sceneControllers.SceneType;
 import controller.util.SceneObserver;
 import model.director.ActiveMapManager;
@@ -25,6 +26,7 @@ public class DialogueViewport implements ViewPort, Observer, SceneObserver {
 	public DialogueViewport() {
 		xStart = (int)(GameDirector.getSize().width * .8);
 		yStart = 0;
+		SceneChanger.getInstance().registerObserver(this);
 	}
 	
 	@Override
