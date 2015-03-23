@@ -25,24 +25,24 @@ public class BargainEnchantmentAbility extends LinearAbility {
 	}
 
 	@Override
-	public boolean performAbility(Entity caster) {
+	public boolean performAbility(Entity summoner) {
 		
-		int mana = caster.getCurrentMP();
+		int mana = summoner.getCurrentMP();
 		
 		if (mana >= 10){
-			caster.modifyCurrentMP(-10);
+			summoner.modifyCurrentMP(-10);
 			
 			List<Entity> entities = ActiveMapManager.getInstance().getActiveMap().getEntities();
 			for (Entity e : entities){
-				if (inRange(caster, e)){
+				if (inRange(summoner, e)){
 					//Allow enchantment to randomly fail
 					Random rand = new Random();
-					if (rand.nextInt(100) <= caster.getLevel() + caster.getIntellect()){
+					if (rand.nextInt(100) <= summoner.getLevel() + summoner.getIntellect()){
 						new BargainEffect(e);
 						return true;
 					}
 					else {
-						(NPC)caster.setFriendly(false);
+						(NPC)summoner.setFriendly(false);
 						return false;
 					}
 				}
