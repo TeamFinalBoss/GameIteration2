@@ -133,12 +133,8 @@ public class MapViewPort implements ViewPort, Observer {
 
                     }catch(Exception e){
                         
-                    }catch(NoSuchElementException e){
-                        System.out.println("nosuchelement");
-                    
-
                     }
-                        
+                      
                     }
                     
                 

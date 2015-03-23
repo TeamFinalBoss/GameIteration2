@@ -40,6 +40,10 @@ public class Controller {
 		describeable = new HashMap<>();
 	}
 	
+	public KeyBindings getKeyBindings() {
+		return keyBindings;
+	}
+	
 	public List<Observable> getObservables(SceneType type) {
 		return this.describeable.get(type);
 	}

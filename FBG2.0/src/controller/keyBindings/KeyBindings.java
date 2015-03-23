@@ -51,8 +51,8 @@ public class KeyBindings implements Saveable{
 		for(Map.Entry<Integer, KeyBindingsOption> entry: keyBindings.entrySet()) {
 			strBuilder.append("<binding ");
 			strBuilder.append("key=\"" + entry.getKey() + "\" ");
-			strBuilder.append("value=\"" + entry.getValue() + "\"");
-			strBuilder.append("\\>\n");
+			strBuilder.append("value=\"" + entry.getValue() + "\" ");
+			strBuilder.append(" />\n");
 		}
 		strBuilder.append("</keyBindings>\n");
 		

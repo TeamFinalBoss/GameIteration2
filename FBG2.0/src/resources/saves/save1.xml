@@ -1,6 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gamesave>
-<avatar map="1" occupation="summoner" x="3" y="2" currency="0" direction="North" motiontype="GROUND" >
+<keyBindings>
+<binding key="68" value="Right"  />
+<binding key="69" value="Up Right"  />
+<binding key="65" value="Left"  />
+<binding key="66" value="Toggle Armory"  />
+<binding key="67" value="Down Right"  />
+<binding key="9" value="Target Nearest Entity"  />
+<binding key="10" value="Confirm"  />
+<binding key="73" value="Toggle Sack"  />
+<binding key="85" value="Stats Updates"  />
+<binding key="84" value="Tile Information"  />
+<binding key="16" value="Toggle Dialogue"  />
+<binding key="87" value="Up"  />
+<binding key="81" value="Up Left"  />
+<binding key="83" value="Drop"  />
+<binding key="27" value="Toggle Pause"  />
+<binding key="88" value="Down"  />
+<binding key="90" value="Down Left"  />
+<binding key="51" value="Skill 3"  />
+<binding key="50" value="Skill 2"  />
+<binding key="49" value="Skill 1"  />
+<binding key="48" value="Skill 0"  />
+<binding key="55" value="Skill 7"  />
+<binding key="54" value="Skill 6"  />
+<binding key="53" value="Skill 5"  />
+<binding key="52" value="Skill 4"  />
+<binding key="57" value="Skill 9"  />
+<binding key="56" value="Skill 8"  />
+</keyBindings>
+<avatar map="1" occupation="summoner" x="3" y="1" currency="0" direction="East" motiontype="GROUND" >
 <stats livesLeft="3" strength="3" agility="3" intellect="8" hardiness="8" experience="10000" movement="3000" bindWounds="3" bargain="3" observation="3" currentHp="100" currentMp="100" offense="53" defense="50" stat1="3" stat2="3" stat3="3" stat4="3" />
 <sack>
 <item name="sword" durability="100" />

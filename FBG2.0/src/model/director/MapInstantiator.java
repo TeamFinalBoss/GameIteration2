@@ -14,8 +14,10 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import controller.keyBindings.KeyBindings;
 import model.entity.Entity;
 import model.factories.AvatarReader;
+import model.factories.BindingReader;
 import model.factories.EntityFactory;
 import model.factories.InteractiveFactory;
 import model.factories.ObstacleFactory;
@@ -37,6 +39,35 @@ public class MapInstantiator {
 	public static MapInstantiator getInstance() {
 		if(me == null) me = new MapInstantiator();
 		return me;
+	}
+	
+	public KeyBindings createKeyBindingsFromFile(File f) {
+		Document doc = null;
+		
+		try{
+
+			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder builder = null;
+			//Get the DOM builder
+			builder = factory.newDocumentBuilder();
+			doc = builder.parse(f);
+		} catch (ParserConfigurationException e) {
+            // TODO Auto-generated catch block
+            System.out.println("Parser Coniguration Exception");
+            e.printStackTrace();
+        } catch (SAXException e) {
+            // TODO Auto-generated catch block
+            System.out.println("SAXException");
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            System.out.println("IO Exception");
+            e.printStackTrace();
+        }
+		
+		Element head = doc.getDocumentElement();
+		
+		return new BindingReader().generate(head);
 	}
 	
 	public Entity createAvatarFromFile(File f) {

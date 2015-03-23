@@ -44,4 +44,8 @@ public class SceneChanger {
 	public List<SceneObserver> getObservers() {
 		return observers;
 	}
+	
+	public void clearObservers() {
+		this.observers = new ArrayList<>();
+	}
 }

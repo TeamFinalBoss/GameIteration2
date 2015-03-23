@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.nio.file.Files;
 
+import controller.Controller;
 import model.director.ActiveMapManager;
 import model.entity.Entity;
 import model.item.Interactive;
@@ -43,7 +44,8 @@ public class GameSaver {
 		ObjectSaver saver = new ObjectSaver();
 		
 		String save = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
-		save += "<gamesave>\n";		
+		save += "<gamesave>\n";
+		save += Controller.getInstance().getKeyBindings().toXML();
 		save += saver.getSaveFormat(manager.getAvatar());
 		save += "\n";
 		
@@ -78,10 +80,13 @@ public class GameSaver {
 				save += saver.getSaveFormat(trap) + "\n";
 			}
 			
+			/*
+			 * TODO: Michael: Determine if this is necesarry 
+			 
 			//Map Switchers
 			for (MapSwitcher m : map.getMapSwitchers()){
 				save += saver.getSaveFormat(m) + "\n";
-			}
+			}*/
 			
 			save += "</map>\n";
 		}
