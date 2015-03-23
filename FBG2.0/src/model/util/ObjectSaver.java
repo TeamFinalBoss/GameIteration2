@@ -67,7 +67,7 @@ public class ObjectSaver {
 		if(e.getType().equals("avatar")) save += getStatsFormat(e) + "\n";
 		save += getSackFormat(e) + "\n";
 		save += getArmoryFormat(e) + "\n";
-		save += getStoreFormat(e) + "\n";
+		if(!e.getType().equals("avatar")) save += getStoreFormat(e) + "\n";
 		save += getEffectsFormat(e) + "\n";
 		
 		if(e.getType().equals("avatar")) save += "</avatar>";

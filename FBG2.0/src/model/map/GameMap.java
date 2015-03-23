@@ -444,6 +444,26 @@ public class GameMap extends Observable {
         return this.tiles[0].length;
     }
 
+    public List<Entity> getEntities(){
+    	return entities.getList();
+    }
+    
+    public List<Item> getItems(){
+    	return items.getList();
+    }
+    
+    public List<AreaEffect> getAreaEffects(){
+    	return effects.getList();
+    }
+    
+    public List<Trap> getTraps(){
+    	return traps.getList();
+    }
+    
+    public List<MapSwitcher> getMapSwitchers(){
+    	return switchers.getList();
+    }
+    
     /**
      * This should be called when you want to update the view objects observing
      * the map (in this case the MapViewPort). For the sake of encapsulation it
