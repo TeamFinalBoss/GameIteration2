@@ -36,7 +36,7 @@ public class FrostNovaAbility extends RadialAbility
 
 	public FrostNovaAbility()
 	{
-		this.name = "Frost Nova";
+		this.name = "FrostNova";
 		this.degree = 360;
 		this.radius = 3;
 		this.myMM = ActiveMapManager.getInstance();
@@ -47,6 +47,7 @@ public class FrostNovaAbility extends RadialAbility
 		super(name, effect, cost, degree, radius);
 		this.myCC = CombatCoordinator.getInstance();
 		this.myMM = ActiveMapManager.getInstance();
+		this.name = "FrostNova";
 	}
 
 	@Override

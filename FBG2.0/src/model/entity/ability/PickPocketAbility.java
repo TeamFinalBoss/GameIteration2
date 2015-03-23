@@ -37,7 +37,7 @@ public class PickPocketAbility extends RadialAbility
 
 	public PickPocketAbility()
 	{
-		this.name = "Pick Pocket";
+		this.name = "PickPocket";
 		this.degree = 360;
 		this.radius = 1;
 		this.myMM = ActiveMapManager.getInstance();
@@ -48,6 +48,7 @@ public class PickPocketAbility extends RadialAbility
 		super(name, effect, cost, degree, radius);
 		this.myCC = CombatCoordinator.getInstance();
 		this.myMM = ActiveMapManager.getInstance();
+		this.name = "PickPocket"
 	}
 
 	@Override
