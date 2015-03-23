@@ -62,6 +62,11 @@ public class Tile extends MapObject{
 		terrain = null;
 	}
 
+	
+	public void setTerrain(Terrain t)
+	{
+		this.terrain = t;
+	}
 
 	
 	

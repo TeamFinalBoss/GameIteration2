@@ -35,6 +35,8 @@ public class Terrain extends MapObject {
 		this.setClassName("Terrain");
 
     }
+    
+   
 
     /**
      * 
