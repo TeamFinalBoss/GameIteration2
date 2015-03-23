@@ -9,10 +9,12 @@ public class BlinkAbility extends LinearAbility {
 	
 	public BlinkAbility(){
 		super();
+		this.setName("Blink");
 	}
 	
 	public BlinkAbility(String name, Effect effect, Effect cost, double range){
 		super(name, effect, cost, range);
+		this.setName("Blink");
 	}
 
 	@Override

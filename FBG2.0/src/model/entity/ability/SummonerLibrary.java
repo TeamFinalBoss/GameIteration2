@@ -8,8 +8,8 @@ public class SummonerLibrary extends AbilityLibrary {
 		FireballAbility myFire = new FireballAbility();
 		BlinkAbility myBlink = new BlinkAbility();
 		
-		this.addAbility(myFire);
-		this.addAbility(myBlink);
+		this.addToLibrary(myFire);
+		this.addToLibrary(myBlink);
 	}
         
         public void update(){

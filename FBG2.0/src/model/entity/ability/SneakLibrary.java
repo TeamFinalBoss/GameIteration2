@@ -6,14 +6,10 @@ public class SneakLibrary extends AbilityLibrary{
 	public SneakLibrary(Entity owner){
 		super(owner);
 		
-		/*
-		 * TODO: add specific abilities to the library in this const.
-		 */
+		SetTrapAbility setTrap = new SetTrapAbility();
+		this.addToLibrary(setTrap);
 	}
 
-    public SneakLibrary(Entity owner){
-            super(owner);
-    }
     
     public void update(){
 
