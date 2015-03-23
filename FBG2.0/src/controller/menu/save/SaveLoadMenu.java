@@ -2,6 +2,7 @@ package controller.menu.save;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,26 +39,28 @@ public class SaveLoadMenu extends Observable implements Describeable,Menuable, O
 	}
 	
 	private void refresh() {
-		File[] list = new File("src/resources/saves/").listFiles();
+		File[] list = new File("./src/resources/saves/").listFiles();
+		files.clear();
 		for(File file : list) {
 			if(file.isFile() && !file.getName().equals("default.xml")) {
 				files.add(file);
 			}
 		}
+		files.sort(new Comparator<File>() {
+			@Override
+			public int compare(File arg0, File arg1) {
+				return Long.valueOf(arg1.lastModified()).compareTo(arg0.lastModified());
+			}  
+		});
+		setChanged();
+		notifyObservers();
 	}
 	
 	@Override
 	public String[] getDescription() {
-		/* Old But I hate deleting
-		String[] strArray = new String[saveOptions.size()];
-		for(int i = 0; i < strArray.length; ++i) {
-			strArray[i] = saveOptions.get(i).toString();
-		}
-		return strArray;
-		*/
 		String[] strArray = new String[maximumNumberOfFileDisplayed];
 		for(int i = 0; i < strArray.length; i++) {
-			strArray[i] = files.get(i).getName();
+			strArray[i] = files.get(i).getName().substring(0, files.get(i).getName().lastIndexOf("."));
 		}
 		return strArray;
 		
@@ -89,6 +92,7 @@ public class SaveLoadMenu extends Observable implements Describeable,Menuable, O
 	
 	public void confirm() {
 		commands.get(currentOption).execute();
+		refresh();
 	}
 	
 	public void addObserver(Observer o) {

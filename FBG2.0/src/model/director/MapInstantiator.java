@@ -16,6 +16,7 @@ import org.xml.sax.SAXException;
 
 import controller.keyBindings.KeyBindings;
 import model.entity.Entity;
+import model.factories.AreaEffectFactory;
 import model.factories.AvatarReader;
 import model.factories.BindingReader;
 import model.factories.EntityFactory;
@@ -24,10 +25,14 @@ import model.factories.ObstacleFactory;
 import model.factories.OneShotFactory;
 import model.factories.TakeableFactory;
 import model.factories.TileFactory;
+import model.factories.TrapFactory;
 import model.gameObject.MapObject;
 import model.item.Item;
 import model.map.GameMap;
+import model.map.areaEffect.AreaEffect;
+import model.map.areaEffect.TeleportAreaEffect;
 import model.map.pair.CoordinatePair;
+import model.map.tile.trap.Trap;
 
 public class MapInstantiator {
 	private static MapInstantiator me = null;
@@ -39,6 +44,39 @@ public class MapInstantiator {
 	public static MapInstantiator getInstance() {
 		if(me == null) me = new MapInstantiator();
 		return me;
+	}
+	
+	public boolean checkValidity(File f) {
+		Document doc = null;
+		
+		try{
+
+			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder builder = null;
+			//Get the DOM builder
+			builder = factory.newDocumentBuilder();
+			doc = builder.parse(f);
+		} catch (ParserConfigurationException e) {
+            // TODO Auto-generated catch block
+            System.out.println("Parser Coniguration Exception");
+            e.printStackTrace();
+        } catch (SAXException e) {
+            // TODO Auto-generated catch block
+            System.out.println("SAXException");
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            System.out.println("IO Exception");
+            e.printStackTrace();
+        }
+		
+		Element head = doc.getDocumentElement();
+		
+		NodeList nodes = head.getElementsByTagName("gamesave");
+		Element wanted = (Element) nodes.item(0);
+		
+		//if(wanted.hasAttribute("dontloadme")) return false;
+		return true;
 	}
 	
 	public KeyBindings createKeyBindingsFromFile(File f) {
@@ -175,10 +213,42 @@ public class MapInstantiator {
 				
 				addItem(maps, mapid, n, n.getLocation());
 			}
+			
+			for(MapObject o : new TrapFactory().generate(e)) {
+				Trap n = (Trap) o;
+				
+				addTrap(maps, mapid, n, n.getLocation());
+			}
+			
+			for(MapObject o : new AreaEffectFactory().generate(e)) {
+				AreaEffect n = (AreaEffect) o;
+				
+				addAreaEffect(maps, mapid, n, n.getLocation());
+			}
 		}
 			
 		for(GameMap m : maps) {
 			ActiveMapManager.getInstance().addMap(m);
+		}
+	}
+	
+	private void addTrap(List<GameMap> maps, int mapid, Trap t, CoordinatePair location) {
+		for(GameMap m : maps) {
+			if(m.getID() == mapid) {
+				m.addTrap(t, location);
+			}
+		}
+	}
+	
+	private void addAreaEffect(List<GameMap> maps, int mapid, AreaEffect ae, CoordinatePair location) {
+		for(GameMap m : maps) {
+			if(m.getID() == mapid) {
+				m.addAreaEffect(ae, location);
+				
+				if(ae.getName().equals("teleport")) {
+					((TeleportAreaEffect) ae).setMap(m);
+				}
+			}
 		}
 	}
 	
