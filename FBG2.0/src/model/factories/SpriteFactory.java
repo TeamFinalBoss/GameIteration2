@@ -19,8 +19,8 @@ public class SpriteFactory {
     private static final String LIGHT_WATER = resourcePath + "tile/LightWater.png";
     private static final String LIGHT_MOUNTAIN = resourcePath + "tile/LightMountain";
     private static final String DARK_GRASS = resourcePath + "tile/DarkGrass.png";
-    private static final String DARK_WATER = resourcePath + "tile/DarkWater";
-    private static final String DARK_MOUNTAIN = resourcePath + "tile/DarkMountain";
+    private static final String DARK_WATER = resourcePath + "tile/DarkWater.png";
+    private static final String DARK_MOUNTAIN = resourcePath + "tile/DarkMountain.png";
 
     public static BufferedImage getAvatar(Direction d) {
         BufferedImage img = null;
