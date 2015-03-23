@@ -28,7 +28,7 @@ public class GameSaver {
 	}
 	
 	public void save(File f) throws IOException {
-		String path = f.getPath();
+		String path = f.getAbsolutePath();
 		Files.write(Paths.get(path), getSaveString().getBytes());		
 	}
 	

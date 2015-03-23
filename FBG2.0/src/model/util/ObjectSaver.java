@@ -10,6 +10,7 @@ import model.item.Interactive;
 import model.item.Obstacle;
 import model.item.OneShot;
 import model.item.Takeable;
+import model.map.tile.trap.Trap;
 import model.entity.NPC;
 
 public class ObjectSaver {
@@ -46,6 +47,16 @@ public class ObjectSaver {
 		save += "x=\"" + i.getLocation().getX() + "\" ";
 		save += "y=\"" + i.getLocation().getY() + "\" ";
 		save += "link=\"" + i.getLink() + "\" />";
+		return save;
+	}
+	
+	public String getSaveFormat(Trap t){
+		String save = "<trap ";
+		save += "name=\"" + t.getName() + "\" ";
+		save += "x=\"" + t.getLocation().getX() + "\" ";
+		save += "y=\" " + t.getLocation().getY() + "\" ";
+		save +=
+		
 		return save;
 	}
 	
