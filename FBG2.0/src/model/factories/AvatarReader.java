@@ -164,6 +164,7 @@ public class AvatarReader {
 			int mapID = Integer.parseInt(e.getAttribute("map"));
 			ActiveMapManager.getInstance().setActiveMap(mapID);
 			ActiveMapManager.getInstance().addEntityToActiveMap(en, en.getLocation());
+			ActiveMapManager.getInstance().setAvatar(en);
 			
 			return en;
 		}

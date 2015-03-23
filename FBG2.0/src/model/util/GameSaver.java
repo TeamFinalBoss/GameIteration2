@@ -13,7 +13,10 @@ import model.item.Obstacle;
 import model.item.OneShot;
 import model.item.Takeable;
 import model.map.GameMap;
+import model.map.MapSwitcher;
+import model.map.areaEffect.AreaEffect;
 import model.map.pair.CoordinatePair;
+import model.map.tile.trap.Trap;
 
 public class GameSaver {
 	
@@ -63,6 +66,21 @@ public class GameSaver {
 					save += saver.getSaveFormat((Obstacle)item) + "\n";
 				else if (item.getType().equals("Interactive"))
 					save += saver.getSaveFormat((Interactive)item) + "\n";
+			}
+			
+			//Area effects
+			for (AreaEffect effect : map.getAreaEffects()){
+				save += saver.getSaveFormat(effect) + "\n";
+			}
+			
+			//Traps
+			for (Trap trap: map.getTraps()){
+				save += saver.getSaveFormat(trap) + "\n";
+			}
+			
+			//Map Switchers
+			for (MapSwitcher m : map.getMapSwitchers()){
+				save += saver.getSaveFormat(m) + "\n";
 			}
 			
 			save += "</map>\n";

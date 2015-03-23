@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gamesave>
-<avatar map="1" occupation="summoner" x="1" y="1" currency="0" direction="North" motiontype="GROUND" >
-<stats livesLeft="1" strength="10" agility="10" intellect="10" hardiness="10" experience="0" movement="30" bindWounds="0" bargain="0" observation="0" currentHp="100" currentMp="100" offense="100" defense="100" stat1="0" stat2="0" stat3="0" stat4="0" />
+<avatar map="1" occupation="summoner" x="3" y="2" currency="0" direction="North" motiontype="GROUND" >
+<stats livesLeft="3" strength="3" agility="3" intellect="8" hardiness="8" experience="10000" movement="3000" bindWounds="3" bargain="3" observation="3" currentHp="100" currentMp="100" offense="53" defense="50" stat1="3" stat2="3" stat3="3" stat4="3" />
 <sack>
+<item name="sword" durability="100" />
 </sack>
 <armory>
 </armory>
