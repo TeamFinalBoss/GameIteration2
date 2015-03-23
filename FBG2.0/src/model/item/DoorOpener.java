@@ -13,40 +13,38 @@ import model.entity.Entity;
 import model.map.pair.CoordinatePair;
 
 /**
- * Change the ID if required
- * ID=11
+ * Change the ID if required ID=11
  *
  * @author ashishag
  */
 public class DoorOpener extends Interactive { //opens all visible doors
-    public DoorOpener(){
-        super("doorOpener","You can open the door", new CoordinatePair(), false);
+
+    public DoorOpener() {
+        super("doorOpener", "You can open the door", new CoordinatePair(), false);
         this.id = "11";
         this.className = "DoorOpener";
     }
-    
-    public DoorOpener(String objectName, String description, CoordinatePair location, 
-        boolean hasBeenUsed){
+
+    public DoorOpener(String objectName, String description, CoordinatePair location,
+            boolean hasBeenUsed) {
         super(objectName, description, location, hasBeenUsed);
-        
-    this.id = "11";
-    this.className = "DoorOpener";
-               
- 
-        
+
+        this.id = "11";
+        this.className = "DoorOpener";
+
     }
-    
-    public boolean activate(Entity e){
-    	List<Item> potentialDoors = AvatarInteractionManager.getInstance().getAvatar().getVisibleItems();
-    	for(Item potentialDoor : potentialDoors){
-    		if(potentialDoor.getClassName().equals("Door")) ActiveMapManager.getInstance().removeItemFromActiveMap(potentialDoor);
-    	}
-    	return false;
+
+    public boolean activate(Entity e) {
+        try {
+            List<Item> potentialDoors = AvatarInteractionManager.getInstance().getAvatar().getVisibleItems();
+            for (Item potentialDoor : potentialDoors) {
+                if (potentialDoor.getClassName().equals("Door")) {
+                    ActiveMapManager.getInstance().removeItemFromActiveMap(potentialDoor);
+                }
+            }
+        } catch (Exception ex) {
+        }
+        return false;
     }
-    
-   
-   
-    
-    
-    
+
 }
