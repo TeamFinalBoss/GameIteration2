@@ -163,7 +163,7 @@ public class ControllerBuilder {
 		 * Stats Upgrading Controller
 		 *******************************/
 		
-		StatsMenu statsMenu = new StatsMenu();
+		StatsMenu statsMenu = StatsMenu.getInstance();
 		Map<Integer, Commandable> statsMenuMap = buildDefaultMenuBindings(statsMenu,map);
 		statsMenuMap.put(map.get(KeyBindingsOption.PAUSE), new ResumeGame());
 		statsMenuMap.put(map.get(KeyBindingsOption.STATS_UPDATE), new ResumeGame());

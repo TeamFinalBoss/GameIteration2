@@ -7,6 +7,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import model.director.GameDirector;
+import controller.menu.stats.StatsMenu;
 import controller.util.Healthable;
 
 public class StatsUpdateViewport implements ViewPort, Observer {
@@ -29,7 +30,7 @@ public class StatsUpdateViewport implements ViewPort, Observer {
 
     @Override
     public void draw(Graphics g) {
-
+    	options = StatsMenu.getInstance().getDescription();
         int healthBarXMargin = (int) (screenWidth * 0.30);
         int healthBarHeight = 25;
         int healthBarYMargin = screenHeight - healthBarHeight * 2;

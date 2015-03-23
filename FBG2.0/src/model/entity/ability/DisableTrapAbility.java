@@ -21,7 +21,8 @@ public class DisableTrapAbility extends RadialAbility {
 	
 	@Override
 	public boolean meetsStatRequirements(Entity entityToLearn) {
-		return entityToLearn.getAgility() >= 2 && entityToLearn.getLevel() >= 2;
+		//return entityToLearn.getAgility() >= 2 && entityToLearn.getLevel() >= 2;
+		return true;
 	}
 
 	@Override
