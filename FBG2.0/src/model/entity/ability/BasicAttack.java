@@ -26,7 +26,7 @@ import model.map.pair.CoordinatePair;
 public class BasicAttack extends Ability{
     
      public BasicAttack(){
-       super();
+       super("BasicAttack", null, null);
     }
 
     /**

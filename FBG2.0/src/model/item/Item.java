@@ -48,5 +48,4 @@ public abstract class Item extends MapObject {
      
         public abstract String getType();
 	
-	
 }
