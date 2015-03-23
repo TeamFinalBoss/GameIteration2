@@ -9,6 +9,7 @@ import model.effect.DealDamageEffect;
 import model.effect.Effect;
 
 import model.entity.Entity;
+import model.map.Bullet;
 import model.map.pair.CoordinatePair;
 
 /**
@@ -112,8 +113,10 @@ public class StrangeGun extends Weapon{
         return e.getLevel() >= 2;
         }
         
-        public void bullet(Entity e){
-            
+        public void Bullet(Entity castingEntity){
+            Bullet b1 = new Bullet(castingEntity);
         }
-    
 }
+
+    
+

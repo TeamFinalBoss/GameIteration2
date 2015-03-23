@@ -114,4 +114,9 @@ public class Inventory {
 	public Equipable unequip(EquipSlot slot){
             return myArmory.unequip(slot);
 	}
+
+    public void useWeapon(Entity this1) {
+        myArmory.useWeapon(this1);
+    }
+    
 }

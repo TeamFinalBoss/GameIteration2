@@ -6,6 +6,7 @@ import model.item.EquipSlot;
 import java.util.HashMap;
 import java.util.Collections;
 import java.util.Map;
+import model.item.Weapon;
 /** 
  * An Armory object is a component of an entity's inventory and holds its equipped items.
  * @author Matthew Kroeze
@@ -74,5 +75,18 @@ public class Armory {
 		old.onUnequip(owner);
 		return old;
 	}
+
+    public boolean useWeapon(Entity caster) {
+        Weapon a=(Weapon) contents.get(EquipSlot.MAIN_HAND);
+        a=(Weapon) contents.get(EquipSlot.TWO_HAND);        
+        
+        if (a==null){
+            return false;
+        }
+        else {
+            a.attack(castor);
+            return true;
+        }
+    }
 
 }

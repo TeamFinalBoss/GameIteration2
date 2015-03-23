@@ -10,22 +10,19 @@ import model.entity.Entity;
  */
 public class DealDamageEffect implements Effect {
     int damageToDeal;
-    int distance;
+    
 
-    public DealDamageEffect(int damageToDeal, int distance) {
+    public DealDamageEffect(int damageToDeal) {
         super();
         this.damageToDeal = damageToDeal;
-        this.distance = distance;
+        
     }
     
     public void setDamageToDeal(int damage){
         this.damageToDeal = damage;
     }
     
-    public void setDistance(int distance)
-    {
-        this.distance = distance;
-    }
+    
     
     /**
      *
@@ -33,6 +30,6 @@ public class DealDamageEffect implements Effect {
      */
     @Override
     public void applyEffect(Entity entityToAffect){
-        entityToAffect.dealDamage(damageToDeal / distance);
+        entityToAffect.dealDamage(damageToDeal);
     }
 }
