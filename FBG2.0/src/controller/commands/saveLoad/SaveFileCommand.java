@@ -21,7 +21,7 @@ public class SaveFileCommand extends SaveFiles implements Commandable {
 	
 	public SaveFileCommand(int index) {
 		super();
-		this.index = 0;
+		this.index = index;
 	}
 	
 	
