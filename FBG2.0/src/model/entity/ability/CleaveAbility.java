@@ -33,12 +33,14 @@ public class CleaveAbility extends RadialAbility
 	private double degree;
 	private double radius;
         private int distance;
+        private int damage;
 
 	public CleaveAbility()
 	{
 		this.name = "Cleave";
+                this.damage = 10;
                 this.distance = 1;
-		this.effect = new DealDamageEffect(50, this.distance);
+		this.effect = new DealDamageEffect(this.damage, this.distance);
 		this.degree = 90;
 		this.radius = 2;
 		this.myCC = CombatCoordinator.getInstance();

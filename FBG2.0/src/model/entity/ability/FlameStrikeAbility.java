@@ -33,6 +33,7 @@ public class FlameStrikeAbility extends RadialAbility
 	private double degree;
 	private double radius;
         private int distance;
+        private int damage;
 
 	public FlameStrikeAbility()
 	{
