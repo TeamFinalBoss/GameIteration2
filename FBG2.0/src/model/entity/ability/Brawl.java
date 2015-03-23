@@ -48,6 +48,7 @@ public class Brawl extends LinearAbility{
 					//Allow enchantment to randomly fail
 					Random rand = new Random();
 					if (true){
+                                                System.out.println("Test");
 						DealDamageEffect dde = new DealDamageEffect(10);
                                                 dde.applyEffect(e);
 						return true;

@@ -31,4 +31,8 @@ public class NinjaStar extends Projectile{
         return true;
     }
     
+    
+    public String toString(){
+        return "ninjastar";
+    }
 }
