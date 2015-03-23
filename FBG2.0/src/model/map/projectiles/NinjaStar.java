@@ -5,6 +5,7 @@
  */
 package model.map.projectiles;
 
+import model.effect.DealDamageEffect;
 import model.effect.Effect;
 import model.entity.Entity;
 import model.map.Vector;
@@ -23,7 +24,9 @@ public class NinjaStar extends Projectile{
     
     @Override
     public void applyEffect(Entity entToEffect) {
-        
+        DealDamageEffect e = (DealDamageEffect) getEffect();
+       e.applyEffect(entToEffect, 10);//TODO make this actually do something
+       this.setInactive();
     }
 
     @Override
