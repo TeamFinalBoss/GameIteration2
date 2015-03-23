@@ -23,32 +23,25 @@ import model.map.pair.PreciseCoordinatePair;
 * @author Aaron Iglesias
 */
 
-public class CleaveAbility extends RadialAbility
+public class CleaveAbility extends AngularAbility
 {
-    //private String name;
-    private DealDamageEffect effect;
-    private CombatCoordinator myCC;
+    
     private ActiveMapManager myMM;
-    private Effect cost;
-	private double degree;
-	private double radius;
-        private int damage;
+    private int damage;
 
 	public CleaveAbility()
 	{
+		super();
 		this.setName("Cleave");
-                this.damage = 10;
-		this.effect = new DealDamageEffect(this.damage);
-		this.degree = 90;
-		this.radius = 2;
-		this.myCC = CombatCoordinator.getInstance();
+        this.damage = 10;
+		this.setEffect(new DealDamageEffect(this.damage));
+		this.setRadius(2);
 		this.myMM = ActiveMapManager.getInstance();
 	}
 
 	public CleaveAbility(String name, Effect effect, Effect cost, int degree, double radius)
 	{
 		super(name, effect, cost, degree, radius);
-		this.myCC = CombatCoordinator.getInstance();
 		this.myMM = ActiveMapManager.getInstance();
 		this.setName("Cleave");
 	}
@@ -56,10 +49,12 @@ public class CleaveAbility extends RadialAbility
 	@Override
 	public boolean meetsStatRequirements(Entity smasher)
 	{
+		/*
 		if(smasher.getStrength() >= 15)
             return true;
         else
-            return false;
+            return false;*/
+		return true;
 	}
 
 	@Override
@@ -82,7 +77,7 @@ public class CleaveAbility extends RadialAbility
                         {
                             c2 = entities.get(i).getLocation();
                             distance = (int) c1.getDistance(c1,c2);
-                            this.effect.applyEffect(entities.get(i),distance);
+                            ((DealDamageEffect)this.getEffect()).applyEffect(entities.get(i),distance);
                         }
     		}
     		return true;

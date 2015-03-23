@@ -95,6 +95,8 @@ public abstract class Ability {
         this.effect = effect;
     }
     
+    public Effect getEffect(){ return this.effect;}
+    
     public void setName(String name){
     	this.name = name;
     }
