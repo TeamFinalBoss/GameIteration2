@@ -1,9 +1,10 @@
 package model.entity;
 
+import model.effect.DealDamageEffect;
 import model.entity.ability.SmasherLibrary;
 import model.entity.stats.SmasherStats;
 import model.map.pair.CoordinatePair;
-
+import model.item.Weapon;
 public abstract class SmasherEntity extends Entity{
 	/* -------------------- PROTECTED CREATION ------------------- */
 	protected SmasherLibrary createAbilities(){
@@ -72,4 +73,30 @@ public abstract class SmasherEntity extends Entity{
 	public void setChakra(int modifier){
 		getStats().setChakra(modifier);
 	}
+        
+        public boolean brawl(Entity E){
+       Weapon(this.getName(), this.getDescription(), this.getLocation(), 
+               this.getDurability(), this.getSlot(), new DealDamageEffect(20));
+            return true;
+        }
+        
+    /**
+     *
+     * @param ET
+     * @return
+     */
+        public boolean useWeapon(Entity ET){
+            
+           if(getInventory().useWeapon(ET)==false){
+               brawl(ET);
+               return true;
+           } 
+           else {
+           }
+            return false;
+            
+        }
+           
+        
 }
+
