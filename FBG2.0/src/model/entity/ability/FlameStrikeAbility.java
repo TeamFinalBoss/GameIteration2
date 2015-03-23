@@ -51,27 +51,27 @@ public class FlameStrikeAbility extends AngularAbility
 	}
 
 	@Override
-	public boolean meetsStatRequirements(Entity caster)
+	public boolean meetsStatRequirements(Entity summoner)
 	{
-		if(caster.getIntellect() >= 15)
+		if(summoner.getIntellect() >= 15)
             return true;
         else
             return false;
 	}
 
 	@Override
-    public boolean performAbility(Entity caster) 
+    public boolean performAbility(Entity summoner) 
     {
     	GameMap map = myMM.getActiveMap();
-    	int mana = caster.getCurrentMP();
+    	int mana = summoner.getCurrentMP();
     	List<Entity> entities = map.getEntities();
 
     	if(mana >= 1)
     	{
-    		caster.setCurrentMP(--mana);
+    		summoner.setCurrentMP(--mana);
     		for(int i = 0; i < entities.size(); ++i)
     		{
-    			if(inRange(caster, entities.get(i)))
+    			if(inRange(summoner, entities.get(i)))
     				this.effect.applyEffect(entities.get(i));
     		}
     		return true;
