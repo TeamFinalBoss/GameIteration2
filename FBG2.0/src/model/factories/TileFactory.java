@@ -5,9 +5,8 @@ package model.factories;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-
+import model.entity.MotionType;
 import model.gameObject.MapObject;
-
 import model.map.pair.CoordinatePair;
 import model.map.tile.*;
 
@@ -33,19 +32,65 @@ public class TileFactory {
     	
     	NodeList nodes = head.getElementsByTagName("tile"); 
     	int count = 0;
-    	System.out.println("Length: " + nodes.getLength());
+
     	for(int i = 0; i < height; ++i)
     	{
     		for(int j = 0; j < width; ++j)
     		{
+    			
+    			
     			String id = nodes.item(count++).getAttributes().item(0).getTextContent();
-    			//id = nodes.item(count++).getAttributes().item(0).getAttributes().toString();
-    			//System.out.println("count:" + count +  "id:"  + id);
-    			//TODO: change when id's have a meaning corresponding to a Terrain
-    			//id = "1";
-    			tiles[i][j] = new Tile(new Terrain());
-    			tiles[i][j].setID(id);
-    			tiles[i][j].setLocation(new CoordinatePair(i , j));
+    			if(id.equals("1"))
+    			{
+    	
+    				tiles[i][j] = new Tile(new Terrain());
+        			tiles[i][j].setID(id);
+        			tiles[i][j].setLocation(new CoordinatePair(i , j));
+        			tiles[i][j].setTerrain(new Terrain());
+    			}
+    			
+    			else if(id.equals("2"))
+    			{
+    				tiles[i][j] = new Tile(new Terrain());
+        			tiles[i][j].setID(id);
+        			tiles[i][j].setLocation(new CoordinatePair(i , j));
+        			tiles[i][j].setTerrain(new Terrain("Water", "blah" , MotionType.WATER));
+    			}
+    			
+    			else if(id.equals("3"))
+    			{
+    				tiles[i][j] = new Tile(new Terrain());
+        			tiles[i][j].setID(id);
+        			tiles[i][j].setLocation(new CoordinatePair(i , j));
+        			tiles[i][j].setTerrain(new Terrain("Mountain", "blah" , MotionType.UNATTAINABLE));
+    			}
+    			
+    			
+    			else if(id.equals("4"))
+    			{
+    				tiles[i][j] = new Tile(new Terrain());
+        			tiles[i][j].setID(id);
+        			tiles[i][j].setLocation(new CoordinatePair(i , j));
+        			tiles[i][j].setTerrain(new Terrain());
+    			}
+    			
+    			else if(id.equals("5"))
+    			{
+    				tiles[i][j] = new Tile(new Terrain());
+        			tiles[i][j].setID(id);
+        			tiles[i][j].setLocation(new CoordinatePair(i , j));
+        			tiles[i][j].setTerrain(new Terrain("Water", "blah" , MotionType.WATER));
+    			}
+    			
+    			
+    			else if(id.equals("5"))
+    			{
+    				tiles[i][j] = new Tile(new Terrain());
+        			tiles[i][j].setID(id);
+        			tiles[i][j].setLocation(new CoordinatePair(i , j));
+        			tiles[i][j].setTerrain(new Terrain("Mountain", "blah" , MotionType.UNATTAINABLE));
+    			}
+    			
     			
     		}
     	}

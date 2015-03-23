@@ -10,6 +10,7 @@ import java.util.Observer;
 
 import view.MousePoint;
 import view.MousePointClick;
+import view.viewport.DirectionChanger;
 import controller.KeyDispatcher;
 import controller.keyBindings.KeyBindingsOption;
 import controller.sceneControllers.SceneChanger;
@@ -45,5 +46,11 @@ public class MouseParser extends MouseAdapter {
 	
 	public void setOptions(Map<KeyBindingsOption, Integer> bindingsReverse) {
 		mouseDispatcher.setOptions(bindingsReverse);
+	}
+
+
+	public void setDirectionChanger(SceneType game, DirectionChanger mapVp) {
+		mouseDispatcher.addDirectionChanger(game,mapVp);
+		
 	}	
 }

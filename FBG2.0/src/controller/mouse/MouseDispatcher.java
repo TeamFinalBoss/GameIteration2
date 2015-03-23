@@ -6,8 +6,11 @@ import java.awt.event.MouseWheelEvent;
 import java.util.HashMap;
 import java.util.Map;
 
+import model.director.AvatarInteractionManager;
+import model.map.Direction;
 import view.MousePoint;
 import view.MousePointClick;
+import view.viewport.DirectionChanger;
 import controller.KeyDispatcher;
 import controller.keyBindings.KeyBindingsOption;
 import controller.sceneControllers.SceneChanger;
@@ -20,12 +23,14 @@ public class MouseDispatcher implements SceneObserver{
 	private SceneType currentType;
 	private Map<SceneType, MousePoint> observers;
 	private Map<SceneType, MousePointClick> clickObservers;
+	private HashMap<SceneType, DirectionChanger> directionObservers;
 	
 	public MouseDispatcher() {
 		this.options = new HashMap<>();
 		this.dispatcher = new KeyDispatcher();
 		observers = new HashMap<>();
 		clickObservers = new HashMap<>();
+		directionObservers = new HashMap<>();
 		SceneChanger.getInstance().registerObserver(this);
 	}
 	
@@ -34,6 +39,7 @@ public class MouseDispatcher implements SceneObserver{
 		this.dispatcher = dispatcher;
 		observers = new HashMap<>();
 		clickObservers = new HashMap<>();
+		directionObservers = new HashMap<>();
 		SceneChanger.getInstance().registerObserver(this);
 	}
 	
@@ -59,6 +65,11 @@ public class MouseDispatcher implements SceneObserver{
 		if(observers.containsKey(currentType)) {
  			observers.get(currentType).getActiveLocation(point);
 		}
+		/*if(directionObservers.containsKey(currentType)) {
+			Direction direction = directionObservers.get(currentType).changeDirection(point);
+			AvatarInteractionManager.getInstance().getAvatar().setDirection(direction);
+			System.out.println(direction);
+		}*/
 	}
 
 	public void mouseWheelMoved(MouseWheelEvent e) {
@@ -89,6 +100,10 @@ public class MouseDispatcher implements SceneObserver{
 	
 	public void addClickPoint(SceneType type, MousePointClick point) {
 		clickObservers.put(type, point);
+	}
+
+	public void addDirectionChanger(SceneType game, DirectionChanger mapVp) {
+		this.directionObservers.put(game,mapVp);
 	}
 	
 }

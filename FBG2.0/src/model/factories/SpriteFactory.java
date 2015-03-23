@@ -17,10 +17,10 @@ public class SpriteFactory {
 
     private static final String LIGHT_GRASS = resourcePath + "tile/LightGrass.png";
     private static final String LIGHT_WATER = resourcePath + "tile/LightWater.png";
-    private static final String LIGHT_MOUNTAIN = resourcePath + "tile/LightMountain";
+    private static final String LIGHT_MOUNTAIN = resourcePath + "tile/LightMountain.png";
     private static final String DARK_GRASS = resourcePath + "tile/DarkGrass.png";
-    private static final String DARK_WATER = resourcePath + "tile/DarkWater";
-    private static final String DARK_MOUNTAIN = resourcePath + "tile/DarkMountain";
+    private static final String DARK_WATER = resourcePath + "tile/DarkWater.png";
+    private static final String DARK_MOUNTAIN = resourcePath + "tile/DarkMountain.png";
 
     public static BufferedImage getAvatar(Direction d) {
         BufferedImage img = null;
@@ -62,8 +62,8 @@ public class SpriteFactory {
         return img;
     }
 
-    public static BufferedImage getGenericEntity(Direction direction) {
-        return getImage(resourcePath + "summonerUp.gif");
+    public static BufferedImage getGenericObject() {
+        return getImage(resourcePath + "generic.png");
     }
 
     private static BufferedImage getImage(String filename) {
@@ -101,8 +101,13 @@ public class SpriteFactory {
                 return getImage(DARK_WATER);
             case "6":
                 return getImage(DARK_MOUNTAIN);
+            default:
+                return getGenericObject();
 
         }
-        return null;
+    }
+
+    public static BufferedImage getGenericEntity(Direction direction) {
+        return getGenericObject();
     }
 }

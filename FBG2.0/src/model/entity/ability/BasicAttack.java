@@ -7,6 +7,12 @@ import model.effect.Effect;
 import model.entity.Entity;
 import model.map.pair.CoordinatePair;
 
+import static java.lang.Math.pow;
+import model.director.CombatCoordinator;
+import model.effect.Effect;
+import model.entity.Entity;
+import model.map.pair.CoordinatePair;
+
 /**
  *
  * @author ashishag
@@ -18,7 +24,7 @@ public class BasicAttack extends Ability{
     private Effect cost;
     
      public BasicAttack(){
-        name = null;
+        name = "BasicAttack";
         effect = null;
         myCC = null;
         cost = null;
@@ -30,7 +36,7 @@ public class BasicAttack extends Ability{
     * @param name, effect, myCC, cost
     */
     public BasicAttack(String name, Effect effect, Effect cost){
-        this.name = name;
+        this.name = "BasicAttack";
         this.effect = effect;
         this.myCC = CombatCoordinator.getInstance();
         this.cost = cost;

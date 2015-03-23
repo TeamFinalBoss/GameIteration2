@@ -2,26 +2,26 @@ package view.viewport;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.geom.Arc2D;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ConcurrentModificationException;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Observable;
 import java.util.Observer;
-
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-
 import model.director.AvatarInteractionManager;
 import model.director.GameDirector;
 import model.entity.Entity;
 import model.factories.SpriteFactory;
 import model.item.Item;
 import model.map.Direction;
+import model.map.Vector;
 import model.map.projectiles.Projectile;
 import model.map.pair.CoordinatePair;
+import model.map.pair.PreciseCoordinatePair;
+import model.map.pair.PurePair;
 import model.map.tile.Tile;
 import model.map.tile.trap.Trap;
 
@@ -87,7 +87,7 @@ public class MapViewPort implements ViewPort, Observer {
                 } catch (ConcurrentModificationException e) {
                 } catch (NoSuchElementException e) {
                     System.out.println(e);
-                }
+                } catch(NullPointerException e){}
 
                 //draw coordinates
                 g.setColor(Color.BLUE);
@@ -111,7 +111,8 @@ public class MapViewPort implements ViewPort, Observer {
                 }
                 g.drawImage(currentEntityImg, (e.getLocation().getX() - startX) * tileWidth, (e.getLocation().getY() - startY) * tileHeight, tileWidth, tileHeight, null);
             }
-        } catch (ConcurrentModificationException e) {
+        } 
+        catch (ConcurrentModificationException e) {
         } catch (NoSuchElementException e) {
             System.out.println(e);
 
@@ -125,7 +126,23 @@ public class MapViewPort implements ViewPort, Observer {
                 g.drawImage(SpriteFactory.getFireball(),(int) ((px - startX) * tileWidth), (int) ((py - startY) * tileHeight), tileWidth, tileHeight, null);
             }
 
-        } catch (ConcurrentModificationException e) {
+        }catch(NullPointerException e) {}
+        catch (ConcurrentModificationException e) {
+        } catch (NoSuchElementException e) {
+            System.out.println(e);
+
+        }
+        
+        try {
+            for (Item item : itemsAvatarCanSee) {
+                double px = (item.getLocation().getX());
+                double py = (item.getLocation().getY());
+                
+                g.drawImage(SpriteFactory.getGenericObject(),(int) ((px - startX) * tileWidth), (int) ((py - startY) * tileHeight), tileWidth, tileHeight, null);
+            }
+
+        }catch(NullPointerException e) {}
+        catch (ConcurrentModificationException e) {
         } catch (NoSuchElementException e) {
             System.out.println(e);
 

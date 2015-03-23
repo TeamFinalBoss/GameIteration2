@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import model.entity.Entity;
 import java.lang.Math.*;
 import java.util.List;
+import java.util.Random;
 import model.director.ActiveMapManager;
 import model.effect.DealDamageEffect;
 import model.effect.SnareEffect;
@@ -24,7 +25,7 @@ import model.map.pair.PreciseCoordinatePair;
 * @author Aaron Iglesias
 */
 
-public class FrostNovaAbility extends RadialAbility
+public class PickPocketAbility extends RadialAbility
 {
     private String name;
     private Effect effect;
@@ -34,46 +35,65 @@ public class FrostNovaAbility extends RadialAbility
 	private double degree;
 	private double radius;
 
-	public FrostNovaAbility()
+	public PickPocketAbility()
 	{
-		this.name = "FrostNova";
+		this.name = "PickPocket";
 		this.degree = 360;
-		this.radius = 3;
+		this.radius = 1;
 		this.myMM = ActiveMapManager.getInstance();
 	}
 
-	public FrostNovaAbility(String name, Effect effect, Effect cost, int degree, double radius)
+	public PickPocketAbility(String name, Effect effect, Effect cost, int degree, double radius)
 	{
 		super(name, effect, cost, degree, radius);
 		this.myCC = CombatCoordinator.getInstance();
 		this.myMM = ActiveMapManager.getInstance();
-		this.name = "FrostNova";
+		this.name = "PickPocket"
 	}
 
 	@Override
-	public boolean meetsStatRequirements(Entity summoner)
+	public boolean meetsStatRequirements(Entity sneak)
 	{
-		if(summoner.getIntellect() >= 20)
+		if(sneak.getAgility() >= 10)
             return true;
         else
             return false;
 	}
 
 	@Override
-    public boolean performAbility(Entity summoner) 
+    public boolean performAbility(Entity sneak) 
     {
+        Random random = new Random();
     	GameMap map = myMM.getActiveMap();
-    	int mana = summoner.getCurrentMP();
+    	int mana = sneak.getCurrentMP();
     	List<Entity> entities = map.getEntities();
 
-    	if(mana >= 1)
+        int manaCost = sneak.getMaxMP() / 4;
+        double agility = (double) sneak.getAgility();
+        int gold = 0;
+        int goldMax = (int) (agility / 4);
+        double probability = agility / 500;
+
+        if(probability > .75)
+            probability = .75;
+        probability = (int) probability * 1000 - 1;
+
+    	if(mana >= manaCost)
     	{
-                SnareEffect snare;
-    		summoner.setCurrentMP(--mana);
+    		sneak.setCurrentMP(mana - manaCost);
     		for(int i = 0; i < entities.size(); ++i)
     		{
-    			if(inRange(summoner, entities.get(i)))
-                            snare = new SnareEffect(entities.get(i), 4000);
+                if(inRange(sneak, entities.get(i)))
+                {
+                    for(int j = 0; j < 999; ++j)
+                    {
+                        if(random.nextInt(1000) <= probability)
+                            ++gold;
+                    }
+                    if(gold > goldMax)
+                        gold = goldMax;
+                    sneak.modifyCurrency(gold);
+                }
     		}
     		return true;
     	}
