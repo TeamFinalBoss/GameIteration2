@@ -34,6 +34,8 @@ import controller.mouse.MouseParser;
 import controller.sceneControllers.SceneChanger;
 import controller.sceneControllers.SceneType;
 import controller.util.SceneObserver;
+import view.viewport.AbilityViewPort;
+import view.viewport.MiniMapViewPort;
 
 /**
  * This class is the director of our game, integrating the various subsystems.
@@ -49,9 +51,7 @@ public class GameDirector extends Observable implements SceneObserver {
     private static Boolean paused = false;
     private static GameWindow window;
 
-    static Object getActiveMap() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    
     private Scene menuScene, gameScene, pauseScene, keyBindingsScene, saveScene, loadScene, loadingScene;
     private volatile Scene activeScene;
     private static Controller controller = Controller.getInstance();
@@ -185,9 +185,12 @@ public class GameDirector extends Observable implements SceneObserver {
 
     private void doTheGameStuff() {
         MapViewPort mapVP = new MapViewPort();
-
+        AbilityViewPort abilityVP = new AbilityViewPort();
+        MiniMapViewPort miniMapVP  = new MiniMapViewPort();
 
         gameScene.addViewport(mapVP);//Add mapVP to gameScene
+        gameScene.addViewport(miniMapVP);
+        gameScene.addViewport(abilityVP);
         
         SackViewport sack = new SackViewport();
         gameScene.addViewport(sack);
@@ -226,6 +229,7 @@ public class GameDirector extends Observable implements SceneObserver {
         //controller.getMouseParser().setDirectionChanger(SceneType.GAME, (DirectionChanger)mapVP);
        
         ActiveMapManager.getInstance().getActiveMap().addObserver(mapVP);//Add mapVP as an Observer to map
+        ActiveMapManager.getInstance().getActiveMap().addObserver(miniMapVP);//Add mapVP as an Observer to miniMap
         
     }
     
