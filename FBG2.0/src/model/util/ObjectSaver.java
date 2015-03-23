@@ -20,7 +20,7 @@ public class ObjectSaver {
 		save += "name=\"" + i.getName() + "\" ";
 		save += "x=\"" + i.getLocation().getX() + "\" ";
 		save += "y=\"" + i.getLocation().getY() + "\" ";
-		save += "durabiity=\"" + i.getDurability() + "\" />";
+		save += "durability=\"" + i.getDurability() + "\" />";
 		return save;
 	}
 	
