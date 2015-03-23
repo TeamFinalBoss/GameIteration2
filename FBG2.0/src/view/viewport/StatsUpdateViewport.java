@@ -29,6 +29,43 @@ public class StatsUpdateViewport implements ViewPort, Observer {
 
     @Override
     public void draw(Graphics g) {
+
+        int healthBarXMargin = (int) (screenWidth * 0.20);
+        int healthBarYMargin = screenHeight - 135;
+        int healthBarWidth = screenWidth - (healthBarXMargin * 2);
+        int healthBarHeight = 25;
+
+        double percentageOfHealthRemaining = (double) currentHealth / (double) maxHealth;
+
+        //Health bar
+        g.setColor(Color.LIGHT_GRAY);
+        g.fillRoundRect(healthBarXMargin, healthBarYMargin, healthBarWidth, healthBarHeight, 25, 25);
+
+        g.setColor(Color.GREEN);
+        g.fillRoundRect(healthBarXMargin, healthBarYMargin, (int) (healthBarWidth * percentageOfHealthRemaining), healthBarHeight, 25, 25);
+
+        String health = currentHealth + "/" + maxHealth;
+        g.setColor(Color.BLACK);
+        g.drawString(health, healthBarWidth / 2 + healthBarXMargin + g.getFontMetrics().stringWidth(health) / 2, healthBarYMargin + g.getFontMetrics().getHeight());
+
+        //Mana bar
+        int manaBarXMargin = (int) (screenWidth * 0.25);
+        int manaBarWidth = screenWidth - (manaBarXMargin * 2);
+        int manaBarYMargin = healthBarYMargin + healthBarHeight;
+        int manaBarHeight = 25;
+
+        double percentageOfManaRemaining = (double) currentMana / (double) maxHealth;
+
+        g.setColor(Color.LIGHT_GRAY);
+        g.fillRoundRect(manaBarXMargin, manaBarYMargin, manaBarWidth, manaBarHeight, 25, 25);
+
+        g.setColor(Color.BLUE);
+        g.fillRoundRect(manaBarXMargin, manaBarYMargin, (int) (manaBarWidth * percentageOfManaRemaining), manaBarHeight, 25, 25);
+
+        String mana = currentMana + "/" + maxMana;
+        g.setColor(Color.BLACK);
+        g.drawString(mana, manaBarWidth / 2 + manaBarXMargin + g.getFontMetrics().stringWidth(mana) / 2, manaBarYMargin + g.getFontMetrics().getHeight());
+
         if (options != null) {
 
             int healthBarXMargin = (int) (screenWidth * 0.20);
