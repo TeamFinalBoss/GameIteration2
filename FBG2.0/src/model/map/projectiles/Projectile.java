@@ -104,4 +104,8 @@ public abstract class Projectile extends TimerTask{
     public void setInactive(){
         isActive = false;
     }
+    
+    public String toString(){
+        return "fireball";
+    }
 }

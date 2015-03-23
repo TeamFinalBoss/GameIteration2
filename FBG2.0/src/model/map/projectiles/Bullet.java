@@ -37,5 +37,8 @@ public class Bullet extends Projectile {
     }
     
 
+    public String toString(){
+        return "bullet";
+    }
     
 }

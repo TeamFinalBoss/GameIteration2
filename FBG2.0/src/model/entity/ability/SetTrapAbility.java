@@ -9,19 +9,16 @@ import model.map.tile.trap.Trap;
 
 public class SetTrapAbility extends LinearAbility {
 	
-	private Trap myTrap;
 	
 	public SetTrapAbility(){
 		 super();
 		 this.setName("SetTrap");
-		 this.myTrap = new DealDamageTrap();
 		 this.setRange(1);
 	}
 	
-	public SetTrapAbility(String name, Effect effect, Effect cost, Trap trap){
+	public SetTrapAbility(String name, Effect effect, Effect cost){
 		super(name, effect, cost, 1);
 		this.setName("SetTrap");
-		this.myTrap = trap;
 	}
 
 	@Override
@@ -32,7 +29,7 @@ public class SetTrapAbility extends LinearAbility {
 
 	@Override
 	public boolean performAbility(Entity caster) {
-		CoordinatePair CP = caster.getLocation();
+		CoordinatePair CP = new CoordinatePair(caster.getLocation().getX(), caster.getLocation().getY());
 		
 		switch(caster.getDirection()){
 		case North:
@@ -65,8 +62,9 @@ public class SetTrapAbility extends LinearAbility {
 		}
 		if (caster.getCurrentMP() >= 10){
 			caster.modifyCurrentMP(-10);
+			Trap myTrap = new DealDamageTrap();
 			myTrap.setLocation(CP);
-			ActiveMapManager.getInstance().addTrapToActiveMap(myTrap, CP);
+			ActiveMapManager.getInstance().addTrapToActiveMap(myTrap , CP);
 			return true;
 		}		
 		return false;
