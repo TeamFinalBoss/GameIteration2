@@ -618,7 +618,7 @@ public class GameMap extends Observable {
                         containedTraps.add(getTrapAtCoordinate(new CoordinatePair(i, j)));
                     }
                     if (getAreaEffectAtCoordinate(new CoordinatePair(i, j)) != null) {
-                        containedEntities.add(getEntityAtCoordinate(new CoordinatePair(i, j)));
+                        containedAreaEffects.add(getAreaEffectAtCoordinate(new CoordinatePair(i, j)));
                     }
                 }
             }

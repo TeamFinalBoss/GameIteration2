@@ -52,11 +52,45 @@
    		<effects>
    		</effects>
 	</entity>
-    <obstacle name="door" link="4" x="1" y="1" />
+	<entity occupation="smasher" map="1" currency="0" type="evilMuscleSlime" direction="North" x="11" y="10" link="20" motionType="GROUND">
+   		<sack>
+   		</sack>
+   		<armory>
+   		</armory>
+   		<store>
+   		</store>
+   		<effects>
+   		</effects>
+	</entity>
+	<entity occupation="smasher" map="1" currency="0" type="friendlyOldBrawler" direction="North" x="11" y="14" link="20" motionType="GROUND">
+   		<sack>
+   		</sack>
+   		<armory>
+   		</armory>
+   		<store>
+   		</store>
+   		<effects>
+   		</effects>
+	</entity>
+	<entity occupation="smasher" map="1" currency="0" type="lightGuardian" direction="North" x="12" y="1" link="20" motionType="GROUND">
+   		<sack>
+   		</sack>
+   		<armory>
+   		</armory>
+   		<store>
+   		</store>
+   		<effects>
+   		</effects>
+	</entity>
+    <obstacle name="door" link="4" x="5" y="4" />
     <interactive name="doorOpener" link="4" x="2" y="2" />
     <oneshot name="recoveryHeart" x="1" y="2" />
-</map>
-<map id="2">
-    <obstacle name="door" link="4" x="1" y="1" />
+    <trap name="dealDamageTrap" x="6" y="3" />
+    <takeable name="healthPotion" durability="34" x="6" y="0" />
+ 	<takeable name="halo" durability="34" x="7" y="0" />
+ 	<takeable name="mace" durability="34" x="8" y="0" />
+ 	<takeable name="stick" durability="34" x="9" y="0" />
+ 	<takeable name="hornes" durability="34" x="10" y="0" />
+ 	<takeable name="sword" durability="34" x="11" y="0" />
 </map>
 </gamesave>

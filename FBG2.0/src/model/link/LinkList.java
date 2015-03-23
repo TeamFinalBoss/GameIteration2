@@ -38,8 +38,11 @@ public class LinkList {
     		Link pair = null;
     		
     		for(Link l : p.list) {
-    			if(caller == l) found = true;
-    			else pair = l;
+    			if(caller.getLink() == l.getLink() && caller != l) 
+    			{
+    				found = true;
+    				pair = l;
+    			}
     		}
     		
     		if(found && pair != null) return pair;
@@ -59,7 +62,7 @@ public class LinkList {
     		List<Link> pairs = new ArrayList<Link>();
     		
     		for(Link l : p.list) {
-    			if(caller == l) found = true;
+    			if(caller.getLink() == l.getLink()) found = true;
     			else pairs.add(l);
     		}
     		

@@ -51,7 +51,7 @@ public abstract class AreaEffect extends MapObject {
      * @return true if observation >= 50
      */
     public boolean canSee(int observation){
-    	return observation >= 50;
+    	return true;
     }
 
     /**

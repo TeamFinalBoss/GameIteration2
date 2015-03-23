@@ -17,6 +17,7 @@ public abstract class Link {
 	public Link(MapObject owner, int linkID) {
 		this.owner = owner;
 		this.linkID = linkID;
+		register();
 	}
 	
 	/**
