@@ -78,7 +78,8 @@ public class MapViewPort implements ViewPort, Observer {
                 currentTileImg = SpriteFactory.getFog();
                 try {
                     for (Tile t : tilesAvatarCanSee) {
-                        if (tiles[i][j].equals(t)) {
+                        
+                        if (t.getLocation().equals(new CoordinatePair(i,j))) {
                             currentTileImg = SpriteFactory.hashIDtoImage(t.getID());
                         }
                     }

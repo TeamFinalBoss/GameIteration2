@@ -2,6 +2,7 @@ package model.factories;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import javax.imageio.ImageIO;
 import model.map.Direction;
 
@@ -69,8 +70,7 @@ public class SpriteFactory {
         BufferedImage img = null;
         try {
             img = ImageIO.read(new File(filename));
-        } catch (Exception e) {
-        }
+        } catch (IOException e) { System.out.println(filename + e);}
 
         return img;
     }
