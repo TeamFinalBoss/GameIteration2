@@ -36,6 +36,21 @@ public class SpriteFactory {
     private static final String DOOR_OPENER_PATH = resourcePath + "item/DoorOpener.png";
     private static final String DOOR_PATH = resourcePath + "item/Door.png";
 
+    /*AREA EFFECT*/
+    private final String HEAL_PATH = resourcePath + "area_effect/heal.jpg";
+    private final String INSTANT_DEATH_PATH = resourcePath + "area_effect/instant_death.png";
+    private final String INSTANT_DEATH2_PATH = resourcePath + "area_effect/instant_death2.png";
+    private final String LEVEL_UP_PATH = resourcePath + "area_effect/level_up.png";
+    private final String TAKE_DAMAGE_PATH = resourcePath + "area_effect/take_damage.png";
+    private final String TELEPORT_PATH = resourcePath + "area_effect/teleport.png";
+
+    private final BufferedImage HEAL;
+    private final BufferedImage INSTANT_DEATH;
+    private final BufferedImage INSTANT_DEATH2;
+    private final BufferedImage LEVEL_UP;
+    private final BufferedImage TAKE_DAMAGE;
+    private final BufferedImage TELEPORT;
+
     private final BufferedImage LIGHT_GRASS;
     private final BufferedImage LIGHT_WATER;
     private final BufferedImage LIGHT_MOUNTAIN;
@@ -76,6 +91,13 @@ public class SpriteFactory {
         RECOVERY_HEART = getImage(RECOVERY_HEART_PATH);
         DOOR_OPENER = getImage(DOOR_OPENER_PATH);
         DOOR = getImage(DOOR_PATH);
+        HEAL = getImage(HEAL_PATH);
+        INSTANT_DEATH = getImage(INSTANT_DEATH_PATH);
+        INSTANT_DEATH2 = getImage(INSTANT_DEATH2_PATH);
+        LEVEL_UP = getImage(LEVEL_UP_PATH);
+        TAKE_DAMAGE = getImage(TAKE_DAMAGE_PATH);
+        TELEPORT = getImage(TELEPORT_PATH);
+
         FOG = getImage(resourcePath + "tile/fog.png");
         FIREBALL = getImage(resourcePath + "projectile/fireball.png");
         GENERIC = getImage(resourcePath + "generic.png");
@@ -153,8 +175,8 @@ public class SpriteFactory {
     public static BufferedImage getFireball() {
         return getInstance().getFire();
     }
-    
-    private BufferedImage getFire(){
+
+    private BufferedImage getFire() {
         return FIREBALL;
     }
 
@@ -213,6 +235,20 @@ public class SpriteFactory {
                 return DOOR_OPENER;
             case "door":
                 return DOOR;
+            case "heal":
+                return HEAL;
+            case "instantDeath":
+                if (Math.random() * 2 < 1) {
+                    return INSTANT_DEATH;
+
+                } else {
+                    return INSTANT_DEATH2;
+
+                }
+            case "levelUp":
+                return LEVEL_UP;
+            case "teleport":
+                return TELEPORT;
 
             default:
                 //System.out.println(id + " wheres the pic file?");
