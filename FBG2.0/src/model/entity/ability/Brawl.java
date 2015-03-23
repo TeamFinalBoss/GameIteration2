@@ -25,7 +25,7 @@ public class Brawl extends LinearAbility{
 	}
 	
 	public Brawl(String name, Effect effect, Effect cost){
-		super(name, effect, cost, 1);
+		super(name, effect, cost, 10);
 		this.setName("BargainEnchantment");
 	}
 	
@@ -39,7 +39,7 @@ public class Brawl extends LinearAbility{
 		
 		int mana = summoner.getCurrentMP();
 		
-		if (mana >= 10){
+		if (mana >= 0){
 			//summoner.modifyCurrentMP(-10);
 			
 			List<Entity> entities = ActiveMapManager.getInstance().getActiveMap().getEntities();
@@ -47,7 +47,7 @@ public class Brawl extends LinearAbility{
 				if (summoner != e && inRange(summoner, e)){
 					//Allow enchantment to randomly fail
 					Random rand = new Random();
-					if (rand.nextInt(100) <= summoner.getLevel() + summoner.getIntellect()){
+					if (true){
 						DealDamageEffect dde = new DealDamageEffect(10);
                                                 dde.applyEffect(e);
 						return true;
