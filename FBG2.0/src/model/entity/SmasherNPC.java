@@ -166,6 +166,9 @@ public abstract class SmasherNPC extends SmasherEntity implements NPC {
 		public boolean getFriendly(){
 			return friendly;
 		}
+		public void setFriendly(boolean next){
+			friendly = next;
+		}
 }
 
 
