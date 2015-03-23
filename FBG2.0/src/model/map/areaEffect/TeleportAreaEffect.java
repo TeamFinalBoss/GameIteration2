@@ -12,6 +12,7 @@ public class TeleportAreaEffect extends AreaEffect {
 	public TeleportAreaEffect() {
 		super();
 		this.setName("teleport");
+                this.setID("teleport");
 		this.link = new TeleportLink(this, 0);
 		this.map = null;
 	}

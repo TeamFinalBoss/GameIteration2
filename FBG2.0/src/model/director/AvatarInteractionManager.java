@@ -92,7 +92,7 @@ public class AvatarInteractionManager {
      */
     public void useAbility(int abilityTouse){
         try {
-            InputStream in = new FileInputStream("src/resources/sound/pewpew.wav");
+            InputStream in = new FileInputStream("./src/resources/sound/pewpew.wav");
             AudioStream as = new AudioStream(in);
 
             AudioPlayer.player.start(as);

@@ -50,6 +50,7 @@ public class VisibleMap {
 		int influenceRadius = computeInfluenceRadius(owner.getObservation());
 		clearAll();
 		activeMap.getEverythingInRange(owner.getLocation(), influenceRadius, tiles, projectiles, entities, traps, items, areaEffects);
+                
 		for(Projectile p : projectiles){
 			if(!p.canSee(owner.getObservation())) projectiles.remove(p);
 		}

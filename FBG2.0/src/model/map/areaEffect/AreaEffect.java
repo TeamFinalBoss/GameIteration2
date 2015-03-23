@@ -23,7 +23,7 @@ public abstract class AreaEffect extends MapObject {
     public AreaEffect() {
     	super("Generic AreaEffect", "Generic description", new CoordinatePair());
     	
-		this.setID("8");
+		
 		this.setClassName("Area Effect");
     	
     	//Other properties set here
@@ -35,7 +35,6 @@ public abstract class AreaEffect extends MapObject {
     		Effect effect) {
     	super(objectName, description, location);
     	
-		this.setID("8");
 		this.setClassName("Area Effect");
     	
     	//Other properties set here

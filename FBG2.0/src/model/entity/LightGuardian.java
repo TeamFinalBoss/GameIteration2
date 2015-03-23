@@ -15,5 +15,7 @@ public class LightGuardian extends SmasherNPC {
 	}
 	public LightGuardian(){
 		super("Light Guardian", "A physical warrior of light.", new CoordinatePair(0,0));
+		this.setHardiness(10);
+		this.setCurrentHP(1500);
 	}
 }
