@@ -385,4 +385,8 @@ public class ActiveMapManager {
     public void addProjectileToMap(Projectile proj) {
         activeMap.addProjectile(proj);
     }
+
+    public void removeProjectile(Projectile proj) {
+        activeMap.removeProjectile(proj);
+    }
 }

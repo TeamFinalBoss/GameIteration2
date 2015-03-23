@@ -582,6 +582,17 @@ public class GameMap extends Observable {
     public void addProjectile(Projectile proj) {
         projectiles.add(proj);
     }
+
+    public void removeProjectile(Projectile proj) {
+        projectiles.remove(proj);
+        
+        /*
+        for(Projectile p: projectiles){
+            if(p == proj){
+                
+            }
+        }*/
+    }
 }
     
     
