@@ -25,10 +25,14 @@ public class SaveFileCommand extends SaveFiles implements Commandable {
 	
 	@Override
 	public void execute() {
-		PrintWriter writer = null;
 		File file = super.getFileAtIndex(this.index);
 		GameSaver s = new GameSaver();
-		s.savetoFile(file);
+		try {
+			s.save(file);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 

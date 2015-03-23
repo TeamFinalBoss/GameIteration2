@@ -1,5 +1,6 @@
 package modelTests.utilTests;
 
+import java.io.File;
 import java.io.IOException;
 
 import model.director.ActiveMapManager;
@@ -61,7 +62,7 @@ public class GameSaverTest {
 		
 		GameSaver saver = new GameSaver(manager);
 		try {
-			saver.save("./FBG2.0/src/resources/saves/testSave2.xml");
+			saver.save(new File("./FBG2.0/src/resources/saves/testSave2.xml"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

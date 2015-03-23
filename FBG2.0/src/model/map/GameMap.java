@@ -67,6 +67,10 @@ public class GameMap extends Observable {
         //this.addEntity(AvatarInteractionManager.getInstance().getAvatar(), new CoordinatePair(1, 1)); //TODO change to avatar
         
     }
+    
+    public void clearObservers() {
+    	super.deleteObservers();
+    }
 
     public GameMap(int mapID) {
     	Tile[][] t = new Tile[50][50];

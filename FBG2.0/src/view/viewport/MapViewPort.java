@@ -108,17 +108,16 @@ public class MapViewPort implements ViewPort, Observer {
                 
                 if(projectiles != null){
                     try{
-                        
-                        for(Projectile p : projectiles){
-                            double tileX =  p.getLocation().getX();
-                            double tileY =  p.getLocation().getY();
-                            
-                            
-                            g.fillOval((int) ((tileX - startX)*tileWidth), (int) ((tileY-startY)*tileWidth), tileWidth, tileWidth);
-                        }
 
-                        
-                    }catch(ConcurrentModificationException e){
+                    	   for(Projectile p : projectiles){
+                               double tileX =  p.getLocation().getX();
+                               double tileY =  p.getLocation().getY();
+                               
+                               
+                               g.fillOval((int) ((tileX - startX)*tileWidth), (int) ((tileY-startY)*tileWidth), tileWidth, tileWidth);
+                           }
+
+                    }catch(Exception e){
                         
                     }
                         

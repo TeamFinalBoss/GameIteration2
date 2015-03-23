@@ -73,6 +73,7 @@ public class MapInstantiator {
 		
 		//clear maps
 		ActiveMapManager.getInstance().clearMaps();
+		System.out.println("loading full game...");
 		
 		Document doc = null;
 		
