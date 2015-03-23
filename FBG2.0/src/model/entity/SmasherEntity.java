@@ -21,7 +21,7 @@ public abstract class SmasherEntity extends Entity{
 	protected SmasherLibrary getAbilities(){
 		return (SmasherLibrary) super.getAbilities();
 	}
-	protected SmasherStats getStats(){
+	public SmasherStats getStats(){
 		return (SmasherStats) super.getStats();
 	}
 	

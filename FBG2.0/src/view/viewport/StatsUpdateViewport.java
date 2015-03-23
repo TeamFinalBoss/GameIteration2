@@ -23,7 +23,7 @@ public class StatsUpdateViewport implements ViewPort, Observer {
     public StatsUpdateViewport() {
         screenWidth = GameDirector.getSize().width;
         screenHeight = GameDirector.getSize().height;
-        xStart = screenWidth - (int) (GameDirector.getSize().getWidth() * 0.2);
+        xStart = screenWidth - (int) (GameDirector.getSize().getWidth() * 0.2) - 50;
         yStart = 0;
     }
 
@@ -90,7 +90,7 @@ public class StatsUpdateViewport implements ViewPort, Observer {
 
                     g.setFont(new Font(g.getFont().getFamily(), Font.PLAIN, 15));
                     int width = g.getFontMetrics().stringWidth(strings[1]);
-                    g.drawString(strings[1], screenWidth - width - 5, yStart + i * (padding + height));
+                    g.drawString(strings[1], screenWidth - width - 50, yStart + i * (padding + height));
                 } else {
                     g.drawString(options[i], xStart, yStart + i * (padding + height));
                 }

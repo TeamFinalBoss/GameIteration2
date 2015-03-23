@@ -18,7 +18,7 @@ public abstract class SneakEntity extends Entity {
 	protected SneakLibrary getAbilities(){
 		return (SneakLibrary) super.getAbilities();
 	}
-	protected SneakStats getStats(){
+	public SneakStats getStats(){
 		return (SneakStats) super.getStats();
 	}
 	protected String setOccupation(){
