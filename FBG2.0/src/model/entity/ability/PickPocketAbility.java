@@ -63,11 +63,11 @@ public class PickPocketAbility extends RadialAbility
     	int mana = sneak.getCurrentMP();
     	List<Entity> entities = map.getEntities();
 
-        int manaCost = sneak.getMaxMP() / 4;
+        int manaCost = 1;
         double agility = (double) sneak.getAgility();
         int gold = 0;
-        int goldMax = (int) (agility / 4);
-        double probability = agility / 500;
+        int goldMax = 100;
+        double probability = .75;
 
         if(probability > .75)
             probability = .75;
