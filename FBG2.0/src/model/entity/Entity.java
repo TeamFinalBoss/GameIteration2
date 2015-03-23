@@ -1,3 +1,5 @@
+//by Matthew Kroeze
+
 package model.entity;
 
 import model.entity.ability.AbilityLibrary;
@@ -37,7 +39,7 @@ import model.director.AvatarInteractionManager;
  * ID: 1
  *
  * @see MapObject
- * @author Matthew Kroeze, Chris Moscoso, Michael Cohen
+ * @author Matthew Kroeze
  * @version 1.1.0 2015-03-15
  */
 public abstract class Entity extends MapObject {
