@@ -37,6 +37,7 @@ public class FlameStrikeAbility extends AngularAbility
 		this.setEffect(new DealDamageEffect(this.damage));
 		this.setRadius(3);
 		this.myMM = ActiveMapManager.getInstance();
+        this.setDegree(360);
 	}
 
 	public FlameStrikeAbility(String name, Effect effect, Effect cost, int degree, double radius, int distance)
