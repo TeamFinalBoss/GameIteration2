@@ -5,26 +5,19 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.geom.Arc2D;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ConcurrentModificationException;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Observable;
 import java.util.Observer;
-
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-
 import model.director.AvatarInteractionManager;
 import model.director.GameDirector;
 import model.entity.Entity;
 import model.factories.SpriteFactory;
 import model.item.Item;
 import model.map.Direction;
-
 import model.map.Vector;
-
 import model.map.projectiles.Projectile;
 import model.map.pair.CoordinatePair;
 import model.map.pair.PreciseCoordinatePair;
@@ -85,7 +78,8 @@ public class MapViewPort implements ViewPort, Observer, DirectionChanger {
                 currentTileImg = SpriteFactory.getFog();
                 try {
                     for (Tile t : tilesAvatarCanSee) {
-                        if (tiles[i][j].equals(t)) {
+                        
+                        if (t.getLocation().equals(new CoordinatePair(i,j))) {
                             currentTileImg = SpriteFactory.hashIDtoImage(t.getID());
                         }
                     }
@@ -93,7 +87,7 @@ public class MapViewPort implements ViewPort, Observer, DirectionChanger {
                 } catch (ConcurrentModificationException e) {
                 } catch (NoSuchElementException e) {
                     System.out.println(e);
-                }
+                } catch(NullPointerException e){}
 
                 //draw coordinates
                 g.setColor(Color.BLUE);
@@ -117,7 +111,9 @@ public class MapViewPort implements ViewPort, Observer, DirectionChanger {
                 }
                 g.drawImage(currentEntityImg, (e.getLocation().getX() - startX) * tileWidth, (e.getLocation().getY() - startY) * tileHeight, tileWidth, tileHeight, null);
             }
-        } catch (ConcurrentModificationException e) {
+        } 
+        catch(NullPointerException e){}
+        catch (ConcurrentModificationException e) {
         } catch (NoSuchElementException e) {
             System.out.println(e);
 
@@ -131,7 +127,8 @@ public class MapViewPort implements ViewPort, Observer, DirectionChanger {
                 g.drawImage(SpriteFactory.getFireball(),(int) ((px - startX) * tileWidth), (int) ((py - startY) * tileHeight), tileWidth, tileHeight, null);
             }
 
-        } catch (ConcurrentModificationException e) {
+        }catch(NullPointerException e) {}
+        catch (ConcurrentModificationException e) {
         } catch (NoSuchElementException e) {
             System.out.println(e);
 
