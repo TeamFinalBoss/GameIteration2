@@ -94,6 +94,10 @@ public abstract class Ability {
     {
         this.effect = effect;
     }
+    
+    public void setName(String name){
+    	this.name = name;
+    }
 
     /**
     * @author Aaron Iglesias

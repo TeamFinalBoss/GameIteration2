@@ -12,7 +12,11 @@ import model.entity.Entity;
  * @author Owner
  */
 public class LevelUpAreaEffect extends AreaEffect{
-
+	
+	public LevelUpAreaEffect() {
+		this.setName("levelUp");
+	}
+	
     @Override
     public void activate(Entity caller) {
         caller.levelUp();

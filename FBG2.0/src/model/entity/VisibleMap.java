@@ -21,8 +21,8 @@ public class VisibleMap {
 	private ArrayList<Item> items;
 	private ArrayList<AreaEffect> areaEffects;
 	
-	private int computeIR(int observation){
-		return observation / 20;
+	private int computeInfluenceRadius(int observation){
+		return 3;//observation / 20;
 	}
 	
 	private void clearAll(){
@@ -47,7 +47,7 @@ public class VisibleMap {
 		update();
 	}
 	public void update(){
-		int influenceRadius = computeIR(owner.getObservation());
+		int influenceRadius = computeInfluenceRadius(owner.getObservation());
 		clearAll();
 		activeMap.getEverythingInRange(owner.getLocation(), influenceRadius, tiles, projectiles, entities, traps, items, areaEffects);
 		for(Projectile p : projectiles){

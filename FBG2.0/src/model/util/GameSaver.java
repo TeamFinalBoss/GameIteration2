@@ -80,10 +80,13 @@ public class GameSaver {
 				save += saver.getSaveFormat(trap) + "\n";
 			}
 			
+			/*
+			 * TODO: Michael: Determine if this is necesarry 
+			 
 			//Map Switchers
 			for (MapSwitcher m : map.getMapSwitchers()){
 				save += saver.getSaveFormat(m) + "\n";
-			}
+			}*/
 			
 			save += "</map>\n";
 		}

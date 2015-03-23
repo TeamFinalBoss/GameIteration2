@@ -6,7 +6,10 @@ public class SummonerLibrary extends AbilityLibrary {
 	public SummonerLibrary(Entity owner){
 		super(owner);
 		FireballAbility myFire = new FireballAbility();
-		this.addAbility(myFire);
+		BlinkAbility myBlink = new BlinkAbility();
+		
+		this.addToLibrary(myFire);
+		this.addToLibrary(myBlink);
 	}
         
         public void update(){
