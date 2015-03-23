@@ -3,6 +3,8 @@ package model.factories;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import model.map.Direction;
 
@@ -85,7 +87,6 @@ public class SpriteFactory {
     private final BufferedImage FOG;
     private final BufferedImage FIREBALL;
     private final BufferedImage GENERIC;
-    private String ANGLE_PATH;
 
     private SpriteFactory() {
         LIGHT_GRASS = getImage(LIGHT_GRASS_PATH);
@@ -118,6 +119,8 @@ public class SpriteFactory {
         SLIME = getImage(SLIME_PATH);
         POP_EYE = getImage(POP_EYE_PATH);
         ANGEL = getImage(ANGEL_PATH);
+        
+        
 
         FOG = getImage(resourcePath + "tile/fog.png");
         FIREBALL = getImage(resourcePath + "projectile/fireball.png");
@@ -125,10 +128,13 @@ public class SpriteFactory {
 
     }
 
-    public static BufferedImage getAvatar(Direction d) {
+    public static BufferedImage getAvatar(Direction d, String occupation) {
         BufferedImage img = null;
-        String path;
-        switch (d) {
+        String direction = d.toString().toLowerCase();
+        
+        
+        String path = resourcePath + occupation + "/" + direction + ".png";
+        /*switch (d) {
             case North:
                 path = resourcePath + "summoner/south_idle.png";
                 break;
@@ -155,11 +161,23 @@ public class SpriteFactory {
             default:
                 path = resourcePath + "summoner/north_idle.png";
 
-        }
+        }*/
 
         try {
             img = ImageIO.read(new File(path));
         } catch (Exception e) {
+            if(d.toString().toLowerCase().contains("north")){
+                direction = Direction.North.toString().toLowerCase();
+            }else{
+                direction = Direction.South.toString().toLowerCase();
+            }
+            
+            path = resourcePath + occupation + "/" + direction + ".png";
+            try {
+                img = ImageIO.read(new File(path));
+            } catch (IOException ex) {
+               
+            }
         }
 
         return img;
