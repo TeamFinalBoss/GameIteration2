@@ -94,7 +94,7 @@ public class SpriteFactory {
     
     /* ITEM */
     private BufferedImage BULLET;
-    private final String SUPER_GUN_FINAL_PATH = resourcePath + "Supergunfinal.png";
+    private final String SUPER_GUN_FINAL_PATH = resourcePath + "item/Supergunfinal.png";
     private BufferedImage TREASURE_CHEST;
     private final String TREASURE_CHEST_PATH = resourcePath + "item/Supergunfinal.png";
     private String BLACK_WHISTLE_PATH = resourcePath + "item/Blackwhistle.png";
