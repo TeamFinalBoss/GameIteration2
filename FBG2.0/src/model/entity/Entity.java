@@ -167,6 +167,7 @@ public abstract class Entity extends MapObject {
 
     public void equip(Equipable next) {
         myInventory.equip(next);
+        remove(next);
     }
 
     public Equipable unequip(EquipSlot slot) {
