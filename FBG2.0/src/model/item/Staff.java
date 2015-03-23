@@ -16,11 +16,11 @@ import model.map.pair.CoordinatePair;
 public class Staff extends Weapon {
     public Staff(){
 		super("staff", "Generic description", new CoordinatePair(), 
-                        0, 1, EquipSlot.HEAD, new  DealDamageEffect(20));
+                        0, 1, EquipSlot.MAIN_HAND, new  DealDamageEffect(20));
 		
 		this.id = "27";
 		this.className = "Staff";
-                this.slot= EquipSlot.HEAD;
+                this.slot= EquipSlot.MAIN_HAND;
                 
                 
 		
@@ -30,7 +30,7 @@ public class Staff extends Weapon {
 	public Staff(String objectName, String description, CoordinatePair location, int value, 
                 int durability){
 		super(objectName, description, location, value, durability, 
-                        EquipSlot.HEAD, new  DealDamageEffect(20) );
+                        EquipSlot.MAIN_HAND, new  DealDamageEffect(20) );
 		
 		this.id = "27";
 		this.className = "Staff";
@@ -56,7 +56,7 @@ public class Staff extends Weapon {
         
          public Staff(int durability){
             super("staff", "Generic_description", new CoordinatePair(),
-                0, durability, EquipSlot.HEAD, new  DealDamageEffect(10));
+                0, durability, EquipSlot.MAIN_HAND, new  DealDamageEffect(10));
         }
          
          @Override

@@ -18,7 +18,7 @@ public class Halo extends Equipable {
     
    public Halo(){
 		super("halo", "Generic description", 
-                        new CoordinatePair(), 0, 1, EquipSlot.HEAD);
+                        new CoordinatePair(), 0, 1, EquipSlot.MAIN_HAND);
 		
 		this.id = "18";
 		this.className = "HelmOfLight";
@@ -59,7 +59,7 @@ public class Halo extends Equipable {
         
         public Halo(int durability){
             super("halo", "Generic_description", 
-                        new CoordinatePair(), 0, 1,EquipSlot.HEAD );
+                        new CoordinatePair(), 0, 1,EquipSlot.MAIN_HAND);
                         
 }
         

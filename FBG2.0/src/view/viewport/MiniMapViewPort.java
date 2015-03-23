@@ -23,7 +23,7 @@ import model.map.tile.trap.Trap;
  *
  * @author ChrisMoscoso
  */
-public class MapViewPort implements ViewPort, Observer {
+public class MiniMapViewPort implements ViewPort, Observer {
 
     Tile[][] tiles;
     List<Tile> tilesAvatarCanSee;
@@ -34,24 +34,22 @@ public class MapViewPort implements ViewPort, Observer {
     List<Projectile> projectilesAvatarCanSee;
 
     int widthInTiles = 0, heightInTiles = 0;
+    double scale = 0.08;
     BufferedImage currentTileImg, currentEntityImg;
-    private int tileWidth = 64;
-    private int tileHeight = 64;
-
-    ImageIcon avatarIcon;
+    private int tileWidth = (int) (64 * scale);
+    private int tileHeight = (int) (64 * scale);
+    private int offsetX = (int) (GameDirector.getSize().width - GameDirector.getSize().width * 0.195);
+    private int offsetY = (int) (GameDirector.getSize().height * 0.20);
     BufferedImage fireballIcon;
-
-    public MapViewPort() {
-        
-    }
 
     @Override
     public void draw(Graphics g) {
         //Calculate which portion of the map to draw based on avatar position.
-        int windowWidth = (int) (GameDirector.getSize().width * 0.8);
-        int windowHeight = (int) (GameDirector.getSize().height * 0.8);
+        int windowWidth = (int) (GameDirector.getSize().width * scale);
+        int windowHeight = (int) (GameDirector.getSize().height * scale);
         int windowWidthInTiles = windowWidth / tileWidth;
         int windowHeightInTiles = windowHeight / tileHeight;
+        
         int startX = avatarLocation.getX() - windowWidthInTiles / 2;
         int startY = avatarLocation.getY() - windowHeightInTiles / 2;
 
@@ -65,30 +63,25 @@ public class MapViewPort implements ViewPort, Observer {
         } else if (startY > heightInTiles - windowHeightInTiles) {
             startY = heightInTiles - windowHeightInTiles;
         }
-
-        for (int i = startX; i < Math.min(startX + windowWidthInTiles, widthInTiles); i++) {
-            for (int j = startY; j < Math.min(startY + windowHeightInTiles, heightInTiles); j++) {
+        
+        
+        for (int i = 0; i <  widthInTiles; i++) {
+            for (int j = 0; j < heightInTiles; j++) {
                 //Draw tiles
                 currentTileImg = SpriteFactory.getFog();
                 try {
                     for (Tile t : tilesAvatarCanSee) {
-                        
-                        if (t.getLocation().equals(new CoordinatePair(i,j))) {
+
+                        if (t.getLocation().equals(new CoordinatePair(i, j))) {
                             currentTileImg = SpriteFactory.hashIDtoImage(t.getID());
                         }
                     }
-                    g.drawImage(currentTileImg, (i - startX) * tileWidth, (j - startY) * tileHeight, tileWidth, tileHeight, null);
+                    g.drawImage(currentTileImg, (i) * tileWidth + offsetX, (j) * tileHeight + offsetY, tileWidth, tileHeight, null);
                 } catch (ConcurrentModificationException e) {
                 } catch (NoSuchElementException e) {
                     System.out.println(e);
-                } catch(NullPointerException e){}
-
-                //draw coordinates
-                g.setColor(Color.BLUE);
-                String coordinate = "(" + i + "," + j + ")";
-                int strX = (i - startX) * tileWidth + tileWidth / 2 - g.getFontMetrics().stringWidth(coordinate) / 2;
-                int strY = (j - startY) * tileHeight + tileHeight / 2;
-                g.drawString(coordinate, strX, strY);
+                } catch (NullPointerException e) {
+                }
 
             }
 
@@ -99,14 +92,13 @@ public class MapViewPort implements ViewPort, Observer {
                 Entity avatar = AvatarInteractionManager.getInstance().getAvatar();
                 if (e.equals(avatar)) {
                     currentEntityImg = SpriteFactory.getAvatar(avatar.getDirection());
-                    
+
                 } else {
                     currentEntityImg = SpriteFactory.getGenericEntity(e.getDirection());
                 }
-                g.drawImage(currentEntityImg, (e.getLocation().getX() - startX) * tileWidth, (e.getLocation().getY() - startY) * tileHeight, tileWidth, tileHeight, null);
+                g.drawImage(currentEntityImg, (e.getLocation().getX() + offsetX) * tileWidth, (e.getLocation().getY() + offsetX) * tileHeight, tileWidth, tileHeight, null);
             }
-        } 
-        catch (ConcurrentModificationException e) {
+        } catch (ConcurrentModificationException e) {
         } catch (NoSuchElementException e) {
             System.out.println(e);
 
@@ -116,32 +108,37 @@ public class MapViewPort implements ViewPort, Observer {
             for (Projectile p : projectilesAvatarCanSee) {
                 double px = (p.getLocation().getX());
                 double py = (p.getLocation().getY());
-                
-                g.drawImage(SpriteFactory.getFireball(),(int) ((px - startX) * tileWidth), (int) ((py - startY) * tileHeight), tileWidth, tileHeight, null);
+
+                g.drawImage(SpriteFactory.getFireball(), (int) (px * tileWidth) + offsetX, (int) (py * tileHeight) + offsetY, tileWidth, tileHeight, null);
             }
 
-        }catch(NullPointerException e) {}
-        catch (ConcurrentModificationException e) {
+        } catch (NullPointerException e) {
+        } catch (ConcurrentModificationException e) {
         } catch (NoSuchElementException e) {
             System.out.println(e);
 
         }
-        
+
         try {
             for (Item item : itemsAvatarCanSee) {
                 double px = (item.getLocation().getX());
                 double py = (item.getLocation().getY());
-                
-                g.drawImage(SpriteFactory.getGenericObject(),(int) ((px - startX) * tileWidth), (int) ((py - startY) * tileHeight), tileWidth, tileHeight, null);
+
+                g.drawImage(SpriteFactory.getGenericObject(), (int) (px * tileWidth) + offsetX, (int) (py * tileHeight) + offsetY, tileWidth, tileHeight, null);
             }
 
-        }catch(NullPointerException e) {}
-        catch (ConcurrentModificationException e) {
+        } catch (NullPointerException e) {
+        } catch (ConcurrentModificationException e) {
         } catch (NoSuchElementException e) {
             System.out.println(e);
 
         }
 
+        
+        //Draw bounding box
+        g.setColor(Color.red);
+        g.drawRect(startX * tileWidth + offsetX, startY * tileWidth + offsetY, windowWidth, windowHeight);
+        
     }
 
     @Override

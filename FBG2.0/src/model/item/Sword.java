@@ -31,7 +31,7 @@ public class Sword extends Weapon {
 	public Sword(String objectName, String description, CoordinatePair 
                 location, int durability ){
 		super(objectName, description, location, 5, durability, 
-                EquipSlot.HEAD, new  DealDamageEffect(50) );
+                EquipSlot.TWO_HAND, new  DealDamageEffect(50) );
                 
  
 		
@@ -78,5 +78,3 @@ public class Sword extends Weapon {
         return e.getLevel() >= 1 && e.getBargain()>=5 && e.getAgility()>=5;
         }
 }
-
-
