@@ -42,6 +42,8 @@ public class AvatarInteractionManager {
     private int statPoints;
     private int skillPoints;
     
+    //Vector avatarDirection;
+    
     private Map<SceneType, Observer> observers;
  
     public AvatarInteractionManager(){
