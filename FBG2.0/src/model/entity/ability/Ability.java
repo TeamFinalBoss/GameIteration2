@@ -62,17 +62,11 @@ public abstract class Ability {
     * passes affectedTiles and effect to CombatCoordinator to deal damage
     * @param callingEntity
     */
-<<<<<<< HEAD
 
 
     public abstract void performAbility(Entity entity);
     public abstract void applyEffect(Effect effect);
     public abstract boolean meetsStatRequirements(Entity caster);
-=======
-    public abstract boolean meetsStatRequirements(Entity caster);
-    public abstract void performAbility(Entity callingEntity);
-
->>>>>>> 040a9adb8e7314d75868b961f924b9f77d4dd45f
     /**
     * @author Aaron Iglesias, Jason Owens
     * gets cost of Ability
