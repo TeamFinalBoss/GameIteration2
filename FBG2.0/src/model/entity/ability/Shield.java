@@ -35,8 +35,9 @@ public class Shield extends Ability{
 
     @Override
     public boolean meetsStatRequirements(Entity caster) {
-        return caster.getIntellect() > 15;
+        //return caster.getIntellect() > 15;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    	return true;
     }
     
     

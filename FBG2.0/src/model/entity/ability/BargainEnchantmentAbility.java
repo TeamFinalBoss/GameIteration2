@@ -23,7 +23,8 @@ public class BargainEnchantmentAbility extends LinearAbility {
 	
 	@Override
 	public boolean meetsStatRequirements(Entity entityToLearn) {
-		return entityToLearn.getIntellect() >= 2;
+		//return entityToLearn.getIntellect() >= 2;
+		return true;
 	}
 
 	@Override

@@ -22,7 +22,8 @@ public class PacifyEnchantment extends LinearAbility {
 	
 	@Override
 	public boolean meetsStatRequirements(Entity entityToLearn) {
-		return entityToLearn.getIntellect() >= 2 && entityToLearn.getLevel() >= 2;
+		//return entityToLearn.getIntellect() >= 2 && entityToLearn.getLevel() >= 2;
+		return true;
 	}
 
 	@Override

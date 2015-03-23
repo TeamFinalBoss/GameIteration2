@@ -26,7 +26,8 @@ public class SetTrapAbility extends LinearAbility {
 
 	@Override
 	public boolean meetsStatRequirements(Entity entityToLearn) {
-		return entityToLearn.getLevel() >= 2;
+		//return entityToLearn.getLevel() >= 2;
+		return true;
 	}
 
 	@Override
@@ -62,10 +63,12 @@ public class SetTrapAbility extends LinearAbility {
 			CP.add(new CoordinatePair(0, 1));
 			break;
 		}
-		
-		myTrap.setLocation(CP);
-		ActiveMapManager.getInstance().addTrapToActiveMap(myTrap, CP);
-		
+		if (caster.getCurrentMP() >= 10){
+			caster.modifyCurrentMP(-10);
+			myTrap.setLocation(CP);
+			ActiveMapManager.getInstance().addTrapToActiveMap(myTrap, CP);
+			return true;
+		}		
 		return false;
 	}
 
