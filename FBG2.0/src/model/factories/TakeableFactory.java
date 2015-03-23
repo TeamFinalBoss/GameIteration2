@@ -11,6 +11,7 @@ import model.item.Gun;
 import model.item.Halo;
 import model.item.HealthPotion;
 import model.item.HermesBoots;
+import model.item.Hornes;
 import model.item.Item;
 import model.item.JesusBoots;
 import model.item.Mace;
@@ -114,6 +115,9 @@ public class TakeableFactory implements PlaceableObjectFactory{
 			
 		case "sword":
 			it = new Sword();
+			break;
+		case "hornes":
+			it = new Hornes();
 			break;
 		}
 		
