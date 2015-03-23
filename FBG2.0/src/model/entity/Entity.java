@@ -384,6 +384,9 @@ public abstract class Entity extends MapObject {
     /* -------------------- STATS MODIFY MUTATORS -------------------- */
     public void dealDamage(int amount) {
         myStats.dealDamage(amount);
+        if (getCurrentHP() <= 0) {
+            die();
+        }
         myAbilities.update();
     }
 
