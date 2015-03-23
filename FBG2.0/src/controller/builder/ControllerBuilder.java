@@ -31,6 +31,9 @@ import controller.commands.sceneChangers.NewGame;
 import controller.commands.sceneChangers.PauseSwitch;
 import controller.commands.sceneChangers.ResumeGame;
 import controller.commands.sceneChangers.SaveGame;
+import controller.commands.sceneChangers.SmasherGame;
+import controller.commands.sceneChangers.SneakGame;
+import controller.commands.sceneChangers.SummonerGame;
 import controller.commands.sceneChangers.SwitchToUpdate;
 import controller.keyBindings.KeyBindings;
 import controller.keyBindings.KeyBindingsOption;
@@ -73,6 +76,13 @@ public class ControllerBuilder {
 		Map<Integer, Commandable> mainMenuMap = buildDefaultMenuBindings(mainMenu,map);
 		KeyOptions mainMenuOptions = buildMainMenuKeyOptions(mainMenuMap, map);
 		SceneController mainMenuController = buildController(mainMenuOptions);
+		
+		/******************************
+		 * Selector Controller
+		 *******************************/
+		Menu selectorMenu = buildSelectorMenu();
+		Map<Integer,Commandable> selectorMenuMap = buildDefaultMenuBindings(selectorMenu,map);
+		SceneController selectorController = buildController(new KeyOptions(selectorMenuMap));
 		
 		/******************************
 		 * Pause Menu Controller
@@ -210,6 +220,9 @@ public class ControllerBuilder {
 		List<Observable> storeObservables = new ArrayList<>();
 		storeObservables.add(storeDetails);
 		
+		List<Observable> selectorOb = new ArrayList<>();
+		selectorOb.add(selectorMenu);
+		
 		observerMap.put(SceneType.MAIN_MENU, mainMenuObervables);
 		observerMap.put(SceneType.PAUSE_MENU, pauseMenuObservables);
 		observerMap.put(SceneType.SAVE, saveMenuObservables);
@@ -221,6 +234,7 @@ public class ControllerBuilder {
 		observerMap.put(SceneType.STATS_UPDATING, statsObservables);
 		observerMap.put(SceneType.DIALOGUE, dialogueObservables);
 		observerMap.put(SceneType.STORE, storeObservables);
+		observerMap.put(SceneType.SELECTOR, selectorOb);
 		
 		cont.addMap(observerMap);
 		
@@ -248,6 +262,7 @@ public class ControllerBuilder {
 		controllers.put(SceneType.STATS_UPDATING, statsController);
 		controllers.put(SceneType.DIALOGUE, dialogueController);
 		controllers.put(SceneType.STORE, storeFrontController);
+		controllers.put(SceneType.SELECTOR, selectorController);
 		
 		
 		KeyDispatcher keyDispatcher = new KeyDispatcher(controllers, mainMenuController);
@@ -261,6 +276,28 @@ public class ControllerBuilder {
 	}
 	
 	
+
+	
+
+
+
+	private static Menu buildSelectorMenu() {
+		List<MenuOption> options = new ArrayList<MenuOption>();
+		options.add(MenuOption.SUMMONER);
+		options.add(MenuOption.SMASHER);
+		options.add(MenuOption.SNEAK);
+		
+		Map<MenuOption,Commandable> commands = new HashMap<>();
+		commands.put(MenuOption.SMASHER, new SmasherGame());
+		commands.put(MenuOption.SUMMONER, new SummonerGame());
+		commands.put(MenuOption.SNEAK, new SneakGame());
+		
+		Menu menu = new Menu(options, MenuOption.SUMMONER, commands);
+		return menu;
+		
+	}
+
+
 
 	/**********************************************************************************************
 	 * 	   Load Controller builder
