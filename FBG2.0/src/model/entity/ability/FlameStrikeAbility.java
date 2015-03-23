@@ -72,6 +72,7 @@ public class FlameStrikeAbility extends AngularAbility
 
     	if(mana >= manaCost)
     	{
+                /*
     		caster.setCurrentMP(mana - manaCost);
     		for(int i = 0; i < entities.size(); ++i)
     		{
@@ -84,7 +85,7 @@ public class FlameStrikeAbility extends AngularAbility
                                 ((DealDamageEffect)this.getEffect()).applyEffect(entities.get(i),distance);
                             }
                         }
-    		}
+    		}*/
                 
                 CoordinatePair coordinatePair = caster.getLocation();
                 double x = coordinatePair.getX();
