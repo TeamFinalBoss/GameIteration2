@@ -30,6 +30,7 @@ import model.gameObject.MapObject;
 import model.item.Item;
 import model.map.GameMap;
 import model.map.areaEffect.AreaEffect;
+import model.map.areaEffect.TeleportAreaEffect;
 import model.map.pair.CoordinatePair;
 import model.map.tile.trap.Trap;
 
@@ -210,6 +211,10 @@ public class MapInstantiator {
 		for(GameMap m : maps) {
 			if(m.getID() == mapid) {
 				m.addAreaEffect(ae, location);
+				
+				if(ae.getName().equals("teleport")) {
+					((TeleportAreaEffect) ae).setMap(m);
+				}
 			}
 		}
 	}

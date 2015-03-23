@@ -3,15 +3,13 @@ package model.factories;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.director.ActiveMapManager;
 import model.gameObject.MapObject;
-import model.item.Item;
-import model.item.RecoveryHeart;
 import model.map.areaEffect.AreaEffect;
 import model.map.areaEffect.InstantDeathAreaEffect;
 import model.map.areaEffect.LevelUpAreaEffect;
+import model.map.areaEffect.TakeDamageAreaEffect;
+import model.map.areaEffect.TeleportAreaEffect;
 import model.map.pair.CoordinatePair;
-import model.map.tile.trap.DealDamageTrap;
 import model.map.tile.trap.Trap;
 
 import org.w3c.dom.Element;
@@ -53,6 +51,13 @@ public class AreaEffectFactory implements PlaceableObjectFactory{
 				break;
 			case "levelUp":
 				it = new LevelUpAreaEffect();
+				break;
+			case "takeDamage":
+				it = new TakeDamageAreaEffect();
+				break;
+			case "teleport":
+				it = new TeleportAreaEffect();
+				((TeleportAreaEffect) it).setLink(Integer.parseInt(item.getAttribute("link")));
 				break;
 			}
 				
