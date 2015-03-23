@@ -10,6 +10,9 @@ public class SummonerLibrary extends AbilityLibrary {
 		BargainEnchantmentAbility myBargain = new BargainEnchantmentAbility();
 		PacifyEnchantment myPacify = new PacifyEnchantment();
 		SiphonHealthEnchantment mySiphon = new SiphonHealthEnchantment();
+                FlameStrikeAbility flameStrike = new FlameStrikeAbility();
+                FrostNovaAbility frostNova = new FrostNovaAbility();
+                HealAbility healAbility = new HealAbility();
 		Shield shield = new Shield(owner);
                 
         
