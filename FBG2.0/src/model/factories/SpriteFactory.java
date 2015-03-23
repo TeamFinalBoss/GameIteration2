@@ -101,6 +101,8 @@ public class SpriteFactory {
                 return getImage(DARK_WATER);
             case "6":
                 return getImage(DARK_MOUNTAIN);
+            default:
+                return getGenericEntity();
 
         }
         return null;
