@@ -1,8 +1,11 @@
 package model.entity.ability;
 
+import model.director.ActiveMapManager;
 import model.effect.Effect;
 import model.entity.Entity;
 import model.map.Direction;
+import model.map.MotionCoordinator;
+import model.map.MotionValidator;
 import model.map.pair.CoordinatePair;
 
 public class BlinkAbility extends LinearAbility {
@@ -13,7 +16,7 @@ public class BlinkAbility extends LinearAbility {
 	}
 	
 	public BlinkAbility(String name, Effect effect, Effect cost, double range){
-		super(name, effect, cost, range);
+		super(name, effect, cost , range);
 		this.setName("Blink");
 	}
 
@@ -56,8 +59,25 @@ public class BlinkAbility extends LinearAbility {
 			break;
 		}
 		
-		caster.modifyLocation(CP);
-		return true; //TODO: Michael: not really sure how to apply the consequences of this.cost which would make this method fail
+		CP.add(caster.getLocation());
+		
+		int mana = caster.getCurrentMP();
+		if (mana >= 15){
+			caster.modifyCurrentMP(-15);
+			ActiveMapManager manager = ActiveMapManager.getInstance();
+			if (MotionValidator.getInstance().canTraverse(caster.getMotionType(),
+				manager.getActiveMap().getItemAtCoordinate(CP), manager.getActiveMap().getTileAtCoordinate(CP)))
+			{
+			
+				MotionCoordinator.getInstance().moveEntity(caster, CP, 
+				manager.getActiveMap().getAreaEffectAtCoordinate(CP), 
+				manager.getActiveMap().getItemAtCoordinate(CP), 
+				manager.getActiveMap().getSwitcherAtCoordinate(CP), 
+				manager.getActiveMap().getTrapAtCoordinate(CP));
+				return true;
+			}
+		}
+		return false; //TODO: Michael: not really sure how to apply the consequences of this.cost which would make this method fail
 	}
 
 }
