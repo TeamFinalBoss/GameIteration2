@@ -15,11 +15,12 @@ public class GameSaverTest {
 	public static void main(String [] args){
 		
 		//Set up manager
-		ActiveMapManager manager = new ActiveMapManager();
+		ActiveMapManager manager = ActiveMapManager.getInstance();
 		manager.setAvatar(new SmasherAvatar());
 		
 		//Set up one map
 		GameMap map1 = new GameMap();
+		map1.setID(1);
 		manager.addMap(map1);
 		manager.setActiveMap(map1);
 		Interactive item1 = new Interactive();
