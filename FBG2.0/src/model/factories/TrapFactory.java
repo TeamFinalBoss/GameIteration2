@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.director.ActiveMapManager;
+import model.factories.PlaceableObjectFactory;
 import model.gameObject.MapObject;
 import model.item.Item;
 import model.item.RecoveryHeart;

@@ -9,7 +9,6 @@ import model.gameObject.MapObject;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-import model.director.ActiveMapManager;
 import model.effect.Dispellable;
 import model.entity.Entity;
 import model.entity.EvilMuscleSlime;

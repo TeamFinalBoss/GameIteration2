@@ -476,7 +476,7 @@ public class GameMap extends Observable {
      */
     private void updateView() {
         setChanged();
-        Object[] objects = new Object[7];
+        Object[] objects = new Object[8];
         Entity avatar = AvatarInteractionManager.getInstance().getAvatar();
 
         objects[0] = tiles;
@@ -486,6 +486,7 @@ public class GameMap extends Observable {
         objects[4] = avatar.getVisibleItems();
         objects[5] = avatar.getVisibleTraps();
         objects[6] = avatar.getVisibleProjectiles();
+        objects[7] = avatar.getVisibleAreaEffects();
         //objects = {tiles, avatar,entities, items, traps};
         notifyObservers(objects);
     }
