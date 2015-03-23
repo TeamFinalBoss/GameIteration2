@@ -34,6 +34,7 @@ public class HealAbility extends RadialAbility
     private Effect cost;
 	private double degree;
 	private double radius;
+        private int heal;
 
 	public HealAbility()
 	{
@@ -41,7 +42,8 @@ public class HealAbility extends RadialAbility
 		this.degree = 360;
 		this.radius = 0;
 		this.myMM = ActiveMapManager.getInstance();
-        this.effect = new HealEffect(10);
+                this.heal = 10;
+        this.effect = new HealEffect(this.heal);
 	}
 
 	public HealAbility(String name, Effect effect, Effect cost, int degree, double radius)
@@ -66,10 +68,11 @@ public class HealAbility extends RadialAbility
     	GameMap map = myMM.getActiveMap();
     	int mana = summoner.getCurrentMP();
     	List<Entity> entities = map.getEntities();
+        int manaCost = this.heal;
 
-    	if(mana >= 1)
+    	if(mana >= manaCost)
     	{
-    		summoner.setCurrentMP(--mana);
+    		summoner.setCurrentMP(mana - manaCost);
             this.effect.applyEffect(summoner);
     		
     		return true;
