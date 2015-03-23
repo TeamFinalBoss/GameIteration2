@@ -96,7 +96,6 @@ public abstract class SmasherNPC extends SmasherEntity implements NPC {
 			int price = getInventory().sellItem(item)+purchaser.getBargain()-this.getBargain();
 			this.modifyCurrency(price*-1);
 			purchaser.modifyCurrency(price);
-			purchaser.remove(item);
 		}
 		
 		/**
@@ -163,6 +162,9 @@ public abstract class SmasherNPC extends SmasherEntity implements NPC {
 		}
 		public void buyItem(Takeable item){
 			getInventory().sellItem(item);
+		}
+		public boolean getFriendly(){
+			return friendly;
 		}
 }
 
