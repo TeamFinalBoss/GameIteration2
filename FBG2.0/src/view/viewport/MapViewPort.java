@@ -3,23 +3,17 @@ package view.viewport;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ConcurrentModificationException;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Observable;
 import java.util.Observer;
-
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-
 import model.director.AvatarInteractionManager;
 import model.director.GameDirector;
 import model.entity.Entity;
 import model.factories.SpriteFactory;
 import model.item.Item;
-import model.map.Direction;
 import model.map.projectiles.Projectile;
 import model.map.pair.CoordinatePair;
 import model.map.tile.Tile;
