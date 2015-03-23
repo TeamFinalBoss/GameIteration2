@@ -32,25 +32,24 @@ public class CleaveAbility extends RadialAbility
     private Effect cost;
 	private double degree;
 	private double radius;
-        private int distance;
+        private int damage;
 
 	public CleaveAbility()
 	{
 		this.name = "Cleave";
-                this.distance = 1;
-		this.effect = new DealDamageEffect(50, this.distance);
+                this.damage = 10;
+		this.effect = new DealDamageEffect(this.damage);
 		this.degree = 90;
 		this.radius = 2;
 		this.myCC = CombatCoordinator.getInstance();
 		this.myMM = ActiveMapManager.getInstance();
 	}
 
-	public CleaveAbility(String name, Effect effect, Effect cost, int degree, double radius, int distance)
+	public CleaveAbility(String name, Effect effect, Effect cost, int degree, double radius)
 	{
 		super(name, effect, cost, degree, radius);
 		this.myCC = CombatCoordinator.getInstance();
 		this.myMM = ActiveMapManager.getInstance();
-                this.distance = distance;
 	}
 
 	@Override
@@ -70,18 +69,19 @@ public class CleaveAbility extends RadialAbility
     	List<Entity> entities = map.getEntities();
         CoordinatePair c1 = smasher.getLocation();
         CoordinatePair c2;
+        int manaCost = this.damage;
+        int distance;
 
-    	if(mana >= 1)
+    	if(mana >= manaCost)
     	{
-    		smasher.setCurrentMP(--mana);
+    		smasher.setCurrentMP(mana - manaCost);
     		for(int i = 0; i < entities.size(); ++i)
     		{
     			if(inRange(smasher, entities.get(i)))
                         {
                             c2 = entities.get(i).getLocation();
-                            this.distance = (int) c1.getDistance(c1,c2);
-                            this.effect.setDistance(this.distance);
-                            this.effect.applyEffect(entities.get(i));
+                            distance = (int) c1.getDistance(c1,c2);
+                            this.effect.applyEffect(entities.get(i),distance);
                         }
     		}
     		return true;

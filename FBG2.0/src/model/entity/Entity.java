@@ -82,28 +82,28 @@ public abstract class Entity extends MapObject {
     }
 
     protected Direction motionToDirection(CoordinatePair change) {
-        if (change.getX() > 0 && change.getY() > 0) {
+        if (change.getX() > 0 && change.getY() < 0) {
             return Direction.NorthEast;
         }
-        if (change.getX() < 0 && change.getY() > 0) {
+        if (change.getX() > 0 && change.getY() < 0) {
             return Direction.NorthWest;
         }
-        if (change.getX() > 0 && change.getY() < 0) {
+        if (change.getX() < 0 && change.getY() > 0) {
             return Direction.SouthEast;
         }
-        if (change.getX() < 0 && change.getY() < 0) {
+        if (change.getX() > 0 && change.getY() > 0) {
             return Direction.SouthWest;
         }
-        if (change.getX() < 0) {
+        if (change.getX() > 0) {
             return Direction.West;
         }
-        if (change.getX() > 0) {
+        if (change.getX() < 0) {
             return Direction.East;
         }
-        if (change.getY() > 0) {
+        if (change.getY() < 0) {
             return Direction.North;
         }
-        if (change.getY() < 0) {
+        if (change.getY() > 0) {
             return Direction.South;
         }
         return myDirection;
@@ -535,7 +535,7 @@ public abstract class Entity extends MapObject {
     }
 
     public boolean canSee(int observation) {
-        return true;
+    	return true;
     }
 
     public String getOccupation() {
@@ -587,4 +587,8 @@ public abstract class Entity extends MapObject {
         this.visibleMap.update();
     }
     
+
+    public void useWeapon() {
+        this.myInventory.useWeapon(this);
+    }
 }
