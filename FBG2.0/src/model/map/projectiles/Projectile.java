@@ -64,6 +64,7 @@ public abstract class Projectile extends TimerTask{
         location.addX(velocity.getX()*(double)refreshRate/1000);
         location.addY(velocity.getY()*(double)refreshRate/1000);
         
+        
         Entity e = ActiveMapManager.getInstance().getEntityAtLocation(new CoordinatePair((int) location.getX(),(int) location.getY()));
         
         if(e != null && e != castingEntity){

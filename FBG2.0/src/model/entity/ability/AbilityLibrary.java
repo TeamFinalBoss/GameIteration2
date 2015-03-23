@@ -23,6 +23,8 @@ public abstract class AbilityLibrary {
         learnedAbilities = new ArrayList<Ability>();
         unlearnedAbilities = new ArrayList<Ability>();
         owner = myEntity;
+        this.addToLibrary(new BasicAttack());
+        this.addToLibrary(new HealAbility());
     }
     
     /*-----------Mutators-----------*/

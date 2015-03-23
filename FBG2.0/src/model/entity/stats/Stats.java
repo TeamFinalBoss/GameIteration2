@@ -1,8 +1,9 @@
 package model.entity.stats;
 
+import java.util.Observable;
 import java.util.Random;
 
-public abstract class Stats {
+public abstract class Stats extends Observable {
 	public int getCurrentHealth() {
 		return currentHealth;
 	}
@@ -50,6 +51,8 @@ public abstract class Stats {
 		offense = weaponOffense + (strength*10) + (level*20);
 		defense = (agility*10) + (level*20);
 		armor = equipArmor + (hardiness*30);
+		setChanged();
+		notifyObservers();
 
 	}
 	private boolean checkHitSuccess(int amount){

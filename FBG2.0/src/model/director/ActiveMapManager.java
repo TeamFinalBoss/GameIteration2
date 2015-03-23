@@ -443,14 +443,4 @@ public class ActiveMapManager {
             e.updateVisibleMap();
         }
     }
-    
-    public List<String> getObservationInformation(){
-    	List<String> returnValue = new ArrayList<String>();
-    	List<Entity> potentialEntities = avatar.getVisibleEntities();
-    	for(Entity potential : potentialEntities){
-    		if(potential.getLocation())
-    	}
-    	return returnValue;
-    	
-    }
 }

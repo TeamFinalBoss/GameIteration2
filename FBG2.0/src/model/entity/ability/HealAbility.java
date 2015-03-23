@@ -27,55 +27,42 @@ import model.map.pair.PreciseCoordinatePair;
 
 public class HealAbility extends RadialAbility
 {
-    private String name;
-    private HealEffect effect;
-    private CombatCoordinator myCC;
-    private ActiveMapManager myMM;
-    private Effect cost;
-	private double degree;
-	private double radius;
-        private int heal;
+
+    private int heal;
 
 	public HealAbility()
 	{
-		this.name = "Heal";
-		this.degree = 360;
-		this.radius = 0;
-		this.myMM = ActiveMapManager.getInstance();
-                this.heal = 10;
-        this.effect = new HealEffect(this.heal);
+		super();
+		this.setName("Heal");
+        this.heal = 10;
 	}
 
-	public HealAbility(String name, Effect effect, Effect cost, int degree, double radius)
+	public HealAbility(String name, Effect effect, Effect cost, int healAmt, int degree, double radius)
 	{
 		super(name, effect, cost, degree, radius);
-		this.myCC = CombatCoordinator.getInstance();
-		this.myMM = ActiveMapManager.getInstance();
-		this.name = "Heal";
+		this.setName("Heal");
+		this.heal = healAmt;
 	}
 
 	@Override
 	public boolean meetsStatRequirements(Entity summoner)
 	{
-		if(summoner.getIntellect() >= 5)
+		/*if(summoner.getIntellect() >= 5)
             return true;
         else
-            return false;
+            return false;*/
+		return true;
 	}
 
 	@Override
     public boolean performAbility(Entity summoner) 
     {
-    	GameMap map = myMM.getActiveMap();
     	int mana = summoner.getCurrentMP();
-    	List<Entity> entities = map.getEntities();
         int manaCost = this.heal;
-
     	if(mana >= manaCost)
     	{
-    		summoner.setCurrentMP(mana - manaCost);
-            this.effect.applyEffect(summoner);
-    		
+    		summoner.modifyCurrentMP(-manaCost);
+    		summoner.modifyCurrentHP(heal);
     		return true;
     	}
     	else

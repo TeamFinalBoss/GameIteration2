@@ -20,7 +20,7 @@ public abstract class SummonerEntity extends Entity {
 	protected SummonerLibrary getAbilities(){
 		return (SummonerLibrary) super.getAbilities();
 	}
-	protected SummonerStats getStats(){
+	public SummonerStats getStats(){
 		return (SummonerStats) super.getStats();
 	}
 	

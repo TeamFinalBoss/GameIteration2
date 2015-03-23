@@ -1,14 +1,18 @@
 package controller.commands.game;
 
 import java.util.List;
+import java.util.Observable;
 
+import view.viewport.ObservationViewPort;
 import model.director.AvatarInteractionManager;
 import model.map.Direction;
 import controller.commands.Commandable;
+import controller.util.Describeable;
 
-public abstract class AvatarCommands implements Commandable {
+public abstract class AvatarCommands extends Observable implements Commandable, Describeable {
 	
-	AvatarInteractionManager manager = AvatarInteractionManager.getInstance();
+	private AvatarInteractionManager manager = AvatarInteractionManager.getInstance();
+	private String[] array;
 	
 	public AvatarCommands() {
 		
@@ -77,6 +81,18 @@ public abstract class AvatarCommands implements Commandable {
 	
 	protected void getObservationInformation() {
 		List<String> strings = manager.getObservationInformation();
+		array = new String[strings.size()];
+		strings.toArray(array);
+		setChanged();
+		notifyObservers();
+	}
+	
+	public String[] getDescription() {
+		return this.array;
+	}
+	
+	public int getCurrentIndex(){
+		return 0;
 	}
 	
 	public abstract void execute();

@@ -69,7 +69,7 @@ public abstract class Entity extends MapObject {
     protected abstract String setType();
 
     /* -------------------- PROTECTED UTILITY -------------------- */
-    protected Stats getStats() {
+    public Stats getStats() {
         return myStats;
     }
 
@@ -147,7 +147,7 @@ public abstract class Entity extends MapObject {
 							break;
     		case East:	direction = new CoordinatePair(1,0);
 						break;
-    		case South: direction = new CoordinatePair(0,1);
+    		case South: direction = new CoordinatePair(0,-1);
 						break;
     		case NorthEast: direction = new CoordinatePair(1,1);
 							break;

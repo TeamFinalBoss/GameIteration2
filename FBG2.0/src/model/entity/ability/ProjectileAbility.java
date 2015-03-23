@@ -23,6 +23,8 @@ public abstract class ProjectileAbility extends Ability
 	public ProjectileAbility()
 	{
 		super();
+		this.ms = 2000;
+		this.myCC = CombatCoordinator.getInstance();
 	}
 
 	public ProjectileAbility(String name, Effect effect, Effect cost, double ms, double rate){

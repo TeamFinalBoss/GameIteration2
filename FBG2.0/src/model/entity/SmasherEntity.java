@@ -21,7 +21,7 @@ public abstract class SmasherEntity extends Entity{
 	protected SmasherLibrary getAbilities(){
 		return (SmasherLibrary) super.getAbilities();
 	}
-	protected SmasherStats getStats(){
+	public SmasherStats getStats(){
 		return (SmasherStats) super.getStats();
 	}
 	
@@ -75,8 +75,8 @@ public abstract class SmasherEntity extends Entity{
 	}
         
         public boolean brawl(Entity E){
-       Weapon(this.getName(), this.getDescription(), this.getLocation(), 
-               this.getDurability(), this.getSlot(), new DealDamageEffect(20));
+            Weapon(this.getName(), this.getDescription(), this.getLocation(), 
+                    this.getDurability(), this.getSlot(), new DealDamageEffect(20));
             return true;
         }
         

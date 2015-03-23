@@ -422,6 +422,9 @@ public class AvatarInteractionManager {
 	public NPC getConversationPartner(){
 		return conversationPartner;
 	}
+	public void setConversationPartner(Entity e){
+		conversationPartner = (NPC) e;
+	}
 	
 	/* ------------------- STORE INTERACTION -------------------- */
 	public void buyItem(int position){
@@ -435,7 +438,7 @@ public class AvatarInteractionManager {
     	List<Entity> potentialEntities = avatar.getVisibleEntities();
     	Entity observing = null;
     	for(Entity potential : potentialEntities){
-    		if(potential.getLocation() == avatar.tileInFront()){
+    		if(potential.getLocation().getX() == avatar.tileInFront().getX() && potential.getLocation().getY() == avatar.tileInFront().getY()){
     			observing = potential;
     			break;
     		}

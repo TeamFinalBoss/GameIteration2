@@ -5,6 +5,8 @@ import java.util.Map;
 
 import model.map.Direction;
 import controller.commands.Commandable;
+import controller.commands.game.AvatarCommands;
+import controller.commands.game.GetInformation;
 import controller.commands.game.MoveAvatar;
 import controller.commands.game.Skill;
 import controller.commands.sceneChangers.ArmorySwitch;
@@ -20,11 +22,12 @@ public class GameControllerBuilder {
 
 	/**********************************************************************************************
 	 * 	   Game Controller builder
+	 * @param command 
 	 *
 	 ************************************************************************************************/
 	
 	public static SceneController buildGameController(
-			Map<KeyBindingsOption, Integer> map)
+			Map<KeyBindingsOption, Integer> map, AvatarCommands command)
 	{
 		Map<Integer, Commandable> options = new HashMap<Integer, Commandable>();
 			
@@ -47,7 +50,8 @@ public class GameControllerBuilder {
 		options.put(map.get(KeyBindingsOption.SKILL_7), new Skill(7));
 		options.put(map.get(KeyBindingsOption.SKILL_8), new Skill(8));
 		options.put(map.get(KeyBindingsOption.SKILL_9), new Skill(9));
-			
+		
+		options.put(map.get(KeyBindingsOption.TILE_INFO), command);	
 		options.put(map.get(KeyBindingsOption.SACK), new SackSwitch());
 		options.put(map.get(KeyBindingsOption.ARMORY), new ArmorySwitch());
 		options.put(map.get(KeyBindingsOption.DIALOGUE), new DialogueSwitch());
