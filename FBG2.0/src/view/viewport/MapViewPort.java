@@ -132,7 +132,7 @@ public class MapViewPort implements ViewPort, Observer {
                 double px = (item.getLocation().getX());
                 double py = (item.getLocation().getY());
                 
-                g.drawImage(SpriteFactory.getGenericObject(),(int) ((px - startX) * tileWidth), (int) ((py - startY) * tileHeight), tileWidth, tileHeight, null);
+                g.drawImage(SpriteFactory.hashIDtoImage(item.getID()),(int) ((px - startX) * tileWidth), (int) ((py - startY) * tileHeight), tileWidth, tileHeight, null);
             }
 
         }catch(NullPointerException e) {}

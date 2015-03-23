@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.map.pair.CoordinatePair;
-import model.director.ActiveMapManager;
-import model.factories.PlaceableObjectFactory;
 import model.gameObject.MapObject;
 import model.item.Gun;
 import model.item.Halo;
@@ -83,42 +81,52 @@ public class TakeableFactory implements PlaceableObjectFactory{
 		switch(item.getAttribute("name")){
 		case "gun":
 			it = new Gun();
+                        it.setID("gun");
 			break;
 			
 		case "healthPotion":
 			it = new HealthPotion();
+                        it.setID("healthPotion");
 			break;
 			
 		case "halo":
 			it = new Halo();
+                        it.setID("halo");
 			break;
 			
 		case "hermesBoots":
 			it = new HermesBoots();
+                        it.setID("hermesBoots");
 			break;
 			
 		case "jesusBoots":
 			it = new JesusBoots();
+                        it.setID("jesusBoots");
 			break;
 		
 		case "rustyKnife":
 			it = new RustyKnife();
+                        it.setID("rustyKnife");
 			break;
 			
 		case "mace":
 			it = new Mace();
+                        it.setID("mace");
 			break;
 			
 		case "stick":
 			it = new Stick();
+                        it.setID("stick");
 			break;
 			
 		case "hornes":
 			it = new Hornes();
+                        it.setID("hornes");
 			break;
 			
 		case "sword":
 			it = new Sword();
+                        it.setID("sword");
 			break;
 		}
 		
