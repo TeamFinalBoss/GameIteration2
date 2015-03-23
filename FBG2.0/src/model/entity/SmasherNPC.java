@@ -161,6 +161,9 @@ public abstract class SmasherNPC extends SmasherEntity implements NPC {
 		public int getLink(){
 			return partner.getLink();
 		}
+		public void buyItem(Takeable item){
+			getInventory().sellItem(item);
+		}
 }
 
 
