@@ -63,8 +63,6 @@ public abstract class Ability {
     * @param callingEntity
     */
 
-
-    public abstract void performAbility(Entity entity);
     public abstract boolean meetsStatRequirements(Entity caster);
     
     /**

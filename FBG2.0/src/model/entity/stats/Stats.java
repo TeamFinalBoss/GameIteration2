@@ -42,6 +42,7 @@ public abstract class Stats {
 		offense = weaponOffense + (strength*10) + (level*20);
 		defense = (agility*10) + (level*20);
 		armor = equipArmor + (hardiness*30);
+		
 	}
 	private boolean checkHitSuccess(int amount){
 		Random generator = new Random();

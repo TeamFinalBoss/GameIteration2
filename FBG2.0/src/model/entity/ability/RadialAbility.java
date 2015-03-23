@@ -9,6 +9,7 @@ import model.map.pair.CoordinatePair;
 import java.util.ArrayList;
 import model.entity.Entity;
 import java.lang.Math.*;
+import model.map.GameMap;
 
 /**
 *
@@ -111,4 +112,5 @@ public abstract class RadialAbility extends Ability
 	*/
 
 	public abstract boolean meetsStatRequirements(Entity entityToLearn);
+	public abstract void performAbility(Entity entity, GameMap map);
 }
