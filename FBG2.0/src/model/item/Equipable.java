@@ -10,7 +10,7 @@ import model.map.pair.CoordinatePair;
 
 public abstract class Equipable extends Usable {
 	
-    protected EquipSlot slot;
+    //protected EquipSlot slot;
     
    public Equipable(){
 		super("Generic Eqipable", "Generic description", new CoordinatePair(), 0, 1);

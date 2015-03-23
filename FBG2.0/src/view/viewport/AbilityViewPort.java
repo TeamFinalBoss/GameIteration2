@@ -25,7 +25,7 @@ public class AbilityViewPort implements ViewPort {
             if (a.getName() != null) {
                 g.setColor(Color.red);
                 g.setFont(new Font("TimesRoman", Font.PLAIN, 15));
-                g.drawString("PRESS " + counter % 10 + " : " + a.getName().toString(), 280, GameDirector.getSize().height - 220 + y);
+                g.drawString("PRESS " + (counter >= 11 ? "-" : counter % 10) + " : " + a.getName().toString(), 280, GameDirector.getSize().height - 220 + y);
                 y += 20;
                 counter++;
             }

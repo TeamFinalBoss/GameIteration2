@@ -1,5 +1,7 @@
 package model.entity.ability;
 
+import java.io.FileInputStream;
+import java.io.InputStream;
 import model.effect.Effect;
 import model.entity.Entity;
 
@@ -18,6 +20,9 @@ import model.map.Locations;
 import model.map.Vector;
 import model.map.pair.PreciseCoordinatePair;
 import model.map.projectiles.Fireball;
+import model.map.projectiles.NinjaStar;
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
 
 /**
 *
@@ -27,18 +32,22 @@ import model.map.projectiles.Fireball;
 public class FlameStrikeAbility extends AngularAbility
 {
    
+    
+    
     private ActiveMapManager myMM;
     private int damage;
 
+    
 	public FlameStrikeAbility()
 	{
 		super();
-		this.setName("FlameStrike");
+		this.setName("Strike");
         this.damage = 10;
 		this.setEffect(new DealDamageEffect(this.damage));
 		this.setRadius(3);
 		this.myMM = ActiveMapManager.getInstance();
         this.setDegree(360);
+        
 	}
 
 	public FlameStrikeAbility(String name, Effect effect, Effect cost, int degree, double radius, int distance)
@@ -62,6 +71,17 @@ public class FlameStrikeAbility extends AngularAbility
 	@Override
     public boolean performAbility(Entity caster) 
     {
+         try {
+            InputStream in = new FileInputStream("src/resources/sound/pewpew.wav");
+            AudioStream as = new AudioStream(in);
+
+            AudioPlayer.player.start(as);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        
+        
+        
     	GameMap map = myMM.getActiveMap();
     	int mana = caster.getCurrentMP();
     	List<Entity> entities = map.getEntities();
@@ -87,6 +107,8 @@ public class FlameStrikeAbility extends AngularAbility
                         }
     		}*/
                 
+                caster.modifyCurrentMP(-1);
+            
                 CoordinatePair coordinatePair = caster.getLocation();
                 double x = coordinatePair.getX();
                 double y = coordinatePair.getY();
@@ -117,17 +139,30 @@ public class FlameStrikeAbility extends AngularAbility
                 PreciseCoordinatePair PCP7 = new PreciseCoordinatePair(PCP.getX(),PCP.getY());
                 PreciseCoordinatePair PCP8 = new PreciseCoordinatePair(PCP.getX(),PCP.getY());
                 
+                System.out.println(caster.getName());
                 
-                Fireball fb1 = new Fireball((long)2000, v1, PCP1, getEffect(), caster);
-                Fireball fb2 =new Fireball((long)2000, v2, PCP2, getEffect(), caster);
-                Fireball fb3 =new Fireball((long)2000, v3, PCP3, getEffect(), caster);
-                Fireball fb4 =new Fireball((long)2000, v4, PCP4, getEffect(), caster);
-                Fireball fb5 =new Fireball((long)2000, v5, PCP5, getEffect(), caster);
-                Fireball fb6 =new Fireball((long)2000, v6, PCP6, getEffect(), caster);
-                Fireball fb7 =new Fireball((long)2000, v7, PCP7, getEffect(), caster);
-                Fireball fb8 =new Fireball((long)2000, v8, PCP8, getEffect(), caster);
+                if(caster.getName().equals( "The Summoner")){
                 
+                    Fireball fb1 = new Fireball((long)2000, v1, PCP1, getEffect(), caster);
+                    Fireball fb2 =new Fireball((long)2000, v2, PCP2, getEffect(), caster);
+                    Fireball fb3 =new Fireball((long)2000, v3, PCP3, getEffect(), caster);
+                    Fireball fb4 =new Fireball((long)2000, v4, PCP4, getEffect(), caster);
+                    Fireball fb5 =new Fireball((long)2000, v5, PCP5, getEffect(), caster);
+                    Fireball fb6 =new Fireball((long)2000, v6, PCP6, getEffect(), caster);
+                    Fireball fb7 =new Fireball((long)2000, v7, PCP7, getEffect(), caster);
+                    Fireball fb8 =new Fireball((long)2000, v8, PCP8, getEffect(), caster);
                 
+                }
+                else{
+                    NinjaStar fb1 = new NinjaStar((long)2000, v1, PCP1, getEffect(), caster);
+                    NinjaStar fb2 =new NinjaStar((long)2000, v2, PCP2, getEffect(), caster);
+                    NinjaStar fb3 =new NinjaStar((long)2000, v3, PCP3, getEffect(), caster);
+                    NinjaStar fb4 =new NinjaStar((long)2000, v4, PCP4, getEffect(), caster);
+                    NinjaStar fb5 =new NinjaStar((long)2000, v5, PCP5, getEffect(), caster);
+                    NinjaStar fb6 =new NinjaStar((long)2000, v6, PCP6, getEffect(), caster);
+                    NinjaStar fb7 =new NinjaStar((long)2000, v7, PCP7, getEffect(), caster);
+                    NinjaStar fb8 =new NinjaStar((long)2000, v8, PCP8, getEffect(), caster);
+                }
                 
     		return true;
                 

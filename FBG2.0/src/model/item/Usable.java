@@ -14,7 +14,7 @@ import model.map.pair.CoordinatePair;
  */
 public abstract class Usable extends Takeable{
     
-  	
+  	protected EquipSlot slot;
 	public Usable(){
 		super("Generic Usable", "Generic description", new CoordinatePair(), 0, 1);
 		
@@ -38,6 +38,7 @@ public abstract class Usable extends Takeable{
         
       
          public boolean useInSack(Entity target){
+                target.unequip(this.slot);
         	target.equip((Equipable)this);
         	return true;
         }

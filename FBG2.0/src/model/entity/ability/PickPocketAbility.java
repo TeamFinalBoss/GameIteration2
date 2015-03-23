@@ -58,6 +58,7 @@ public class PickPocketAbility extends RadialAbility
 	@Override
     public boolean performAbility(Entity sneak) 
     {
+		
         Random random = new Random();
     	GameMap map = myMM.getActiveMap();
     	int mana = sneak.getCurrentMP();
@@ -71,8 +72,10 @@ public class PickPocketAbility extends RadialAbility
 
         if(probability > .75)
             probability = .75;
-        probability = (int) probability * 1000 - 1;
-
+        probability = (int) Math.round(probability * 1000) - 1;
+        
+        System.out.println(probability);
+        
     	if(mana >= manaCost)
     	{
     		sneak.setCurrentMP(mana - manaCost);
@@ -85,8 +88,8 @@ public class PickPocketAbility extends RadialAbility
                         if(random.nextInt(1000) <= probability)
                             ++gold;
                     }
-                    if(gold > goldMax)
-                        gold = goldMax;
+                    if(gold > (int) Math.round(goldMax))
+                        gold = (int) Math.round(goldMax);
                     sneak.modifyCurrency(gold);
                 }
     		}
@@ -94,5 +97,7 @@ public class PickPocketAbility extends RadialAbility
     	}
     	else
     		return false;
+    		
+    	
     }
 }

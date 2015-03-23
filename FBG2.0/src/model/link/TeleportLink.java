@@ -36,6 +36,7 @@ public class TeleportLink extends Link{
 			ActiveMapManager.getInstance().removeEntityFromActiveMap(e);
 			ActiveMapManager.getInstance().setActiveMap(((TeleportAreaEffect) getOwner()).getMap());
 			ActiveMapManager.getInstance().addEntityToActiveMap(e, getOwner().getLocation());
+			ActiveMapManager.getInstance().setAvatar(e);
 		}
 		return;
 	}
