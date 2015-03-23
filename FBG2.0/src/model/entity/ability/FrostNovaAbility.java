@@ -64,7 +64,7 @@ public class FrostNovaAbility extends RadialAbility
     		summoner.setCurrentMP(--mana);
     		for(int i = 0; i < entities.size(); ++i)
     		{    			
-    			if(inRange(summoner, entities.get(i)))
+    			if(inRange(summoner, entities.get(i)) && entities.get(i).getLocation() != summoner.getLocation())
     				new SnareEffect(entities.get(i), 4000);
     		}
     		return true;
