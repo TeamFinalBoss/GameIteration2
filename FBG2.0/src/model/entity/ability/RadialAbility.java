@@ -40,7 +40,7 @@ public abstract class RadialAbility extends Ability
 	* constructor for AngularAbility
 	* @param radius
 	*/
-	public RadialAbility(String name, Effect effect, CombatCoordinator myCC, Effect cost, int degree, double radius)
+	public RadialAbility(String name, Effect effect, Effect cost, int degree, double radius)
 	{
 		super(name, effect, cost);
 		this.myCC = CombatCoordinator.getInstance();

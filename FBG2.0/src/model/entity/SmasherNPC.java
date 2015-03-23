@@ -25,7 +25,7 @@ import model.map.pair.CoordinatePair;
  */
 
 
-public abstract class SmasherNPC extends SmasherEntity {
+public abstract class SmasherNPC extends SmasherEntity implements NPC {
 
 		private DialogueTree dt;
 		private boolean friendly;
@@ -142,6 +142,10 @@ public abstract class SmasherNPC extends SmasherEntity {
 		
 		public void setLink(int newLink){
 			partner = new EntityLink(this,newLink);
+		}
+		
+		public int getLink(){
+			return partner.getLink();
 		}
 }
 

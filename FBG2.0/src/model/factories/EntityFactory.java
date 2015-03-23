@@ -12,7 +12,9 @@ import org.w3c.dom.NodeList;
 import model.director.ActiveMapManager;
 import model.effect.Dispellable;
 import model.entity.Entity;
+import model.entity.LightGuardian;
 import model.entity.MotionType;
+import model.entity.NPC;
 import model.entity.SmasherAvatar;
 import model.entity.SmasherEntity;
 import model.entity.SneakAvatar;
@@ -138,7 +140,7 @@ public class EntityFactory implements PlaceableObjectFactory{
 				break;
 			}
 			
-			switch(Integer.parseInt(e.getAttribute("motiontype"))) {
+			switch(Integer.parseInt(e.getAttribute("motionType"))) {
 			case 0:
 				en.setMotionType(MotionType.GROUND);
 				break;
@@ -176,7 +178,7 @@ public class EntityFactory implements PlaceableObjectFactory{
 	}
 	
 	private void CommonStats(Element s, Entity e) {
-		e.setLivesLeft(Integer.parseInt(s.getAttribute("livesleft")));
+		e.setLivesLeft(Integer.parseInt(s.getAttribute("livesLeft")));
 		e.setStrength(Integer.parseInt(s.getAttribute("strength")));
 		e.setAgility(Integer.parseInt(s.getAttribute("agility")));
 		e.setIntellect(Integer.parseInt(s.getAttribute("intellect")));
@@ -193,16 +195,16 @@ public class EntityFactory implements PlaceableObjectFactory{
 	}
 	
 	private Entity switchSmasherType(Element e) {
-		Entity en = null;
+		NPC en = null;
 		
 		switch(e.getAttribute("type")) {
-		case "blah":
-			en = new SmasherAvatar();
-			//en.setLink(Integer.parseInt(e.getAttribute("link")));
+		case "lightGuardian":
+			en = new LightGuardian();
+			en.setLink(Integer.parseInt(e.getAttribute("link")));
 			
 		}
 		
-		return en;
+		return (Entity) en;
 	}
 	
 	private Entity switchSneakType(Element e) {

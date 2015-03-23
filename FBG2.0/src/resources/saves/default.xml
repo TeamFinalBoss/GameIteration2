@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gamesave>
-<avatar occupation="summoner" map="1" currency="0" motiontype="0" direction="0" x="1" y="1">
+<avatar occupation="summoner" map="1" currency="0" motionType="0" direction="0" x="1" y="1">
    <stats livesLeft="3" strength="3" agility="3" intellect="3" hardiness="3" experience="3" movement="3000" bindWounds="3" stat1="3" stat2="3" stat3="3" stat4="3" currentHp="3" currentMp="3" offense="3" defense="3" bargain="3" observation="3" />
    	<sack>
    	    <item name="sword" durability="100" />
@@ -11,6 +11,16 @@
    	</effects>
 </avatar>
 <map id="1">
+	<entity occupation="smasher" map="1" currency="0" type="lightGuardian" direction="0" x="0" y="0" link="20" motionType="0">
+		<stats livesLeft="3" strength="3" agility="3" intellect="3" hardiness="3" experience="3" movement="3000" bindWounds="3" stat1="3" stat2="3" stat3="3" stat4="3" currentHp="3" currentMp="3" offense="3" defense="3" bargain="3" observation="3" />
+   		<sack>
+   	  	  <item name="sword" durability="100" />
+   		</sack>
+   		<armory>
+   		</armory>
+   		<effects>
+   		</effects>
+	</entity>
     <obstacle name="door" link="4" x="1" y="1" />
     <interactive name="dooropener" link="4" x="2" y="2" />
     <oneshot name="recoveryHeart" x="1" y="2" />

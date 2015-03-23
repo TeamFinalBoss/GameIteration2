@@ -9,22 +9,23 @@ import java.util.Observer;
 
 import model.director.AvatarInteractionManager;
 import controller.commands.Commandable;
-import controller.commands.game.IncreaseAgility;
-import controller.commands.game.IncreaseBargain;
-import controller.commands.game.IncreaseBoundWound;
-import controller.commands.game.IncreaseHardiness;
-import controller.commands.game.IncreaseIntellect;
-import controller.commands.game.IncreaseMovement;
-import controller.commands.game.IncreaseObservation;
-import controller.commands.game.IncreaseSkill1;
-import controller.commands.game.IncreaseSkill2;
-import controller.commands.game.IncreaseSkill3;
-import controller.commands.game.IncreaseSkill4;
-import controller.commands.game.IncreaseStrength;
+import controller.commands.game.increase.IncreaseAgility;
+import controller.commands.game.increase.IncreaseBargain;
+import controller.commands.game.increase.IncreaseBoundWound;
+import controller.commands.game.increase.IncreaseHardiness;
+import controller.commands.game.increase.IncreaseIntellect;
+import controller.commands.game.increase.IncreaseMovement;
+import controller.commands.game.increase.IncreaseObservation;
+import controller.commands.game.increase.IncreaseSkill1;
+import controller.commands.game.increase.IncreaseSkill2;
+import controller.commands.game.increase.IncreaseSkill3;
+import controller.commands.game.increase.IncreaseSkill4;
+import controller.commands.game.increase.IncreaseStrength;
 import controller.menu.Menuable;
 import controller.util.Describeable;
+import controller.util.Healthable;
 
-public class StatsMenu extends Observable implements Describeable,Menuable, Observer {
+public class StatsMenu extends Observable implements Healthable,Menuable, Observer {
 
 	AvatarInteractionManager manager = AvatarInteractionManager.getInstance();
 	
@@ -193,5 +194,25 @@ public class StatsMenu extends Observable implements Describeable,Menuable, Obse
 				break;
 		}
 		return occupationSpecific;
+	}
+
+	@Override
+	public int getCurrentHealth() {
+		return manager.getCurrentHP();
+	}
+
+	@Override
+	public int getCurrentMana() {
+		return manager.getCurrentMP();
+	}
+
+	@Override
+	public int getMaxHealth() {
+		return manager.getMaxHP();
+	}
+
+	@Override
+	public int getMaxMana() {
+		return manager.getMaxMP();
 	}
 }

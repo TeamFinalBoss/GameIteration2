@@ -9,6 +9,7 @@ import model.item.Interactive;
 import model.item.Obstacle;
 import model.item.OneShot;
 import model.item.Takeable;
+import model.entity.NPC;
 
 public class ObjectSaver {
 	
@@ -51,13 +52,14 @@ public class ObjectSaver {
 		String save = "<";
 		
 		if(e.getType().equals("avatar")) save += "avatar ";
-		else save += "entity ";
+		else save += "entity type=\"" + e.getType() + "\" ";
 		
 		save += "occupation=\"" + e.getOccupation() + "\" ";
 		save += "x=\"" + e.getLocation().getX() + "\" ";
 		save += "y=\"" + e.getLocation().getY() + "\" ";
 		save += "currency=\"" + e.getCurrency() + "\" ";
 		save += "direction=\"" + e.getDirection() + "\" ";
+		if(!e.getType().equals("avatar")) save += "link=\"" + ((NPC) e).getLink() + "\" ";
 		save += "motiontype=\"" + e.getMotionType() + "\" >\n";
 		
 		save += getStatsFormat(e) + "\n";
@@ -65,7 +67,8 @@ public class ObjectSaver {
 		save += getArmoryFormat(e) + "\n";
 		save += getEffectsFormat(e) + "\n";
 		
-		save += "</entity>";
+		if(e.getType().equals("avatar")) save += "</avatar>";
+		else save += "</entity>";
 		
 		return save;
 	}
