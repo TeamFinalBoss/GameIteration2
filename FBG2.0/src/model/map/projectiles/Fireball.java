@@ -30,6 +30,7 @@ public class Fireball extends Projectile {
     public void applyEffect(Entity entToEffect){
        Effect e = getEffect();
        e.applyEffect(entToEffect);
+       this.isActive = false;
     }
    
 }

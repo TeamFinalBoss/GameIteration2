@@ -6,6 +6,7 @@ import model.director.ActiveMapManager;
 import model.effect.Effect;
 import model.entity.Entity;
 import model.map.Vector;
+import model.map.pair.CoordinatePair;
 import model.map.pair.PreciseCoordinatePair;
 import model.util.GameTimer;
 
@@ -63,6 +64,11 @@ public abstract class Projectile extends TimerTask{
         location.addX(velocity.getX()*(double)refreshRate/1000);
         location.addY(velocity.getY()*(double)refreshRate/1000);
         
+        Entity e = ActiveMapManager.getInstance().getEntityAtLocation(new CoordinatePair((int) location.getX(),(int) location.getY()));
+        
+        if(e != null){
+            applyEffect(e);
+        }
         lifetime -= refreshRate;    
         
         if(lifetime<0)
