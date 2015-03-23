@@ -62,7 +62,7 @@ public class SpriteFactory {
         return img;
     }
 
-    public static BufferedImage getGenericObject(Direction direction) {
+    public static BufferedImage getGenericObject() {
         return getImage(resourcePath + "generic.png");
     }
 
