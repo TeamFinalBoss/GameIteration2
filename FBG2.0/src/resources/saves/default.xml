@@ -81,5 +81,9 @@
     <trap name="dealDamageTrap" x="6" y="3" />
     <takeable name="healthPotion" durability="34" x="6" y="0" />
  	<takeable name="halo" durability="34" x="7" y="0" />
+ 	<takeable name="mace" durability="34" x="8" y="0" />
+ 	<takeable name="stick" durability="34" x="9" y="0" />
+ 	<takeable name="hornes" durability="34" x="10" y="0" />
+ 	<takeable name="sword" durability="34" x="11" y="0" />
 </map>
 </gamesave>

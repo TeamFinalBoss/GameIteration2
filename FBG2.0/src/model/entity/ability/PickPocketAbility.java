@@ -78,7 +78,7 @@ public class PickPocketAbility extends RadialAbility
     		sneak.setCurrentMP(mana - manaCost);
     		for(int i = 0; i < entities.size(); ++i)
     		{
-                if(inRange(sneak, entities.get(i)))
+                if(inRange(sneak, entities.get(i)) && entities.get(i).getLocation() != sneak.getLocation())
                 {
                     for(int j = 0; j < 999; ++j)
                     {

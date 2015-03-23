@@ -111,6 +111,7 @@ public abstract class AngularAbility extends Ability
 		// scale location of entity relative to caster's location
 		double x = entityCoordinatePair.getX() - casterCoordinatePair.getX();
 		double y = entityCoordinatePair.getY() - casterCoordinatePair.getY();
+                y = -y;
 
 		boolean inCircle, rightOfLeftLine, leftOfRightLine;
 
@@ -141,25 +142,25 @@ public abstract class AngularAbility extends Ability
 				rotate = 0;
 				break;
 			case NorthWest:
-				rotate = Math.PI / 4;
+				rotate = - Math.PI / 4; // - 45
 				break;
 			case West:
-				rotate = Math.PI / 2;
+				rotate = - Math.PI / 2; // - 90
 				break;
 			case SouthWest:
-				rotate = 3 * Math.PI / 4;
+				rotate = - 3 * Math.PI / 4; // - 135
 				break;
 			case South:
-				rotate = Math.PI;
+				rotate = - Math.PI; // - 180
 				break;
 			case SouthEast:
-				rotate = 5 * Math.PI / 4;
+				rotate = - 5 * Math.PI / 4; // - 225
 				break;
 			case East:
-				rotate = 3 * Math.PI / 2;
+				rotate = - 3 * Math.PI / 2; // - 270
 				break;
 			case NorthEast:
-				rotate = 7 * Math.PI / 4;
+				rotate = - 7 * Math.PI / 4; // - 315
 				break;
 		}
 

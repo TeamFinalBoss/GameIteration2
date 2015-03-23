@@ -52,10 +52,10 @@ public class MapViewPort implements ViewPort, Observer {
         int windowHeight = (int) (GameDirector.getSize().height * 0.8);
         int windowWidthInTiles = windowWidth / tileWidth;
         int windowHeightInTiles = windowHeight / tileHeight;
-         
-        int startX = AvatarInteractionManager.getInstance().getAvatar().getLocation().getX() - windowWidthInTiles /2 ;
-        int startY = AvatarInteractionManager.getInstance().getAvatar().getLocation().getY() - windowHeightInTiles /2;
-                /*TO DO : SWITCH TO PUSH MODEL, SOMEWHERE YOU NEED AVATAR TO CALL UPDATE VIEW()*/
+
+        int startX = AvatarInteractionManager.getInstance().getAvatar().getLocation().getX() - windowWidthInTiles / 2;
+        int startY = AvatarInteractionManager.getInstance().getAvatar().getLocation().getY() - windowHeightInTiles / 2;
+        /*TO DO : SWITCH TO PUSH MODEL, SOMEWHERE YOU NEED AVATAR TO CALL UPDATE VIEW()*/
         //int startX = avatarLocation.getX() - windowWidthInTiles / 2;
         //int startY = avatarLocation.getY() - windowHeightInTiles / 2;
 
@@ -73,7 +73,7 @@ public class MapViewPort implements ViewPort, Observer {
         for (int i = startX; i < Math.min(startX + windowWidthInTiles, widthInTiles); i++) {
             for (int j = startY; j < Math.min(startY + windowHeightInTiles, heightInTiles); j++) {
                 //Draw tiles
-               // currentTileImg = SpriteFactory.getFog();
+                // currentTileImg = SpriteFactory.getFog();
                 g.setColor(Color.black);
                 g.fillRect((i - startX) * tileWidth, (j - startY) * tileHeight, tileWidth, tileHeight);
                 try {
@@ -85,7 +85,7 @@ public class MapViewPort implements ViewPort, Observer {
                             break;
                         }
                     }
-                    
+
                 } catch (ConcurrentModificationException e) {
                 } catch (NoSuchElementException e) {
                     System.out.println(e);
@@ -107,10 +107,17 @@ public class MapViewPort implements ViewPort, Observer {
             for (Entity e : entitiesAvatarCanSee) {
                 Entity avatar = AvatarInteractionManager.getInstance().getAvatar();
                 if (e.equals(avatar)) {
-                    currentEntityImg = SpriteFactory.getAvatar(avatar.getDirection());
+                    currentEntityImg = SpriteFactory.getAvatar(avatar.getDirection(), avatar.getOccupation());
 
                 } else {
-                    currentEntityImg = SpriteFactory.getGenericEntity(e.getDirection());
+                    //Draw Entity Health Bars for all entities - avatar
+                    CoordinatePair c = e.getLocation();
+                    double percentageOfHealth = (double) e.getCurrentHP() / (double) e.getMaxHP();
+                    g.setColor(Color.gray);
+                    g.fillRoundRect((c.getX() - startX) * tileWidth, (c.getY() - startY) * tileHeight, tileWidth, 3, 5, 5);
+                    g.setColor(Color.green);
+                    g.fillRoundRect((c.getX() - startX) * tileWidth, (c.getY() - startY) * tileHeight, (int) (tileWidth * percentageOfHealth), 3, 5, 5);
+                    currentEntityImg = SpriteFactory.hashIDtoImage(e.getID());
                 }
                 g.drawImage(currentEntityImg, (e.getLocation().getX() - startX) * tileWidth, (e.getLocation().getY() - startY) * tileHeight, tileWidth, tileHeight, null);
             }
@@ -121,11 +128,26 @@ public class MapViewPort implements ViewPort, Observer {
         }
 
         try {
+            for (Trap t : trapsAvatarCanSee) {
+                int tx = t.getLocation().getX();
+                int ty = t.getLocation().getY();
+
+                g.drawImage(SpriteFactory.hashIDtoImage(t.getID()), (tx - startX) * tileWidth, (ty - startY) * tileHeight, tileWidth, tileHeight, null);
+
+            }
+
+        } catch (ConcurrentModificationException e) {
+        } catch (NoSuchElementException e) {
+            System.out.println(e);
+        } catch (NullPointerException e) {
+        }
+
+        try {
             for (Projectile p : projectilesAvatarCanSee) {
                 double px = (p.getLocation().getX());
                 double py = (p.getLocation().getY());
 
-                g.drawImage(SpriteFactory.getFireball(), (int) ((px - startX) * tileWidth), (int) ((py - startY) * tileHeight), tileWidth, tileHeight, null);
+                g.drawImage(SpriteFactory.hashIDtoImage(p.toString()), (int) ((px - startX) * tileWidth), (int) ((py - startY) * tileHeight), tileWidth, tileHeight, null);
             }
 
         } catch (NullPointerException e) {
@@ -150,9 +172,6 @@ public class MapViewPort implements ViewPort, Observer {
 
         }
 
-        
-        
-        
     }
 
     @Override
