@@ -72,7 +72,7 @@ public class FireballAbility extends ProjectileAbility
 
     	if(mana >= manaCost)
     	{
-    		summoner.setCurrentMP(--manaCost);
+    		summoner.modifyCurrentMP(-manaCost);
     		Fireball fb = new Fireball((long) ms, velocity, PCP, effect, summoner);
                 return true;
     	}
