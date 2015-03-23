@@ -18,7 +18,7 @@ public class Gun extends Weapon{
     
     public Gun(){
 		super("gun", "Generic description", new CoordinatePair(), 0, 1, 
-                        EquipSlot.HEAD, new  DealDamageEffect(80));
+                        EquipSlot.HEAD, new  DealDamageEffect(80, ));
 		
 		this.id = "25";
 		this.className = "Gun";

@@ -495,4 +495,8 @@ public abstract class Entity extends MapObject{
     public void setDirection(Direction newest){
     	myDirection = newest;
     }
+
+    public void useWeapon() {
+        this.myInventory.useWeapon(this);
+    }
 }
