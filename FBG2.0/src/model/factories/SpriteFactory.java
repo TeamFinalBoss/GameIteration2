@@ -42,7 +42,7 @@ public class SpriteFactory {
     private final String INSTANT_DEATH2_PATH = resourcePath + "area_effect/instant_death2.png";
     private final String LEVEL_UP_PATH = resourcePath + "area_effect/level_up.png";
     private final String TAKE_DAMAGE_PATH = resourcePath + "area_effect/take_damage.png";
-    private final String TELEPORT_PATH = resourcePath + "area_effect/teleport.png";
+    private final String TELEPORT_PATH = resourcePath + "area_effect/teleport.jpeg";
 
     private final BufferedImage HEAL;
     private final BufferedImage INSTANT_DEATH;
