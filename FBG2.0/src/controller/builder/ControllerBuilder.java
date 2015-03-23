@@ -38,6 +38,7 @@ import controller.keyBindings.KeyOptions;
 import controller.menu.Menu;
 import controller.menu.MenuOption;
 import controller.menu.Menuable;
+import controller.menu.dialogue.DialogueMenu;
 import controller.menu.keyBindings.KeyBindingsMenu;
 import controller.menu.save.SaveLoadMenu;
 import controller.menu.save.SaveOption;
@@ -157,6 +158,12 @@ public class ControllerBuilder {
 		
 		
 		/******************************
+		 * Dialogue Controller
+		 *******************************/
+		DialogueMenu dialogueMenu = new DialogueMenu();
+		SceneController dialogueController = DialogueControllerBuilder.buildDialogueController(map, dialogueMenu);
+		
+		/******************************
 		 * Observers
 		 *******************************/
 		
@@ -190,6 +197,9 @@ public class ControllerBuilder {
 		List<Observable> statsObservables = new ArrayList<>();
 		statsObservables.add(statsMenu);
 		
+		List<Observable> dialogueObservables = new ArrayList<>();
+		dialogueObservables.add(dialogueMenu);
+		
 		observerMap.put(SceneType.MAIN_MENU, mainMenuObervables);
 		observerMap.put(SceneType.PAUSE_MENU, pauseMenuObservables);
 		observerMap.put(SceneType.SAVE, saveMenuObservables);
@@ -199,6 +209,7 @@ public class ControllerBuilder {
 		observerMap.put(SceneType.SACK,sackObservables);
 		observerMap.put(SceneType.ARMORY, armoryObservables);
 		observerMap.put(SceneType.STATS_UPDATING, statsObservables);
+		observerMap.put(SceneType.DIALOGUE, dialogueObservables);
 		
 		cont.addMap(observerMap);
 		
@@ -224,6 +235,7 @@ public class ControllerBuilder {
 		controllers.put(SceneType.SACK, sackController);
 		controllers.put(SceneType.ARMORY, armoryController);
 		controllers.put(SceneType.STATS_UPDATING, statsController);
+		controllers.put(SceneType.DIALOGUE, dialogueController);
 		
 		
 		KeyDispatcher keyDispatcher = new KeyDispatcher(controllers, mainMenuController);

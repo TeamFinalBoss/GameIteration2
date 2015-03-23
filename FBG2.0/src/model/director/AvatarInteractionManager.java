@@ -1,8 +1,12 @@
 package model.director;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Observer;
 
+import controller.menu.stats.StatsMenu;
+import controller.sceneControllers.SceneType;
 import model.map.areaEffect.AreaEffect;
 import model.map.pair.PurePair;
 import model.effect.Dispellable;
@@ -38,6 +42,7 @@ public class AvatarInteractionManager {
     private int statPoints;
     private int skillPoints;
     
+    private Map<SceneType, Observer> observers;
  
     public AvatarInteractionManager(){
        AMM = ActiveMapManager.getInstance();
@@ -46,6 +51,7 @@ public class AvatarInteractionManager {
        currentSlotInSack = 0;
        currentSlotInArmory = 0;
        me = this;
+       observers = new HashMap<>();
     }
     public AvatarInteractionManager(Entity avatar){
         this.avatar = avatar;
@@ -55,6 +61,7 @@ public class AvatarInteractionManager {
         currentSlotInSack = 0;
         currentSlotInArmory = 0;
         me = this;
+        observers = new HashMap<>();
     }
     
     public static AvatarInteractionManager getInstance(){
@@ -65,12 +72,17 @@ public class AvatarInteractionManager {
     	return me;
     }
     
+    public void addObserver(SceneType type, Observer o) {
+    	observers.put(type,o);
+    }
+    
     /**
      * uses the abilityToUseth ability
      * @param abilityTouse 
      */
     public void useAbility(int abilityTouse){
-        avatar.useAbility(abilityTouse);        
+        avatar.useAbility(abilityTouse);
+        observers.get(SceneType.STATS_UPDATING).update(null, null);
     }
     
     /**
