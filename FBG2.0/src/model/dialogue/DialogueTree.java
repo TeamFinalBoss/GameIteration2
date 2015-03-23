@@ -70,7 +70,7 @@ public abstract class DialogueTree {
 	 * @returns onActive enum
 	 */
 	public DialogueActions getOnActive() {
-		if(current.getOnActive() == DialogueActions.STOREFRONT) {
+		if(current.getOnActive().equals(DialogueActions.STOREFRONT)) {
 			SceneChanger.getInstance().changeScene(SceneType.STORE);
 		}
 		return current.getOnActive();

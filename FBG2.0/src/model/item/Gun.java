@@ -18,7 +18,7 @@ import model.map.pair.CoordinatePair;
 public class Gun extends Weapon{
     
     public Gun(){
-		super("gun", "Generic description", new CoordinatePair(), 0, 1, 
+		super("gun", "Generic description", new CoordinatePair(), 50, 1, 
                         EquipSlot.MAIN_HAND, new  DealDamageEffect(80));
 		
 		this.id = "25";

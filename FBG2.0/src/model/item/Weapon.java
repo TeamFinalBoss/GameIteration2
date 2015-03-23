@@ -23,7 +23,7 @@ public abstract class Weapon extends Equipable{
     
     
     public Weapon(){
-		super("Weapon", "Generic description", new CoordinatePair(), 0, 1, 
+		super("Weapon", "Generic description", new CoordinatePair(), 50, 1, 
                         EquipSlot.HEAD);
 		
 		this.id = "17";
