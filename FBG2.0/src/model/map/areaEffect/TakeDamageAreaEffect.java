@@ -7,6 +7,7 @@ public class TakeDamageAreaEffect extends AreaEffect{
 	public TakeDamageAreaEffect() {
 		super();
 		this.setName("takeDamage");
+                this.setID("takeDamage");
 	}
 
 	@Override

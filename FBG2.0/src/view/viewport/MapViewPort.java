@@ -94,38 +94,7 @@ public class MapViewPort implements ViewPort, Observer {
                 } catch (NullPointerException e) {
                 }
 
-                //draw coordinates
-                g.setColor(Color.BLUE);
-                String coordinate = "(" + i + "," + j + ")";
-                int strX = (i - startX) * tileWidth + tileWidth / 2 - g.getFontMetrics().stringWidth(coordinate) / 2;
-                int strY = (j - startY) * tileHeight + tileHeight / 2;
-                g.drawString(coordinate, strX, strY);
-
             }
-
-        }
-
-        try {
-            for (Entity e : entitiesAvatarCanSee) {
-                Entity avatar = AvatarInteractionManager.getInstance().getAvatar();
-                if (e.equals(avatar)) {
-                    currentEntityImg = SpriteFactory.getAvatar(avatar.getDirection(), avatar.getOccupation());
-
-                } else {
-                    //Draw Entity Health Bars for all entities - avatar
-                    CoordinatePair c = e.getLocation();
-                    double percentageOfHealth = (double) e.getCurrentHP() / (double) e.getMaxHP();
-                    g.setColor(Color.gray);
-                    g.fillRoundRect((c.getX() - startX) * tileWidth, (c.getY() - startY) * tileHeight, tileWidth, 3, 5, 5);
-                    g.setColor(Color.green);
-                    g.fillRoundRect((c.getX() - startX) * tileWidth, (c.getY() - startY) * tileHeight, (int) (tileWidth * percentageOfHealth), 3, 5, 5);
-                    currentEntityImg = SpriteFactory.hashIDtoImage(e.getID());
-                }
-                g.drawImage(currentEntityImg, (e.getLocation().getX() - startX) * tileWidth, (e.getLocation().getY() - startY) * tileHeight, tileWidth, tileHeight, null);
-            }
-        } catch (ConcurrentModificationException e) {
-        } catch (NoSuchElementException e) {
-            System.out.println(e);
 
         }
 
@@ -173,7 +142,7 @@ public class MapViewPort implements ViewPort, Observer {
             System.out.println(e);
 
         }
-        
+
         try {
             for (AreaEffect aoe : areaEffectsAvatarCanSee) {
                 double aoex = (aoe.getLocation().getX());
@@ -183,6 +152,30 @@ public class MapViewPort implements ViewPort, Observer {
             }
 
         } catch (NullPointerException e) {
+        } catch (ConcurrentModificationException e) {
+        } catch (NoSuchElementException e) {
+            System.out.println(e);
+
+        }
+
+        try {
+            for (Entity e : entitiesAvatarCanSee) {
+                Entity avatar = AvatarInteractionManager.getInstance().getAvatar();
+                if (e.equals(avatar)) {
+                    currentEntityImg = SpriteFactory.getAvatar(avatar.getDirection(), avatar.getOccupation());
+
+                } else {
+                    //Draw Entity Health Bars for all entities - avatar
+                    CoordinatePair c = e.getLocation();
+                    double percentageOfHealth = Math.min((double) e.getCurrentHP() / (double) e.getMaxHP(), 1);
+                    g.setColor(Color.gray);
+                    g.fillRoundRect((c.getX() - startX) * tileWidth, (c.getY() - startY) * tileHeight, tileWidth, 3, 5, 5);
+                    g.setColor(Color.green);
+                    g.fillRoundRect((c.getX() - startX) * tileWidth, (c.getY() - startY) * tileHeight, (int) (tileWidth * percentageOfHealth), 3, 5, 5);
+                    currentEntityImg = SpriteFactory.hashIDtoImage(e.getID());
+                }
+                g.drawImage(currentEntityImg, (e.getLocation().getX() - startX) * tileWidth, (e.getLocation().getY() - startY) * tileHeight, tileWidth, tileHeight, null);
+            }
         } catch (ConcurrentModificationException e) {
         } catch (NoSuchElementException e) {
             System.out.println(e);

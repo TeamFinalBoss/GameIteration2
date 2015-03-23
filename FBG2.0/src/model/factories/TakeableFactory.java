@@ -126,9 +126,10 @@ public class TakeableFactory implements PlaceableObjectFactory{
 			
 		case "sword":
 			it = new Sword();
-                        it.setID("sword");
+                        it.setID("whitewhistle");
 			break;
 		}
+                
 		
 		if(it != null) ((Takeable) it).setDurability(Integer.parseInt(item.getAttribute("durability")));
 		

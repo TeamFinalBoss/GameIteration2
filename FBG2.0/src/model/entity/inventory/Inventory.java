@@ -112,7 +112,12 @@ public class Inventory {
 	 * @return the equipment which was removed from the slot
 	 */
 	public Equipable unequip(EquipSlot slot){
-            return myArmory.unequip(slot);
+            Equipable e = myArmory.unequip(slot);
+            if(e!=null){
+                insert(e);
+                return e;
+            }
+            return null;
 	}
 
     public boolean useWeapon(Entity this1) {

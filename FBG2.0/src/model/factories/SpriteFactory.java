@@ -91,7 +91,17 @@ public class SpriteFactory {
     private final String NINJA_STAR_PATH = resourcePath + "projectile/shruiken.png";
     private final String BULLET_PATH = resourcePath + "projectile/bullet.png";
     private BufferedImage NINJA_STAR;
+    
+    /* ITEM */
     private BufferedImage BULLET;
+    private final String SUPER_GUN_FINAL_PATH = resourcePath + "item/Supergunfinal.png";
+    private BufferedImage TREASURE_CHEST;
+    private final String TREASURE_CHEST_PATH = resourcePath + "item/Supergunfinal.png";
+    private String BLACK_WHISTLE_PATH = resourcePath + "item/Blackwhistle.png";
+    private BufferedImage SUPER_GUN_FINAL;
+    private String WHITE_WHISTLE_PATH = resourcePath + "item/WhiteWhistle.png";
+    private BufferedImage BLACK_WHISTLE;
+    private BufferedImage WHITE_WHISTLE;
 
     private SpriteFactory() {
         LIGHT_GRASS = getImage(LIGHT_GRASS_PATH);
@@ -130,6 +140,11 @@ public class SpriteFactory {
         GENERIC = getImage(resourcePath + "generic.png");
         NINJA_STAR = getImage(NINJA_STAR_PATH);
         BULLET = getImage(BULLET_PATH);
+        
+        TREASURE_CHEST = getImage(TREASURE_CHEST_PATH);
+        BLACK_WHISTLE = getImage(BLACK_WHISTLE_PATH);
+        SUPER_GUN_FINAL = getImage(SUPER_GUN_FINAL_PATH);
+        
 
     }
 
@@ -253,7 +268,7 @@ public class SpriteFactory {
             case "heal":
                 return HEAL;
             case "instantDeath":
-                if (Math.random() * 2 < 1) {
+                if ((Math.random() < 0.5)) {
                     return INSTANT_DEATH;
 
                 } else {
@@ -278,6 +293,15 @@ public class SpriteFactory {
                 return NINJA_STAR;
             case "bullet":
                 return BULLET;
+            case "blackwhistle":
+                return BLACK_WHISTLE;
+            case "supergunfinal":
+                    return SUPER_GUN_FINAL;
+            case "whitewhistle":
+                return WHITE_WHISTLE;
+            case "treasurechest":
+                return TREASURE_CHEST;
+                
 
             default:
                 //System.out.println(id + " wheres the pic file?");
