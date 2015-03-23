@@ -580,6 +580,9 @@ public abstract class Entity extends MapObject {
     public void setMovementPermission(boolean newest) {
         canMove = newest;
     }
+    public boolean getMovementPermission(){
+    	return canMove;
+    }
 
     public void setDirection(Direction newest) {
         myDirection = newest;

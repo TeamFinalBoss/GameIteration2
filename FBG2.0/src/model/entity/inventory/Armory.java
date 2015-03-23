@@ -78,15 +78,25 @@ public class Armory {
 
     public boolean useWeapon(Entity caster) {
         Weapon a=(Weapon) contents.get(EquipSlot.MAIN_HAND);
-        a=(Weapon) contents.get(EquipSlot.TWO_HAND);        
+        Weapon b=(Weapon) contents.get(EquipSlot.TWO_HAND);        
         
-        if (a==null){
+        if (a==null && b==null){
             return false;
         }
-        else {
-            a.attack(castor);
+        else if (a!=null && b==null){
+            a.attack(caster);
+            return true;
+            
+        }
+        else if (a==null && b!=null){
+            b.attack(caster);
             return true;
         }
+        else {
+            System.out.println("Armour is wrong");
+            return false;
+        }
     }
-
 }
+
+
