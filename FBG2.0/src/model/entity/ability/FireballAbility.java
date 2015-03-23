@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import model.entity.Entity;
 import java.lang.Math.*;
 import model.effect.DealDamageEffect;
+import model.entity.SummonerEntity;
 import model.entity.ability.ProjectileAbility;
 import model.map.Vector;
 import model.map.pair.PreciseCoordinatePair;
@@ -58,6 +59,10 @@ public class FireballAbility extends ProjectileAbility
 	@Override
     public boolean performAbility(Entity summoner) 
     {
+        
+        this.damage *= summoner.getIntellect() / 10;
+        this.damage *= ((SummonerEntity)summoner).getBane() / 10;
+        
     	CoordinatePair coordinatePair = summoner.getLocation();
     	double x = coordinatePair.getX();
     	double y = coordinatePair.getY();
@@ -69,6 +74,7 @@ public class FireballAbility extends ProjectileAbility
     	// this.cost = ManaEffect;
 
     	Vector velocity = getVector(summoner.getDirection());
+        velocity.multiply(3);
     	int mana = summoner.getCurrentMP();
 
     	if(mana >= manaCost)

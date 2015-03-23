@@ -96,4 +96,12 @@ public class Vector {
     public void addY(double addedY){
         this.y += addedY;
     }
+    
+    /**
+     * @author Jason Owens
+     */
+    public void multiply(double numToMultiplyVectorBy){
+        this.x *= numToMultiplyVectorBy;
+        this.y *= numToMultiplyVectorBy;
+    }
 }

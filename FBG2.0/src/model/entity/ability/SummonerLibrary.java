@@ -10,7 +10,9 @@ public class SummonerLibrary extends AbilityLibrary {
 		BargainEnchantmentAbility myBargain = new BargainEnchantmentAbility();
 		PacifyEnchantment myPacify = new PacifyEnchantment();
 		SiphonHealthEnchantment mySiphon = new SiphonHealthEnchantment();
-		
+		Shield shield = new Shield(owner);
+                
+                this.addToLibrary(shield);
 		this.addToLibrary(myFire);
 		this.addToLibrary(myBlink);
 		this.addToLibrary(myBargain);
