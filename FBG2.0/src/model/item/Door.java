@@ -32,14 +32,9 @@ public class Door extends Obstacle {
         
         this.id = "12";
         this.className = "Door";
-                this.doorOpen = doorOpen;
+        this.doorOpen = doorOpen;
         
         //Other properties set here
-    }
-    // This returns if the door is passable 
-    @Override
-    public boolean activate(Entity e){
-        return doorOpen;
     }
    
     public boolean getDoorOpen(){

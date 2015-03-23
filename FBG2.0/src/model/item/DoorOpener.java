@@ -5,6 +5,11 @@
  */
 package model.item;
 
+import java.util.List;
+
+import model.director.ActiveMapManager;
+import model.director.AvatarInteractionManager;
+import model.entity.Entity;
 import model.map.pair.CoordinatePair;
 
 /**
@@ -13,8 +18,7 @@ import model.map.pair.CoordinatePair;
  *
  * @author ashishag
  */
-public class DoorOpener extends Interactive {
-    
+public class DoorOpener extends Interactive { //opens all visible doors
     public DoorOpener(){
         super("doorOpener","You can open the door", new CoordinatePair(), false);
         this.id = "11";
@@ -30,6 +34,14 @@ public class DoorOpener extends Interactive {
                
  
         
+    }
+    
+    public boolean activate(Entity e){
+    	List<Item> potentialDoors = AvatarInteractionManager.getInstance().getAvatar().getVisibleItems();
+    	for(Item potentialDoor : potentialDoors){
+    		if(potentialDoor.getClassName().equals("Door")) ActiveMapManager.getInstance().removeItemFromActiveMap(potentialDoor);
+    	}
+    	return false;
     }
     
    
