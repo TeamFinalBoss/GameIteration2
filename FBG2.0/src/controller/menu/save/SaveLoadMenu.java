@@ -61,9 +61,11 @@ public class SaveLoadMenu extends Observable implements Describeable,Menuable, O
 	@Override
 	public String[] getDescription() {
 		String[] strArray = new String[maximumNumberOfFileDisplayed];
+                try{
 		for(int i = 0; i < strArray.length; i++) {
 			strArray[i] = files.get(i).getName().substring(0, files.get(i).getName().lastIndexOf("."));
 		}
+                }catch(IndexOutOfBoundsException e){}
 		return strArray;
 		
 	}
