@@ -62,9 +62,10 @@ public class ObjectSaver {
 		if(!e.getType().equals("avatar")) save += "link=\"" + ((NPC) e).getLink() + "\" ";
 		save += "motiontype=\"" + e.getMotionType() + "\" >\n";
 		
-		save += getStatsFormat(e) + "\n";
+		if(e.getType().equals("avatar")) save += getStatsFormat(e) + "\n";
 		save += getSackFormat(e) + "\n";
 		save += getArmoryFormat(e) + "\n";
+		save += getStoreFormat(e) + "\n";
 		save += getEffectsFormat(e) + "\n";
 		
 		if(e.getType().equals("avatar")) save += "</avatar>";
@@ -92,6 +93,17 @@ public class ObjectSaver {
 		}
 		
 		save += "</armory>";
+		return save;
+	}
+	
+	private String getStoreFormat(Entity e) {
+		String save = "<store>\n";
+		
+		for(Takeable t : ((NPC) e).getFullStoreContents()) {
+			save += getTakeableFormat(t) + "\n";
+		}
+		
+		save += "</store>";
 		return save;
 	}
 	

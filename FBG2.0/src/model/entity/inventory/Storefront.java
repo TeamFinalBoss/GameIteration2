@@ -20,6 +20,14 @@ public class Storefront {
 		contents = new ArrayList<StoreEntry>();
 	}
 	
+	public Storefront(List<Takeable> li) {
+		contents = new ArrayList<StoreEntry>();
+		
+		for(Takeable t : li) {
+			contents.add(new StoreEntry(t, -1));
+		}
+	}
+	
 	/** Returns the ordered contents of the store
 	 * @return an unmodifiable <code>List</code> of the store contents 
 	 */
@@ -28,6 +36,20 @@ public class Storefront {
 		
 		for(StoreEntry e : contents) {
 			t.add(e.getItem());
+		}
+		
+		return t;
+	}
+	
+	public List<Takeable> fullContents() {
+		List<Takeable> t = new ArrayList<Takeable>();
+		
+		for(StoreEntry e : contents) {
+			if(e.getAmt() > 0) {
+				for(int a = 0; a < e.getAmt(); a++) {
+					t.add(e.getItem());
+				}
+			}
 		}
 		
 		return t;
