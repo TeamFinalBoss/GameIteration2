@@ -24,6 +24,8 @@ public class DealDamageEffect implements Effect {
     }
     
     
+    protected int getDamageToDeal(){ return damageToDeal;}
+    
     
     /**
      *
