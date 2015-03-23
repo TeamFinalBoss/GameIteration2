@@ -480,6 +480,9 @@ public class GameMap extends Observable {
     public boolean requestMovement(Entity e, Direction dir){
         CoordinatePair desiredLocation; 
         desiredLocation = locationPlusDirection(e.getLocation(), dir);
+        if(getEntityAtCoordinate(desiredLocation)!=null){
+            return false;
+        }
         
         if(MV.canTraverse(e.getMotionType(), getItemAtCoordinate(desiredLocation), getTileAtCoordinate(desiredLocation))){ 
             MC.moveEntity(e, desiredLocation, getAreaEffectAtCoordinate(desiredLocation), getItemAtCoordinate(desiredLocation),
