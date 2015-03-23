@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.nio.file.Files;
 
+import controller.Controller;
 import model.director.ActiveMapManager;
 import model.entity.Entity;
 import model.item.Interactive;
@@ -43,7 +44,8 @@ public class GameSaver {
 		ObjectSaver saver = new ObjectSaver();
 		
 		String save = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
-		save += "<gamesave>\n";		
+		save += "<gamesave>\n";
+		save += Controller.getInstance().getKeyBindings().toXML();
 		save += saver.getSaveFormat(manager.getAvatar());
 		save += "\n";
 		
