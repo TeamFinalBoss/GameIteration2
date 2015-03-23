@@ -1,3 +1,5 @@
+//by Matthew Kroeze
+
 package model.entity.stats;
 
 import java.util.Observable;

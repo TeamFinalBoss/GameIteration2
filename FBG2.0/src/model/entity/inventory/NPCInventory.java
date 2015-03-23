@@ -1,3 +1,4 @@
+//by Matthew Kroeze
 package model.entity.inventory;
 
 import model.entity.Entity;
