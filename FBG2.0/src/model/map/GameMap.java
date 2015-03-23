@@ -503,7 +503,10 @@ public class GameMap extends Observable {
         CoordinatePair desiredLocation;
         desiredLocation = locationPlusDirection(e.getLocation(), dir);
         if (getEntityAtCoordinate(desiredLocation) != null) {
-        	if(e == AvatarInteractionManager.getInstance().getAvatar()) AvatarInteractionManager.getInstance().setConversationPartner(getEntityAtCoordinate(desiredLocation));
+        	if(e == AvatarInteractionManager.getInstance().getAvatar()){
+        		AvatarInteractionManager.getInstance().setConversationPartner(getEntityAtCoordinate(desiredLocation));
+        		AvatarInteractionManager.getInstance().getConversationPartner().resetDialogue();
+        	}
             return false;
         }
 
