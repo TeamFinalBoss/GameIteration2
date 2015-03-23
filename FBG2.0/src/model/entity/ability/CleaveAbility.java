@@ -25,7 +25,7 @@ import model.map.pair.PreciseCoordinatePair;
 
 public class CleaveAbility extends RadialAbility
 {
-    private String name;
+    //private String name;
     private DealDamageEffect effect;
     private CombatCoordinator myCC;
     private ActiveMapManager myMM;
@@ -36,7 +36,7 @@ public class CleaveAbility extends RadialAbility
 
 	public CleaveAbility()
 	{
-		this.name = "Cleave";
+		this.setName("Cleave");
                 this.damage = 10;
 		this.effect = new DealDamageEffect(this.damage);
 		this.degree = 90;
@@ -50,6 +50,7 @@ public class CleaveAbility extends RadialAbility
 		super(name, effect, cost, degree, radius);
 		this.myCC = CombatCoordinator.getInstance();
 		this.myMM = ActiveMapManager.getInstance();
+		this.setName("Cleave");
 	}
 
 	@Override

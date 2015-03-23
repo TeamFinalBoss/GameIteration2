@@ -7,7 +7,10 @@ public class SneakLibrary extends AbilityLibrary{
 		super(owner);
 		
 		SetTrapAbility setTrap = new SetTrapAbility();
+		DisableTrapAbility myDisable = new DisableTrapAbility();
+		
 		this.addToLibrary(setTrap);
+		this.addToLibrary(myDisable);
 	}
 
     

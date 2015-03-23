@@ -33,7 +33,7 @@ public class NinjaStarAbility extends ProjectileAbility
 
 	public NinjaStarAbility()
 	{
-		this.name = "Ninja Star";
+		this.name = "NinjaStar";
         this.damage = 10;
 		this.effect = new DealDamageEffect(this.damage);
 		this.myCC = CombatCoordinator.getInstance();
@@ -44,6 +44,7 @@ public class NinjaStarAbility extends ProjectileAbility
 	{
 		super(name, effect, cost, ms, rate);
 		this.myCC = CombatCoordinator.getInstance();
+		this.name = "NinjaStar";
 	}
 
 	@Override
