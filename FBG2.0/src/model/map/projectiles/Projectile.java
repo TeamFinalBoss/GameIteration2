@@ -61,15 +61,12 @@ public abstract class Projectile extends TimerTask{
     @Override
     public void run(){
         //System.out.println("fireball");
-        location.addX(velocity.getX()/(double)refreshRate);
-        location.addY(velocity.getY()/(double)refreshRate);
-        
-        System.out.println(castingEntity.getDirection());
-        System.out.println("X: "+velocity.getX());
-        System.out.println("Y: "+velocity.getY());
+        location.addX(velocity.getX()/(double)refreshRate * 64);
+        location.addY(velocity.getY()/(double)refreshRate * 64);
         
         lifetime -= refreshRate;    
-        if(isActive){ 
+        if(!isActive){ 
+            this.cancel();
           //  myTimer.addEvent(this, refreshRate);
         }
         

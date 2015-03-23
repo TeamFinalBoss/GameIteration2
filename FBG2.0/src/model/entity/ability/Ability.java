@@ -65,8 +65,8 @@ public abstract class Ability {
 
 
     public abstract void performAbility(Entity entity);
-    public abstract void applyEffect(Effect effect);
     public abstract boolean meetsStatRequirements(Entity caster);
+    
     /**
     * @author Aaron Iglesias, Jason Owens
     * gets cost of Ability
