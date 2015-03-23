@@ -2,11 +2,15 @@ package view.viewport;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
+import model.director.AvatarInteractionManager;
 import model.director.GameDirector;
-
+import model.factories.SpriteFactory;
+import model.item.Takeable;
 import controller.sceneControllers.SceneChanger;
 import controller.sceneControllers.SceneType;
 import controller.util.SceneObserver;
@@ -69,11 +73,12 @@ public class StoreFrontViewPort implements ViewPort, Observer, SceneObserver {
 	@Override
 	public void draw(Graphics g) {
 		if(canDraw()) {
+			List<Takeable> list = AvatarInteractionManager.getInstance().getConversationPartner().getFullStoreContents();
 			//I is the row J is the column
 			for(int i = 0; i < maximumNumberOfRows; ++i) {
 				for(int j = 0; j < itemsPerRow; ++j) {
 					//actually draw item using i, j, items per row and other shit.
-					drawItem(g,i,j);				
+					drawItem(g,i,j, list);				
 				}
 			}
 		}
@@ -85,13 +90,18 @@ public class StoreFrontViewPort implements ViewPort, Observer, SceneObserver {
 
 
 
-	private void drawItem(Graphics g, int i, int j) {
+	private void drawItem(Graphics g, int i, int j, List<Takeable> items) {
 		if((i * itemsPerRow + j) + (maximumNumberOfRows * currentMinRow) == currentSelection) {
 			g.setColor(Color.GREEN);
 		} else {
 			g.setColor(Color.ORANGE);
 		}
 		g.drawRect((j * sizeOfBox) + startX, (i * sizeOfBox)+ startY, sizeOfBox - 1, sizeOfBox - 1);
+		if(items.size()  > (i * itemsPerRow + j) + (maximumNumberOfRows * currentMinRow)) {
+			int value = ((i * itemsPerRow + j) + (maximumNumberOfRows * currentMinRow));
+			BufferedImage image = SpriteFactory.hashIDtoImage(items.get(value).id);
+			g.drawImage(image,(j * sizeOfBox) + startX,  (i * sizeOfBox)+ startY, null);
+		}
 	}
 
 	@Override
