@@ -81,6 +81,7 @@ public class MainMenuViewPort extends Observable implements ViewPort, Observer, 
     	 graphics = g;
          if (options != null) {
         	 stringWidth = new int[options.length];
+                 try{
              for (int i = 0; i < options.length; i++) {
                  if (i == activeOptionIndex) {
                      g.setColor(Color.red);
@@ -91,6 +92,7 @@ public class MainMenuViewPort extends Observable implements ViewPort, Observer, 
                  stringHeight = g.getFontMetrics().getHeight();
                  g.drawString(options[i], (width / 2) - (stringWidth[i] / 2), i * (stringHeight + padding) + logoY + logoHeight + stringHeight + padding);
              }
+             }catch(NullPointerException e){}
          }
     }
 
