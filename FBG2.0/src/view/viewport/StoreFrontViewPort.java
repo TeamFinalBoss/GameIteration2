@@ -94,9 +94,9 @@ public class StoreFrontViewPort implements ViewPort, Observer, SceneObserver {
 		if((i * itemsPerRow + j) + (maximumNumberOfRows * currentMinRow) == currentSelection) {
 			g.setColor(Color.GREEN);
 		} else {
-			g.setColor(Color.ORANGE);
+			g.setColor(Color.WHITE);
 		}
-		g.drawRect((j * sizeOfBox) + startX, (i * sizeOfBox)+ startY, sizeOfBox - 1, sizeOfBox - 1);
+		g.fillRect((j * sizeOfBox) + startX, (i * sizeOfBox)+ startY, sizeOfBox - 1, sizeOfBox - 1);
 		if(items.size()  > (i * itemsPerRow + j) + (maximumNumberOfRows * currentMinRow)) {
 			int value = ((i * itemsPerRow + j) + (maximumNumberOfRows * currentMinRow));
 			BufferedImage image = SpriteFactory.hashIDtoImage(items.get(value).id);

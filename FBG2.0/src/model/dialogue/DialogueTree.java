@@ -2,6 +2,9 @@ package model.dialogue;
 
 import java.util.List;
 
+import controller.sceneControllers.SceneChanger;
+import controller.sceneControllers.SceneType;
+
 /** 
  * Defines an abstract class that all specific dialogue trees must adhere to
  * 
@@ -67,6 +70,9 @@ public abstract class DialogueTree {
 	 * @returns onActive enum
 	 */
 	public DialogueActions getOnActive() {
+		if(current.getOnActive() == DialogueActions.STOREFRONT) {
+			SceneChanger.getInstance().changeScene(SceneType.STORE);
+		}
 		return current.getOnActive();
 	}
 	
@@ -81,6 +87,9 @@ public abstract class DialogueTree {
 	public void traverse(int num) {
 		DialogueElement newElement = current.returnOption(num);
 		
-		if(newElement != null) current = newElement;
+		if(newElement != null) { 
+			current = newElement;
+			
+		}
 	}
 }
