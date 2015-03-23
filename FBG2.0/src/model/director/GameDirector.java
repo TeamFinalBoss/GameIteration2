@@ -27,6 +27,7 @@ import view.viewport.SackViewport;
 import view.viewport.StatsUpdateViewport;
 import view.window.GameWindow;
 import controller.Controller;
+import controller.keyBindings.KeyBindings;
 import controller.mouse.MouseParser;
 import controller.sceneControllers.SceneChanger;
 import controller.sceneControllers.SceneType;
@@ -219,6 +220,7 @@ public class GameDirector extends Observable implements SceneObserver {
  
     	MapInstantiator.getInstance().loadFullGame(def);
     	AvatarInteractionManager.getInstance().setAvatar(MapInstantiator.getInstance().createAvatarFromFile(def));
+    	KeyBindings loadedBindings = MapInstantiator.getInstance().createKeyBindingsFromFile(def);
     	
      	doTheGameStuff();
     	
