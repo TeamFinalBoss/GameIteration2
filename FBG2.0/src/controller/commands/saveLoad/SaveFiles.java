@@ -2,6 +2,7 @@ package controller.commands.saveLoad;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import controller.commands.Commandable;
@@ -25,13 +26,24 @@ public abstract class SaveFiles implements Commandable {
 	public abstract void execute();
 
 
-	private void refresh() {
+	protected void refresh() {
 		File[] list = new File("./src/resources/saves/").listFiles();
+		files.clear();
 		for(File file : list) {
 			if(file.isFile() && !file.getName().equals("default.xml")) {
 				files.add(file);
 			}
 		}
+		files.sort(new Comparator<File>() {
+
+			@Override
+			public int compare(File arg0, File arg1) {
+				return Long.valueOf(arg1.lastModified()).compareTo(arg0.lastModified());
+			}  
+		});
+		
+	
 	}
+	
 
 }

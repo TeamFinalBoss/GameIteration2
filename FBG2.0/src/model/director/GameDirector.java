@@ -73,8 +73,7 @@ public class GameDirector extends Observable implements SceneObserver {
      *
      */
     public void startMainMenuScene() {
-        doTheOtherThing();
-        
+        doTheOtherThing(null);
         try {
             InputStream in = new FileInputStream("src/resources/sound/menu_funny.wav");
             AudioStream as = new AudioStream(in);
@@ -122,8 +121,13 @@ public class GameDirector extends Observable implements SceneObserver {
         sceneChanger.registerObserver(this);
     }
     
-    public void doTheOtherThing() {
-    	KeyListener listener = controller.buildController();
+    public void doTheOtherThing(KeyBindings bindings) {
+    	KeyListener listener;
+    	if(bindings == null) {
+    		listener = controller.buildController();
+    	} else {
+    		listener = controller.buildController(bindings);
+    	}
     	this.listener = listener;
         window.addKeyController(listener);//Add controller to menu
         this.mouse = controller.getMouseParser();
@@ -217,12 +221,13 @@ public class GameDirector extends Observable implements SceneObserver {
     public void startNewGame(File def) {
         if(!MapInstantiator.getInstance().checkValidity(def)) return;
     	
-    	doTheThing();
-        doTheOtherThing();
+    	KeyBindings loadedBindings = MapInstantiator.getInstance().createKeyBindingsFromFile(def);
+        doTheThing();
+        doTheOtherThing(loadedBindings);
  
     	MapInstantiator.getInstance().loadFullGame(def);
     	AvatarInteractionManager.getInstance().setAvatar(MapInstantiator.getInstance().createAvatarFromFile(def));
-    	KeyBindings loadedBindings = MapInstantiator.getInstance().createKeyBindingsFromFile(def);
+    	
     	
      	doTheGameStuff();
     	
