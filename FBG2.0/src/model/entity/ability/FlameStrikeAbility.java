@@ -40,7 +40,7 @@ public class FlameStrikeAbility extends RadialAbility
 		this.name = "Flame Strike";
                 this.distance = 1;
                 this.damage = 10;
-		this.effect = new DealDamageEffect(this.damage, this.distance);
+		this.effect = new DealDamageEffect(this.damage);
 		this.degree = 90;
 		this.radius = 2;
 		this.myCC = CombatCoordinator.getInstance();
@@ -76,15 +76,14 @@ public class FlameStrikeAbility extends RadialAbility
 
     	if(mana >= manaCost)
     	{
-    		caster.setCurrentMP(--manaCost);
+    		caster.setCurrentMP(mana - manaCost);
     		for(int i = 0; i < entities.size(); ++i)
     		{
     			if(inRange(caster, entities.get(i)))
                         {
                             c2 = entities.get(i).getLocation();
                             this.distance = (int) c1.getDistance(c1,c2);
-                            this.effect.setDistance(this.distance);
-                            this.effect.applyEffect(entities.get(i));
+                            this.effect.applyEffect(entities.get(i),distance);
                         }
     		}
     		return true;

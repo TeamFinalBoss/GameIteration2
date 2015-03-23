@@ -34,7 +34,7 @@ public class FireballAbility extends ProjectileAbility
 	{
 		this.name = "Fireball";
         this.damage = 10;
-		this.effect = new DealDamageEffect(this.damage,1);
+		this.effect = new DealDamageEffect(this.damage);
 		this.myCC = CombatCoordinator.getInstance();
 		this.ms = 2000;
 	}
@@ -72,7 +72,7 @@ public class FireballAbility extends ProjectileAbility
 
     	if(mana >= manaCost)
     	{
-    		summoner.setCurrentMP(--manaCost);
+    		summoner.modifyCurrentMP(-manaCost);
     		Fireball fb = new Fireball((long) ms, velocity, PCP, effect, summoner);
                 return true;
     	}
