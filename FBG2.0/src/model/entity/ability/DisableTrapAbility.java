@@ -29,12 +29,17 @@ public class DisableTrapAbility extends RadialAbility {
 	public boolean performAbility(Entity entity) {
 		int mana = entity.getCurrentMP();
 		if (mana >= 15){
-			Random rand = new Random();
+			/*Random rand = new Random();
 			if (rand.nextInt(100) <= entity.getLevel() + entity.getAgility()){
 				for (Trap t : entity.getVisibleTraps()){
 					entity.modifyCurrentMP(-15);
 					ActiveMapManager.getInstance().removeTrapFromActiveMap(t);
 				}
+			}*/
+			
+			for (Trap t : entity.getVisibleTraps()){
+				entity.modifyCurrentMP(-15);
+				ActiveMapManager.getInstance().removeTrapFromActiveMap(t);
 			}
 			
 		}
