@@ -20,4 +20,9 @@ public class EvilMuscleSlime extends SmasherNPC {
 		// TODO Auto-generated method stub
 		this.id = id;
 	}
+	@Override
+	public String getId() {
+		// TODO Auto-generated method stub
+		return id;
+	}
 }

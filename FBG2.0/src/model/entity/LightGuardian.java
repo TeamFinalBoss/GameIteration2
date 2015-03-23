@@ -21,4 +21,9 @@ public class LightGuardian extends SmasherNPC {
 		this.id = id;
 		
 	}
+	@Override
+	public String getId() {
+		// TODO Auto-generated method stub
+		return id;
+	}
 }
