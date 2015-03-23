@@ -66,6 +66,7 @@
     <obstacle name="door" link="4" x="5" y="4" />
     <interactive name="doorOpener" link="4" x="2" y="2" />
     <oneshot name="recoveryHeart" x="1" y="2" />
+    <trap name="dealDamageTrap" x="6" y="3" />
  
 </map>
 </gamesave>
