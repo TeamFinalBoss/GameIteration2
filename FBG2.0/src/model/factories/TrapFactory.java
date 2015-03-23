@@ -47,6 +47,7 @@ public class TrapFactory implements PlaceableObjectFactory{
 			switch(item.getAttribute("name")){
 			case "dealDamageTrap":
 				it = new DealDamageTrap();
+				it.setID("trap");
 				break;
 			}
 				
