@@ -53,7 +53,7 @@ public class FireballAbility extends ProjectileAbility
 	}
 
 	@Override
-    public void performAbility(Entity caster) 
+    public boolean performAbility(Entity caster) 
     {
     	CoordinatePair coordinatePair = caster.getLocation();
     	double x = coordinatePair.getX();
@@ -71,9 +71,10 @@ public class FireballAbility extends ProjectileAbility
     	{
     		caster.setCurrentMP(--mana);
     		Fireball fb = new Fireball((long) ms, velocity, PCP, effect, caster);
+                return true;
     	}
     	else
-    		return;
+    		return false;
     }
 
 }

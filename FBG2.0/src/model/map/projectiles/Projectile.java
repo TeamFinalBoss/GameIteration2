@@ -96,4 +96,8 @@ public abstract class Projectile extends TimerTask{
     public PreciseCoordinatePair getLocation() {
         return location;
     }
+    
+    public void setInactive(){
+        isActive = false;
+    }
 }
