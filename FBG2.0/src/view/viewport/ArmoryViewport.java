@@ -3,10 +3,16 @@ package view.viewport;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.image.BufferedImage;
+import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
+import model.director.AvatarInteractionManager;
 import model.director.GameDirector;
+import model.factories.SpriteFactory;
+import model.item.EquipSlot;
+import model.item.Equipable;
 import view.MousePoint;
 import view.MousePointClick;
 import controller.commands.sceneChangers.ArmorySackMaintainer;
@@ -73,6 +79,7 @@ public class ArmoryViewport extends Observable implements ViewPort, Observer, Mo
 	@Override
 	public void draw(Graphics g) {
 		if(canDraw()) {
+			Map<EquipSlot, Equipable> map = AvatarInteractionManager.getInstance().getArmoryContents();
 			for(int i = 0; i < 6; i++) {
 				int xCoord;
 				int yCoord;
@@ -94,6 +101,28 @@ public class ArmoryViewport extends Observable implements ViewPort, Observer, Mo
 					}
 					xCoord = startX;
 				}
+				Equipable draw;
+				EquipSlot slot;
+				if(i == 0) {
+					slot = EquipSlot.HEAD;
+				} else if(i == 1) {
+					slot = EquipSlot.TORSO;
+				} else if(i == 2) {
+					slot = EquipSlot.MAIN_HAND;
+				} else if(i == 3) {
+					slot = EquipSlot.OFF_HAND;
+				} else if(i == 4) {
+					slot = EquipSlot.LEGS;
+				} else {
+					slot = EquipSlot.FEET;
+				}
+				
+				draw = map.get(slot);
+				if(draw != null) {
+					BufferedImage image = SpriteFactory.hashIDtoImage(draw.id);
+					g.drawImage(image, xCoord, yCoord, null);
+				}
+				
 				g.drawRect(xCoord, yCoord, sizeOfBox - 1, sizeOfBox - 1);
 			}
 		}

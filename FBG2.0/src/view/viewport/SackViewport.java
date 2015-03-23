@@ -3,10 +3,16 @@ package view.viewport;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.image.BufferedImage;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
+import model.director.AvatarInteractionManager;
 import model.director.GameDirector;
+import model.entity.Entity;
+import model.factories.SpriteFactory;
+import model.item.Takeable;
 import view.MousePointClick;
 import controller.commands.sceneChangers.ArmorySackMaintainer;
 import controller.sceneControllers.SceneChanger;
@@ -28,6 +34,7 @@ public class SackViewport extends Observable implements ViewPort, Observer, Mous
 	private static final int Xpadding = 0;//17;
 	private static int height;
 	private static int width;
+	private static Entity avatar = AvatarInteractionManager.getInstance().getAvatar();
 
 	public SackViewport() {
 		width = (int) (GameDirector.getSize().width * 0.8);
@@ -68,11 +75,11 @@ public class SackViewport extends Observable implements ViewPort, Observer, Mous
 	@Override
 	public void draw(Graphics g) {
 		if(canDraw()) {
-			//I is the row J is the column
+			List<Takeable> items  = AvatarInteractionManager.getInstance().getSack();
 			for(int i = 0; i < maximumNumberOfRows; ++i) {
 				for(int j = 0; j < itemsPerRow; ++j) {
 					//actually draw item using i, j, items per row and other shit.
-					drawItem(g,i,j);				
+					drawItem(g,i,j, items);				
 				}
 			}
 		}
@@ -84,13 +91,20 @@ public class SackViewport extends Observable implements ViewPort, Observer, Mous
 
 
 
-	private void drawItem(Graphics g, int i, int j) {
+	private void drawItem(Graphics g, int i, int j, List<Takeable> items) {
 		if((i * itemsPerRow + j) + (maximumNumberOfRows * currentMinRow) == currentSelection) {
 			g.setColor(Color.GREEN);
 		} else {
 			g.setColor(Color.ORANGE);
 		}
 		g.drawRect((j * sizeOfBox) + startX, (i * sizeOfBox)+ startY, sizeOfBox - 1, sizeOfBox - 1);
+		
+		if(items.size()  > (i * itemsPerRow + j) + (maximumNumberOfRows * currentMinRow)) {
+			int value = (i * itemsPerRow + j) + (maximumNumberOfRows * currentMinRow);
+			System.out.println(items.get(value).className);
+			BufferedImage image = SpriteFactory.hashIDtoImage(items.get(value).id);
+			g.drawImage(image,(j * sizeOfBox) + startX,  (i * sizeOfBox)+ startY, null);
+		}
 	}
 
 	@Override
