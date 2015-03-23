@@ -1,9 +1,7 @@
 package model.map.tile;
 
-import model.map.areaEffect.AreaEffect;
-import model.map.tile.trap.Trap;
-import model.entity.Entity;
 import model.entity.MotionType;
+import model.gameObject.MapObject;
 
 /**
  * This class represents the basic display unit in-game. Tiles contain a terrain and may contain a decal, 
@@ -13,7 +11,7 @@ import model.entity.MotionType;
  * @author Michael Cohen
  *
  */
-public class Tile {
+public class Tile extends MapObject{
 
 	Terrain terrain;
 	
@@ -64,6 +62,11 @@ public class Tile {
 		terrain = null;
 	}
 
+	
+	public void setTerrain(Terrain t)
+	{
+		this.terrain = t;
+	}
 
 	
 	

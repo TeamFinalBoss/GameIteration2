@@ -22,17 +22,19 @@ import model.map.projectiles.Fireball;
 
 public class FireballAbility extends ProjectileAbility
 {
-	private String name;
+	//private String name;
     private Effect effect;
     private CombatCoordinator myCC;
     private Effect cost;
     private double ms;
     private double rate;
+    private int damage;
 
 	public FireballAbility()
 	{
-		this.name = "Fireball";
-		this.effect = new DealDamageEffect(50,1);
+		this.setName("FireBall");
+                this.damage = 10;
+		this.effect = new DealDamageEffect(this.damage);
 		this.myCC = CombatCoordinator.getInstance();
 		this.ms = 2000;
 	}
@@ -40,6 +42,7 @@ public class FireballAbility extends ProjectileAbility
 	public FireballAbility(String name, Effect effect, Effect cost, double ms, double rate)
 	{
 		super(name, effect, cost, ms, rate);
+		this.setName("FireBall");
 		this.myCC = CombatCoordinator.getInstance();
 	}
 
@@ -58,6 +61,7 @@ public class FireballAbility extends ProjectileAbility
     	CoordinatePair coordinatePair = summoner.getLocation();
     	double x = coordinatePair.getX();
     	double y = coordinatePair.getY();
+        int manaCost = 1;
 
     	PreciseCoordinatePair PCP = new PreciseCoordinatePair();
     	PCP.set(x,y);
@@ -67,9 +71,9 @@ public class FireballAbility extends ProjectileAbility
     	Vector velocity = getVector(summoner.getDirection());
     	int mana = summoner.getCurrentMP();
 
-    	if(mana >= 1)
+    	if(mana >= manaCost)
     	{
-    		summoner.setCurrentMP(--mana);
+    		summoner.modifyCurrentMP(-manaCost);
     		Fireball fb = new Fireball((long) ms, velocity, PCP, effect, summoner);
                 return true;
     	}

@@ -53,7 +53,6 @@ public abstract class Entity extends MapObject {
     private boolean canMove;
     private String occupation;
     private String type;
-    private NPC conversationPartner;
 
     /* -------------------- PROTECTED COMPONENT CREATION -------------------- */
     protected Inventory createInventory() {
@@ -385,6 +384,9 @@ public abstract class Entity extends MapObject {
     /* -------------------- STATS MODIFY MUTATORS -------------------- */
     public void dealDamage(int amount) {
         myStats.dealDamage(amount);
+        if (getCurrentHP() <= 0) {
+            die();
+        }
         myAbilities.update();
     }
 
@@ -535,7 +537,7 @@ public abstract class Entity extends MapObject {
     }
 
     public boolean canSee(int observation) {
-        return true;
+    	return true;
     }
 
     public String getOccupation() {
@@ -564,11 +566,11 @@ public abstract class Entity extends MapObject {
     }
 
     public boolean modifyLocation(CoordinatePair change) {
-        if (!canMove) {
+    	setDirection(motionToDirection(change));
+    	super.modifyLocation(change);
+    	if (!canMove) {
             return false;
         }
-        super.modifyLocation(change);
-        setDirection(motionToDirection(change));
         canMove = false;
         GameTimer.getInstance().addEvent(new AllowMovement(this), (int) 10000 / getMovement());
         this.visibleMap.update();
@@ -587,4 +589,8 @@ public abstract class Entity extends MapObject {
         this.visibleMap.update();
     }
     
+
+    public void useWeapon() {
+        this.myInventory.useWeapon(this);
+    }
 }

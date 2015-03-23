@@ -57,7 +57,7 @@ public class VisibleMap {
 			if(!e.canSee(owner.getObservation())) entities.remove(e);
 		}
 		for(Trap t : traps){
-			if(!t.canSee(owner.getObservation())) traps.remove(t);
+			if(!t.canSee(owner)) traps.remove(t);
 		}
 		for(Item i : items){
 			if(!i.canSee(owner.getObservation())) items.remove(i);

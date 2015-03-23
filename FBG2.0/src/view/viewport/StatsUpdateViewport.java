@@ -30,10 +30,10 @@ public class StatsUpdateViewport implements ViewPort, Observer {
     @Override
     public void draw(Graphics g) {
 
-        int healthBarXMargin = (int) (screenWidth * 0.20);
-        int healthBarYMargin = screenHeight - 135;
-        int healthBarWidth = screenWidth - (healthBarXMargin * 2);
+        int healthBarXMargin = (int) (screenWidth * 0.30);
         int healthBarHeight = 25;
+        int healthBarYMargin = screenHeight - healthBarHeight * 2;
+        int healthBarWidth = screenWidth - (healthBarXMargin * 2);
 
         double percentageOfHealthRemaining = Math.min((double) currentHealth / (double) maxHealth, 1.0);
 
@@ -49,7 +49,7 @@ public class StatsUpdateViewport implements ViewPort, Observer {
         g.drawString(health, healthBarWidth / 2 + healthBarXMargin - g.getFontMetrics().stringWidth(health) / 2, healthBarYMargin + g.getFontMetrics().getHeight());
 
         //Mana bar
-        int manaBarXMargin = (int) (screenWidth * 0.25);
+        int manaBarXMargin = (int) (screenWidth * 0.30);
         int manaBarWidth = screenWidth - (manaBarXMargin * 2);
         int manaBarYMargin = healthBarYMargin + healthBarHeight;
         int manaBarHeight = 25;

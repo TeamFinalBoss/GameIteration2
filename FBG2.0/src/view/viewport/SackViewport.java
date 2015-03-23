@@ -7,7 +7,6 @@ import java.util.Observable;
 import java.util.Observer;
 
 import model.director.GameDirector;
-import view.MousePoint;
 import view.MousePointClick;
 import controller.commands.sceneChangers.ArmorySackMaintainer;
 import controller.sceneControllers.SceneChanger;
