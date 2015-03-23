@@ -29,8 +29,13 @@
 <binding key="57" value="Skill 9"  />
 <binding key="56" value="Skill 8"  />
 </keyBindings>
+<<<<<<< HEAD
 <avatar occupation="sneak" map="4" currency="0" motionType="GROUND" direction="North" x="1" y="1">
+   <stats livesLeft="3" strength="3" agility="1" intellect="80" hardiness="8" experience="20000" movement="50" bindWounds="3" stat1="3" stat2="3" stat3="3" stat4="3" currentHp="100" currentMp="10000" offense="3" defense="3" bargain="3" observation="3" />
+=======
+<avatar occupation="sneak" map="4" currency="60" motionType="GROUND" direction="North" x="1" y="1">
    <stats livesLeft="3" strength="3" agility="3" intellect="8" hardiness="8" experience="20000" movement="50" bindWounds="3" stat1="3" stat2="3" stat3="3" stat4="3" currentHp="100" currentMp="100" offense="3" defense="3" bargain="3" observation="3" />
+>>>>>>> 6322b47d69cae3d7570199da0cfa4273b2390df5
    	<sack>
    		<item name="gun" durability="100" />
    		<item name="hermesBoots" durability="100" />
@@ -48,15 +53,62 @@
    		<armory>
    		</armory>
    		<store>
+   			<item name="gun" durability="100" />
+   			<item name="gun" durability="100" />
+   			<item name="jesusBoots" durability="100" />
    		</store>
    		<effects>
    		</effects>
 	</entity>
-    <obstacle name="door" link="4" x="1" y="1" />
+	<entity occupation="smasher" map="1" currency="0" type="evilMuscleSlime" direction="North" x="11" y="10" link="20" motionType="GROUND">
+   		<sack>
+   		</sack>
+   		<armory>
+   		</armory>
+   		<store>
+   		</store>
+   		<effects>
+   		</effects>
+	</entity>
+	<entity occupation="smasher" map="1" currency="0" type="friendlyOldBrawler" direction="North" x="11" y="14" link="20" motionType="GROUND">
+   		<sack>
+   		</sack>
+   		<armory>
+   		</armory>
+   		<store>
+   		</store>
+   		<effects>
+   		</effects>
+	</entity>
+<<<<<<< HEAD
+	<entity occupation="smasher" map="1" currency="0" type="lightGuardian" direction="North" x="12" y="1" link="20" motionType="GROUND">
+   		<sack>
+   		</sack>
+   		<armory>
+   		</armory>
+   		<store>
+   		</store>
+   		<effects>
+   		</effects>
+	</entity>
+=======
+>>>>>>> 6322b47d69cae3d7570199da0cfa4273b2390df5
+    <obstacle name="door" link="4" x="5" y="4" />
     <interactive name="doorOpener" link="4" x="2" y="2" />
     <oneshot name="recoveryHeart" x="1" y="2" />
+    <trap name="dealDamageTrap" x="6" y="3" />
+    <takeable name="healthPotion" durability="34" x="6" y="0" />
+ 	<takeable name="halo" durability="34" x="7" y="0" />
+ 	<takeable name="mace" durability="34" x="8" y="0" />
+ 	<takeable name="stick" durability="34" x="9" y="0" />
+ 	<takeable name="hornes" durability="34" x="10" y="0" />
+ 	<takeable name="sword" durability="34" x="11" y="0" />
+<<<<<<< HEAD
+ 	<areaeffect name="teleport" x="3" y="3" link="6" />
 </map>
-<map id="2">
-    <obstacle name="door" link="4" x="1" y="1" />
+<map id="5">
+<areaeffect name="teleport" x="6" y="6" link="6" />
+=======
+>>>>>>> 6322b47d69cae3d7570199da0cfa4273b2390df5
 </map>
 </gamesave>
