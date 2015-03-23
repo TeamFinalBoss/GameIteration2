@@ -163,6 +163,9 @@ public abstract class SmasherNPC extends SmasherEntity implements NPC {
 		public void buyItem(Takeable item){
 			getInventory().sellItem(item);
 		}
+		public boolean getFriendly(){
+			return friendly;
+		}
 }
 
 
