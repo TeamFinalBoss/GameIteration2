@@ -70,10 +70,11 @@ public class CleaveAbility extends RadialAbility
     	List<Entity> entities = map.getEntities();
         CoordinatePair c1 = smasher.getLocation();
         CoordinatePair c2;
+        int manaCost = this.damage;
 
-    	if(mana >= 1)
+    	if(mana >= manaCost)
     	{
-    		smasher.setCurrentMP(--mana);
+    		smasher.setCurrentMP(--manaCost);
     		for(int i = 0; i < entities.size(); ++i)
     		{
     			if(inRange(smasher, entities.get(i)))
