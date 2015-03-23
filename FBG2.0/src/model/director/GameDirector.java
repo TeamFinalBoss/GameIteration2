@@ -28,6 +28,7 @@ import view.viewport.ObservationViewPort;
 import view.viewport.SackViewport;
 import view.viewport.StatsUpdateViewport;
 import view.viewport.StoreFrontViewPort;
+import view.viewport.StoreInvViewPort;
 import view.window.GameWindow;
 import controller.Controller;
 import controller.keyBindings.KeyBindings;
@@ -124,6 +125,7 @@ public class GameDirector extends Observable implements SceneObserver {
         scenes.put(SceneType.DIALOGUE, gameScene);
         scenes.put(SceneType.STORE, gameScene);
         scenes.put(SceneType.SELECTOR, selectorScene);
+        scenes.put(SceneType.STORE_INV, gameScene);
         
         sceneChanger.registerObserver(this);
     }
@@ -219,11 +221,15 @@ public class GameDirector extends Observable implements SceneObserver {
         StoreFrontViewPort storeVp = new  StoreFrontViewPort();
         gameScene.addViewport(storeVp);
         
+        StoreInvViewPort invVp = new StoreInvViewPort();
+        gameScene.addViewport(invVp);
+        
         controller.addObserver(sack, SceneType.SACK);
         controller.addObserver(armory, SceneType.ARMORY);
         //controller.addObserver(statsPort, SceneType.STATS_UPDATING);
         controller.addObserver(dailoguePort, SceneType.DIALOGUE);
         controller.addObserver(storeVp, SceneType.STORE);
+        controller.addObserver(invVp, SceneType.STORE_INV);
         
         List<Observable> sackObservables = controller.getObservables(SceneType.SACK);
         ((Observable)sack).addObserver((Observer) sackObservables.get(0));
