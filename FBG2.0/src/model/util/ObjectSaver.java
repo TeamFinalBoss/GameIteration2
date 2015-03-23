@@ -67,7 +67,7 @@ public class ObjectSaver {
 		if(e.getType().equals("avatar")) save += getStatsFormat(e) + "\n";
 		save += getSackFormat(e) + "\n";
 		save += getArmoryFormat(e) + "\n";
-		save += getStoreFormat(e) + "\n";
+		if(!e.getType().equals("avatar")) save += getStoreFormat(e) + "\n";
 		save += getEffectsFormat(e) + "\n";
 		
 		if(e.getType().equals("avatar")) save += "</avatar>";
@@ -156,18 +156,19 @@ public class ObjectSaver {
 			save += "stat2=\"" + ((SmasherEntity) e).getTwoHanded() + "\" ";
 			save += "stat3=\"" + ((SmasherEntity) e).getBrawling() + "\" ";
 			save += "stat4=\"" + ((SmasherEntity) e).getChakra() + "\" ";
-			
+			break;
 		case "sneak":
 			save += "stat1=\"" + ((SneakEntity) e).getPickPocket() + "\" ";
 			save += "stat2=\"" + ((SneakEntity) e).getTrapSkill() + "\" ";
 			save += "stat3=\"" + ((SneakEntity) e).getCreep() + "\" ";
 			save += "stat4=\"" + ((SneakEntity) e).getRangedWeapon() + "\" ";
-			
+			break;
 		case "summoner":
 			save += "stat1=\"" + ((SummonerEntity) e).getEnchantment() + "\" ";
 			save += "stat2=\"" + ((SummonerEntity) e).getBane() + "\" ";
 			save += "stat3=\"" + ((SummonerEntity) e).getBoon() + "\" ";
 			save += "stat4=\"" + ((SummonerEntity) e).getStaff() + "\" ";
+			break;
 		}
 		
 		save += "/>";

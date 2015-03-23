@@ -151,4 +151,8 @@ public class Locations<S extends MapObject> {
     public int getSize() {
         return locations.size();
     }
+    
+    public List<S> getList(){
+    	return locations;
+    }
 }
