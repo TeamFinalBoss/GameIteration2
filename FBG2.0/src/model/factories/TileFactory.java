@@ -34,18 +34,13 @@ public class TileFactory {
     	{
     		for(int j = 0; j < width; ++j)
     		{
+    			String id = nodes.item(count++).getAttributes().item(0).getTextContent();
+    			//System.out.println("id: " + id);
     			//TODO: change when id's have a meaning corresponding to a Terrain
-    			if(false)
-    			{
-    				continue;
-    			}
+    		
+    			tiles[i][j] = new Tile(new Terrain());
+    			tiles[i][j].setID(id);
     			
-    			//Default case: make a grass tile
-    			else
-    			{
-    				tiles[i][j] = new Tile(new Terrain());
-                                tiles[i][j].setLocation(new CoordinatePair(i,j));
-    			}
     		}
     	}
     	
