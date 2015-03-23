@@ -1,5 +1,7 @@
 package view.viewport;
 
+import controller.Controller;
+import controller.keyBindings.KeyBindingsOption;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.List;
@@ -24,6 +26,10 @@ public class AbilityViewPort implements ViewPort {
                 x += 12;
             }
         }
+        /*for(int i = 0; i < ; i++){
+            
+        }*/
+        //Controller.getInstance().getKeyBindings().getBindingsReverse(KeyBindingsOption.SKILL_0);
     }
 
 }
