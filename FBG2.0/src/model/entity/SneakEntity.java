@@ -61,7 +61,7 @@ public abstract class SneakEntity extends Entity {
 	}
 	
 	/* -------------------- STATS SETTER MUTATORS -------------------- */
-	public void setPickPocket(int modifier){
+	public void setPickPokcet(int modifier){
 		getStats().setPickPocket(modifier);
 	}
 	public void setTrap(int modifier){
