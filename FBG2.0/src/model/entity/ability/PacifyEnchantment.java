@@ -50,5 +50,4 @@ public class PacifyEnchantment extends LinearAbility {
 		
 		return false;
 	}
-
 }
