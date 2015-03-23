@@ -4,17 +4,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-import model.item.Gun;
-import model.item.Halo;
-import model.item.HealthPotion;
-import model.item.HermesBoots;
-import model.item.Hornes;
-import model.item.JesusBoots;
-import model.item.Mace;
-import model.item.RecoveryHeart;
-import model.item.RustyKnife;
-import model.item.Stick;
-import model.item.Sword;
 import model.map.Direction;
 
 /**
@@ -23,27 +12,75 @@ import model.map.Direction;
  */
 public class SpriteFactory {
 
+    private static SpriteFactory spriteFactory;
+
     /* NORTH AND SOUTH HAVE TO BE FLIPPED */
     private static final String resourcePath = "src/resources/img/";
 
-    private static final String LIGHT_GRASS = resourcePath + "tile/LightGrass.png";
-    private static final String LIGHT_WATER = resourcePath + "tile/LightWater.png";
-    private static final String LIGHT_MOUNTAIN = resourcePath + "tile/LightMountain.png";
-    private static final String DARK_GRASS = resourcePath + "tile/DarkGrass.png";
-    private static final String DARK_WATER = resourcePath + "tile/DarkWater.png";
-    private static final String DARK_MOUNTAIN = resourcePath + "tile/DarkMountain.png";
-    private static final String GUN = resourcePath + "item/gun.png";
-    private static final String HEALTH_POTION = resourcePath + "item/RecoveryHeart.png";
-    private static final String HALO = resourcePath + "item/Halo.png";
-    private static final String HERMES_BOOTS = resourcePath + "item/HermesBoots.png";
+    private static final String LIGHT_GRASS_PATH = resourcePath + "tile/LightGrass.png";
+    private static final String LIGHT_WATER_PATH = resourcePath + "tile/LightWater.png";
+    private static final String LIGHT_MOUNTAIN_PATH = resourcePath + "tile/LightMountain.png";
+    private static final String DARK_GRASS_PATH = resourcePath + "tile/DarkGrass.png";
+    private static final String DARK_WATER_PATH = resourcePath + "tile/DarkWater.png";
+    private static final String DARK_MOUNTAIN_PATH = resourcePath + "tile/DarkMountain.png";
+    private static final String GUN_PATH = resourcePath + "item/gun.png";
+    private static final String HEALTH_POTION_PATH = resourcePath + "item/RecoveryHeart.png";
+    private static final String HALO_PATH = resourcePath + "item/Halo.png";
+    private static final String HERMES_BOOTS_PATH = resourcePath + "item/HermesBoots.png";
     //private static final String JESUS_BOOTS = resourcePath + "item/gun.png";
-    private static final String RUSTY_KNIFE = resourcePath + "item/RustyKnife.png";
-    private static final String MACE = resourcePath + "item/Mace.png";
-    private static final String STICK = resourcePath + "item/Stick.png";
-    private static final String HORNES = resourcePath + "item/Hornes.png";
-    private static final String RECOVERY_HEART = resourcePath + "item/RecoveryHeart.png";
-    private static final String DOOR_OPENER = resourcePath + "item/DoorOpener.png";
-    private static final String DOOR = resourcePath + "item/Door.png";
+    private static final String RUSTY_KNIFE_PATH = resourcePath + "item/RustyKnife.png";
+    private static final String MACE_PATH = resourcePath + "item/Mace.png";
+    private static final String STICK_PATH = resourcePath + "item/Stick.png";
+    private static final String HORNES_PATH = resourcePath + "item/Hornes.png";
+    private static final String RECOVERY_HEART_PATH = resourcePath + "item/RecoveryHeart.png";
+    private static final String DOOR_OPENER_PATH = resourcePath + "item/DoorOpener.png";
+    private static final String DOOR_PATH = resourcePath + "item/Door.png";
+
+    private final BufferedImage LIGHT_GRASS;
+    private final BufferedImage LIGHT_WATER;
+    private final BufferedImage LIGHT_MOUNTAIN;
+    private final BufferedImage DARK_GRASS;
+    private final BufferedImage DARK_WATER;
+    private final BufferedImage DARK_MOUNTAIN;
+    private final BufferedImage GUN;
+    private final BufferedImage HEALTH_POTION;
+    private final BufferedImage HALO;
+    private final BufferedImage HERMES_BOOTS;
+    //private static final String JESUS_BOOTS = resourcePath + "item/gun.png";
+    private final BufferedImage RUSTY_KNIFE;
+    private final BufferedImage MACE;
+    private final BufferedImage STICK;
+    private final BufferedImage HORNES;
+    private final BufferedImage RECOVERY_HEART;
+    private final BufferedImage DOOR_OPENER;
+    private final BufferedImage DOOR;
+    private final BufferedImage FOG;
+    private final BufferedImage FIREBALL;
+    private final BufferedImage GENERIC;
+
+    private SpriteFactory() {
+        LIGHT_GRASS = getImage(LIGHT_GRASS_PATH);
+        LIGHT_WATER = getImage(LIGHT_WATER_PATH);
+        LIGHT_MOUNTAIN = getImage(LIGHT_MOUNTAIN_PATH);
+        DARK_GRASS = getImage(DARK_GRASS_PATH);
+        DARK_WATER = getImage(DARK_WATER_PATH);
+        DARK_MOUNTAIN = getImage(DARK_MOUNTAIN_PATH);
+        GUN = getImage(GUN_PATH);
+        HEALTH_POTION = getImage(HEALTH_POTION_PATH);
+        HALO = getImage(HALO_PATH);
+        HERMES_BOOTS = getImage(HERMES_BOOTS_PATH);
+        RUSTY_KNIFE = getImage(RUSTY_KNIFE_PATH);
+        MACE = getImage(MACE_PATH);
+        STICK = getImage(STICK_PATH);
+        HORNES = getImage(HORNES_PATH);
+        RECOVERY_HEART = getImage(RECOVERY_HEART_PATH);
+        DOOR_OPENER = getImage(DOOR_OPENER_PATH);
+        DOOR = getImage(DOOR_PATH);
+        FOG = getImage(resourcePath + "tile/fog.png");
+        FIREBALL = getImage(resourcePath + "projectile/fireball.png");
+        GENERIC = getImage(resourcePath + "generic.png");
+
+    }
 
     public static BufferedImage getAvatar(Direction d) {
         BufferedImage img = null;
@@ -86,7 +123,11 @@ public class SpriteFactory {
     }
 
     public static BufferedImage getGenericObject() {
-        return getImage(resourcePath + "generic.png");
+        return getInstance().getGenericObj();
+    }
+
+    private BufferedImage getGenericObj() {
+        return GENERIC;
     }
 
     private static BufferedImage getImage(String filename) {
@@ -100,72 +141,81 @@ public class SpriteFactory {
         return img;
     }
 
-    public static BufferedImage getGrass() {
-        return getImage(resourcePath + "tile/LightGrass.png");
+    public static BufferedImage getFog() {
+        return getInstance().getSmoke();
+
     }
 
-    public static BufferedImage getFog() {
-        return getImage(resourcePath + "tile/fog.png");
+    private BufferedImage getSmoke() {
+        return FOG;
     }
 
     public static BufferedImage getFireball() {
-        return getImage(resourcePath + "projectile/fireball.png");
+        return getInstance().getFire();
+    }
+    
+    private BufferedImage getFire(){
+        return FIREBALL;
     }
 
     public static BufferedImage hashIDtoImage(String id) {
+        return getInstance().hashIDtoImg(id);
+    }
+
+    private BufferedImage hashIDtoImg(String id) {
         switch (id) {
             case "1":
-                return getImage(LIGHT_GRASS);
+                return LIGHT_GRASS;
             case "2":
-                return getImage(LIGHT_WATER);
+                return LIGHT_WATER;
             case "3":
-                return getImage(LIGHT_MOUNTAIN);
+                return LIGHT_MOUNTAIN;
             case "4":
-                return getImage(DARK_GRASS);
+                return DARK_GRASS;
             case "5":
-                return getImage(DARK_WATER);
+                return DARK_WATER;
             case "6":
-                return getImage(DARK_MOUNTAIN);
+                return DARK_MOUNTAIN;
             case "gun":
-                return getImage(GUN);
+                return GUN;
 
             case "healthPotion":
-                return getImage(HEALTH_POTION);
+                return HEALTH_POTION;
 
             case "halo":
-                return getImage(HALO);
+                return HALO;
 
             case "hermesBoots":
-                return getImage(HERMES_BOOTS);
+                return HERMES_BOOTS;
 
             case "jesusBoots":
-            //return getImage(JESUS_BOOTS);
+            //return JESUS_BOOTS;
 
             case "rustyKnife":
-                return getImage(RUSTY_KNIFE);
+                return RUSTY_KNIFE;
 
             case "mace":
-                return getImage(MACE);
+                return MACE;
 
             case "stick":
-                return getImage(STICK);
+                return STICK;
 
             case "hornes":
-                return getImage(HORNES);
+                return HORNES;
 
             case "sword":
-            //return getImage(SWORD);
+            //return SWORD;
 
             case "recoveryHeart":
-                return getImage(RECOVERY_HEART);
+                return RECOVERY_HEART;
 
             case "doorOpener":
-                return getImage(DOOR_OPENER);
+                return DOOR_OPENER;
             case "door":
-                return getImage(DOOR);
+                return DOOR;
 
             default:
-                System.out.println(id + " wheres the pic file?");
+                //System.out.println(id + " wheres the pic file?");
                 return getGenericObject();
 
         }
@@ -173,5 +223,16 @@ public class SpriteFactory {
 
     public static BufferedImage getGenericEntity(Direction direction) {
         return getGenericObject();
+    }
+
+    /**
+     *
+     * @return
+     */
+    public static SpriteFactory getInstance() {
+        if (spriteFactory == null) {
+            spriteFactory = new SpriteFactory();
+        }
+        return spriteFactory;
     }
 }

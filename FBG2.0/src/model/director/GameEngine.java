@@ -1,11 +1,12 @@
 package model.director;
 
+import main.RunGame;
 
 /**
  * The game engine is responsible for updating the game and rendering it to the
  * screen. It runs on a threaded loop that updates approximately x frames per
  * second.
- * 
+ *
  * TODO: Enforce engine to run at FPS rate. It currently runs at arbitrary rate.
  *
  * @author ChrisMoscoso
@@ -19,10 +20,16 @@ public class GameEngine implements Runnable {
     public GameEngine() {
         this(30);
     }
+    
+    private static final int MAX_FRAME_SKIPS = 5;
+    /* Number of frames that can be skipped by the renderer to keep the 
+     game updates per second close to the frames per second.
+     */
 
     /**
      * Specify how fast the game engine should run in Frames Per Second
-     * @param FramesPerSecond is how fast the game engine should tick 
+     *
+     * @param FramesPerSecond is how fast the game engine should tick
      */
     public GameEngine(int FramesPerSecond) {
         FPS = FramesPerSecond;
@@ -45,23 +52,59 @@ public class GameEngine implements Runnable {
      */
     @Override
     public void run() {
+        long beforeTime, afterTime, timeDiff, sleepTime, period;
+        long overSleepTime = 0L;
+        int noDelays = 0;
+        long excess = 0L;
+
+        period = 1000 / FPS;
+
+        beforeTime = System.currentTimeMillis();
+        
         while (true) {
             updateGame();
             renderGame();
+
+            afterTime = System.currentTimeMillis();
+            timeDiff = afterTime - beforeTime;
+            sleepTime = period - timeDiff - overSleepTime; // time left in this loop
+
+            if (sleepTime > 0) {
+                try {
+                    Thread.sleep(sleepTime);  // sleep a bit
+                } catch (InterruptedException ex) {
+                }
+                overSleepTime = (System.currentTimeMillis() - afterTime) - sleepTime;
+            } else { //sleeptime <=0; frame took longer than a period
+                excess -= sleepTime; //store excess time value
+                overSleepTime = 0;
+            }
+
+            beforeTime = System.currentTimeMillis();
+
+            /* If frame animation is taking too long, update the game state
+             without rendering it, to get the updates/sec nearer to
+             the required FPS. */
+            int skips = 0;
+            while ((excess > period) && (skips < MAX_FRAME_SKIPS)) {
+                excess -= period;
+                updateGame(); // update state but don't render 
+                skips++;
+            }
         }
     }
-    
+
     /**
      * Update the game models
      */
-    private void updateGame(){
+    private void updateGame() {
         director.updateGame();
     }
-    
+
     /**
      * Render the game to the screen
      */
-    private void renderGame(){
+    private void renderGame() {
         director.drawGame();
     }
 }
