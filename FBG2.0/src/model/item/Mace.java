@@ -16,12 +16,10 @@ import model.map.pair.CoordinatePair;
 public class Mace extends Weapon {
     
     public Mace(){
-		super("mace", "Generic description", new CoordinatePair(), 
-                        0, 1, EquipSlot.HEAD, new  DealDamageEffect(20));
+		super("Mace", "Generic description", new CoordinatePair(), 
+                        0, 1, EquipSlot.MAIN_HAND, new  DealDamageEffect(20));
 		
 		this.id = "26";
-		this.className = "Mace";
-                this.slot= EquipSlot.HEAD;
                 
                 
 		

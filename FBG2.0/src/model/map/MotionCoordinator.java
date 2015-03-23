@@ -36,7 +36,7 @@ public class MotionCoordinator {
 		if(!e.modifyLocation(change)) return;
 		
 		if (effect != null){
-			effect.activate(e);
+                    effect.activate(e);
 		}
 		
 		if (i != null){
