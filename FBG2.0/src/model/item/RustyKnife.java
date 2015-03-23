@@ -20,7 +20,7 @@ public class RustyKnife extends Weapon{
     //durability
      public RustyKnife(){
 		super("rustyKnife", "Generic_description", new CoordinatePair(),
-                0, 1, EquipSlot.HEAD, new  DealDamageEffect(10));
+                0, 1, EquipSlot.MAIN_HAND, new  DealDamageEffect(10));
                 this.id = "19";
 		this.className = "RustyKnife";
                 
@@ -34,7 +34,7 @@ public class RustyKnife extends Weapon{
 	public RustyKnife(String objectName, String description, CoordinatePair 
                 location, int durability ){
 		super(objectName, description, location, 5, durability, 
-                EquipSlot.HEAD, new  DealDamageEffect(10) );
+                EquipSlot.MAIN_HAND, new  DealDamageEffect(10) );
                 
  
 		

@@ -4,7 +4,7 @@ import model.effect.DealDamageEffect;
 import model.entity.ability.SmasherLibrary;
 import model.entity.stats.SmasherStats;
 import model.map.pair.CoordinatePair;
-import model.item.Weapon;
+import model.item.Takeable;
 public abstract class SmasherEntity extends Entity{
 	/* -------------------- PROTECTED CREATION ------------------- */
 	protected SmasherLibrary createAbilities(){

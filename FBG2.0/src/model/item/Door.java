@@ -5,7 +5,6 @@
  */
 package model.item;
 
-import model.entity.Entity;
 import model.map.pair.CoordinatePair;
 
 /**
