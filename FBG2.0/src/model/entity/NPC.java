@@ -20,4 +20,5 @@ public interface NPC{
 	public boolean getFriendly();
 	public void setFriendly(boolean next);
 	public void setId(String id);
+	public String getId();
 }

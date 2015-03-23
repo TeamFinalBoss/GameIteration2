@@ -44,8 +44,9 @@ public class InteractiveFactory implements PlaceableObjectFactory{
 				
 			switch(item.getAttribute("name")){
 			case "doorOpener":
-				//it = new DoorOpener();
-				//((DoorOpener) it).setLink(Integer.parseInt(item.getAttribute("link")));
+				it = new DoorOpener();
+				((DoorOpener) it).setLink(Integer.parseInt(item.getAttribute("link")));
+                                it.setID("doorOpener");
 				break;
 			
 			}
