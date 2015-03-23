@@ -41,7 +41,7 @@ public abstract class Usable extends Takeable{
         	//Check if Entity meets prerequisites for using the item
         	//If prerequisites were met, use the item and return true
         	//Else return false
-        	return false;
+        	return true;
         }
 }
 

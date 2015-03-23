@@ -50,7 +50,7 @@ public class HermesBoots extends Equipable{
         // for Armours 
        
         public boolean meetsRequirements(){
-            return false;
+            return true;
         }
         
         @Override
@@ -76,6 +76,23 @@ public class HermesBoots extends Equipable{
             target.modifyAgility(5);
             target.modifyWeaponOffense(5);
         }
+   
+   @Override 
+   public boolean useInSack(Entity e){
+       if (!meetsRequirements(e)){
+           return false;
+       }
+       else{
+      e.equip(this);
+      return true;
+       }
+       
+   }
+   
+   @Override 
+   public boolean meetsRequirements(Entity e) {
+	   return e.getLevel() >= 2;
+   }
         
         
     

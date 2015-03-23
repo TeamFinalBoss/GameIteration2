@@ -46,7 +46,7 @@ public abstract class Equipable extends Usable {
        
         // for Armours 
         public boolean meetsRequirements(Entity target){
-            return false;
+            return true;
         }
         
         public abstract void onUnequip(Entity target); //undo the effects that were applied when the item was equipped
