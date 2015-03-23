@@ -55,13 +55,13 @@ public class GameSaver {
 			
 			//Items
 			for (Item item : map.getItems()){
-				if (item.getClassName().equals("Takeable")) 
+				if (item.getType().equals("Takeable")) 
 					save += saver.getSaveFormat((Takeable)item) + "\n";
-				else if (item.getClassName().equals("One Shot"))
+				else if (item.getType().equals("One Shot"))
 					save += saver.getSaveFormat((OneShot)item) + "\n";
-				else if (item.getClassName().equals("Obstacle"))
+				else if (item.getType().equals("Obstacle"))
 					save += saver.getSaveFormat((Obstacle)item) + "\n";
-				else if (item.getClassName().equals("Interactive"))
+				else if (item.getType().equals("Interactive"))
 					save += saver.getSaveFormat((Interactive)item) + "\n";
 			}
 			
