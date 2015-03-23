@@ -73,7 +73,6 @@ public class MapInstantiator {
 		
 		//clear maps
 		ActiveMapManager.getInstance().clearMaps();
-		System.out.println("loading full game...");
 		
 		Document doc = null;
 		
@@ -145,10 +144,10 @@ public class MapInstantiator {
 				
 				addItem(maps, mapid, n, n.getLocation());
 			}
+		}
 			
-			for(GameMap m : maps) {
-				ActiveMapManager.getInstance().addMap(m);
-			}
+		for(GameMap m : maps) {
+			ActiveMapManager.getInstance().addMap(m);
 		}
 	}
 	

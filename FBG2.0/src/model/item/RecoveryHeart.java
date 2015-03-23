@@ -16,7 +16,7 @@ import model.map.pair.CoordinatePair;
  */
 public class RecoveryHeart extends OneShot {
     public RecoveryHeart(){
-		super("Generic RecoveryHeart", "Generic description", new CoordinatePair());
+		super("recoveryHeart", "Generic description", new CoordinatePair());
 		
 		this.id = "22";
 		this.className = "RecoveryHeart";
@@ -45,7 +45,7 @@ public class RecoveryHeart extends OneShot {
         }
         
         public RecoveryHeart(int durability){
-           super("Generic RecoveryHeart", "Generic description", new CoordinatePair());
+           super("recoveryHeart", "Generic description", new CoordinatePair());
         }
         
         

@@ -98,6 +98,14 @@ public abstract class MapObject {
 	public String getName() { return name; }
 	
 	/**
+	 * Sets object's name
+	 * 
+	 * @author Michael Cohen
+	 * @param name
+	 */
+	public void setName(String name) { this.name = name; }
+	
+	/**
 	 * Gets the CoordinatePair location of the object
 	 * 
 	 * @author Chris Moscoso

@@ -18,7 +18,7 @@ public class HealthPotion extends Usable {
     
     
     public HealthPotion(){
-		super("Generic HealthPotion", "Generic description", new CoordinatePair(), 5, 0);
+		super("healthPotion", "Generic description", new CoordinatePair(), 5, 0);
 		
 		this.id = "16";
 		this.className = "HealthPotion";
@@ -53,7 +53,7 @@ public class HealthPotion extends Usable {
     	}
         
         public HealthPotion(int durability){
-           super("Generic HealthPotion", "Generic description", 
+           super("healthPotion", "Generic description", 
              new CoordinatePair(), 5, durability);
         }
         

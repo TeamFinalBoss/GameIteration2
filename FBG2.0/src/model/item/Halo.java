@@ -17,7 +17,7 @@ public class Halo extends Equipable {
      
     
    public Halo(){
-		super("Generic Eqipable", "Generic description", 
+		super("halo", "Generic description", 
                         new CoordinatePair(), 0, 1, EquipSlot.HEAD);
 		
 		this.id = "18";
@@ -58,7 +58,7 @@ public class Halo extends Equipable {
     	}
         
         public Halo(int durability){
-            super("Generic Halo", "Generic_description", 
+            super("halo", "Generic_description", 
                         new CoordinatePair(), 0, 1,EquipSlot.HEAD );
                         
 }

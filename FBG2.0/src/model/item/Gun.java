@@ -17,7 +17,7 @@ import model.map.pair.CoordinatePair;
 public class Gun extends Weapon{
     
     public Gun(){
-		super("Gun", "Generic description", new CoordinatePair(), 0, 1, 
+		super("gun", "Generic description", new CoordinatePair(), 0, 1, 
                         EquipSlot.HEAD, new  DealDamageEffect(80));
 		
 		this.id = "25";
@@ -71,7 +71,7 @@ public class Gun extends Weapon{
         
         
         public Gun(int durability){
-            super("Gun", "Generic description", new CoordinatePair(), 0, durability , 
+            super("gun", "Generic description", new CoordinatePair(), 0, durability , 
                         EquipSlot.HEAD, new  DealDamageEffect(80));
         }
         //TODO- Projectile motion has to be added

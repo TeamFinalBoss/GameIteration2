@@ -15,7 +15,7 @@ import model.map.pair.CoordinatePair;
  */
 public class Staff extends Weapon {
     public Staff(){
-		super("Generic Mace", "Generic description", new CoordinatePair(), 
+		super("staff", "Generic description", new CoordinatePair(), 
                         0, 1, EquipSlot.HEAD, new  DealDamageEffect(20));
 		
 		this.id = "27";
@@ -55,7 +55,7 @@ public class Staff extends Weapon {
         }
         
          public Staff(int durability){
-            super("Staff", "Generic_description", new CoordinatePair(),
+            super("staff", "Generic_description", new CoordinatePair(),
                 0, durability, EquipSlot.HEAD, new  DealDamageEffect(10));
         }
          

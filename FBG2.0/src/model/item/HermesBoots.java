@@ -14,7 +14,7 @@ import model.map.pair.CoordinatePair;
  */
 public class HermesBoots extends Equipable{
     public HermesBoots(){
-		super("HermesBoots", "Generic description", new CoordinatePair(), 
+		super("hermesBoots", "Generic description", new CoordinatePair(), 
                         0, 1, EquipSlot.FEET);
 		
 		this.id = "24";
@@ -62,7 +62,7 @@ public class HermesBoots extends Equipable{
     
     
    public HermesBoots(int durability){
-            super("HermesBoots", "Generic description", new CoordinatePair(), 
+            super("hermesBoots", "Generic description", new CoordinatePair(), 
                         0, 1, EquipSlot.FEET);
 }
    @Override

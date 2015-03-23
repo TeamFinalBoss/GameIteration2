@@ -14,7 +14,7 @@ import model.map.pair.CoordinatePair;
  */
 public class JesusBoots extends Equipable{
     public JesusBoots(){
-		super("JesusBoots", "Generic description", new CoordinatePair(), 
+		super("jesusBoots", "Generic description", new CoordinatePair(), 
                         0, 1, EquipSlot.FEET);
 		
 		this.id = "23";
@@ -58,7 +58,7 @@ public class JesusBoots extends Equipable{
     
     
     public JesusBoots(int durability){
-            super("HermesBoots", "Generic description", new CoordinatePair(), 
+            super("jesusBoots", "Generic description", new CoordinatePair(), 
                         0, 1, EquipSlot.FEET);
     }
     

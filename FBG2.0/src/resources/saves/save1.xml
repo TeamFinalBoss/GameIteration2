@@ -12,7 +12,7 @@
 <map id="1">
 <entity type="lightGuardian" occupation="smasher" x="0" y="0" currency="0" direction="North" link="20" motiontype="GROUND" >
 <sack>
-<item name="Sword" durability="100" />
+<item name="sword" durability="100" />
 </sack>
 <armory>
 </armory>
@@ -21,25 +21,13 @@
 <effects>
 </effects>
 </entity>
+<interactive name="doorOpener" x="2" y="2" link="4" />
+<takeable name="sword" x="2" y="1" durability="20" />
+<oneshot name="recoveryHeart" x="1" y="2" />
+<obstacle name="door" x="1" y="1" link="4" />
 </map>
 <map id="2">
-</map>
-<map id="3">
-</map>
-<map id="1">
-<entity type="lightGuardian" occupation="smasher" x="0" y="0" currency="0" direction="North" link="20" motiontype="GROUND" >
-<sack>
-<item name="Sword" durability="100" />
-</sack>
-<armory>
-</armory>
-<store>
-</store>
-<effects>
-</effects>
-</entity>
-</map>
-<map id="2">
+<obstacle name="door" x="1" y="1" link="4" />
 </map>
 <map id="3">
 </map>
