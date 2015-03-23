@@ -44,8 +44,8 @@ public class Vector {
                     this.y= 0;
                                 break;
                 case SouthEast: 
-                    this.x = 1;
-                    this.y= -1;
+                    this.x = -1;
+                    this.y= 1;
                                    break;
                 case SouthWest: 
                     this.x = -1;

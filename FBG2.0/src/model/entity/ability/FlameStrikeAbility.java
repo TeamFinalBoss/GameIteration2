@@ -17,6 +17,7 @@ import model.map.GameMap;
 import model.map.Locations;
 import model.map.Vector;
 import model.map.pair.PreciseCoordinatePair;
+import model.map.projectiles.Fireball;
 
 /**
 *
@@ -71,6 +72,7 @@ public class FlameStrikeAbility extends AngularAbility
 
     	if(mana >= manaCost)
     	{
+                /*
     		caster.setCurrentMP(mana - manaCost);
     		for(int i = 0; i < entities.size(); ++i)
     		{
@@ -83,8 +85,52 @@ public class FlameStrikeAbility extends AngularAbility
                                 ((DealDamageEffect)this.getEffect()).applyEffect(entities.get(i),distance);
                             }
                         }
-    		}
+    		}*/
+                
+                CoordinatePair coordinatePair = caster.getLocation();
+                double x = coordinatePair.getX();
+                double y = coordinatePair.getY();
+
+                PreciseCoordinatePair PCP = new PreciseCoordinatePair();
+                PCP.set(x,y);
+                
+                Vector velocity = new Vector(caster.getDirection());
+                velocity.multiply(3);
+                
+                
+                
+                Vector v1 = new Vector(Direction.East);
+                Vector v2 = new Vector(Direction.West);
+                Vector v3 = new Vector(Direction.North);
+                Vector v4 = new Vector(Direction.South);
+                Vector v5 = new Vector(Direction.SouthEast);
+                Vector v6 = new Vector(Direction.NorthEast);
+                Vector v7 = new Vector(Direction.SouthWest);
+                Vector v8 = new Vector(Direction.NorthWest);
+                
+                PreciseCoordinatePair PCP1 = new PreciseCoordinatePair(PCP.getX(),PCP.getY());
+                PreciseCoordinatePair PCP2 = new PreciseCoordinatePair(PCP.getX(),PCP.getY());
+                PreciseCoordinatePair PCP3 = new PreciseCoordinatePair(PCP.getX(),PCP.getY());
+                PreciseCoordinatePair PCP4 = new PreciseCoordinatePair(PCP.getX(),PCP.getY());
+                PreciseCoordinatePair PCP5 = new PreciseCoordinatePair(PCP.getX(),PCP.getY());
+                PreciseCoordinatePair PCP6 = new PreciseCoordinatePair(PCP.getX(),PCP.getY());
+                PreciseCoordinatePair PCP7 = new PreciseCoordinatePair(PCP.getX(),PCP.getY());
+                PreciseCoordinatePair PCP8 = new PreciseCoordinatePair(PCP.getX(),PCP.getY());
+                
+                
+                Fireball fb1 = new Fireball((long)2000, v1, PCP1, getEffect(), caster);
+                Fireball fb2 =new Fireball((long)2000, v2, PCP2, getEffect(), caster);
+                Fireball fb3 =new Fireball((long)2000, v3, PCP3, getEffect(), caster);
+                Fireball fb4 =new Fireball((long)2000, v4, PCP4, getEffect(), caster);
+                Fireball fb5 =new Fireball((long)2000, v5, PCP5, getEffect(), caster);
+                Fireball fb6 =new Fireball((long)2000, v6, PCP6, getEffect(), caster);
+                Fireball fb7 =new Fireball((long)2000, v7, PCP7, getEffect(), caster);
+                Fireball fb8 =new Fireball((long)2000, v8, PCP8, getEffect(), caster);
+                
+                
+                
     		return true;
+                
     	}
     	else
     		return false;
