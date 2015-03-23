@@ -136,6 +136,7 @@ public class MapViewPort implements ViewPort, Observer {
                     }catch(NoSuchElementException e){
                         System.out.println("nosuchelement");
                     
+
                     }
                         
                     }
