@@ -44,31 +44,25 @@ public class GameSaver {
 		save += saver.getSaveFormat(manager.getAvatar());
 		save += "\n";
 		
+		//Cycle through every map for relevant information
 		for (GameMap map : manager.getMaps()){
 			save += "<map id=\"" + map.getID() + "\">\n";
-			int x = map.getWidth();
-			int y = map.getHeight();
-			for (int i = 0; i != x; ++i){
-				for (int j = 0; j != y; ++j){
-					CoordinatePair CP = new CoordinatePair(i, j);
-					
-					//Entities
-					Entity e = map.getEntityAtCoordinate(CP);
-					if (e != null && !e.getType().equals("avatar")) save += saver.getSaveFormat(e) + "\n";
-					
-					//Items
-					Item item = map.getItemAtCoordinate(CP);
-					if (item != null) {
-						if (item.getClassName().equals("Takeable")) 
-							save += saver.getSaveFormat((Takeable)item) + "\n";
-						else if (item.getClassName().equals("One Shot"))
-							save += saver.getSaveFormat((OneShot)item) + "\n";
-						else if (item.getClassName().equals("Obstacle"))
-							save += saver.getSaveFormat((Obstacle)item);
-						else if (item.getClassName().equals("Interactive"))
-							save += saver.getSaveFormat((Interactive)item) + "\n";
-					}
-				}
+			
+			//Entities
+			for (Entity entity : map.getEntities()){
+				if (!entity.getType().equals("avatar")) save += saver.getSaveFormat(entity) + "\n";
+			}
+			
+			//Items
+			for (Item item : map.getItems()){
+				if (item.getType().equals("Takeable")) 
+					save += saver.getSaveFormat((Takeable)item) + "\n";
+				else if (item.getType().equals("One Shot"))
+					save += saver.getSaveFormat((OneShot)item) + "\n";
+				else if (item.getType().equals("Obstacle"))
+					save += saver.getSaveFormat((Obstacle)item) + "\n";
+				else if (item.getType().equals("Interactive"))
+					save += saver.getSaveFormat((Interactive)item) + "\n";
 			}
 			
 			save += "</map>\n";
