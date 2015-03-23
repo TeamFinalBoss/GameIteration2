@@ -14,6 +14,7 @@ import model.director.GameDirector;
 import model.entity.Entity;
 import model.factories.SpriteFactory;
 import model.item.Item;
+import model.map.areaEffect.AreaEffect;
 import model.map.projectiles.Projectile;
 import model.map.pair.CoordinatePair;
 import model.map.tile.Tile;
@@ -32,6 +33,7 @@ public class MapViewPort implements ViewPort, Observer {
     List<Item> itemsAvatarCanSee;
     List<Trap> trapsAvatarCanSee;
     List<Projectile> projectilesAvatarCanSee;
+    List<AreaEffect> areaEffectsAvatarCanSee;
 
     int widthInTiles = 0, heightInTiles = 0;
     BufferedImage currentTileImg, currentEntityImg;
@@ -171,6 +173,21 @@ public class MapViewPort implements ViewPort, Observer {
             System.out.println(e);
 
         }
+        
+        try {
+            for (AreaEffect aoe : areaEffectsAvatarCanSee) {
+                double aoex = (aoe.getLocation().getX());
+                double aoey = (aoe.getLocation().getY());
+
+                g.drawImage(SpriteFactory.hashIDtoImage(aoe.getID()), (int) ((px - startX) * tileWidth), (int) ((py - startY) * tileHeight), tileWidth, tileHeight, null);
+            }
+
+        } catch (NullPointerException e) {
+        } catch (ConcurrentModificationException e) {
+        } catch (NoSuchElementException e) {
+            System.out.println(e);
+
+        }
 
     }
 
@@ -188,6 +205,6 @@ public class MapViewPort implements ViewPort, Observer {
         itemsAvatarCanSee = (List<Item>) mapObjects[4];
         trapsAvatarCanSee = (List<Trap>) mapObjects[5];
         projectilesAvatarCanSee = (List<Projectile>) mapObjects[6];
-
+        areaEffectsAvatarCanSee = (List<AreaEffect>) mapObjects[7];
     }
 }
