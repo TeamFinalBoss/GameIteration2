@@ -33,7 +33,7 @@ public class CleaveAbility extends AngularAbility
 	{
 		super();
 		this.setName("Cleave");
-        this.damage = 10;
+                this.damage = 10;
 		this.setEffect(new DealDamageEffect(this.damage));
 		this.setRadius(2);
 		this.myMM = ActiveMapManager.getInstance();

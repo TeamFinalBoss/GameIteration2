@@ -136,11 +136,9 @@ public abstract class SmasherNPC extends SmasherEntity implements NPC {
 			
 			switch(action) {
 			case NOTHING:
-				AvatarInteractionManager.getInstance().setConversationPartner(null);
 				return true;
 				
 			case EXIT:
-				AvatarInteractionManager.getInstance().setConversationPartner(null);
 				return false;
 				
 			case STOREFRONT:

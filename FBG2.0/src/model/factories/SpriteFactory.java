@@ -85,6 +85,7 @@ public class SpriteFactory {
     private final BufferedImage FOG;
     private final BufferedImage FIREBALL;
     private final BufferedImage GENERIC;
+    private String ANGLE_PATH;
 
     private SpriteFactory() {
         LIGHT_GRASS = getImage(LIGHT_GRASS_PATH);
@@ -115,6 +116,8 @@ public class SpriteFactory {
         BEAR_TRAP = getImage(BEAR_TRAP_PATH);
         /*ENTITY*/
         SLIME = getImage(SLIME_PATH);
+        POP_EYE = getImage(POP_EYE_PATH);
+        ANGEL = getImage(ANGEL_PATH);
 
         FOG = getImage(resourcePath + "tile/fog.png");
         FIREBALL = getImage(resourcePath + "projectile/fireball.png");
