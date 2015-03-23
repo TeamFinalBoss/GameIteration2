@@ -23,37 +23,30 @@ import model.map.projectiles.Fireball;
 
 public class FireballAbility extends ProjectileAbility
 {
-	//private String name;
-    private Effect effect;
-    private CombatCoordinator myCC;
-    private Effect cost;
-    private double ms;
-    private double rate;
     private int damage;
 
 	public FireballAbility()
 	{
+		super();
 		this.setName("FireBall");
                 this.damage = 10;
-		this.effect = new DealDamageEffect(this.damage);
-		this.myCC = CombatCoordinator.getInstance();
-		this.ms = 2000;
+		this.setEffect(new DealDamageEffect(this.damage));
 	}
 
 	public FireballAbility(String name, Effect effect, Effect cost, double ms, double rate)
 	{
 		super(name, effect, cost, ms, rate);
 		this.setName("FireBall");
-		this.myCC = CombatCoordinator.getInstance();
 	}
 
 	@Override
 	public boolean meetsStatRequirements(Entity summoner)
 	{
-		if(summoner.getIntellect() >= 15)
+		/*if(summoner.getIntellect() >= 15)
             return true;
         else
-            return false;
+            return false;*/
+		return true;
 	}
 
 	@Override
@@ -80,7 +73,7 @@ public class FireballAbility extends ProjectileAbility
     	if(mana >= manaCost)
     	{
     		summoner.modifyCurrentMP(-manaCost);
-    		Fireball fb = new Fireball((long) ms, velocity, PCP, effect, summoner);
+    		Fireball fb = new Fireball((long)getMs(), velocity, PCP, getEffect(), summoner);
                 return true;
     	}
     	else
