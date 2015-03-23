@@ -23,46 +23,41 @@ import model.map.pair.PreciseCoordinatePair;
 * @author Aaron Iglesias
 */
 
-public class FlameStrikeAbility extends RadialAbility
+public class FlameStrikeAbility extends AngularAbility
 {
-    private String name;
-    private DealDamageEffect effect;
-    private CombatCoordinator myCC;
+   
     private ActiveMapManager myMM;
-    private Effect cost;
-	private double degree;
-	private double radius;
-        private int distance;
-        private int damage;
+    private int distance;
+    private int damage;
 
 	public FlameStrikeAbility()
 	{
-		this.name = "FlameStrike";
-                this.distance = 1;
-                this.damage = 10;
-		this.effect = new DealDamageEffect(this.damage);
-		this.degree = 90;
-		this.radius = 2;
-		this.myCC = CombatCoordinator.getInstance();
+		super();
+		this.setName("FlameStrike");
+        this.distance = 1;
+        this.damage = 10;
+		this.setEffect(new DealDamageEffect(this.damage));
+		this.setRadius(2);
 		this.myMM = ActiveMapManager.getInstance();
 	}
 
 	public FlameStrikeAbility(String name, Effect effect, Effect cost, int degree, double radius, int distance)
 	{
 		super(name, effect, cost, degree, radius);
-		this.myCC = CombatCoordinator.getInstance();
 		this.myMM = ActiveMapManager.getInstance();
         this.distance = distance;
-        this.name = "FlameStrike";        
+        this.setName("FlameStrike");
 	}
 
 	@Override
 	public boolean meetsStatRequirements(Entity caster)
 	{
+		/*
 		if(caster.getStrength() >= 15)
             return true;
         else
-            return false;
+            return false;*/
+		return true;
 	}
 
 	@Override
@@ -84,7 +79,7 @@ public class FlameStrikeAbility extends RadialAbility
                         {
                             c2 = entities.get(i).getLocation();
                             this.distance = (int) c1.getDistance(c1,c2);
-                            this.effect.applyEffect(entities.get(i),distance);
+                            ((DealDamageEffect)this.getEffect()).applyEffect(entities.get(i),distance);
                         }
     		}
     		return true;
