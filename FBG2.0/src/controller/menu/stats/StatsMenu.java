@@ -23,7 +23,6 @@ import controller.commands.game.increase.IncreaseSkill4;
 import controller.commands.game.increase.IncreaseStrength;
 import controller.menu.Menuable;
 import controller.sceneControllers.SceneType;
-import controller.util.Describeable;
 import controller.util.Healthable;
 
 public class StatsMenu extends Observable implements Healthable,Menuable, Observer {
@@ -33,8 +32,17 @@ public class StatsMenu extends Observable implements Healthable,Menuable, Observ
 	private List<StatsOption> options;
 	private int currentIndex = 0;
 	private Map<StatsOption, Commandable> commands;
+
+	private static StatsMenu menu = null;
 	
-	public StatsMenu() {
+	public static StatsMenu getInstance() {
+		if(menu == null) {
+			menu = new StatsMenu();
+		}
+		return menu;
+	}
+	
+	private StatsMenu() {
 		options = new ArrayList<>();
 		options.add(StatsOption.AGILITY);
 		options.add(StatsOption.STRENGTH);
@@ -157,7 +165,6 @@ public class StatsMenu extends Observable implements Healthable,Menuable, Observ
 		derivedStats.add("Offense\t" + manager.getOffense());
 		derivedStats.add("Defense\t" + manager.getDefense());
 		derivedStats.add("Total Armor\t" + manager.getArmor());
-		System.out.println(manager.getArmor());
 		derivedStats.add("Weapon Damage\t" + manager.getWeaponOffense());
 		derivedStats.add("Armor From Equipment\t" + manager.getEquipArmor());
 		
