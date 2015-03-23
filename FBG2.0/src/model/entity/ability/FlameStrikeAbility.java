@@ -33,7 +33,7 @@ public class FlameStrikeAbility extends AngularAbility
 	{
 		super();
 		this.setName("FlameStrike");
-                this.damage = 10;
+        this.damage = 10;
 		this.setEffect(new DealDamageEffect(this.damage));
 		this.setRadius(3);
 		this.myMM = ActiveMapManager.getInstance();
@@ -43,7 +43,7 @@ public class FlameStrikeAbility extends AngularAbility
 	{
 		super(name, effect, cost, degree, radius);
 		this.myMM = ActiveMapManager.getInstance();
-                this.setName("FlameStrike");
+        this.setName("FlameStrike");
 	}
 
 	@Override
