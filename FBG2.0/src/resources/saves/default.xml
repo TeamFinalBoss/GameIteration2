@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gamesave>
-keyBindings>
+<keyBindings>
 <binding key="68" value="Right"  />
 <binding key="69" value="Up Right"  />
 <binding key="65" value="Left"  />
