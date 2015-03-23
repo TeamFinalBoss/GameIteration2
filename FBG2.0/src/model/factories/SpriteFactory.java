@@ -87,19 +87,19 @@ public class SpriteFactory {
         return getImage(resourcePath + "projectile/fireball.png");
     }
 
-    public static BufferedImage hashIDtoImage(int id) {
+    public static BufferedImage hashIDtoImage(String id) {
         switch (id) {
-            case 1:
+            case "1":
                 return getImage(LIGHT_GRASS);
-            case 2:
+            case "2":
                 return getImage(LIGHT_WATER);
-            case 3:
+            case "3":
                 return getImage(LIGHT_MOUNTAIN);
-            case 4:
+            case "4":
                 return getImage(DARK_GRASS);
-            case 5:
+            case "5":
                 return getImage(DARK_WATER);
-            case 6:
+            case "6":
                 return getImage(DARK_MOUNTAIN);
 
         }
