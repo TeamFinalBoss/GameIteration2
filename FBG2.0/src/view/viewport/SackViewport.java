@@ -101,7 +101,6 @@ public class SackViewport extends Observable implements ViewPort, Observer, Mous
 		
 		if(items.size()  > (i * itemsPerRow + j) + (maximumNumberOfRows * currentMinRow)) {
 			int value = (i * itemsPerRow + j) + (maximumNumberOfRows * currentMinRow);
-			System.out.println(items.get(value).className);
 			BufferedImage image = SpriteFactory.hashIDtoImage(items.get(value).id);
 			g.drawImage(image,(j * sizeOfBox) + startX,  (i * sizeOfBox)+ startY, null);
 		}
