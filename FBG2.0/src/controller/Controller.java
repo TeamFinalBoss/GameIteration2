@@ -57,7 +57,12 @@ public class Controller {
 		return buildController(keyBindings);
 	}
 	public KeyListener buildController(KeyBindings bindings) {
-		keyBindings = bindings;
+		if(bindings == null) {
+			keyBindings = DefualtKeyBindingsBuilder.buildDefaultKeyBindings();
+		} else {
+			keyBindings = bindings;
+		}
+
 		this.activeListener = ControllerBuilder.build(bindings);
 		return this.activeListener;
 	}

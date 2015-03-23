@@ -2,6 +2,7 @@ package model.map;
 
 import model.map.projectiles.Projectile;
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -39,13 +40,13 @@ public class GameMap extends Observable {
     private Locations<AreaEffect> effects;
     private Locations<MapSwitcher> switchers;
     private ArrayList<Projectile> projectiles;
-    
+
     private Tile[][] tiles;
-    
+
     private MotionValidator MV;
     private MotionCoordinator MC;
     private int mapID;
-    
+
     public GameMap() {
         Tile[][] t = new Tile[50][50];
         for (int i = 0; i < 50; i++) {
@@ -65,15 +66,16 @@ public class GameMap extends Observable {
         this.MC = MotionCoordinator.getInstance();
         this.MV = MotionValidator.getInstance();
         //this.addEntity(AvatarInteractionManager.getInstance().getAvatar(), new CoordinatePair(1, 1)); //TODO change to avatar
-        
+
     }
     
+   
     public void clearObservers() {
     	super.deleteObservers();
     }
 
     public GameMap(int mapID) {
-    	Tile[][] t = new Tile[50][50];
+        Tile[][] t = new Tile[50][50];
         for (int i = 0; i < 50; i++) {
             for (int j = 0; j < 50; j++) {
                 t[i][j] = new Tile();
@@ -94,7 +96,7 @@ public class GameMap extends Observable {
 
     public GameMap(Tile[][] tiles) {
         this.tiles = tiles;
-        
+
         this.mapID = 1;
         this.items = new Locations<>();
         this.entities = new Locations<>();
@@ -104,17 +106,16 @@ public class GameMap extends Observable {
         this.projectiles = new ArrayList<>();
         this.MC = MotionCoordinator.getInstance();
         this.MV = MotionValidator.getInstance();
-        
+
         //this.addEntity(AvatarInteractionManager.getInstance().getAvatar(), new CoordinatePair(1, 1)); //TODO change to avatar
-        
     }
 
     /**
      * Adds an entity to the map at the valid coordinate pair specified if not
      * already occupied by another entity.
      *
-     * TODO: Determine if boolean signature is necessary 
-     * 
+     * TODO: Determine if boolean signature is necessary
+     *
      * @return true if entity was added to the map
      * @param e Entity to be added to the map
      * @param CP where the entity should be added
@@ -128,48 +129,47 @@ public class GameMap extends Observable {
             return false;
         }
     }
-    
+
     public void setID(int mapID) {
-    	this.mapID = mapID;
+        this.mapID = mapID;
     }
-    
+
     public int getID() {
-    	return mapID;
+        return mapID;
     }
-    
+
     /**
-     * This method attempts to remove the provided entity
-     * from the Entity Locations collection and returns
-     * whether or not that removal was successful
-     * 
-     *  TODO: Determine if boolean signature is necessary 
-     * 
+     * This method attempts to remove the provided entity from the Entity
+     * Locations collection and returns whether or not that removal was
+     * successful
+     *
+     * TODO: Determine if boolean signature is necessary
+     *
      * @author Michael Cohen
      * @param e the entity to be removed
      * @return true if entity was removed, else false
      */
-    public final boolean removeEntity(Entity e){
-    	return this.entities.remove(e);
+    public final boolean removeEntity(Entity e) {
+        return this.entities.remove(e);
     }
-    
+
     /**
-     * Removes and returns the entity from the map. If 
-     * the provided CoordinatePair is not present, a runtime exception is thrown 
-     * 
+     * Removes and returns the entity from the map. If the provided
+     * CoordinatePair is not present, a runtime exception is thrown
+     *
      * @author Michael Cohen
      * @param CP location of the entity which is queried
      * @return Entity that was removed from the map
      */
-    public Entity removeEntity(CoordinatePair CP){
-    	return this.entities.remove(CP);
+    public Entity removeEntity(CoordinatePair CP) {
+        return this.entities.remove(CP);
     }
-    
-    
+
     /**
      * Adds an Item to the map at the valid coordinate pair specified if not
      * already occupied by another item.
      *
-     * TODO: Determine if boolean signature is necessary 
+     * TODO: Determine if boolean signature is necessary
      *
      * @return true if item was added to the map
      * @param item the item to be added to the map
@@ -184,132 +184,133 @@ public class GameMap extends Observable {
             return false;
         }
     }
-    
+
     /**
-     * This method attempts to remove the provided item
-     * from the Item Locations collection and returns
-     * whether or not that removal was successful
-     * 
-     * TODO: Determine if boolean signature is necessary 
-     * 
+     * This method attempts to remove the provided item from the Item Locations
+     * collection and returns whether or not that removal was successful
+     *
+     * TODO: Determine if boolean signature is necessary
+     *
      * @author Michael Cohen
      * @param i the item to be removed
      * @return true if item was removed, else false
      */
-    public final boolean removeItem(Item i){
-    	return this.items.remove(i);
+    public final boolean removeItem(Item i) {
+        return this.items.remove(i);
     }
-    
+
     /**
-     * Removes and returns the item from the map. If 
-     * the provided CoordinatePair is not present, a runtime exception is thrown 
-     * 
+     * Removes and returns the item from the map. If the provided CoordinatePair
+     * is not present, a runtime exception is thrown
+     *
      * @author Michael Cohen
      * @param CP location of the item which is queried
      * @return Item that was removed from the map
      */
-    public Item removeItem(CoordinatePair CP){
-    	return this.items.remove(CP);
+    public Item removeItem(CoordinatePair CP) {
+        return this.items.remove(CP);
     }
-    
+
     /**
-     * Adds an area effect to the map at the valid coordinate pair specified if not
-     * already occupied by another area effect
+     * Adds an area effect to the map at the valid coordinate pair specified if
+     * not already occupied by another area effect
      *
-     * TODO: Determine if boolean signature is necessary 
+     * TODO: Determine if boolean signature is necessary
      *
      * @author Michael Cohen
      * @param effect the area effect to be added to the map
      * @param CP where the area effect is to be added
      * @return true if effect was added to the map
      */
-    public final boolean addAreaEffect(AreaEffect effect, CoordinatePair CP){
-    	if (CoordPairIsValid(CP) && effects.getObjectAt(CP) == null){
-    		this.effects.addObject(effect, CP);
-    		updateView();
-    		return true;
-    	}
-    	else return false;
-    }    
-    
+    public final boolean addAreaEffect(AreaEffect effect, CoordinatePair CP) {
+        if (CoordPairIsValid(CP) && effects.getObjectAt(CP) == null) {
+            this.effects.addObject(effect, CP);
+            updateView();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     /**
-     * This method attempts to remove the provided area effect
-     * from the AreaEffect Locations collection and returns
-     * whether or not that removal was successful
+     * This method attempts to remove the provided area effect from the
+     * AreaEffect Locations collection and returns whether or not that removal
+     * was successful
      *
-     * TODO: Determine if boolean signature is necessary 
+     * TODO: Determine if boolean signature is necessary
      *
      * @author Michael Cohen
      * @param effect to be removed
      * @return true if effect was removed, else false
      */
-    public final boolean removeAreaEffect(AreaEffect effect){
-    	return this.effects.remove(effect);
+    public final boolean removeAreaEffect(AreaEffect effect) {
+        return this.effects.remove(effect);
     }
-    
+
     /**
-     * Removes and returns the area effect from the map. If 
-     * the provided CoordinatePair is not present, a runtime exception is thrown 
-     * 
+     * Removes and returns the area effect from the map. If the provided
+     * CoordinatePair is not present, a runtime exception is thrown
+     *
      * @author Michael Cohen
      * @param CP location of the effect which is queried
      * @return AreaEffect that was removed from the map
      */
-    public AreaEffect removeAreaEffect(CoordinatePair CP){
-    	return this.effects.remove(CP);
+    public AreaEffect removeAreaEffect(CoordinatePair CP) {
+        return this.effects.remove(CP);
     }
-    
+
     /**
      * Adds a switcher to the map at the valid coordinate pair specified if not
      * already occupied by another switcher.
-     * 
+     *
      * TODO: Determine if boolean signature is necessary
-     * 
+     *
      * @author Michael Cohen
      * @param switcher the switcher to be added to the map
      * @param CP where the switcher is to be added
      * @return true if switcher was added to the map
      */
-    public final boolean addMapSwitcher(MapSwitcher switcher, CoordinatePair CP){
-    	if (CoordPairIsValid(CP) && switchers.getObjectAt(CP) == null) {
-    		this.switchers.addObject(switcher, CP);
-    		updateView();
-    		return true;
-    	} else {
-    		return false;
-    	}
+    public final boolean addMapSwitcher(MapSwitcher switcher, CoordinatePair CP) {
+        if (CoordPairIsValid(CP) && switchers.getObjectAt(CP) == null) {
+            this.switchers.addObject(switcher, CP);
+            updateView();
+            return true;
+        } else {
+            return false;
+        }
     }
-    
+
     /**
-     * This method attempts to remove the provided switcher 
-     * from the MapSwitcher Locations collection and returns
-     * whether or not that removal was successful
-     * 
+     * This method attempts to remove the provided switcher from the MapSwitcher
+     * Locations collection and returns whether or not that removal was
+     * successful
+     *
      * TODO: determine if boolean signature is necessary
-     * 
+     *
      * @author Michael Cohen
      * @param switcher to be removed
      * @return true if switcher was removed, else false
      */
-    public final boolean removeMapSwitcher(MapSwitcher switcher){
-    	return this.switchers.remove(switcher);
+    public final boolean removeMapSwitcher(MapSwitcher switcher) {
+        return this.switchers.remove(switcher);
     }
-    
+
     /**
-     * Removes and returns the switcher from the map. If 
-     * the provided CoordinatePair is not present, a runtime exception is thrown 
-     * 
+     * Removes and returns the switcher from the map. If the provided
+     * CoordinatePair is not present, a runtime exception is thrown
+     *
      * @param CP location of the switcher which is being queried
      * @return MapSwitcher that was removed from the map
      */
-    public MapSwitcher removeMapSwitcher(CoordinatePair CP){
-    	return this.switchers.remove(CP);
+    public MapSwitcher removeMapSwitcher(CoordinatePair CP) {
+        return this.switchers.remove(CP);
     }
+
     /**
      * Adds a trap to the map at the valid coordinate pair specified if not
      * already occupied by another trap.
      *
-     * TODO: Determine if boolean signature is necessary 
+     * TODO: Determine if boolean signature is necessary
      *
      * @author Jason Owens
      * @return true if trap was added to the map
@@ -325,34 +326,33 @@ public class GameMap extends Observable {
             return false;
         }
     }
-    
+
     /**
-     * This method attempts to remove the provided trap
-     * from the Trap Locations collection and returns
-     * whether or not that removal was successful
+     * This method attempts to remove the provided trap from the Trap Locations
+     * collection and returns whether or not that removal was successful
      *
-     * TODO: Determine if boolean signature is necessary 
+     * TODO: Determine if boolean signature is necessary
      *
      * @author Michael Cohen
      * @param t trap to be removed
      * @return true if trap was removed, else false
      */
-    public final boolean removeTrap(Trap t){
-    	return this.traps.remove(t);
+    public final boolean removeTrap(Trap t) {
+        return this.traps.remove(t);
     }
-    
+
     /**
-     * Removes and returns the trap from the map. If 
-     * the provided CoordinatePair is not present, a runtime exception is thrown 
-     * 
+     * Removes and returns the trap from the map. If the provided CoordinatePair
+     * is not present, a runtime exception is thrown
+     *
      * @author Michael Cohen
      * @param CP location of the trap which is queried
      * @return Trap that was removed from the map
      */
-    public Trap removeTrap(CoordinatePair CP){
-    	return this.traps.remove(CP);
+    public Trap removeTrap(CoordinatePair CP) {
+        return this.traps.remove(CP);
     }
-    
+
     /**
      * Tests if the coordinate pair is non negative and not beyond the size of
      * the map
@@ -379,7 +379,7 @@ public class GameMap extends Observable {
     public Entity getEntityAtCoordinate(CoordinatePair location) {
         return entities.getObjectAt(location);
     }
-    
+
     /**
      * Returns the Tile at the CoordinatePair
      *
@@ -387,12 +387,13 @@ public class GameMap extends Observable {
      * @return the tile at the CoordinatePair
      */
     public Tile getTileAtCoordinate(CoordinatePair location) {
-        if(CoordPairIsValid(location))
+        if (CoordPairIsValid(location)) {
             return tiles[location.getX()][location.getY()];
-        else
+        } else {
             return null;
+        }
     }
-    
+
     /**
      * Returns the Item at the CoordinatePair
      *
@@ -402,34 +403,34 @@ public class GameMap extends Observable {
     public Item getItemAtCoordinate(CoordinatePair location) {
         return items.getObjectAt(location);
     }
-    
+
     /**
      * @author Jason Owens
      * @param location
      * @return AreaEffect at Coordinate
      */
-    public AreaEffect getAreaEffectAtCoordinate(CoordinatePair location){
+    public AreaEffect getAreaEffectAtCoordinate(CoordinatePair location) {
         return effects.getObjectAt(location);
     }
-    
+
     /**
      * @author Jason Owens
      * @param location
      * @return MapSwitcher at Coordinate
      */
-    public MapSwitcher getSwitcherAtCoordinate(CoordinatePair location){
+    public MapSwitcher getSwitcherAtCoordinate(CoordinatePair location) {
         return switchers.getObjectAt(location);
     }
-    
+
     /**
      * @author Jason Owens
      * @param location
      * @return Trap at Coordinate
      */
-    public Trap getTrapAtCoordinate(CoordinatePair location){
+    public Trap getTrapAtCoordinate(CoordinatePair location) {
         return traps.getObjectAt(location);
     }
-    
+
     /**
      * Returns how wide the map is in number of tiles.
      *
@@ -448,45 +449,43 @@ public class GameMap extends Observable {
         return this.tiles[0].length;
     }
 
-    public List<Entity> getEntities(){
-    	return entities.getList();
+    public List<Entity> getEntities() {
+        return entities.getList();
     }
-    
-    public List<Item> getItems(){
-    	return items.getList();
+
+    public List<Item> getItems() {
+        return items.getList();
     }
-    
-    public List<AreaEffect> getAreaEffects(){
-    	return effects.getList();
+
+    public List<AreaEffect> getAreaEffects() {
+        return effects.getList();
     }
-    
-    public List<Trap> getTraps(){
-    	return traps.getList();
+
+    public List<Trap> getTraps() {
+        return traps.getList();
     }
-    
-    public List<MapSwitcher> getMapSwitchers(){
-    	return switchers.getList();
+
+    public List<MapSwitcher> getMapSwitchers() {
+        return switchers.getList();
     }
-    
+
     /**
      * This should be called when you want to update the view objects observing
      * the map (in this case the MapViewPort). For the sake of encapsulation it
      * only passes the objects needed for drawing the view.
      */
-    
     private void updateView() {
-        
-        System.out.println("Map calls update");
         setChanged();
-        Object[] objects = new Object[6];
+        Object[] objects = new Object[7];
         Entity avatar = AvatarInteractionManager.getInstance().getAvatar();
-        
+
         objects[0] = tiles;
-        objects[1] = avatar;
-        objects[2] = entities;
-        objects[3] = items;
-        objects[4] = traps;
-        objects[5] = projectiles;
+        objects[1] = avatar.getVisibleTiles();
+        objects[2] = avatar.getLocation();
+        objects[3] = avatar.getVisibleEntities();
+        objects[4] = avatar.getVisibleItems();
+        objects[5] = avatar.getVisibleTraps();
+        objects[6] = avatar.getVisibleProjectiles();
         //objects = {tiles, avatar,entities, items, traps};
         notifyObservers(objects);
     }
@@ -496,50 +495,49 @@ public class GameMap extends Observable {
         super.addObserver(o);
         updateView();
     }
-    
-    
+
     /*----------Mutators----------------*/
 
     /*--------Object interaction----------*/
-    public boolean requestMovement(Entity e, Direction dir){
-        CoordinatePair desiredLocation; 
+    public boolean requestMovement(Entity e, Direction dir) {
+        CoordinatePair desiredLocation;
         desiredLocation = locationPlusDirection(e.getLocation(), dir);
-        if(getEntityAtCoordinate(desiredLocation)!=null){
+        if (getEntityAtCoordinate(desiredLocation) != null) {
             return false;
         }
-        
-        if(MV.canTraverse(e.getMotionType(), getItemAtCoordinate(desiredLocation), getTileAtCoordinate(desiredLocation))){ 
+
+        if (MV.canTraverse(e.getMotionType(), getItemAtCoordinate(desiredLocation), getTileAtCoordinate(desiredLocation))) {
             MC.moveEntity(e, desiredLocation, getAreaEffectAtCoordinate(desiredLocation), getItemAtCoordinate(desiredLocation),
                     getSwitcherAtCoordinate(desiredLocation), getTrapAtCoordinate(desiredLocation));
             return true;
-        }
-        else{
+        } else {
             return false;
         }
     }
-    
-    public boolean useAbility(Entity e, int abilityToUse){
+
+    public boolean useAbility(Entity e, int abilityToUse) {
         e.useAbility(abilityToUse);
-        
+
         //I don't want to mess with entity
         return true;
     }
-    
-    
-    
-    
+
     /**
-     * This is used by MotionValidator and MotionCoordinator to get the next location.
+     * This is used by MotionValidator and MotionCoordinator to get the next
+     * location.
+     *
      * @author Jason Owens
      * @param initialLocation the location of the MapObject trying to move
      * @param direction the direction trying to move in
-     * @return finalLocation a CoordinatePair of the new location given a direction
+     * @return finalLocation a CoordinatePair of the new location given a
+     * direction
      */
-    public static CoordinatePair locationPlusDirection(CoordinatePair initialLocation, Direction direction){
-        CoordinatePair returnThis = new CoordinatePair(initialLocation.getX(),initialLocation.getY());
-        switch(direction) {
+    public static CoordinatePair locationPlusDirection(CoordinatePair initialLocation, Direction direction) {
+        CoordinatePair returnThis = new CoordinatePair(initialLocation.getX(), initialLocation.getY());
+        switch (direction) {
             case North:
-                returnThis.addY(-1); break;
+                returnThis.addY(-1);
+                break;
             case NorthEast:
                 returnThis.addY(-1);
                 returnThis.addX(1);
@@ -550,24 +548,24 @@ public class GameMap extends Observable {
                 break;
             case South:
                 returnThis.addY(1);
-                break;   
+                break;
             case SouthEast:
                 returnThis.addY(1);
                 returnThis.addX(1);
-                break;      
+                break;
             case SouthWest:
                 returnThis.addY(1);
                 returnThis.addX(-1);
-                break;      
+                break;
             case West:
-                returnThis.addX(-1); 
-                break;    
+                returnThis.addX(-1);
+                break;
             case East:
-                returnThis.addX(1); 
-                break;  
-          
+                returnThis.addX(1);
+                break;
+
         }
-        return returnThis; 
+        return returnThis;
     }
 
     /**
@@ -579,61 +577,84 @@ public class GameMap extends Observable {
      * @param containedEntities
      * @param containedTraps
      * @param containedItems
-     * @param containedAreaEffects 
+     * @param containedAreaEffects
      */
     public void getEverythingInRange(CoordinatePair center, int radius, List<Tile> containedTiles, List<Projectile> containedProjectiles,
             List<Entity> containedEntities, List<Trap> containedTraps, List<Item> containedItems, List<AreaEffect> containedAreaEffects) {
-       
+
         int centerX = center.getX();
         int centerY = center.getY();
-        
-        int maxX = center.getX() + radius;
-        int maxY = center.getY() + radius;
-        
-        int minX = center.getX() + radius;
-        int minY = center.getY() + radius;
-        
-        for(int i = centerX-radius; i!= centerX+radius; ++i){
-            for(int j = centerY-radius; j!= centerY + radius; ++j){
-                if(center.getDistance(new CoordinatePair(i,j), center)<=radius){
+
+        int maxX = Math.min(center.getX() + radius, tiles.length - 1);
+        int maxY = Math.min(center.getY() + radius, tiles[0].length - 1);
+
+        int minX = Math.max(center.getX() - radius, 0);
+        int minY = Math.max(center.getY() - radius, 0);
+
+        int realMinX = center.getX() - radius;
+        int realMinY = center.getY() - radius;
+        int realMaxX = center.getX() + radius;
+        int realMaxY = center.getY() + radius;
+
+        for (int i = minX; i <= maxX; i++) {
+            for (int j = minY; j <= maxY; j++) {
+                //If we are in the radius and not one of the corners
+                if ((!((i == realMinX && j == realMinY)
+                        || (i == realMaxX && j == realMinY)
+                        || (i == realMinX && j == realMaxY)
+                        || (i == realMaxX && j == realMaxY)) || (radius <= 1))) {
                     containedTiles.add(tiles[i][j]);
+                    if (getEntityAtCoordinate(new CoordinatePair(i, j)) != null) {
+                        containedEntities.add(getEntityAtCoordinate(new CoordinatePair(i, j)));
+                    }
+                    if (getItemAtCoordinate(new CoordinatePair(i, j)) != null) {
+                        containedItems.add(getItemAtCoordinate(new CoordinatePair(i, j)));
+                    }
+                    if (getTrapAtCoordinate(new CoordinatePair(i, j)) != null) {
+                        containedTraps.add(getTrapAtCoordinate(new CoordinatePair(i, j)));
+                    }
+                    if (getAreaEffectAtCoordinate(new CoordinatePair(i, j)) != null) {
+                        containedEntities.add(getEntityAtCoordinate(new CoordinatePair(i, j)));
+                    }
                 }
             }
         }
-        
-        entities.getSesInRange(center, radius, containedEntities);
-        items.getSesInRange(center, radius, containedItems);
-        effects.getSesInRange(center, radius, containedAreaEffects);
-        traps.getSesInRange(center, radius, containedTraps);
-        
-        for(Projectile p: projectiles){
-            if(p.getLocation().getX()<= maxX && p.getLocation().getX()>=minX){
-                if(p.getLocation().getY()<= maxY && p.getLocation().getY()>=minY){
+
+        try {
+
+            for (Projectile p : projectiles) {
+                int px = (int) p.getLocation().getX();
+                int py = (int) p.getLocation().getY();
+
+                //If we are in the radius and not one of the corners
+                if ((px >= minX && px <= maxX && py >= minY && py <= maxY)
+                        && !((px == realMinX && py == realMinY)
+                        || (px == realMaxX && py == realMinY)
+                        || (px == realMinX && py == realMaxY)
+                        || (px == realMaxX && py == realMaxY) || (radius <= 1))) {
                     containedProjectiles.add(p);
                 }
             }
+        } catch (ConcurrentModificationException e) {
         }
-        //TODO: add to projectiles list and this method should be done
-        
     }
+    //TODO: add to projectiles list and this method should be done
 
     public void addProjectile(Projectile proj) {
         projectiles.add(proj);
+        updateView();
+
     }
 
     public void removeProjectile(Projectile proj) {
         projectiles.remove(proj);
-        
+        updateView();
+
         /*
-        for(Projectile p: projectiles){
-            if(p == proj){
+         for(Projectile p: projectiles){
+         if(p == proj){
                 
-            }
-        }*/
+         }
+         }*/
     }
 }
-    
-    
-    
-   
-

@@ -41,7 +41,7 @@ public abstract class AbilityLibrary {
     }
     
     protected void addToLibrary(Ability ability){
-    	unlearnedAbilities.add(ability);
+    	learnedAbilities.add(ability);
     }
     
     protected boolean removeFromLibrary(Ability ability){
