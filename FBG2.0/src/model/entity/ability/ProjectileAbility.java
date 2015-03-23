@@ -88,4 +88,5 @@ public abstract class ProjectileAbility extends Ability
 	}
 
     public abstract boolean meetsStatRequirements(Entity caster);
+    public abstract void performAbility(Entity entity);
 }

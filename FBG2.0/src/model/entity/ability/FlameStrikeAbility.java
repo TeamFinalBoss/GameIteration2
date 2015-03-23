@@ -9,7 +9,11 @@ import model.map.pair.CoordinatePair;
 import java.util.ArrayList;
 import model.entity.Entity;
 import java.lang.Math.*;
+import java.util.List;
+import model.effect.DealDamageEffect;
 import model.entity.ability.ProjectileAbility;
+import model.map.GameMap;
+import model.map.Locations;
 import model.map.Vector;
 import model.map.pair.PreciseCoordinatePair;
 
@@ -30,7 +34,7 @@ public class FlameStrikeAbility extends AngularAbility
 	public FlameStrikeAbility()
 	{
 		this.name = "Flame Strike";
-		this.effect = FlameStrikeEffect;
+		this.effect = new DealDamageEffect(10);
 		this.myCC = CombatCoordinator.getInstance();
 		this.degree = 90;
 		this.radius = 4;
@@ -52,30 +56,22 @@ public class FlameStrikeAbility extends AngularAbility
 	}
 
 	@Override
-    public void performAbility(Entity caster) 
+    public void performAbility(Entity caster, GameMap map) 
     {
     	int mana = caster.getCurrentMP();
+    	List<Entity> entities = map.getEntities();
 
     	if(mana >= 1)
     	{
     		caster.setCurrentMP(--mana);
-    		// for(iterate through entities)
+    		for(int i = 0; i < entities.size(); ++i)
     		{
-    			if(inRange(caster, entity))
-    				// deal damage to entity
+    			if(inRange(caster, entities.get(i)))
+    				this.effect.applyEffect(entities.get(i));
     		}
     	}
     	else
     		return;
     }
-
-	@Override
-	public void applyEffect(Effect effect)
-	{
-		if(inRange)
-			// initial lifetime
-			// initial coordinate
-			// intial vector
-	}
 
 }
