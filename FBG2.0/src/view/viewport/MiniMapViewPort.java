@@ -49,7 +49,7 @@ public class MiniMapViewPort implements ViewPort, Observer {
         int windowHeight = (int) (GameDirector.getSize().height * scale);
         int windowWidthInTiles = windowWidth / tileWidth;
         int windowHeightInTiles = windowHeight / tileHeight;
-        
+
         int startX = avatarLocation.getX() - windowWidthInTiles / 2;
         int startY = avatarLocation.getY() - windowHeightInTiles / 2;
 
@@ -63,20 +63,24 @@ public class MiniMapViewPort implements ViewPort, Observer {
         } else if (startY > heightInTiles - windowHeightInTiles) {
             startY = heightInTiles - windowHeightInTiles;
         }
-        
-        
-        for (int i = 0; i <  widthInTiles; i++) {
+
+        for (int i = 0; i < widthInTiles; i++) {
             for (int j = 0; j < heightInTiles; j++) {
                 //Draw tiles
-                currentTileImg = SpriteFactory.getFog();
+                //currentTileImg = SpriteFactory.getFog();
+                g.setColor(Color.black);
+                g.fillRect((i) * tileWidth + offsetX, (j) * tileHeight + offsetY, tileWidth, tileHeight);
+
                 try {
                     for (Tile t : tilesAvatarCanSee) {
 
                         if (t.getLocation().equals(new CoordinatePair(i, j))) {
                             currentTileImg = SpriteFactory.hashIDtoImage(t.getID());
+                            g.drawImage(currentTileImg, (i) * tileWidth + offsetX, (j) * tileHeight + offsetY, tileWidth, tileHeight, null);
+                            break;
                         }
                     }
-                    g.drawImage(currentTileImg, (i) * tileWidth + offsetX, (j) * tileHeight + offsetY, tileWidth, tileHeight, null);
+
                 } catch (ConcurrentModificationException e) {
                 } catch (NoSuchElementException e) {
                     System.out.println(e);
@@ -134,11 +138,10 @@ public class MiniMapViewPort implements ViewPort, Observer {
 
         }
 
-        
         //Draw bounding box
         g.setColor(Color.red);
         g.drawRect(startX * tileWidth + offsetX, startY * tileWidth + offsetY, windowWidth, windowHeight);
-        
+
     }
 
     @Override

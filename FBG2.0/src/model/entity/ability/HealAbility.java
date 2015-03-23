@@ -61,7 +61,7 @@ public class HealAbility extends RadialAbility
         int manaCost = this.heal;
     	if(mana >= manaCost)
     	{
-    		summoner.modifyCurrentMP(manaCost);
+    		summoner.modifyCurrentMP(-manaCost);
     		summoner.modifyCurrentHP(heal);
     		return true;
     	}
