@@ -34,7 +34,7 @@ public class NinjaStarAbility extends ProjectileAbility
 	{
 		this.name = "Ninja Star";
         this.damage = 10;
-		this.effect = new DealDamageEffect(this.damage,1);
+		this.effect = new DealDamageEffect(this.damage);
 		this.myCC = CombatCoordinator.getInstance();
 		this.ms = 2000;
 	}
