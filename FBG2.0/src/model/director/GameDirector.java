@@ -170,6 +170,7 @@ public class GameDirector extends Observable implements SceneObserver {
     	MapInstantiator.getInstance().loadFullGame(def);
     	AvatarInteractionManager.getInstance().setAvatar(MapInstantiator.getInstance().createAvatarFromFile(def));
     	
+    	
     	gameScene.clearScene();
     	
        
