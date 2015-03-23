@@ -57,4 +57,9 @@ public class Obstacle extends Item {
         public boolean activate(Entity e){
             return false;
         }
+        
+         @Override
+        public String getType(){
+            return "Takeable";
+        }
 }

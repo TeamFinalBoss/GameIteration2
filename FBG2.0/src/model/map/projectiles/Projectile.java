@@ -66,7 +66,7 @@ public abstract class Projectile extends TimerTask{
         
         Entity e = ActiveMapManager.getInstance().getEntityAtLocation(new CoordinatePair((int) location.getX(),(int) location.getY()));
         
-        if(e != null){
+        if(e != null && e != castingEntity){
             applyEffect(e);
         }
         lifetime -= refreshRate;    
@@ -95,5 +95,9 @@ public abstract class Projectile extends TimerTask{
 
     public PreciseCoordinatePair getLocation() {
         return location;
+    }
+    
+    public void setInactive(){
+        isActive = false;
     }
 }

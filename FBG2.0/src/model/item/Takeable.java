@@ -64,6 +64,12 @@ public abstract class Takeable extends Item {
             this.durability= durability;
         }
         
-        public abstract Takeable copy();
+    @Override
+        public String getType(){
+            return "Takeable";
+        }
+        
+    
+    public abstract Takeable copy();
         public abstract boolean useInSack(Entity target); //return true iff use is successful
 }
