@@ -27,37 +27,32 @@ import model.map.pair.PreciseCoordinatePair;
 
 public class PickPocketAbility extends RadialAbility
 {
-    private String name;
-    private Effect effect;
-    private CombatCoordinator myCC;
     private ActiveMapManager myMM;
-    private Effect cost;
-	private double degree;
-	private double radius;
 
 	public PickPocketAbility()
 	{
-		this.name = "PickPocket";
-		this.degree = 360;
-		this.radius = 1;
+		super();
+		this.setName("PickPocket");
+		this.setRadius(1);
 		this.myMM = ActiveMapManager.getInstance();
 	}
 
 	public PickPocketAbility(String name, Effect effect, Effect cost, int degree, double radius)
 	{
 		super(name, effect, cost, degree, radius);
-		this.myCC = CombatCoordinator.getInstance();
 		this.myMM = ActiveMapManager.getInstance();
-		this.name = "PickPocket"
+		this.setName("PickPocket");
 	}
 
 	@Override
 	public boolean meetsStatRequirements(Entity sneak)
 	{
+		/*
 		if(sneak.getAgility() >= 10)
             return true;
         else
-            return false;
+            return false;*/
+		return true;
 	}
 
 	@Override

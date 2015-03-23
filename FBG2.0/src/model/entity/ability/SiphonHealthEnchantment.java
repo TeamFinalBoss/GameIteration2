@@ -22,7 +22,8 @@ public class SiphonHealthEnchantment extends LinearAbility {
 
 	@Override
 	public boolean meetsStatRequirements(Entity entityToLearn) {
-		return entityToLearn.getIntellect() >= 5 && entityToLearn.getLevel() >= 3;
+		//return entityToLearn.getIntellect() >= 5 && entityToLearn.getLevel() >= 3;
+		return true;
 	}
 
 	@Override

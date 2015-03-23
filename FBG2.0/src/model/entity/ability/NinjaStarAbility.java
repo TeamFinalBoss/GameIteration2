@@ -23,37 +23,32 @@ import model.map.projectiles.NinjaStar;
 
 public class NinjaStarAbility extends ProjectileAbility
 {
-	private String name;
-    private Effect effect;
-    private CombatCoordinator myCC;
-    private Effect cost;
-    private double ms;
-    private double rate;
     private int damage;
 
 	public NinjaStarAbility()
 	{
-		this.name = "NinjaStar";
-        this.damage = 10;
-		this.effect = new DealDamageEffect(this.damage);
-		this.myCC = CombatCoordinator.getInstance();
-		this.ms = 2000;
+		super();
+		this.setName("NinjaStar");
+		this.damage = 10;
+		this.setEffect(new DealDamageEffect(this.damage));
+		this.setMs(2000);
 	}
 
 	public NinjaStarAbility(String name, Effect effect, Effect cost, double ms, double rate)
 	{
 		super(name, effect, cost, ms, rate);
-		this.myCC = CombatCoordinator.getInstance();
-		this.name = "NinjaStar";
+		this.setName("NinjaStar");
 	}
 
 	@Override
 	public boolean meetsStatRequirements(Entity sneak)
 	{
+		/*
 		if(sneak.getAgility() >= 15)
             return true;
         else
-            return false;
+            return false;*/
+		return true;
 	}
 
 	@Override
@@ -75,8 +70,8 @@ public class NinjaStarAbility extends ProjectileAbility
     	if(mana >= manaCost)
     	{
     		sneak.setCurrentMP(--manaCost);
-    		NinjaStar ns = new NinjaStar((long) ms, velocity, PCP, effect, sneak);
-                return true;
+    		new NinjaStar((long) getMs(), velocity, PCP, getEffect(), sneak);
+            return true;
     	}
     	else
     		return false;
