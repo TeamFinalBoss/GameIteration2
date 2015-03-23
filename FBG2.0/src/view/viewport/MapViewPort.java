@@ -69,16 +69,19 @@ public class MapViewPort implements ViewPort, Observer {
         for (int i = startX; i < Math.min(startX + windowWidthInTiles, widthInTiles); i++) {
             for (int j = startY; j < Math.min(startY + windowHeightInTiles, heightInTiles); j++) {
                 //Draw tiles
-                currentTileImg = SpriteFactory.getFog();
+               // currentTileImg = SpriteFactory.getFog();
+                g.setColor(Color.black);
+                g.fillRect((i - startX) * tileWidth, (j - startY) * tileHeight, tileWidth, tileHeight);
                 try {
                     for (Tile t : tilesAvatarCanSee) {
 
                         if (t.getLocation().equals(new CoordinatePair(i, j))) {
                             currentTileImg = SpriteFactory.hashIDtoImage(t.getID());
+                            g.drawImage(currentTileImg, (i - startX) * tileWidth, (j - startY) * tileHeight, tileWidth, tileHeight, null);
                             break;
                         }
                     }
-                    g.drawImage(currentTileImg, (i - startX) * tileWidth, (j - startY) * tileHeight, tileWidth, tileHeight, null);
+                    
                 } catch (ConcurrentModificationException e) {
                 } catch (NoSuchElementException e) {
                     System.out.println(e);
