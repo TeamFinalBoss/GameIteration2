@@ -12,6 +12,8 @@ import org.w3c.dom.NodeList;
 import model.director.ActiveMapManager;
 import model.effect.Dispellable;
 import model.entity.Entity;
+import model.entity.EvilMuscleSlime;
+import model.entity.FriendlyOldBrawler;
 import model.entity.LightGuardian;
 import model.entity.MotionType;
 import model.entity.NPC;
@@ -213,6 +215,16 @@ public class EntityFactory implements PlaceableObjectFactory{
 			en = new LightGuardian();
 			en.setLink(Integer.parseInt(e.getAttribute("link")));
 			
+		case "evilMuscleSlime":
+			en = new EvilMuscleSlime();
+			en.setLink(Integer.parseInt(e.getAttribute("link")));
+		case "friendlyOldBrawler":
+			en = new FriendlyOldBrawler();
+			en.setLink(Integer.parseInt(e.getAttribute("link")));
+			
+		
+		
+		
 		}
 		
 		return (Entity) en;
