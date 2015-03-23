@@ -1,11 +1,14 @@
 package model.entity;
 
 import model.effect.DealDamageEffect;
+import model.entity.ability.Brawl;
 import model.entity.ability.SmasherLibrary;
 import model.entity.stats.SmasherStats;
 import model.map.pair.CoordinatePair;
 import model.item.Takeable;
 public abstract class SmasherEntity extends Entity{
+        Brawl myB;
+    
 	/* -------------------- PROTECTED CREATION ------------------- */
 	protected SmasherLibrary createAbilities(){
 		return new SmasherLibrary(this);
@@ -30,6 +33,7 @@ public abstract class SmasherEntity extends Entity{
 				  String description,
 				  CoordinatePair location){
 		super(objectName,description,location);
+                myB = new Brawl();
 	}
 	
 	/* -------------------- STATS ACCESSORS -------------------- */
@@ -73,6 +77,13 @@ public abstract class SmasherEntity extends Entity{
 	public void setChakra(int modifier){
 		getStats().setChakra(modifier);
 	} 
+        
+        @Override
+        public void useWeapon(){
+            if(!this.getInventory().useWeapon(this)){
+                myB.performAbility(this);
+            }
+        }
         
 }
 
