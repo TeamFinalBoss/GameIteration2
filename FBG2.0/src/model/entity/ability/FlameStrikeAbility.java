@@ -97,9 +97,7 @@ public class FlameStrikeAbility extends AngularAbility
                 velocity.multiply(3);
                 
                 
-                Fireball fb = new Fireball((long)2000, velocity, PCP, getEffect(), caster);
-                velocity.addX(-1);
-                fb = new Fireball((long)2000, velocity, PCP, getEffect(), caster);
+                
                 Vector v1 = new Vector(Direction.East);
                 Vector v2 = new Vector(Direction.West);
                 Vector v3 = new Vector(Direction.North);
