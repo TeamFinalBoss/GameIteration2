@@ -1,6 +1,7 @@
 package model.effect;
 
 import model.entity.Entity;
+import java.lang.Math.*;
 
 
 /**
@@ -10,29 +11,30 @@ import model.entity.Entity;
  */
 public class DealDamageEffect implements Effect {
     int damageToDeal;
-    int distance;
+    
 
-    public DealDamageEffect(int damageToDeal, int distance) {
+    public DealDamageEffect(int damageToDeal) {
         super();
         this.damageToDeal = damageToDeal;
-        this.distance = distance;
+        
     }
     
     public void setDamageToDeal(int damage){
         this.damageToDeal = damage;
     }
     
-    public void setDistance(int distance)
-    {
-        this.distance = distance;
-    }
+    
     
     /**
      *
      * @param entityToAffect
      */
+    public void applyEffect(Entity entityToAffect, int distance){
+        entityToAffect.dealDamage((int) (damageToDeal / Math.sqrt(distance)));
+    }
+
     @Override
-    public void applyEffect(Entity entityToAffect){
-        entityToAffect.dealDamage(damageToDeal / distance);
+    public void applyEffect(Entity entityToEffect) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

@@ -12,6 +12,8 @@ import java.lang.Math.*;
 import java.util.List;
 import model.director.ActiveMapManager;
 import model.effect.DealDamageEffect;
+import model.effect.HealEffect;
+import model.effect.SnareEffect;
 import model.entity.ability.ProjectileAbility;
 import model.map.GameMap;
 import model.map.Locations;
@@ -23,29 +25,28 @@ import model.map.pair.PreciseCoordinatePair;
 * @author Aaron Iglesias
 */
 
-public class CleaveAbility extends RadialAbility
+public class HealAbility extends RadialAbility
 {
     private String name;
-    private DealDamageEffect effect;
+    private HealEffect effect;
     private CombatCoordinator myCC;
     private ActiveMapManager myMM;
     private Effect cost;
 	private double degree;
 	private double radius;
-        private int damage;
+        private int heal;
 
-	public CleaveAbility()
+	public HealAbility()
 	{
-		this.name = "Cleave";
-                this.damage = 10;
-		this.effect = new DealDamageEffect(this.damage);
-		this.degree = 90;
-		this.radius = 2;
-		this.myCC = CombatCoordinator.getInstance();
+		this.name = "Heal";
+		this.degree = 360;
+		this.radius = 0;
 		this.myMM = ActiveMapManager.getInstance();
+                this.heal = 10;
+        this.effect = new HealEffect(this.heal);
 	}
 
-	public CleaveAbility(String name, Effect effect, Effect cost, int degree, double radius)
+	public HealAbility(String name, Effect effect, Effect cost, int degree, double radius)
 	{
 		super(name, effect, cost, degree, radius);
 		this.myCC = CombatCoordinator.getInstance();
@@ -53,41 +54,30 @@ public class CleaveAbility extends RadialAbility
 	}
 
 	@Override
-	public boolean meetsStatRequirements(Entity smasher)
+	public boolean meetsStatRequirements(Entity summoner)
 	{
-		if(smasher.getStrength() >= 15)
+		if(summoner.getIntellect() >= 5)
             return true;
         else
             return false;
 	}
 
 	@Override
-    public boolean performAbility(Entity smasher) 
+    public boolean performAbility(Entity summoner) 
     {
     	GameMap map = myMM.getActiveMap();
-    	int mana = smasher.getCurrentMP();
+    	int mana = summoner.getCurrentMP();
     	List<Entity> entities = map.getEntities();
-        CoordinatePair c1 = smasher.getLocation();
-        CoordinatePair c2;
-        int manaCost = this.damage;
-        int distance;
+        int manaCost = this.heal;
 
     	if(mana >= manaCost)
     	{
-    		smasher.setCurrentMP(mana - manaCost);
-    		for(int i = 0; i < entities.size(); ++i)
-    		{
-    			if(inRange(smasher, entities.get(i)))
-                        {
-                            c2 = entities.get(i).getLocation();
-                            distance = (int) c1.getDistance(c1,c2);
-                            this.effect.applyEffect(entities.get(i),distance);
-                        }
-    		}
+    		summoner.setCurrentMP(mana - manaCost);
+            this.effect.applyEffect(summoner);
+    		
     		return true;
     	}
     	else
     		return false;
     }
-
 }

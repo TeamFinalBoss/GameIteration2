@@ -26,6 +26,7 @@ import view.viewport.MainMenuViewPort;
 import view.viewport.MapViewPort;
 import view.viewport.SackViewport;
 import view.viewport.StatsUpdateViewport;
+import view.viewport.StoreFrontViewPort;
 import view.window.GameWindow;
 import controller.Controller;
 import controller.keyBindings.KeyBindings;
@@ -118,6 +119,7 @@ public class GameDirector extends Observable implements SceneObserver {
         scenes.put(SceneType.LOAD, loadScene);
         scenes.put(SceneType.STATS_UPDATING, gameScene);
         scenes.put(SceneType.DIALOGUE, gameScene);
+        scenes.put(SceneType.STORE, gameScene);
         
         sceneChanger.registerObserver(this);
     }
@@ -199,10 +201,14 @@ public class GameDirector extends Observable implements SceneObserver {
         DialogueViewport dailoguePort = new DialogueViewport();
         gameScene.addViewport(dailoguePort);
         
+        StoreFrontViewPort storeVp = new  StoreFrontViewPort();
+        gameScene.addViewport(storeVp);
+        
         controller.addObserver(sack, SceneType.SACK);
         controller.addObserver(armory, SceneType.ARMORY);
         controller.addObserver(statsPort, SceneType.STATS_UPDATING);
         controller.addObserver(dailoguePort, SceneType.DIALOGUE);
+        controller.addObserver(storeVp, SceneType.STORE);
         
         List<Observable> sackObservables = controller.getObservables(SceneType.SACK);
         ((Observable)sack).addObserver((Observer) sackObservables.get(0));
@@ -217,7 +223,7 @@ public class GameDirector extends Observable implements SceneObserver {
         
         controller.getMouseParser().setMousePointClick(SceneType.ARMORY, (MousePointClick)armory);
         controller.getMouseParser().setMousePointClick(SceneType.SACK, (MousePointClick)sack);
-        controller.getMouseParser().setDirectionChanger(SceneType.GAME, (DirectionChanger)mapVP);
+        //controller.getMouseParser().setDirectionChanger(SceneType.GAME, (DirectionChanger)mapVP);
        
         ActiveMapManager.getInstance().getActiveMap().addObserver(mapVP);//Add mapVP as an Observer to map
         
