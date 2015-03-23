@@ -45,7 +45,7 @@ public abstract class Projectile extends TimerTask{
         myTimer = GameTimer.getInstance();
         isActive=true;
         
-        refreshRate = 50; //projectiles refresh every 10 milliseconds (20 times a second)
+        refreshRate = 10; //projectiles refresh every 10 milliseconds (20 times a second)
         this.castingEntity = castingEntity;
         ActiveMapManager.getInstance().addProjectileToMap(this);
         myTimer.addProjectile(this, refreshRate); //immediately calls run
@@ -60,13 +60,17 @@ public abstract class Projectile extends TimerTask{
     */
     @Override
     public void run(){
-        //System.out.println("fireball");
-        location.addX(velocity.getX()/(double)refreshRate * 64);
-        location.addY(velocity.getY()/(double)refreshRate * 64);
+        System.out.println("lifetime: "+lifetime);
+        location.addX(velocity.getX()*(double)refreshRate/1000);
+        location.addY(velocity.getY()*(double)refreshRate/1000);
         
         lifetime -= refreshRate;    
+        
+        if(lifetime<0)
+            isActive = false;
         if(!isActive){ 
             this.cancel();
+            ActiveMapManager.getInstance().removeProjectile(this);
           //  myTimer.addEvent(this, refreshRate);
         }
         
