@@ -202,5 +202,11 @@ public class GameWindow {
 	public void removeKeyController(KeyListener listener) {
 		frame.removeKeyListener(listener);
 	}
+
+	public void removeMouseController(MouseParser mouse) {
+		frame.removeMouseListener(mouse);
+		frame.removeMouseMotionListener(mouse);
+		frame.removeMouseWheelListener(mouse);
+	}
     
 }

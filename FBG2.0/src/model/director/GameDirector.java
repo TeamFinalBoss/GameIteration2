@@ -2,6 +2,7 @@ package model.director;
 
 import java.awt.Dimension;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.HashMap;
@@ -24,6 +25,7 @@ import view.viewport.SackViewport;
 import view.viewport.StatsUpdateViewport;
 import view.window.GameWindow;
 import controller.Controller;
+import controller.mouse.MouseParser;
 import controller.sceneControllers.SceneChanger;
 import controller.sceneControllers.SceneType;
 import controller.util.SceneObserver;
@@ -51,15 +53,22 @@ public class GameDirector extends Observable implements SceneObserver {
     static Object getActiveMap() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    private Scene menuScene, gameScene, pauseScene, keyBindingsScene, saveScene, loadScene, activeScene;
+    private Scene menuScene, gameScene, pauseScene, keyBindingsScene, saveScene, loadScene, loadingScene;
+    private volatile Scene activeScene;
     private static Controller controller = Controller.getInstance();
     private SceneChanger sceneChanger = SceneChanger.getInstance();
+    private KeyListener listener = null;
+    private MouseParser mouse = null;
 
     private Map<SceneType, Scene> scenes;
 
     private static GameDirector gameDirector = null;//It's a singleton object.
 
     private GameDirector() {
+    	window = new GameWindow();
+    	loadingScene = new Scene();
+    	loadingScene.addViewport(new MainMenuViewPort());
+    	activeScene = loadingScene;
     	doTheThing();
     }
 
@@ -80,11 +89,19 @@ public class GameDirector extends Observable implements SceneObserver {
 
         sceneChanger.changeScene(SceneType.MAIN_MENU);
         activeScene = menuScene;
-
     }
     
     private void doTheThing() {
-    	window = new GameWindow();
+    	if(listener != null) {
+    		window.removeKeyController(listener);
+    	}
+    	if(listener != null) {
+    		window.removeMouseController(mouse);
+    	}
+    	sceneChanger.clearObservers();
+    	activeScene = loadingScene;
+    	//window.close();
+    	//window = new GameWindow();
         scenes = new HashMap<>();
 
         menuScene = new Scene();
@@ -105,13 +122,15 @@ public class GameDirector extends Observable implements SceneObserver {
         scenes.put(SceneType.LOAD, loadScene);
         scenes.put(SceneType.STATS_UPDATING, gameScene);
         scenes.put(SceneType.DIALOGUE, gameScene);
-
+        
         sceneChanger.registerObserver(this);
     }
     
     public void doTheOtherThing() {
     	KeyListener listener = controller.buildController();
+    	this.listener = listener;
         window.addKeyController(listener);//Add controller to menu
+        this.mouse = controller.getMouseParser();
         window.addMouseController(controller.getMouseParser());
 
         List<Observable> mainMenuObservables = controller.getObservables(SceneType.MAIN_MENU);
@@ -162,16 +181,8 @@ public class GameDirector extends Observable implements SceneObserver {
         
     }
     
-    public void startNewGame(File def) {
-    	window.close();
-        doTheThing();
-        doTheOtherThing();
-        
-    	MapInstantiator.getInstance().loadFullGame(def);
-    	AvatarInteractionManager.getInstance().setAvatar(MapInstantiator.getInstance().createAvatarFromFile(def));
-    	
-       
-        MapViewPort mapVP = new MapViewPort();
+    private void doTheGameStuff() {
+    	MapViewPort mapVP = new MapViewPort();
 
         gameScene.addViewport(mapVP);//Add mapVP to gameScene
         
@@ -205,8 +216,21 @@ public class GameDirector extends Observable implements SceneObserver {
        
         ActiveMapManager.getInstance().getActiveMap().addObserver(mapVP);//Add mapVP as an Observer to map
         
-        sceneChanger.changeScene(SceneType.GAME);
+        
+    }
+    
+    public void startNewGame(File def) {
+        doTheThing();
+        doTheOtherThing();
+ 
+    	MapInstantiator.getInstance().loadFullGame(def);
+    	AvatarInteractionManager.getInstance().setAvatar(MapInstantiator.getInstance().createAvatarFromFile(def));
+    	
+     	doTheGameStuff();
+    	
+    	sceneChanger.changeScene(SceneType.GAME);
         activeScene = gameScene;
+        
     }
 
     public void startNewGame() {
@@ -302,7 +326,7 @@ public class GameDirector extends Observable implements SceneObserver {
 
     @Override
     public void update(SceneType type) {
-        activeScene = scenes.get(type);
+        this.activeScene = scenes.get(type);
     }
 
     public void addKeyListener(KeyListener listener) {
