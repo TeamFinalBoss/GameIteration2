@@ -15,8 +15,13 @@ public abstract class TimerEffect extends TimerTask implements Effect{
     
     public TimerEffect(){
         myTimer = GameTimer.getInstance();
+        myEntity = null;
     }
     
+    public TimerEffect(Entity entity){
+    	myTimer = GameTimer.getInstance();
+    	myEntity = entity;
+    }
     /**
      * applies effect to a given Entity
      * @param entityToAffect
