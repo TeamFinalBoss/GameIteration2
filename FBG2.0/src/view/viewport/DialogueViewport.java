@@ -44,6 +44,7 @@ public class DialogueViewport implements ViewPort, Observer, SceneObserver {
 			g.setColor(Color.WHITE);
 			for(int i = 0; i < options.length; i++) {
 				height = g.getFontMetrics().getHeight();
+				if(options[i] != null)
 				g.drawString(options[i], xStart, yStart + (i * (padding + height) + 15));
 			}
 		}
