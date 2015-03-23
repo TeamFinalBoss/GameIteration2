@@ -50,28 +50,28 @@ public class FrostNovaAbility extends RadialAbility
 	}
 
 	@Override
-	public boolean meetsStatRequirements(Entity caster)
+	public boolean meetsStatRequirements(Entity summoner)
 	{
-		if(caster.getIntellect() >= 20)
+		if(summoner.getIntellect() >= 20)
             return true;
         else
             return false;
 	}
 
 	@Override
-    public boolean performAbility(Entity caster) 
+    public boolean performAbility(Entity summoner) 
     {
     	GameMap map = myMM.getActiveMap();
-    	int mana = caster.getCurrentMP();
+    	int mana = summoner.getCurrentMP();
     	List<Entity> entities = map.getEntities();
 
     	if(mana >= 1)
     	{
                 SnareEffect snare;
-    		caster.setCurrentMP(--mana);
+    		summoner.setCurrentMP(--mana);
     		for(int i = 0; i < entities.size(); ++i)
     		{
-    			if(inRange(caster, entities.get(i)))
+    			if(inRange(summoner, entities.get(i)))
                             snare = new SnareEffect(entities.get(i), 4000);
     		}
     		return true;

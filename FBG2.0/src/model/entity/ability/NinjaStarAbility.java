@@ -20,7 +20,7 @@ import model.map.projectiles.Fireball;
 * @author Aaron Iglesias
 */
 
-public class FireballAbility extends ProjectileAbility
+public class NinjaStarAbility extends ProjectileAbility
 {
 	private String name;
     private Effect effect;
@@ -29,33 +29,33 @@ public class FireballAbility extends ProjectileAbility
     private double ms;
     private double rate;
 
-	public FireballAbility()
+	public NinjaStarAbility()
 	{
-		this.name = "Fireball";
+		this.name = "Ninja Star";
 		this.effect = new DealDamageEffect(10);
 		this.myCC = CombatCoordinator.getInstance();
 		this.ms = 2000;
 	}
 
-	public FireballAbility(String name, Effect effect, Effect cost, double ms, double rate)
+	public NinjaStarAbility(String name, Effect effect, Effect cost, double ms, double rate)
 	{
 		super(name, effect, cost, ms, rate);
 		this.myCC = CombatCoordinator.getInstance();
 	}
 
 	@Override
-	public boolean meetsStatRequirements(Entity summoner)
+	public boolean meetsStatRequirements(Entity sneak)
 	{
-		if(summoner.getIntellect() >= 15)
+		if(sneak.getAgility() >= 15)
             return true;
         else
             return false;
 	}
 
 	@Override
-    public boolean performAbility(Entity summoner) 
+    public boolean performAbility(Entity sneak) 
     {
-    	CoordinatePair coordinatePair = summoner.getLocation();
+    	CoordinatePair coordinatePair = sneak.getLocation();
     	double x = coordinatePair.getX();
     	double y = coordinatePair.getY();
 
@@ -64,13 +64,13 @@ public class FireballAbility extends ProjectileAbility
 
     	// this.cost = ManaEffect;
 
-    	Vector velocity = getVector(summoner.getDirection());
-    	int mana = summoner.getCurrentMP();
+    	Vector velocity = getVector(sneak.getDirection());
+    	int mana = sneak.getCurrentMP();
 
     	if(mana >= 1)
     	{
-    		summoner.setCurrentMP(--mana);
-    		Fireball fb = new Fireball((long) ms, velocity, PCP, effect, summoner);
+    		sneak.setCurrentMP(--mana);
+    		NinjaStar ns = new NinjaStar((long) ms, velocity, PCP, effect, sneak);
                 return true;
     	}
     	else
