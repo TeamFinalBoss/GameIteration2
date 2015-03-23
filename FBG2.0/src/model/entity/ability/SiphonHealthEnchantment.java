@@ -6,15 +6,18 @@ import java.util.Random;
 import model.director.ActiveMapManager;
 import model.effect.Effect;
 import model.entity.Entity;
+import model.entity.NPC;
 
 public class SiphonHealthEnchantment extends LinearAbility {
 	
 	public SiphonHealthEnchantment(){
 		super();
+		this.setName("SiphonHealthEnchantment");
 	}
 	
 	public SiphonHealthEnchantment(String name, Effect effect, Effect cost){
 		super(name, effect, cost, 1);
+		this.setName("SiphonHealthEnchantment");
 	}
 
 	@Override
@@ -30,7 +33,7 @@ public class SiphonHealthEnchantment extends LinearAbility {
 			
 			List<Entity> entities = ActiveMapManager.getInstance().getActiveMap().getEntities();
 			for (Entity e : entities){
-				if (inRange(caster, e)){
+				if (caster != e && inRange(caster, e)){
 					//Allow enchantment to randomly fail
 					//TODO: add mechanism for castee to be able to 'resist' based on level
 					Random rand = new Random();
@@ -40,7 +43,7 @@ public class SiphonHealthEnchantment extends LinearAbility {
 						return true;
 					}
 					else{
-						(NPC)caster.setFriendly(false);
+						((NPC)e).setFriendly(false);
 						return false;
 					}
 				}

@@ -13,10 +13,12 @@ public class BargainEnchantmentAbility extends LinearAbility {
 	
 	public BargainEnchantmentAbility(){
 		super();
+		this.setName("BargainEnchantment");
 	}
 	
 	public BargainEnchantmentAbility(String name, Effect effect, Effect cost){
 		super(name, effect, cost, 1);
+		this.setName("BargainEnchantment");
 	}
 	
 	@Override
@@ -34,7 +36,7 @@ public class BargainEnchantmentAbility extends LinearAbility {
 			
 			List<Entity> entities = ActiveMapManager.getInstance().getActiveMap().getEntities();
 			for (Entity e : entities){
-				if (inRange(summoner, e)){
+				if (summoner != e && inRange(summoner, e)){
 					//Allow enchantment to randomly fail
 					Random rand = new Random();
 					if (rand.nextInt(100) <= summoner.getLevel() + summoner.getIntellect()){
@@ -42,7 +44,7 @@ public class BargainEnchantmentAbility extends LinearAbility {
 						return true;
 					}
 					else {
-						(NPC)summoner.setFriendly(false);
+						((NPC)e).setFriendly(false);
 						return false;
 					}
 				}
