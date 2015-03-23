@@ -112,7 +112,21 @@ public class Inventory {
 	 * @return the equipment which was removed from the slot
 	 */
 	public Equipable unequip(EquipSlot slot){
-            Equipable e = myArmory.unequip(slot);
+            
+            
+            Equipable e;
+            if(slot == EquipSlot.MAIN_HAND || slot == EquipSlot.OFF_HAND ||slot == EquipSlot.TWO_HAND ){
+                e = myArmory.unequip(EquipSlot.MAIN_HAND);
+                if(e==null)
+                e = myArmory.unequip(EquipSlot.OFF_HAND);
+                if(e==null)
+                e = myArmory.unequip(EquipSlot.TWO_HAND);
+                
+            }
+            else{
+               e = myArmory.unequip(slot); 
+            }
+            
             if(e!=null){
                 insert(e);
                 return e;

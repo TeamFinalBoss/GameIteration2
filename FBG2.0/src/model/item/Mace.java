@@ -62,7 +62,7 @@ public class Mace extends Weapon {
             target.modifyWeaponOffense(5);
         }
         
-        
+        /*
         @Override 
         public boolean useInSack(Entity e){
             if (!meetsRequirements(e)){
@@ -73,7 +73,7 @@ public class Mace extends Weapon {
            return true;
             }
             
-        }
+        }*/
         
     @Override
         public boolean meetsRequirements(Entity e){

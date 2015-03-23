@@ -49,10 +49,7 @@ public abstract class Equipable extends Usable {
             return true;
         }
         
-        public boolean useInSack(Entity target){
-        	target.equip(this);
-        	return true;
-        }
+        
         
         public abstract void onUnequip(Entity target); //undo the effects that were applied when the item was equipped
         public abstract void onEquip(Entity target); //carry out the effects that are to happen when this item is equipped to this entity
