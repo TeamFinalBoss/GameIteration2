@@ -41,7 +41,7 @@ public abstract class AngularAbility extends Ability
 	* constructor for AngularAbility
 	* @param radius
 	*/
-	public AngularAbility(String name, Effect effect, CombatCoordinator myCC, Effect cost, int degree, double radius)
+	public AngularAbility(String name, Effect effect, Effect cost, int degree, double radius)
 	{
 		super(name, effect, cost);
                 this.myCC = CombatCoordinator.getInstance();

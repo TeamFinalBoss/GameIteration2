@@ -156,6 +156,12 @@ public class ActiveMapManager {
      */
     public void setAvatar(Entity avatar){ this.avatar = avatar;}
     
+    /**
+     * 
+     * @return avatar 
+     */
+    public Entity getAvatar(){ return this.avatar; }
+    
     /**\
      * Set the active map to the map with the given mapID int
      * 
