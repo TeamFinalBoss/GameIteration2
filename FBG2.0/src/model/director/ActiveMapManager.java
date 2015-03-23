@@ -203,6 +203,10 @@ public class ActiveMapManager {
     	this.activeMap.removeEntity(e);
     }
     
+    public Entity getEntityAtLocation(CoordinatePair CP){
+        return activeMap.getEntityAtCoordinate(CP);
+    }
+    
     /**
      * Attempts to remove an entity from the active map at the
      * given CoordinatePair. Returns entity if it was present at the 

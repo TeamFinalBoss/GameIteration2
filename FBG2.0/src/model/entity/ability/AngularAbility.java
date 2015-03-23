@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import model.entity.Entity;
 import java.lang.Math.*;
 import model.entity.ability.Ability;
+import model.map.GameMap;
 
 /**
 *
@@ -214,4 +215,5 @@ public abstract class AngularAbility extends Ability
 	*/
 
 	public abstract boolean meetsStatRequirements(Entity entityToLearn);
+	public abstract void performAbility(Entity entity, GameMap map);
 }
