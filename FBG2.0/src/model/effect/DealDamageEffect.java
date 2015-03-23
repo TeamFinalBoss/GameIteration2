@@ -32,6 +32,8 @@ public class DealDamageEffect implements Effect {
      * @param entityToAffect
      */
     public void applyEffect(Entity entityToAffect, int distance){
+        if(distance < 1) // prevent divide by 0
+            distance = 1;
         entityToAffect.dealDamage((int) (damageToDeal / Math.sqrt(distance)));
     }
 

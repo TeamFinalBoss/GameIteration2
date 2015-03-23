@@ -8,6 +8,7 @@ package model.item;
 import model.effect.DealDamageEffect;
 import model.effect.Effect;
 import model.entity.Entity;
+import model.map.projectiles.Bullet;
 import model.map.pair.CoordinatePair;
 
 /**
@@ -43,7 +44,8 @@ public class Gun extends Weapon{
         
     @Override
         public void attack(Entity e){
-            E1.applyEffect(e);
+            Bullet b = new Bullet(e);
+            //E1.applyEffect(e);
         }
         
         

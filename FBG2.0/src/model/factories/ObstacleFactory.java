@@ -47,6 +47,7 @@ public class ObstacleFactory implements PlaceableObjectFactory{
 			case "door":
 				it = new Door();
 				((Door) it).setLink(Integer.parseInt(item.getAttribute("link")));
+                                it.setID("door");
 				break;
 			}
 				

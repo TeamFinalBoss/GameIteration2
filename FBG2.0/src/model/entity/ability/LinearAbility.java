@@ -31,7 +31,7 @@ public abstract class LinearAbility extends Ability
 	public LinearAbility()
 	{
 		super();
-		range = 1;
+		range = 10;
 	}
 
 	/**

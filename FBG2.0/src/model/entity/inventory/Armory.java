@@ -51,6 +51,12 @@ public class Armory {
 		if(contents.containsKey(newest.getSlot())){
 			old = unequip(newest.getSlot());
 		}
+		if(newest.getSlot() == EquipSlot.TWO_HAND && contents.containsKey(EquipSlot.MAIN_HAND)){
+			old = unequip(EquipSlot.MAIN_HAND);
+		}
+		if(newest.getSlot() == EquipSlot.MAIN_HAND && contents.containsKey(EquipSlot.TWO_HAND)){
+			old = unequip(EquipSlot.TWO_HAND);
+		}
 		//insert the new equipment into the armory
 		contents.put(newest.getSlot(), newest);
 		//inform the equipable that it has been equipped so that it may perform its on-equip effects

@@ -18,7 +18,7 @@ public class NinjaStar extends Projectile{
 
     public NinjaStar(long initialLifetime, Vector velocity, PreciseCoordinatePair initialLocation, Effect effects, Entity castingEntity){
         super(initialLifetime, velocity, initialLocation, effects, castingEntity);
-    
+        
     }
     
     @Override

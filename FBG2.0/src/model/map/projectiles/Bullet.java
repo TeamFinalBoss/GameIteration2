@@ -3,12 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model.map;
+package model.map.projectiles;
 
-import model.effect.GoDownEffect;
+
+import model.effect.DealDamageEffect;
+import model.effect.Effect;
 import model.entity.Entity;
 import model.map.pair.PreciseCoordinatePair;
 import model.map.projectiles.Projectile;
+import model.entity.Entity;
+import model.map.Vector;
 
 /**
  *
@@ -17,8 +21,8 @@ import model.map.projectiles.Projectile;
 public class Bullet extends Projectile {
     
     public Bullet(Entity e1){
-         super(5, new Vector(e1.getDirection()),new PreciseCoordinatePair((double)e1.getLocation().getX(), (double)e1.getLocation().getY()), new GoDownEffect(10));
-         //projectiles refresh every 10 milliseconds (20 times a second)
+         super((long)5000, new Vector(e1.getDirection()) ,new PreciseCoordinatePair((double)e1.getLocation().getX(), (double)e1.getLocation().getY()), (Effect)(new DealDamageEffect(10)), e1);
+         
     }
     @Override
            public boolean canSee(int observationLevel){
@@ -27,7 +31,9 @@ public class Bullet extends Projectile {
 
     @Override
     public void applyEffect(Entity entToEffect) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        DealDamageEffect e = (DealDamageEffect) getEffect();
+       e.applyEffect(entToEffect, 10);//TODO make this actually do something
+       this.setInactive();
     }
     
 

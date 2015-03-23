@@ -1,3 +1,5 @@
+//by Matthew Kroeze
+
 package model.entity.stats;
 
 import java.util.Observable;
@@ -276,10 +278,12 @@ public abstract class Stats extends Observable {
 	}
 	public void modifyCurrentHP(int modifier){
 		currentHealth = max(currentHealth+modifier,0);
+		currentHealth = Math.min(currentHealth, maxHealth);
 		updateDerived();
 	}
 	public void modifyCurrentMP(int modifier){
 		currentMana = max(currentMana+modifier,0);
+		currentMana = Math.min(currentMana, maxMana);
 		updateDerived();
 	}
 	public void modifyWeaponOffense(int modifier){

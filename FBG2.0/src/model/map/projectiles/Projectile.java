@@ -1,7 +1,9 @@
 package model.map.projectiles;
 
+import java.util.Iterator;
 import java.util.TimerTask;
 import model.director.ActiveMapManager;
+import model.director.AvatarInteractionManager;
 
 import model.effect.Effect;
 import model.entity.Entity;
@@ -66,7 +68,8 @@ public abstract class Projectile extends TimerTask{
         
         
         Entity e = ActiveMapManager.getInstance().getEntityAtLocation(new CoordinatePair((int) location.getX(),(int) location.getY()));
-        
+        //Update all entities visible maps
+        //AvatarInteractionManager.getInstance().getAvatar().updateVisibleMap();
         if(e != null && e != castingEntity){
             applyEffect(e);
         }

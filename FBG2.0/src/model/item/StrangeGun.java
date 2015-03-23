@@ -9,7 +9,7 @@ import model.effect.DealDamageEffect;
 import model.effect.Effect;
 
 import model.entity.Entity;
-import model.map.Bullet;
+import model.map.projectiles.Bullet;
 import model.map.pair.CoordinatePair;
 
 /**

@@ -6,7 +6,7 @@ import model.dialogue.unique.DT_VillageKing;
 import model.map.pair.CoordinatePair;
 
 public class FriendlyOldBrawler extends SmasherNPC {
-	private String id;
+	
 	protected DialogueTree createDialogueTree(){
 		return new DT_VillageKing();
 	}
@@ -16,9 +16,5 @@ public class FriendlyOldBrawler extends SmasherNPC {
 	public FriendlyOldBrawler(){
 		super("Friendly Old Brawler", "An old warrior retired from fighting.", new CoordinatePair(0,0));
 	}
-	@Override
-	public void setId(String id) {
-		this.id = id;
-		
-	}
+
 }
