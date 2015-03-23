@@ -36,7 +36,7 @@ public class ArmoryViewport extends Observable implements ViewPort, Observer, Mo
 	public ArmoryViewport() {
 		currentSelection = 0;
 		width = (int) (GameDirector.getSize().width * 0.8);
-		height = (int) (GameDirector.getSize().height * 0.8);
+		height = (int) (GameDirector.getSize().height * 0.8) - 16;
 		startX = sizeOfBox;
 		startY = height - (numberDown * sizeOfBox) - Ypadding - offset;
 	}
@@ -116,14 +116,13 @@ public class ArmoryViewport extends Observable implements ViewPort, Observer, Mo
 				} else {
 					slot = EquipSlot.FEET;
 				}
-				
+				g.fillRect(xCoord, yCoord, sizeOfBox - 1, sizeOfBox - 1);
 				draw = map.get(slot);
 				if(draw != null) {
 					BufferedImage image = SpriteFactory.hashIDtoImage(draw.id);
 					g.drawImage(image, xCoord, yCoord, null);
 				}
 				
-				g.drawRect(xCoord, yCoord, sizeOfBox - 1, sizeOfBox - 1);
 			}
 		}
 
@@ -139,7 +138,7 @@ public class ArmoryViewport extends Observable implements ViewPort, Observer, Mo
 	}
 
 	private void setColor(Graphics g) {
-		g.setColor(Color.BLACK);
+		g.setColor(Color.white);
 		
 	}
 

@@ -13,6 +13,7 @@ public class SiphonHealthEnchantment extends LinearAbility {
 	public SiphonHealthEnchantment(){
 		super();
 		this.setName("SiphonHealthEnchantment");
+		setRange(2);
 	}
 	
 	public SiphonHealthEnchantment(String name, Effect effect, Effect cost){
@@ -35,7 +36,8 @@ public class SiphonHealthEnchantment extends LinearAbility {
 			List<Entity> entities = ActiveMapManager.getInstance().getActiveMap().getEntities();
 			for (Entity e : entities){
 				if (caster != e && inRange(caster, e)){
-					//Allow enchantment to randomly fail
+					
+					/*//Allow enchantment to randomly fail
 					//TODO: add mechanism for castee to be able to 'resist' based on level
 					Random rand = new Random();
 					if (rand.nextInt(100) <= caster.getLevel() + caster.getIntellect()){
@@ -46,7 +48,10 @@ public class SiphonHealthEnchantment extends LinearAbility {
 					else{
 						((NPC)e).setFriendly(false);
 						return false;
-					}
+					}*/
+					
+					caster.modifyCurrentHP(25);
+					e.modifyCurrentHP(-25);
 				}
 			}
 		}

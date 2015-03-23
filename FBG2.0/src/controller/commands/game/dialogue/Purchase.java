@@ -15,11 +15,14 @@ public class Purchase implements Commandable {
 	
 	public void execute() {
 		NPC npc = AvatarInteractionManager.getInstance().getConversationPartner();
-		if(npc.checkPayment(details.getCurrentIndex()) > AvatarInteractionManager.getInstance().getCurrency()) {
-			npc.buyItem(npc.getFullStoreContents().get(details.getCurrentIndex()),
-					AvatarInteractionManager.getInstance().getAvatar());
+		if(AvatarInteractionManager.getInstance().getCurrency() - npc.checkPayment(details.getCurrentIndex()) >= 0) {
+			AvatarInteractionManager.getInstance().getAvatar().insert(npc.sellItem(details.getCurrentIndex(), AvatarInteractionManager.getInstance().getAvatar()));
+				
 		}
-
+		
+		/*
+		 * 
+		 */
 	}
 
 }

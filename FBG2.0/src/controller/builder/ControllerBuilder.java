@@ -183,6 +183,11 @@ public class ControllerBuilder {
 		SackDetails storeDetails = new SackDetails();
 		SceneController storeFrontController = StorefrontControllerBuilder.buildStoreFrontController(map, storeDetails);
 		
+		/****************************
+		 * StoreFront Inventory Controller
+		 *******************************/
+		SceneController storeInventoryController = StoreInventoryControllerBuilder.buildStoreFrontController(map,details);
+		
 		/******************************
 		 * Observers
 		 *******************************/
@@ -229,6 +234,9 @@ public class ControllerBuilder {
 		List<Observable> gameOb = new ArrayList<>();
 		gameOb.add(command);
 		
+		List<Observable> storeInv = new ArrayList<>();
+		storeInv.add(details);
+		
 		observerMap.put(SceneType.MAIN_MENU, mainMenuObervables);
 		observerMap.put(SceneType.PAUSE_MENU, pauseMenuObservables);
 		observerMap.put(SceneType.SAVE, saveMenuObservables);
@@ -242,6 +250,7 @@ public class ControllerBuilder {
 		observerMap.put(SceneType.STORE, storeObservables);
 		observerMap.put(SceneType.SELECTOR, selectorOb);
 		observerMap.put(SceneType.GAME, gameOb);
+		observerMap.put(SceneType.STORE_INV, storeInv);
 		
 		cont.addMap(observerMap);
 		
@@ -270,6 +279,7 @@ public class ControllerBuilder {
 		controllers.put(SceneType.DIALOGUE, dialogueController);
 		controllers.put(SceneType.STORE, storeFrontController);
 		controllers.put(SceneType.SELECTOR, selectorController);
+		controllers.put(SceneType.STORE_INV, storeInventoryController);
 		
 		
 		KeyDispatcher keyDispatcher = new KeyDispatcher(controllers, mainMenuController);

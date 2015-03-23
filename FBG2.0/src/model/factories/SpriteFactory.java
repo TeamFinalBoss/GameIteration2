@@ -3,6 +3,7 @@ package model.factories;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+
 import javax.imageio.ImageIO;
 import model.map.Direction;
 
@@ -41,7 +42,7 @@ public class SpriteFactory {
     private final BufferedImage SLIME;
     private static final String POP_EYE_PATH = resourcePath + "entity/popeye.gif";
     private BufferedImage POP_EYE;
-    
+
     private static final String ANGEL_PATH = resourcePath + "entity/angel.gif";
     private BufferedImage ANGEL;
 
@@ -85,7 +86,12 @@ public class SpriteFactory {
     private final BufferedImage FOG;
     private final BufferedImage FIREBALL;
     private final BufferedImage GENERIC;
-    private String ANGLE_PATH;
+    /* Projectile*/
+    
+    private final String NINJA_STAR_PATH = resourcePath + "projectile/shruiken.png";
+    private final String BULLET_PATH = resourcePath + "projectile/bullet.png";
+    private BufferedImage NINJA_STAR;
+    private BufferedImage BULLET;
 
     private SpriteFactory() {
         LIGHT_GRASS = getImage(LIGHT_GRASS_PATH);
@@ -122,44 +128,32 @@ public class SpriteFactory {
         FOG = getImage(resourcePath + "tile/fog.png");
         FIREBALL = getImage(resourcePath + "projectile/fireball.png");
         GENERIC = getImage(resourcePath + "generic.png");
+        NINJA_STAR = getImage(NINJA_STAR_PATH);
+        BULLET = getImage(BULLET_PATH);
 
     }
 
-    public static BufferedImage getAvatar(Direction d) {
+    public static BufferedImage getAvatar(Direction d, String occupation) {
         BufferedImage img = null;
-        String path;
-        switch (d) {
-            case North:
-                path = resourcePath + "summoner/south_idle.png";
-                break;
-            case NorthEast:
-                path = resourcePath + "summoner/east_idle.png";
-                break;
-            case East:
-                path = resourcePath + "summoner/east_idle.png";
-                break;
-            case SouthEast:
-                path = resourcePath + "summoner/east_idle.png";
-                break;
-            case South:
-                path = resourcePath + "summoner/north_idle.png";
-                break;
-            case SouthWest:
-                path = resourcePath + "summoner/north_idle.png";
-            case West:
-                path = resourcePath + "summoner/west_idle.png";
-                break;
-            case NorthWest:
-                path = resourcePath + "summoner/south_idle.png";
-                break;
-            default:
-                path = resourcePath + "summoner/north_idle.png";
+        String direction = d.toString().toLowerCase();
 
-        }
+        String path = resourcePath + occupation + "/" + direction + ".png";
 
         try {
             img = ImageIO.read(new File(path));
         } catch (Exception e) {
+            if (d.toString().toLowerCase().contains("north")) {
+                direction = Direction.North.toString().toLowerCase();
+            } else {
+                direction = Direction.South.toString().toLowerCase();
+            }
+
+            path = resourcePath + occupation + "/" + direction + ".png";
+            try {
+                img = ImageIO.read(new File(path));
+            } catch (IOException ex) {
+
+            }
         }
 
         return img;
@@ -278,6 +272,12 @@ public class SpriteFactory {
                 return POP_EYE;
             case "lightGuardian":
                 return ANGEL;
+            case "fireball":
+                return FIREBALL;
+            case "ninjastar":
+                return NINJA_STAR;
+            case "bullet":
+                return BULLET;
 
             default:
                 //System.out.println(id + " wheres the pic file?");

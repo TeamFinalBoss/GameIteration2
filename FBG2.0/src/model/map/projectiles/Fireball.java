@@ -33,5 +33,9 @@ public class Fireball extends Projectile {
        e.applyEffect(entToEffect, 10);//TODO make this actually do something
        this.setInactive();
     }
+    
+    public String toString(){
+        return "fireball";
+    }
    
 }

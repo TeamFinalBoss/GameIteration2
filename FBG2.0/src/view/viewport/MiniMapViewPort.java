@@ -98,7 +98,7 @@ public class MiniMapViewPort implements ViewPort, Observer {
             for (Entity e : entitiesAvatarCanSee) {
                 Entity avatar = AvatarInteractionManager.getInstance().getAvatar();
                 if (e.equals(avatar)) {
-                    currentEntityImg = SpriteFactory.getAvatar(avatar.getDirection());
+                    currentEntityImg = SpriteFactory.getAvatar(avatar.getDirection(), avatar.getOccupation());
 
                 } else {
                     currentEntityImg = SpriteFactory.getGenericEntity(e.getDirection());
