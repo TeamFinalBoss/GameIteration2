@@ -19,6 +19,7 @@ import model.effect.Effect;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 import model.item.Item;
 import model.item.Takeable;
@@ -134,6 +135,34 @@ public abstract class Entity extends MapObject {
     private int max(int a, int b) {
         return a > b ? a : b;
     }
+    
+    public CoordinatePair tileInFront(){
+    	CoordinatePair direction = new CoordinatePair(0,0);
+    		switch(myDirection){
+    		case North: direction = new CoordinatePair(0,1);
+    					break;
+    		case West:	direction = new CoordinatePair(-1,0);
+						break;
+    		case NorthWest:direction = new CoordinatePair(-1,1);
+							break;
+    		case East:	direction = new CoordinatePair(1,0);
+						break;
+    		case South: direction = new CoordinatePair(0,1);
+						break;
+    		case NorthEast: direction = new CoordinatePair(1,1);
+							break;
+    		case SouthEast: direction = new CoordinatePair(1,-1);
+							break;
+    		case SouthWest: direction = new CoordinatePair(-1,-1);
+							break;
+    	}
+    		direction.add(getLocation());
+    		return direction;
+    }
+    public double getConfoundingFactor(){
+    	Random generator = new Random();
+    	return generator.nextDouble() >= .5 ? 1 + generator.nextDouble() / getObservation() : 1 - generator.nextDouble() / getObservation();
+    }
 
     /* -------------------- INVENTORY ACCESSORS --------------------*/
     public List<Takeable> getSackContents() {
@@ -167,6 +196,7 @@ public abstract class Entity extends MapObject {
 
     public void equip(Equipable next) {
         myInventory.equip(next);
+        remove(next);
     }
 
     public Equipable unequip(EquipSlot slot) {
@@ -178,7 +208,7 @@ public abstract class Entity extends MapObject {
     }
 
     public void drop(int position) {
-        activeMap.addItemToActiveMap(remove(position), getLocation());
+        activeMap.addItemToActiveMap(remove(position), new CoordinatePair(getLocation().getX(),getLocation().getY()));
     }
 
     /* -------------------- STATS ACCESSORS -------------------- */
