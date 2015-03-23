@@ -46,7 +46,7 @@ public abstract class Equipable extends Usable {
        
         // for Armours 
         public boolean meetsRequirements(Entity target){
-            return false;
+            return true;
         }
         
         public boolean useInSack(Entity target){

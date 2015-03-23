@@ -221,7 +221,7 @@ public class GameDirector extends Observable implements SceneObserver {
         
         controller.addObserver(sack, SceneType.SACK);
         controller.addObserver(armory, SceneType.ARMORY);
-        controller.addObserver(statsPort, SceneType.STATS_UPDATING);
+        //controller.addObserver(statsPort, SceneType.STATS_UPDATING);
         controller.addObserver(dailoguePort, SceneType.DIALOGUE);
         controller.addObserver(storeVp, SceneType.STORE);
         
