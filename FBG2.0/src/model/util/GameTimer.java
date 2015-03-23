@@ -42,4 +42,9 @@ public class GameTimer{
     public void addEvent(TimerTask event, int timeInMil){        
         myTimer.schedule(event, timeInMil);
     }
+    
+    public void addProjectile(TimerTask event, int refreshRate){        
+        //myTimer.schedule(event, timeInMil);
+        myTimer.scheduleAtFixedRate(event, 0, refreshRate);
+    }
 }
