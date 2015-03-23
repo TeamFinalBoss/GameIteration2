@@ -8,6 +8,7 @@ import java.util.Observer;
 
 import model.director.GameDirector;
 import controller.util.Describeable;
+import controller.util.Healthable;
 
 public class StatsUpdateViewport implements ViewPort, Observer{
 	
@@ -63,7 +64,7 @@ public class StatsUpdateViewport implements ViewPort, Observer{
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
-		Describeable desc = (Describeable) arg0;
+		Healthable desc = (Healthable) arg0;
 		options = desc.getDescription();
 		yStart = GameDirector.getSize().height - (options.length * (height + padding));
 		currentValue = desc.getCurrentIndex() + 1;

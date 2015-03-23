@@ -69,5 +69,9 @@ public abstract class AvatarCommands implements Commandable {
 		manager.increaseClassSkill4();
 	}
 	
+	protected void dialogueOption(int value) {
+		manager.useDialogueOption(value);
+	}
+	
 	public abstract void execute();
 }

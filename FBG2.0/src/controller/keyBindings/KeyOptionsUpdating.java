@@ -1,6 +1,5 @@
 package controller.keyBindings;
 
-import controller.commands.Commandable;
 import controller.commands.ForwardingCommand;
 import controller.commands.keyBindings.BindingsUpdate;
 
