@@ -46,6 +46,39 @@ public class MapInstantiator {
 		return me;
 	}
 	
+	public boolean checkValidity(File f) {
+		Document doc = null;
+		
+		try{
+
+			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder builder = null;
+			//Get the DOM builder
+			builder = factory.newDocumentBuilder();
+			doc = builder.parse(f);
+		} catch (ParserConfigurationException e) {
+            // TODO Auto-generated catch block
+            System.out.println("Parser Coniguration Exception");
+            e.printStackTrace();
+        } catch (SAXException e) {
+            // TODO Auto-generated catch block
+            System.out.println("SAXException");
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            System.out.println("IO Exception");
+            e.printStackTrace();
+        }
+		
+		Element head = doc.getDocumentElement();
+		
+		NodeList nodes = head.getElementsByTagName("gamesave");
+		Element wanted = (Element) nodes.item(0);
+		
+		if(wanted.hasAttribute("dontloadme")) return false;
+		return true;
+	}
+	
 	public KeyBindings createKeyBindingsFromFile(File f) {
 		Document doc = null;
 		

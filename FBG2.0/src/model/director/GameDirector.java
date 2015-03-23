@@ -219,6 +219,8 @@ public class GameDirector extends Observable implements SceneObserver {
     }
     
     public void startNewGame(File def) {
+        if(!MapInstantiator.getInstance().checkValidity(def)) return;
+    	
     	KeyBindings loadedBindings = MapInstantiator.getInstance().createKeyBindingsFromFile(def);
         doTheThing();
         doTheOtherThing(loadedBindings);
