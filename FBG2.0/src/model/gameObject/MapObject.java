@@ -45,7 +45,7 @@ public abstract class MapObject {
 	 * @param obj
 	 */
 	public boolean equals(MapObject obj){
-		return (this.className == obj.className) && 
+		return (this.className.equals(obj.className)) && 
 				(this.location.equals(obj.getLocation()));
 	}
 	

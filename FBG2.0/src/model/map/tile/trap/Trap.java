@@ -62,8 +62,8 @@ public abstract class Trap extends MapObject{
      * @param observation skill needed to see the item
      * @return true if observation >= 50
      */
-    public boolean canSee(int observation){
-    	return observation >= 50;
+    public boolean canSee(Entity e){
+    	return true;
     }
 	
 	/**

@@ -53,7 +53,6 @@ public abstract class Entity extends MapObject {
     private boolean canMove;
     private String occupation;
     private String type;
-    private NPC conversationPartner;
 
     /* -------------------- PROTECTED COMPONENT CREATION -------------------- */
     protected Inventory createInventory() {
@@ -82,28 +81,28 @@ public abstract class Entity extends MapObject {
     }
 
     protected Direction motionToDirection(CoordinatePair change) {
-        if (change.getX() > 0 && change.getY() < 0) {
+        if (change.getX() > 0 && change.getY() > 0) {
             return Direction.NorthEast;
         }
-        if (change.getX() > 0 && change.getY() < 0) {
+        if (change.getX() < 0 && change.getY() > 0) {
             return Direction.NorthWest;
         }
-        if (change.getX() < 0 && change.getY() > 0) {
+        if (change.getX() > 0 && change.getY() < 0) {
             return Direction.SouthEast;
         }
-        if (change.getX() > 0 && change.getY() > 0) {
+        if (change.getX() < 0 && change.getY() < 0) {
             return Direction.SouthWest;
         }
-        if (change.getX() > 0) {
+        if (change.getX() < 0) {
             return Direction.West;
         }
-        if (change.getX() < 0) {
+        if (change.getX() > 0) {
             return Direction.East;
         }
-        if (change.getY() < 0) {
+        if (change.getY() > 0) {
             return Direction.North;
         }
-        if (change.getY() > 0) {
+        if (change.getY() < 0) {
             return Direction.South;
         }
         return myDirection;
@@ -564,11 +563,11 @@ public abstract class Entity extends MapObject {
     }
 
     public boolean modifyLocation(CoordinatePair change) {
-        if (!canMove) {
+    	setDirection(motionToDirection(change));
+    	if (!canMove) {
             return false;
         }
         super.modifyLocation(change);
-        setDirection(motionToDirection(change));
         canMove = false;
         GameTimer.getInstance().addEvent(new AllowMovement(this), (int) 10000 / getMovement());
         this.visibleMap.update();
