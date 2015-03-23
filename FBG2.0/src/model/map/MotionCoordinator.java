@@ -33,7 +33,13 @@ public class MotionCoordinator {
 	
 	public void moveEntity(Entity e, CoordinatePair desiredLocation, AreaEffect effect, Item i, MapSwitcher switcher, Trap t){
 		CoordinatePair change = new CoordinatePair(desiredLocation.getX()-e.getLocation().getX(), desiredLocation.getY()-e.getLocation().getY());
-		if(!e.getMovementPermission()) return;
+		CoordinatePair original = new CoordinatePair(e.getLocation().getX(),e.getLocation().getY());
+		boolean permission = e.getMovementPermission();
+		e.modifyLocation(change);
+		if(!permission){
+			e.setLocation(original);
+			return;
+		}
 		if (i != null){
             i.activate(e); //TODO: Create this method for every item type
         }
@@ -47,6 +53,5 @@ public class MotionCoordinator {
 		if(switcher != null){
                     switcher.activate(e);
 		}
-		e.modifyLocation(change);
 	}
 }

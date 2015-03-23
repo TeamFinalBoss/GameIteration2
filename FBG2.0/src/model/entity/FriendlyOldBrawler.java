@@ -1,8 +1,15 @@
 package model.entity;
 
+import model.dialogue.DialogueTree;
+import model.dialogue.unique.DT_BasicVillager;
+import model.dialogue.unique.DT_VillageKing;
 import model.map.pair.CoordinatePair;
 
 public class FriendlyOldBrawler extends SmasherNPC {
+	
+	protected DialogueTree createDialogueTree(){
+		return new DT_VillageKing();
+	}
 	protected String setType(){
 		return "friendlyOldBrawler";
 	}
