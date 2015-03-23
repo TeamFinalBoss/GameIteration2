@@ -62,8 +62,8 @@ public class SpriteFactory {
         return img;
     }
 
-    public static BufferedImage getGenericEntity(Direction direction) {
-        return getImage(resourcePath + "summonerUp.gif");
+    public static BufferedImage getGenericObject(Direction direction) {
+        return getImage(resourcePath + "generic.png");
     }
 
     private static BufferedImage getImage(String filename) {
@@ -102,9 +102,13 @@ public class SpriteFactory {
             case "6":
                 return getImage(DARK_MOUNTAIN);
             default:
-                return getGenericEntity();
+                return getGenericObject();
 
         }
         return null;
+    }
+
+    public static BufferedImage getGenericEntity(Direction direction) {
+        return getGenericObject();
     }
 }
