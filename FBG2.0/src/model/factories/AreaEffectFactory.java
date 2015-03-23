@@ -16,58 +16,64 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 /**
- * This class examines a parsed XML file for all one shot entries,
- * then uses their attributes to instantiate them.
- * 
+ * This class examines a parsed XML file for all one shot entries, then uses
+ * their attributes to instantiate them.
+ *
  * @author Aidan Pace
  */
-public class AreaEffectFactory implements PlaceableObjectFactory{
-	public AreaEffectFactory() {
-	}
-	
-	/**
-	 * Examine all nodes that are children of the input node,
-	 * filter out trap elements, then use their attributes to instantiate them
-	 * 
-	 * @author Aidan Pace
-	 * @param head the node to begin search at
-	 * @return the list of trap items created by this method
-	 * @see Trap
-	 */
-	public List<MapObject> generate(Element head)
-	{
-		List<MapObject> items = new ArrayList<MapObject>();
-		
-		NodeList nodes = head.getElementsByTagName("areaeffect");
-			
-		for(int i = 0; i < nodes.getLength(); i++)
-		{
-			Element item = (Element) nodes.item(i);
-			AreaEffect it = null;
-				
-			switch(item.getAttribute("name")){
-			case "instantDeath":
-				it = new InstantDeathAreaEffect();
-				break;
-			case "levelUp":
-				it = new LevelUpAreaEffect();
-				break;
-			case "takeDamage":
-				it = new TakeDamageAreaEffect();
-				break;
-			case "teleport":
-				it = new TeleportAreaEffect();
-				((TeleportAreaEffect) it).setLink(Integer.parseInt(item.getAttribute("link")));
-				break;
-			}
-				
-			if(it == null) continue;
-				
-			it.setLocation(new CoordinatePair(Integer.parseInt(item.getAttribute("x")), Integer.parseInt(item.getAttribute("y"))));
-			
-			items.add(it);
-		}
-		
-		return items;
-	}
+public class AreaEffectFactory implements PlaceableObjectFactory {
+
+    public AreaEffectFactory() {
+    }
+
+    /**
+     * Examine all nodes that are children of the input node, filter out trap
+     * elements, then use their attributes to instantiate them
+     *
+     * @author Aidan Pace
+     * @param head the node to begin search at
+     * @return the list of trap items created by this method
+     * @see Trap
+     */
+    public List<MapObject> generate(Element head) {
+        List<MapObject> items = new ArrayList<MapObject>();
+
+        NodeList nodes = head.getElementsByTagName("areaeffect");
+
+        for (int i = 0; i < nodes.getLength(); i++) {
+            Element item = (Element) nodes.item(i);
+            AreaEffect it = null;
+
+            switch (item.getAttribute("name")) {
+                case "instantDeath":
+                    it = new InstantDeathAreaEffect();
+                    it.setName(item.getAttribute("name"));
+                    break;
+                case "levelUp":
+                    it = new LevelUpAreaEffect();
+                    it.setName(item.getAttribute("name"));
+                    break;
+                case "takeDamage":
+                    it = new TakeDamageAreaEffect();
+                    it.setName(item.getAttribute("name"));
+                    break;
+                case "teleport":
+                    it = new TeleportAreaEffect();
+                    it.setName(item.getAttribute("name"));
+
+                    ((TeleportAreaEffect) it).setLink(Integer.parseInt(item.getAttribute("link")));
+                    break;
+            }
+
+            if (it == null) {
+                continue;
+            }
+
+            it.setLocation(new CoordinatePair(Integer.parseInt(item.getAttribute("x")), Integer.parseInt(item.getAttribute("y"))));
+
+            items.add(it);
+        }
+
+        return items;
+    }
 }

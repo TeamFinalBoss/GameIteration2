@@ -4,7 +4,7 @@ import java.util.List;
 
 import model.item.Takeable;
 
-public interface NPC {
+public interface NPC{
 	public boolean traverseDialogue(int selectin);
 	public int checkPayment(int position);
 	public Takeable sellItem(int position, Entity purchaser);
@@ -19,4 +19,5 @@ public interface NPC {
 	public void buyItem(Takeable item);
 	public boolean getFriendly();
 	public void setFriendly(boolean next);
+	public void setId(String id);
 }

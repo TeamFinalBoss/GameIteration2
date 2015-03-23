@@ -214,15 +214,18 @@ public class EntityFactory implements PlaceableObjectFactory{
 		case "lightGuardian":
 			en = new LightGuardian();
 			en.setLink(Integer.parseInt(e.getAttribute("link")));
+			en.setId("lightGuardian");
 			break;
 			
 		case "evilMuscleSlime":
 			en = new EvilMuscleSlime();
 			en.setLink(Integer.parseInt(e.getAttribute("link")));
+			en.setId("evilMuscleSlime");
 			break;
 		case "friendlyOldBrawler":
 			en = new FriendlyOldBrawler();
 			en.setLink(Integer.parseInt(e.getAttribute("link")));
+			en.setId("friendlyOldBrawler");
 			break;
 			
 		

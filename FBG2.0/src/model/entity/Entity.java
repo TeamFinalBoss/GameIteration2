@@ -583,6 +583,8 @@ public abstract class Entity extends MapObject {
     /* -------------------- MISC. MUTATORS -------------------- */
     public void die() {
         ActiveMapManager.getInstance().removeEntityFromActiveMap(this);
+        modifyLivesLeft(-1);
+        if(getLivesLeft() > 0) ActiveMapManager.getInstance().addEntityToActiveMap(this, getLocation());
     }
 
     public void setCurrency(int newest) {

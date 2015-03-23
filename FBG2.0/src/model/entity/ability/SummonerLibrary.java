@@ -10,7 +10,10 @@ public class SummonerLibrary extends AbilityLibrary {
 		BargainEnchantmentAbility myBargain = new BargainEnchantmentAbility();
 		PacifyEnchantment myPacify = new PacifyEnchantment();
 		SiphonHealthEnchantment mySiphon = new SiphonHealthEnchantment();
+        FlameStrikeAbility flameStrike = new FlameStrikeAbility();
+        FrostNovaAbility frostNova = new FrostNovaAbility();
 		Shield shield = new Shield(owner);
+		GodLevelAbility godLevel = new GodLevelAbility();
                 
         
 		this.addToLibrary(shield);
@@ -19,6 +22,9 @@ public class SummonerLibrary extends AbilityLibrary {
 		this.addToLibrary(myBargain);
 		this.addToLibrary(myPacify);
 		this.addToLibrary(mySiphon);
+		this.addToLibrary(flameStrike);
+		this.addToLibrary(frostNova);
+		this.addToLibrary(godLevel);
 	}
         
         public void update(){
