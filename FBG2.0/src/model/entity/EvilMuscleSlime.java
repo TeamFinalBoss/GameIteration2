@@ -14,6 +14,8 @@ public class EvilMuscleSlime extends SmasherNPC {
 	}
 	public EvilMuscleSlime(){
 		super("Evil Muscle Slime", "A physically powerful pile of slime", new CoordinatePair(0,0));
+		this.setHardiness(10);
+		this.setCurrentHP(1500);
 	}
 	
 }
