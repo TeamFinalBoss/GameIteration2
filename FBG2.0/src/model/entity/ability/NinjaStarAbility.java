@@ -14,6 +14,7 @@ import model.entity.ability.ProjectileAbility;
 import model.map.Vector;
 import model.map.pair.PreciseCoordinatePair;
 import model.map.projectiles.Fireball;
+import model.map.projectiles.NinjaStar;
 
 /**
 *

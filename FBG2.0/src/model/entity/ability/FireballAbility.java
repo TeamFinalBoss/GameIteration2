@@ -33,7 +33,7 @@ public class FireballAbility extends ProjectileAbility
 	public FireballAbility()
 	{
 		this.name = "Fireball";
-        this.damage = 10;
+                this.damage = 10;
 		this.effect = new DealDamageEffect(this.damage);
 		this.myCC = CombatCoordinator.getInstance();
 		this.ms = 2000;
@@ -60,7 +60,7 @@ public class FireballAbility extends ProjectileAbility
     	CoordinatePair coordinatePair = summoner.getLocation();
     	double x = coordinatePair.getX();
     	double y = coordinatePair.getY();
-        int manaCost = this.damage;
+        int manaCost = 1;
 
     	PreciseCoordinatePair PCP = new PreciseCoordinatePair();
     	PCP.set(x,y);
