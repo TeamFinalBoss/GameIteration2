@@ -6,14 +6,18 @@ import java.awt.Graphics;
 import java.util.Observable;
 import java.util.Observer;
 
+import controller.sceneControllers.SceneChanger;
+import controller.sceneControllers.SceneType;
+import controller.util.SceneObserver;
 import model.director.ActiveMapManager;
 import model.director.AvatarInteractionManager;
 import model.director.GameDirector;
 import model.entity.NPC;
 
-public class DialogueViewport implements ViewPort, Observer {
+public class DialogueViewport implements ViewPort, Observer, SceneObserver {
 
 	private String[] options;
+	private SceneType type;
 	private static int xStart;
 	private static int yStart;
 	private static int padding = 1;
@@ -22,11 +26,12 @@ public class DialogueViewport implements ViewPort, Observer {
 	public DialogueViewport() {
 		xStart = (int)(GameDirector.getSize().width * .8);
 		yStart = 0;
+		SceneChanger.getInstance().registerObserver(this);
 	}
 	
 	@Override
 	public void draw(Graphics g) {
-		
+		if(type.equals(SceneType.DIALOGUE)) {
 		NPC npc = AvatarInteractionManager.getInstance().getConversationPartner();
 		if(npc != null) {
 			options = new String[npc.getDialogueMessage().length()];
@@ -45,6 +50,7 @@ public class DialogueViewport implements ViewPort, Observer {
 				g.drawString(options[i], xStart, yStart + (i * (padding + height) + 15));
 			}
 		}
+		}
 	
 
 	}
@@ -53,6 +59,12 @@ public class DialogueViewport implements ViewPort, Observer {
 	public void update(Observable o, Object arg) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void update(SceneType type) {
+		this.type = type;
+		
 	}
 
 }

@@ -69,7 +69,7 @@ public abstract class Entity extends MapObject {
     protected abstract String setType();
 
     /* -------------------- PROTECTED UTILITY -------------------- */
-    protected Stats getStats() {
+    public Stats getStats() {
         return myStats;
     }
 

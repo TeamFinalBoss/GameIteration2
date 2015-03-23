@@ -64,6 +64,7 @@ public class StatsMenu extends Observable implements Healthable,Menuable, Observ
 		commands.put(StatsOption.SKILL_4, new IncreaseSkill4());	
 		
 		manager.addObserver(SceneType.STATS_UPDATING, this);
+		manager.getAvatar().getStats().addObserver(this);
 		
 	}
 	
@@ -101,7 +102,7 @@ public class StatsMenu extends Observable implements Healthable,Menuable, Observ
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
-		setActiveOption(currentIndex);
+		notifyObservers();
 	}
 	
 	public void addObserver(Observer o) {
@@ -156,6 +157,7 @@ public class StatsMenu extends Observable implements Healthable,Menuable, Observ
 		derivedStats.add("Offense\t" + manager.getOffense());
 		derivedStats.add("Defense\t" + manager.getDefense());
 		derivedStats.add("Total Armor\t" + manager.getArmor());
+		System.out.println(manager.getArmor());
 		derivedStats.add("Weapon Damage\t" + manager.getWeaponOffense());
 		derivedStats.add("Armor From Equipment\t" + manager.getEquipArmor());
 		
