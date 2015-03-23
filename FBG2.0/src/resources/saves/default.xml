@@ -76,6 +76,7 @@
     <interactive name="doorOpener" link="4" x="2" y="2" />
     <oneshot name="recoveryHeart" x="1" y="2" />
     <trap name="dealDamageTrap" x="6" y="3" />
+    <takeable name="healthPotion" durability="34" x="6" y="0" />
  
 </map>
 </gamesave>

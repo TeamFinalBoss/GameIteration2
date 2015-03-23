@@ -19,6 +19,5 @@ public interface NPC{
 	public void buyItem(Takeable item);
 	public boolean getFriendly();
 	public void setFriendly(boolean next);
-	public void setId(String id);
-	public String getId();
+
 }

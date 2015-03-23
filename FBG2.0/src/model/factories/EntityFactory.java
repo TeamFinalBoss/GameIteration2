@@ -208,24 +208,24 @@ public class EntityFactory implements PlaceableObjectFactory{
 	}
 	
 	private Entity switchSmasherType(Element e) {
-		NPC en = null;
+		Entity en = null;
 		
 		switch(e.getAttribute("type")) {
 		case "lightGuardian":
 			en = new LightGuardian();
-			en.setLink(Integer.parseInt(e.getAttribute("link")));
-			en.setId("lightGuardian");
+			//en.setLink(Integer.parseInt(e.getAttribute("link")));
+			en.setID("lightGuardian");
 			break;
 			
 		case "evilMuscleSlime":
 			en = new EvilMuscleSlime();
-			en.setLink(Integer.parseInt(e.getAttribute("link")));
-			en.setId("evilMuscleSlime");
+			//en.setLink(Integer.parseInt(e.getAttribute("link")));
+			en.setID("evilMuscleSlime");
 			break;
 		case "friendlyOldBrawler":
 			en = new FriendlyOldBrawler();
-			en.setLink(Integer.parseInt(e.getAttribute("link")));
-			en.setId("friendlyOldBrawler");
+			//en.setLink(Integer.parseInt(e.getAttribute("link")));
+			en.setID("friendlyOldBrawler");
 			break;
 			
 		
