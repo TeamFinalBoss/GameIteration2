@@ -583,6 +583,12 @@ public class GameMap extends Observable {
         int centerX = center.getX();
         int centerY = center.getY();
         
+        int maxX = center.getX() + radius;
+        int maxY = center.getY() + radius;
+        
+        int minX = center.getX() + radius;
+        int minY = center.getY() + radius;
+        
         for(int i = centerX-radius; i!= centerX+radius; ++i){
             for(int j = centerY-radius; j!= centerY + radius; ++j){
                 if(center.getDistance(new CoordinatePair(i,j), center)<=radius){
@@ -595,6 +601,14 @@ public class GameMap extends Observable {
         items.getSesInRange(center, radius, containedItems);
         effects.getSesInRange(center, radius, containedAreaEffects);
         traps.getSesInRange(center, radius, containedTraps);
+        
+        for(Projectile p: projectiles){
+            if(p.getLocation().getX()<= maxX && p.getLocation().getX()>=minX){
+                if(p.getLocation().getY()<= maxY && p.getLocation().getY()>=minY){
+                    containedProjectiles.add(p);
+                }
+            }
+        }
         //TODO: add to projectiles list and this method should be done
         
     }
