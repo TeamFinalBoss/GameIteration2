@@ -1,5 +1,6 @@
 package model.util;
 
+import model.director.ActiveMapManager;
 import model.effect.Dispellable;
 import model.entity.Entity;
 import model.entity.SmasherEntity;
@@ -54,6 +55,7 @@ public class ObjectSaver {
 		if(e.getType().equals("avatar")) save += "avatar ";
 		else save += "entity type=\"" + e.getType() + "\" ";
 		
+		if(e.getType().equals("avatar")) save += "map=\"" + ActiveMapManager.getInstance().getActiveMap().getID() + "\" ";
 		save += "occupation=\"" + e.getOccupation() + "\" ";
 		save += "x=\"" + e.getLocation().getX() + "\" ";
 		save += "y=\"" + e.getLocation().getY() + "\" ";
@@ -136,7 +138,7 @@ public class ObjectSaver {
 		save += "livesLeft=\"" + e.getLivesLeft() + "\" ";
 		save += "strength=\"" + e.getStrength() + "\" ";
 		save += "agility=\"" + e.getAgility() + "\" ";
-		save += "intellect\"" + e.getIntellect() + "\" ";
+		save += "intellect=\"" + e.getIntellect() + "\" ";
 		save += "hardiness=\"" + e.getHardiness() + "\" ";
 		save += "experience=\"" + e.getExperience() + "\" ";
 		save += "movement=\"" + e.getMovement() + "\" ";
