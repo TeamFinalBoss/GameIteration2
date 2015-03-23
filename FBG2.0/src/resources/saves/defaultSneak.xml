@@ -65,7 +65,7 @@
    		<effects>
    		</effects>
 	</entity>
-	<entity occupation="smasher" map="1" currency="0" type="friendlyOldBrawler" direction="North" x="11" y="14" link="20" motionType="GROUND">
+	<entity occupation="smasher" map="1" currency="0" type="friendlyOldBrawler" direction="North" x="4" y="3" link="20" motionType="GROUND">
    		<sack>
    		</sack>
    		<armory>
@@ -98,6 +98,33 @@
  	<areaeffect name="teleport" x="3" y="3" link="6" />
 </map>
 <map id="5">
+<entity occupation="smasher" map="1" currency="0" type="lightGuardian" direction="North" x="0" y="0" link="20" motionType="GROUND">
+   		<sack>
+   		</sack>
+   		<armory>
+   		</armory>
+   		<store>
+   			<item name="rustyKnife" durability="100" />
+   			<item name="rustyKnife" durability="100" />
+   			<item name="rustyKnife" durability="100" />
+   			<item name="rustyKnife" durability="100" />
+   			<item name="rustyKnife" durability="100" />
+   			<item name="hornes" durability="100" />
+   			<item name="hornes" durability="100" />	
+   		</store>
+   		<effects>
+   		</effects>
+	</entity>
+	<entity occupation="smasher" map="1" currency="0" type="evilMuscleSlime" direction="North" x="3" y="3" link="20" motionType="GROUND">
+   		<sack>
+   		</sack>
+   		<armory>
+   		</armory>
+   		<store>
+   		</store>
+   		<effects>
+   		</effects>
+	</entity>
 <areaeffect name="teleport" x="6" y="6" link="6" />
 </map>
 </gamesave>

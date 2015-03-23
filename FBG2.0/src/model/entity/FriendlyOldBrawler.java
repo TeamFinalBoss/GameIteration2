@@ -15,6 +15,8 @@ public class FriendlyOldBrawler extends SmasherNPC {
 	}
 	public FriendlyOldBrawler(){
 		super("Friendly Old Brawler", "An old warrior retired from fighting.", new CoordinatePair(0,0));
+		this.setHardiness(10);
+		this.setCurrentHP(1500);
 	}
 
 }
