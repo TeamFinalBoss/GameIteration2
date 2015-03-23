@@ -66,6 +66,32 @@ public class TileFactory {
     			}
     			
     			
+    			else if(id.equals("4"))
+    			{
+    				tiles[i][j] = new Tile(new Terrain());
+        			tiles[i][j].setID(id);
+        			tiles[i][j].setLocation(new CoordinatePair(i , j));
+        			tiles[i][j].setTerrain(new Terrain());
+    			}
+    			
+    			else if(id.equals("5"))
+    			{
+    				tiles[i][j] = new Tile(new Terrain());
+        			tiles[i][j].setID(id);
+        			tiles[i][j].setLocation(new CoordinatePair(i , j));
+        			tiles[i][j].setTerrain(new Terrain("Water", "blah" , MotionType.WATER));
+    			}
+    			
+    			
+    			else if(id.equals("5"))
+    			{
+    				tiles[i][j] = new Tile(new Terrain());
+        			tiles[i][j].setID(id);
+        			tiles[i][j].setLocation(new CoordinatePair(i , j));
+        			tiles[i][j].setTerrain(new Terrain("Mountain", "blah" , MotionType.UNATTAINABLE));
+    			}
+    			
+    			
     		}
     	}
     	

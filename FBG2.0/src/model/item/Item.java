@@ -40,9 +40,7 @@ public abstract class Item extends MapObject {
         // returns if the entity can continue
         // by default entity can continue
         
-        public boolean activate(Entity e){
-            return true;
-        }
+        public abstract boolean activate(Entity e);
 	
         public boolean canSee(int observationSkill){
             return true; 

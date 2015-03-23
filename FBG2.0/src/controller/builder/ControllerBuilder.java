@@ -20,6 +20,7 @@ import controller.commands.menu.ConfirmMenuCommand;
 import controller.commands.menu.NextMenuCommand;
 import controller.commands.menu.PreviousMenuCommand;
 import controller.commands.pauseMenu.ExitGame;
+import controller.commands.pauseMenu.RestartMusic;
 import controller.commands.sack.SackDetails;
 import controller.commands.saveLoad.LoadFileCommand;
 import controller.commands.saveLoad.ReturnToPreviousMenu;
@@ -386,6 +387,7 @@ public class ControllerBuilder {
 		pauseMenuCommands.put(MenuOption.KEY_BINDINGS, new KeyBindingSwitch());
 		pauseMenuCommands.put(MenuOption.NEW_GAME, new NewGame());
 		pauseMenuCommands.put(MenuOption.EXIT_GAME, new ExitGame());
+		pauseMenuCommands.put(MenuOption.RESTART_MUSIC, new RestartMusic());
 		
 		return pauseMenuCommands;
 	}
@@ -407,6 +409,7 @@ public class ControllerBuilder {
 		options.add(MenuOption.KEY_BINDINGS);
 		options.add(MenuOption.NEW_GAME);
 		options.add(MenuOption.EXIT_GAME);
+		options.add(MenuOption.RESTART_MUSIC);
 		
 		Map<MenuOption, Commandable> pauseMenuCommands = buildPauseMenuCommands();
 		

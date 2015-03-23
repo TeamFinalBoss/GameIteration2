@@ -178,7 +178,7 @@ public abstract class Entity extends MapObject {
     }
 
     public void drop(int position) {
-        activeMap.addItemToActiveMap(remove(position), getLocation());
+        activeMap.addItemToActiveMap(remove(position), new CoordinatePair(getLocation().getX(),getLocation().getY()));
     }
 
     /* -------------------- STATS ACCESSORS -------------------- */
@@ -579,6 +579,9 @@ public abstract class Entity extends MapObject {
 
     public void setMovementPermission(boolean newest) {
         canMove = newest;
+    }
+    public boolean getMovementPermission(){
+    	return canMove;
     }
 
     public void setDirection(Direction newest) {

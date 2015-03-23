@@ -115,8 +115,9 @@ public class Inventory {
             return myArmory.unequip(slot);
 	}
 
-    public void useWeapon(Entity this1) {
-        myArmory.useWeapon(this1);
+    public boolean useWeapon(Entity this1) {
+      return  myArmory.useWeapon(this1);
+        
     }
     
 }

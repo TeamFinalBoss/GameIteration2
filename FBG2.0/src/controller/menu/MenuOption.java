@@ -13,7 +13,7 @@ public enum MenuOption {
 	SAVE_GAME("Save Game"),
 	LOAD_GAME("Load Game"),
 	KEY_BINDINGS("Key Bindings"),
-	EXIT_GAME("Exit Game");
+	EXIT_GAME("Exit Game"), RESTART_MUSIC("Restart Music");
 	
 	private MenuOption(String str) {
 		this.value = str;
