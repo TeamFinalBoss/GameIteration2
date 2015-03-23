@@ -34,6 +34,14 @@ public abstract class Stats {
 	private int weaponOffense; //stores the contribution of the currently equipped weapon towards offense
 	private int equipArmor; //stores the contribution of the current equipment towards armor
 	
+
+	
+	
+	/*-----------REGENERATION & OTHER SHIT LIKE THAT-------------*/
+	private double regenConstant = 0.75;
+	private double regenTick = 1;
+	
+	
 	/* -------------------- PRIVATE UTILITY -------------------- */
 	private void updateDerived(){
 		level = experience / 10000;
@@ -42,7 +50,7 @@ public abstract class Stats {
 		offense = weaponOffense + (strength*10) + (level*20);
 		defense = (agility*10) + (level*20);
 		armor = equipArmor + (hardiness*30);
-		
+
 	}
 	private boolean checkHitSuccess(int amount){
 		Random generator = new Random();
@@ -79,6 +87,7 @@ public abstract class Stats {
 		currentMana = maxMana;
 		weaponOffense = 0;
 		equipArmor = 0;
+		
 	}
 	
 	/* -------------------- ACCESSORS -------------------- */

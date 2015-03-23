@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import model.entity.Entity;
 import java.lang.Math.*;
 import java.util.List;
+import model.director.ActiveMapManager;
 import model.effect.DealDamageEffect;
 import model.entity.ability.ProjectileAbility;
 import model.map.GameMap;
@@ -27,6 +28,7 @@ public class FlameStrikeAbility extends AngularAbility
     private String name;
     private Effect effect;
     private CombatCoordinator myCC;
+    private ActiveMapManager myMM;
     private Effect cost;
 	private double degree;
 	private double radius;
@@ -35,15 +37,17 @@ public class FlameStrikeAbility extends AngularAbility
 	{
 		this.name = "Flame Strike";
 		this.effect = new DealDamageEffect(10);
-		this.myCC = CombatCoordinator.getInstance();
 		this.degree = 90;
 		this.radius = 4;
+		this.myCC = CombatCoordinator.getInstance();
+		this.myMM = ActiveMapManager.getInstance();
 	}
 
 	public FlameStrikeAbility(String name, Effect effect, Effect cost, int degree, double radius)
 	{
 		super(name, effect, cost, degree, radius);
 		this.myCC = CombatCoordinator.getInstance();
+		this.myMM = ActiveMapManager.getInstance();
 	}
 
 	@Override
@@ -56,8 +60,9 @@ public class FlameStrikeAbility extends AngularAbility
 	}
 
 	@Override
-    public void performAbility(Entity caster, GameMap map) 
+    public boolean performAbility(Entity caster) 
     {
+    	GameMap map = myMM.getActiveMap();
     	int mana = caster.getCurrentMP();
     	List<Entity> entities = map.getEntities();
 
@@ -69,9 +74,10 @@ public class FlameStrikeAbility extends AngularAbility
     			if(inRange(caster, entities.get(i)))
     				this.effect.applyEffect(entities.get(i));
     		}
+    		return true;
     	}
     	else
-    		return;
+    		return false;
     }
 
 }

@@ -14,7 +14,7 @@ import model.map.pair.CoordinatePair;
  */
 public class TreasureChest extends Interactive {
     public TreasureChest(){
-		super("Generic Eqipable", "Generic description", 
+		super("treasureChest", "Generic description", 
                         new CoordinatePair(), false);
 		
 		this.id = "21";

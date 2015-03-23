@@ -215,5 +215,5 @@ public abstract class AngularAbility extends Ability
 	*/
 
 	public abstract boolean meetsStatRequirements(Entity entityToLearn);
-	public abstract void performAbility(Entity entity, GameMap map);
+	public abstract boolean performAbility(Entity entity);
 }

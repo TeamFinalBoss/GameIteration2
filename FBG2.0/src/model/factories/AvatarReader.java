@@ -103,41 +103,41 @@ public class AvatarReader {
 			
 			en.setCurrency(Integer.parseInt(e.getAttribute("currency")));
 			
-			switch(Integer.parseInt(e.getAttribute("direction"))) {
-			case 0:
+			switch(e.getAttribute("direction")) {
+			case "North":
 				en.setDirection(Direction.North);
 				break;
-			case 1:
+			case "NorthWest":
 				en.setDirection(Direction.NorthWest);
 				break;
-			case 2:
+			case "West":
 				en.setDirection(Direction.West);
 				break;
-			case 3:
+			case "SouthWest":
 				en.setDirection(Direction.SouthWest);
 				break;
-			case 4:
+			case "South":
 				en.setDirection(Direction.South);
 				break;
-			case 5:
+			case "SouthEast":
 				en.setDirection(Direction.SouthEast);
 				break;
-			case 6:
+			case "East":
 				en.setDirection(Direction.East);
 				break;
-			case 7:
+			case "NorthEast":
 				en.setDirection(Direction.NorthEast);
 				break;
 			}
 			
-			switch(Integer.parseInt(e.getAttribute("motionType"))) {
-			case 0:
+			switch(e.getAttribute("motionType")) {
+			case "GROUND":
 				en.setMotionType(MotionType.GROUND);
 				break;
-			case 1:
+			case "WATER":
 				en.setMotionType(MotionType.WATER);
 				break;
-			case 2:
+			case "UNATTAINABLE":
 				en.setMotionType(MotionType.UNATTAINABLE);
 				break;
 			}
@@ -164,6 +164,7 @@ public class AvatarReader {
 			int mapID = Integer.parseInt(e.getAttribute("map"));
 			ActiveMapManager.getInstance().setActiveMap(mapID);
 			ActiveMapManager.getInstance().addEntityToActiveMap(en, en.getLocation());
+			ActiveMapManager.getInstance().setAvatar(en);
 			
 			return en;
 		}

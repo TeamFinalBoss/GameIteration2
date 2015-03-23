@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
+import java.util.NoSuchElementException;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -39,15 +40,19 @@ public class MapViewPort implements ViewPort, Observer {
     private int tileHeight = 64;
     
     ImageIcon avatarIcon;
-
+    BufferedImage fireballIcon;
+    
     public MapViewPort() {
         try {
-            grass = ImageIO.read(new File("src/resources/img/grass.jpg"));            
+            grass = ImageIO.read(new File("src/resources/sprites/LightGrass.png"));            
             //avatarImage = ImageIO.read(new File("src/resources/img/summonerUp.gif"));
-                                avatarIcon = new ImageIcon("src/resources/img/summonerUp.gif");
-
+            avatarIcon = new ImageIcon("src/resources/img/summonerUp.gif");
+            File file = new File("src/resources/sprites/fireball.png");
+            System.out.println(file.canRead());
+            fireballIcon = ImageIO.read( file);
+                                
         } catch (IOException ex) {
-
+             System.out.println(ex.getMessage());
         }
     }
 
@@ -77,7 +82,7 @@ public class MapViewPort implements ViewPort, Observer {
             for (int j = startY; j < Math.min(startY+windowHeightInTiles,heightInTiles); j++) {
                 //Draw tile
                 //TODO: Make it so it doesnt just draw grass       
-                //g.drawImage(grass, (i - startX) * tileWidth, (j - startY) * tileHeight, tileWidth, tileHeight, null);
+                g.drawImage(grass, (i - startX) * tileWidth, (j - startY) * tileHeight, tileWidth, tileHeight, null);
                 
                 //draw coordinates
             	g.setColor(Color.BLUE);
@@ -108,6 +113,15 @@ public class MapViewPort implements ViewPort, Observer {
                 
                 if(projectiles != null){
                     try{
+                        
+                        for(Projectile p : projectiles){
+                            double tileX =  p.getLocation().getX();
+                            double tileY =  p.getLocation().getY();
+                            
+                            
+                            g.drawImage(fireballIcon, (int) ((tileX - startX)*tileWidth), (int) ((tileY-startY)*tileWidth), tileWidth, tileWidth, null);
+                            //g.fillOval((int) ((tileX - startX)*tileWidth), (int) ((tileY-startY)*tileWidth), tileWidth, tileWidth);
+                        }
 
                     	   for(Projectile p : projectiles){
                                double tileX =  p.getLocation().getX();
@@ -120,7 +134,7 @@ public class MapViewPort implements ViewPort, Observer {
                     }catch(Exception e){
                         
                     }
-                        
+                      
                     }
                     
                 

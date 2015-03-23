@@ -97,6 +97,31 @@ public class MapSwitcher extends MapObject {
 	}
 	
 	/**
+	 * Gets map1 ID. Used for saving
+	 * 
+	 * @author Michael Cohen
+	 * @return map1.id
+	 */
+	public int getMap1ID(){
+		return this.map1.getID();
+	}
+	
+	/**
+	 * Gets map2 ID. Used for saving
+	 * 
+	 * @author Michael Cohen
+	 * @return map2.id
+	 */
+	public int getMap2ID(){
+		return this.map2.getID();
+	}
+	
+	public CoordinatePair getLocation1(){ return this.location1; }
+	
+	public CoordinatePair getLocation2(){ return this.location2; }
+	
+	
+	/**
 	 * This method removes Entity e from the current active map,
 	 * sets the new active map as the secondary map,
 	 * sets the new location as the secondary location,

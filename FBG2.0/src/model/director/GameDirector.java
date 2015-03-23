@@ -2,16 +2,18 @@ package model.director;
 
 import java.awt.Dimension;
 import java.awt.event.KeyListener;
-import java.awt.event.MouseAdapter;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
-import model.map.GameMap;
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
 import view.MousePoint;
 import view.MousePointClick;
 import view.scene.Scene;
@@ -29,12 +31,6 @@ import controller.mouse.MouseParser;
 import controller.sceneControllers.SceneChanger;
 import controller.sceneControllers.SceneType;
 import controller.util.SceneObserver;
-
-import java.io.FileInputStream;
-import java.io.InputStream;
-
-import sun.audio.AudioPlayer;
-import sun.audio.AudioStream;
 
 /**
  * This class is the director of our game, integrating the various subsystems.
@@ -100,8 +96,7 @@ public class GameDirector extends Observable implements SceneObserver {
     	}
     	sceneChanger.clearObservers();
     	activeScene = loadingScene;
-    	//window.close();
-    	//window = new GameWindow();
+
         scenes = new HashMap<>();
 
         menuScene = new Scene();
@@ -177,12 +172,12 @@ public class GameDirector extends Observable implements SceneObserver {
         controller.addObserver(saveVP, SceneType.SAVE);
         controller.addObserver(loadVP, SceneType.LOAD);
         controller.addObserver(errorViewPort, SceneType.UPDATING);
-        
-        
     }
     
+
     private void doTheGameStuff() {
-    	MapViewPort mapVP = new MapViewPort();
+        MapViewPort mapVP = new MapViewPort();
+
 
         gameScene.addViewport(mapVP);//Add mapVP to gameScene
         
@@ -215,7 +210,6 @@ public class GameDirector extends Observable implements SceneObserver {
         controller.getMouseParser().setMousePointClick(SceneType.SACK, (MousePointClick)sack);
        
         ActiveMapManager.getInstance().getActiveMap().addObserver(mapVP);//Add mapVP as an Observer to map
-        
         
     }
     
