@@ -105,7 +105,9 @@ public class MapViewPort implements ViewPort, Observer {
                 }
                 g.drawImage(currentEntityImg, (e.getLocation().getX() - startX) * tileWidth, (e.getLocation().getY() - startY) * tileHeight, tileWidth, tileHeight, null);
             }
-        } catch (ConcurrentModificationException e) {
+        } 
+        catch(NullPointerException e){}
+        catch (ConcurrentModificationException e) {
         } catch (NoSuchElementException e) {
             System.out.println(e);
 
