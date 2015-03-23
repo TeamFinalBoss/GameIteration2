@@ -30,7 +30,7 @@
 <binding key="56" value="Skill 8"  />
 </keyBindings>
 <avatar occupation="summoner" map="4" currency="0" motionType="GROUND" direction="North" x="1" y="1">
-   <stats livesLeft="3" strength="3" agility="3" intellect="8" hardiness="8" experience="20000" movement="3000" bindWounds="3" stat1="3" stat2="3" stat3="3" stat4="3" currentHp="100" currentMp="100" offense="3" defense="3" bargain="3" observation="3" />
+   <stats livesLeft="3" strength="3" agility="3" intellect="8" hardiness="8" experience="20000" movement="50" bindWounds="3" stat1="3" stat2="3" stat3="3" stat4="3" currentHp="100" currentMp="100" offense="3" defense="3" bargain="3" observation="3" />
    	<sack>
    		<item name="gun" durability="100" />
    		<item name="hermesBoots" durability="100" />
