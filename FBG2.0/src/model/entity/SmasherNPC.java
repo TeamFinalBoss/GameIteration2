@@ -143,6 +143,10 @@ public abstract class SmasherNPC extends SmasherEntity implements NPC {
 		public void setLink(int newLink){
 			partner = new EntityLink(this,newLink);
 		}
+		
+		public int getLink(){
+			return partner.getLink();
+		}
 }
 
 

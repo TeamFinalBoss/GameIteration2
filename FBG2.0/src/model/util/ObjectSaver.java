@@ -9,6 +9,7 @@ import model.item.Interactive;
 import model.item.Obstacle;
 import model.item.OneShot;
 import model.item.Takeable;
+import model.entity.NPC;
 
 public class ObjectSaver {
 	
@@ -58,7 +59,7 @@ public class ObjectSaver {
 		save += "y=\"" + e.getLocation().getY() + "\" ";
 		save += "currency=\"" + e.getCurrency() + "\" ";
 		save += "direction=\"" + e.getDirection() + "\" ";
-		save += "link=\"" + e.getLink() + "\" ";
+		if(!e.getType().equals("avatar")) save += "link=\"" + ((NPC) e).getLink() + "\" ";
 		save += "motiontype=\"" + e.getMotionType() + "\" >\n";
 		
 		save += getStatsFormat(e) + "\n";
