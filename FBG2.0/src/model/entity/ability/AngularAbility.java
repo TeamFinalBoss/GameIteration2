@@ -189,7 +189,7 @@ public abstract class AngularAbility extends Ability
 
 		if(degree < 180)
 		{
-			rightOfLeftLine = ((0 - Lx) * (y - Ly) - (0 - Ly) * (x - Lx)) <= 0;
+			rightOfLeftLine = ((0 - Lx) * (y - Ly) - (0 - Ly) * (x - Lx)) >= 0;
 			leftOfRightLine = ((0 - Rx) * (y - Ry) - (0 - Ry) * (x - Rx)) <= 0;
 
 			if(rightOfLeftLine && leftOfRightLine)
@@ -201,7 +201,7 @@ public abstract class AngularAbility extends Ability
 		else // if(degree > 180)
 		{
 			rightOfLeftLine = ((0 - Lx) * (y - Ly) - (0 - Ly) * (x - Lx)) > 0;
-			leftOfRightLine = ((0 - Rx) * (y - Ry) - (0 - Ry) * (x - Rx)) > 0;
+			leftOfRightLine = ((0 - Rx) * (y - Ry) - (0 - Ry) * (x - Rx)) < 0;
 
 			if(!(rightOfLeftLine && leftOfRightLine))
 				return true;
