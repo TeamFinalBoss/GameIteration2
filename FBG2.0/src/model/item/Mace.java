@@ -17,11 +17,11 @@ public class Mace extends Weapon {
     
     public Mace(){
 		super("mace", "Generic description", new CoordinatePair(), 
-                        0, 1, EquipSlot.HEAD, new  DealDamageEffect(20));
+                        0, 1, EquipSlot.MAIN_HAND, new  DealDamageEffect(20));
 		
 		this.id = "26";
 		this.className = "Mace";
-                this.slot= EquipSlot.HEAD;
+                this.slot= EquipSlot.MAIN_HAND;
                 
                 
 		
@@ -31,7 +31,7 @@ public class Mace extends Weapon {
 	public Mace(String objectName, String description, CoordinatePair location, int value, 
                 int durability){
 		super(objectName, description, location, value, durability, 
-                        EquipSlot.HEAD, new  DealDamageEffect(20) );
+                        EquipSlot.MAIN_HAND, new  DealDamageEffect(20) );
 		
 		this.id = "26";
 		this.className = "Mace";
@@ -49,7 +49,7 @@ public class Mace extends Weapon {
         
         public Mace(int durability){
             super("mace", "Generic description", new CoordinatePair(), 
-                        0, durability, EquipSlot.HEAD, new  DealDamageEffect(20));
+                        0, durability, EquipSlot.MAIN_HAND, new  DealDamageEffect(20));
         }
     @Override
         public void onUnequip(Entity target){

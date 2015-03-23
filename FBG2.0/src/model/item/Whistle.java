@@ -7,7 +7,7 @@ public abstract class Whistle extends Equipable {
 	
 	public Whistle(){
 		super("Whistle", "Generic description", new CoordinatePair(),
-				0, 1, EquipSlot.WHISTLE);
+				0, 1, EquipSlot.MAIN_HAND);
 		
 		this.id = "25";
 		this.className = "Whistle";

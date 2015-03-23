@@ -1,5 +1,6 @@
 package model.item;
 
+import model.entity.Entity;
 import model.gameObject.MapObject;
 import model.link.ObstacleLink;
 import model.map.pair.CoordinatePair;
@@ -83,7 +84,12 @@ public class Interactive extends Item {
         public String getType(){
             return "Interactive";
         }
+
+    @Override
+    public boolean activate(Entity e) {
+        return true;
         
         
         
+}
 }
