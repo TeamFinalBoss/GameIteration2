@@ -36,7 +36,8 @@ public class DealDamageEffect implements Effect {
     }
 
     @Override
-    public void applyEffect(Entity entityToEffect) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void applyEffect(Entity entityToAffect) {
+        applyEffect(entityToAffect, 10);
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

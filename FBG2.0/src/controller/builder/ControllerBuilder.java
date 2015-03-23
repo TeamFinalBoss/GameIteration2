@@ -13,6 +13,8 @@ import controller.InputParser;
 import controller.KeyDispatcher;
 import controller.commands.Commandable;
 import controller.commands.armory.ArmoryDetails;
+import controller.commands.game.AvatarCommands;
+import controller.commands.game.GetInformation;
 import controller.commands.keyBindings.BindingsUpdate;
 import controller.commands.keyBindings.CancelBindingsUpdate;
 import controller.commands.keyBindings.SaveBindingsUpdate;
@@ -97,8 +99,9 @@ public class ControllerBuilder {
 		/******************************
 		 * Game Controller
 		 *******************************/
+		AvatarCommands command = new GetInformation();
+		SceneController gameController = GameControllerBuilder.buildGameController(map, command);
 		
-		SceneController gameController = GameControllerBuilder.buildGameController(map);
 		
 		/******************************
 		 * Save Menu Controller
@@ -223,6 +226,9 @@ public class ControllerBuilder {
 		List<Observable> selectorOb = new ArrayList<>();
 		selectorOb.add(selectorMenu);
 		
+		List<Observable> gameOb = new ArrayList<>();
+		gameOb.add(command);
+		
 		observerMap.put(SceneType.MAIN_MENU, mainMenuObervables);
 		observerMap.put(SceneType.PAUSE_MENU, pauseMenuObservables);
 		observerMap.put(SceneType.SAVE, saveMenuObservables);
@@ -235,6 +241,7 @@ public class ControllerBuilder {
 		observerMap.put(SceneType.DIALOGUE, dialogueObservables);
 		observerMap.put(SceneType.STORE, storeObservables);
 		observerMap.put(SceneType.SELECTOR, selectorOb);
+		observerMap.put(SceneType.GAME, gameOb);
 		
 		cont.addMap(observerMap);
 		
