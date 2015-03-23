@@ -23,22 +23,22 @@ public class PacifyEnchantment extends LinearAbility {
 	}
 
 	@Override
-	public boolean performAbility(Entity caster) {
-		int mana = caster.getCurrentMP();
+	public boolean performAbility(Entity summoner) {
+		int mana = summoner.getCurrentMP();
 		if (mana >= 30){
-			caster.modifyCurrentMP(-30);
+			summoner.modifyCurrentMP(-30);
 			
 			List<Entity> entities = ActiveMapManager.getInstance().getActiveMap().getEntities();
 			for (Entity e : entities){
-				if (inRange(caster, e)){
+				if (inRange(summoner, e)){
 					//Allow enchantment to randomly fail
 					Random rand = new Random();
-					if (rand.nextInt(100) <= caster.getLevel() + caster.getIntellect()){
-						(NPC)caster.setFriendly(true);
+					if (rand.nextInt(100) <= summoner.getLevel() + summoner.getIntellect()){
+						(NPC)summoner.setFriendly(true);
 						return true;
 					}
 					else{
-						(NPC)caster.setFriendly(false);
+						(NPC)summoner.setFriendly(false);
 						return false;
 					}
 				}
