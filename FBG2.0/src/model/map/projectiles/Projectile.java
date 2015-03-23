@@ -60,7 +60,6 @@ public abstract class Projectile extends TimerTask{
     */
     @Override
     public void run(){
-        System.out.println("lifetime: "+lifetime);
         location.addX(velocity.getX()*(double)refreshRate/1000);
         location.addY(velocity.getY()*(double)refreshRate/1000);
         

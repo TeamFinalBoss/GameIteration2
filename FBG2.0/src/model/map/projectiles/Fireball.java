@@ -22,7 +22,8 @@ public class Fireball extends Projectile {
     
     @Override
     public boolean canSee(int observationLevel) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return true;
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }   
 
     @Override

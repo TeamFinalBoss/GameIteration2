@@ -22,6 +22,7 @@ import controller.commands.game.increase.IncreaseSkill3;
 import controller.commands.game.increase.IncreaseSkill4;
 import controller.commands.game.increase.IncreaseStrength;
 import controller.menu.Menuable;
+import controller.sceneControllers.SceneType;
 import controller.util.Describeable;
 import controller.util.Healthable;
 
@@ -62,6 +63,8 @@ public class StatsMenu extends Observable implements Healthable,Menuable, Observ
 		commands.put(StatsOption.SKILL_3, new IncreaseSkill3());	
 		commands.put(StatsOption.SKILL_4, new IncreaseSkill4());	
 		
+		manager.addObserver(SceneType.STATS_UPDATING, this);
+		
 	}
 	
 	@Override
@@ -98,8 +101,7 @@ public class StatsMenu extends Observable implements Healthable,Menuable, Observ
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
-		// TODO Auto-generated method stub
-		
+		setActiveOption(currentIndex);
 	}
 	
 	public void addObserver(Observer o) {
@@ -215,4 +217,6 @@ public class StatsMenu extends Observable implements Healthable,Menuable, Observ
 	public int getMaxMana() {
 		return manager.getMaxMP();
 	}
+
+
 }
