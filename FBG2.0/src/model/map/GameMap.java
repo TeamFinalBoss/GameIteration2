@@ -476,7 +476,7 @@ public class GameMap extends Observable {
      */
     private void updateView() {
         setChanged();
-        Object[] objects = new Object[7];
+        Object[] objects = new Object[8];
         Entity avatar = AvatarInteractionManager.getInstance().getAvatar();
 
         objects[0] = tiles;
@@ -486,6 +486,7 @@ public class GameMap extends Observable {
         objects[4] = avatar.getVisibleItems();
         objects[5] = avatar.getVisibleTraps();
         objects[6] = avatar.getVisibleProjectiles();
+        objects[7] = avatar.getVisibleAreaEffects();
         //objects = {tiles, avatar,entities, items, traps};
         notifyObservers(objects);
     }
@@ -618,7 +619,7 @@ public class GameMap extends Observable {
                         containedTraps.add(getTrapAtCoordinate(new CoordinatePair(i, j)));
                     }
                     if (getAreaEffectAtCoordinate(new CoordinatePair(i, j)) != null) {
-                        containedEntities.add(getEntityAtCoordinate(new CoordinatePair(i, j)));
+                        containedAreaEffects.add(getAreaEffectAtCoordinate(new CoordinatePair(i, j)));
                     }
                 }
             }

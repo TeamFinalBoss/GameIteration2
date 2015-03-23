@@ -19,7 +19,7 @@ public class VisibleMap {
 	private ArrayList<Entity> entities;
 	private ArrayList<Trap> traps;
 	private ArrayList<Item> items;
-	private ArrayList<AreaEffect> areaEffects;
+	private volatile ArrayList<AreaEffect> areaEffects;
 	
 	private int computeInfluenceRadius(int observation){
 		return 3;//observation / 20;
@@ -62,6 +62,7 @@ public class VisibleMap {
 		for(Item i : items){
 			if(!i.canSee(owner.getObservation())) items.remove(i);
 		}
+
 		for(AreaEffect ae : areaEffects){
 			if(!ae.canSee(owner.getObservation())) areaEffects.remove(ae);
 		}
