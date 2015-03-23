@@ -2,6 +2,7 @@ package controller.commands.game;
 
 import java.util.List;
 
+import view.viewport.ObservationViewPort;
 import model.director.AvatarInteractionManager;
 import model.map.Direction;
 import controller.commands.Commandable;
@@ -77,6 +78,8 @@ public abstract class AvatarCommands implements Commandable {
 	
 	protected void getObservationInformation() {
 		List<String> strings = manager.getObservationInformation();
+		ObservationViewPort.getInstance().setStrings(strings);
+		
 	}
 	
 	public abstract void execute();
