@@ -11,14 +11,19 @@ import model.map.Direction;
  */
 public class SpriteFactory {
 
-    
     /* NORTH AND SOUTH HAVE TO BE FLIPPED */
-    
-    private static String resourcePath = "src/resources/img/";
+    private static final String resourcePath = "src/resources/img/";
+
+    private static final String LIGHT_GRASS = resourcePath + "tile/LightGrass.png";
+    private static final String LIGHT_WATER = resourcePath + "tile/LightWater.png";
+    private static final String LIGHT_MOUNTAIN = resourcePath + "tile/LightMountain";
+    private static final String DARK_GRASS = resourcePath + "tile/DarkGrass.png";
+    private static final String DARK_WATER = resourcePath + "tile/DarkWater";
+    private static final String DARK_MOUNTAIN = resourcePath + "tile/DarkMountain";
 
     public static BufferedImage getAvatar(Direction d) {
         BufferedImage img = null;
-        String path = "";
+        String path;
         switch (d) {
             case North:
                 path = resourcePath + "summoner/south_idle.png";
@@ -45,26 +50,28 @@ public class SpriteFactory {
                 break;
             default:
                 path = resourcePath + "summoner/north_idle.png";
-            
+
         }
-        
-        try{
+
+        try {
             img = ImageIO.read(new File(path));
-        }catch(Exception e){}
-        
+        } catch (Exception e) {
+        }
+
         return img;
     }
 
     public static BufferedImage getGenericEntity(Direction direction) {
         return getImage(resourcePath + "summonerUp.gif");
     }
-    
-    private static BufferedImage getImage(String filename){
+
+    private static BufferedImage getImage(String filename) {
         BufferedImage img = null;
-        try{
+        try {
             img = ImageIO.read(new File(filename));
-        }catch(Exception e){}
-        
+        } catch (Exception e) {
+        }
+
         return img;
     }
 
@@ -78,5 +85,24 @@ public class SpriteFactory {
 
     public static BufferedImage getFireball() {
         return getImage(resourcePath + "projectile/fireball.png");
+    }
+
+    public static BufferedImage hashIDtoImage(int id) {
+        switch (id) {
+            case 1:
+                return getImage(LIGHT_GRASS);
+            case 2:
+                return getImage(LIGHT_WATER);
+            case 3:
+                return getImage(LIGHT_MOUNTAIN);
+            case 4:
+                return getImage(DARK_GRASS);
+            case 5:
+                return getImage(DARK_WATER);
+            case 6:
+                return getImage(DARK_MOUNTAIN);
+
+        }
+        return null;
     }
 }

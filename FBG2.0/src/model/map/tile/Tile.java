@@ -1,8 +1,5 @@
 package model.map.tile;
 
-import model.map.areaEffect.AreaEffect;
-import model.map.tile.trap.Trap;
-import model.entity.Entity;
 import model.entity.MotionType;
 
 /**
