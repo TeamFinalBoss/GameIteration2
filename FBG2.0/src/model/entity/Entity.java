@@ -564,11 +564,11 @@ public abstract class Entity extends MapObject {
     }
 
     public boolean modifyLocation(CoordinatePair change) {
-        if (!canMove) {
+    	setDirection(motionToDirection(change));
+    	if (!canMove) {
             return false;
         }
         super.modifyLocation(change);
-        setDirection(motionToDirection(change));
         canMove = false;
         GameTimer.getInstance().addEvent(new AllowMovement(this), (int) 10000 / getMovement());
         this.visibleMap.update();
