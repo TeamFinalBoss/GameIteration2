@@ -32,7 +32,7 @@ public class SetTrapAbility extends LinearAbility {
 
 	@Override
 	public boolean performAbility(Entity caster) {
-		CoordinatePair CP = caster.getLocation();
+		CoordinatePair CP = new CoordinatePair(caster.getLocation().getX(), caster.getLocation().getY());
 		
 		switch(caster.getDirection()){
 		case North:
