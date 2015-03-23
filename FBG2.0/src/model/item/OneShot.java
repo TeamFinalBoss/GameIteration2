@@ -32,5 +32,9 @@ public class OneShot extends Item {
 		
 		//Other properties set here
 	}
+         @Override
+        public String getType(){
+            return "One Shot";
+        }
 	
 }

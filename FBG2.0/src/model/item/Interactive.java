@@ -79,6 +79,11 @@ public class Interactive extends Item {
             }
         }
         
+         @Override
+        public String getType(){
+            return "Interactive";
+        }
+        
         
         
 }
