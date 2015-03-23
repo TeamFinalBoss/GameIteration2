@@ -105,7 +105,6 @@ public class SpriteFactory {
                 return getGenericObject();
 
         }
-        return null;
     }
 
     public static BufferedImage getGenericEntity(Direction direction) {
