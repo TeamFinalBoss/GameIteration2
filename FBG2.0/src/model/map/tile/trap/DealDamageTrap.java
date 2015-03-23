@@ -20,7 +20,7 @@ public class DealDamageTrap extends Trap {
 	public DealDamageTrap(){
 		super();
 		
-		this.setName("Generic Deal Damage Trap");
+		this.setName("dealDamageTrap");
 		this.setID("14");
 		this.setClassName("Deal Damage Trap");
 		

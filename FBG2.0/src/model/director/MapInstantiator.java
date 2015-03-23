@@ -16,6 +16,7 @@ import org.xml.sax.SAXException;
 
 import controller.keyBindings.KeyBindings;
 import model.entity.Entity;
+import model.factories.AreaEffectFactory;
 import model.factories.AvatarReader;
 import model.factories.BindingReader;
 import model.factories.EntityFactory;
@@ -24,10 +25,13 @@ import model.factories.ObstacleFactory;
 import model.factories.OneShotFactory;
 import model.factories.TakeableFactory;
 import model.factories.TileFactory;
+import model.factories.TrapFactory;
 import model.gameObject.MapObject;
 import model.item.Item;
 import model.map.GameMap;
+import model.map.areaEffect.AreaEffect;
 import model.map.pair.CoordinatePair;
+import model.map.tile.trap.Trap;
 
 public class MapInstantiator {
 	private static MapInstantiator me = null;
@@ -175,10 +179,38 @@ public class MapInstantiator {
 				
 				addItem(maps, mapid, n, n.getLocation());
 			}
+			
+			for(MapObject o : new TrapFactory().generate(e)) {
+				Trap n = (Trap) o;
+				
+				addTrap(maps, mapid, n, n.getLocation());
+			}
+			
+			for(MapObject o : new AreaEffectFactory().generate(e)) {
+				AreaEffect n = (AreaEffect) o;
+				
+				addAreaEffect(maps, mapid, n, n.getLocation());
+			}
 		}
 			
 		for(GameMap m : maps) {
 			ActiveMapManager.getInstance().addMap(m);
+		}
+	}
+	
+	private void addTrap(List<GameMap> maps, int mapid, Trap t, CoordinatePair location) {
+		for(GameMap m : maps) {
+			if(m.getID() == mapid) {
+				m.addTrap(t, location);
+			}
+		}
+	}
+	
+	private void addAreaEffect(List<GameMap> maps, int mapid, AreaEffect ae, CoordinatePair location) {
+		for(GameMap m : maps) {
+			if(m.getID() == mapid) {
+				m.addAreaEffect(ae, location);
+			}
 		}
 	}
 	
